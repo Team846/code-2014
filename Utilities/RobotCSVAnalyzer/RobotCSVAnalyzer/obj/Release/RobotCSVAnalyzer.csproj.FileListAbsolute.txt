@@ -1,0 +1,10 @@
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\bin\Release\RobotCSVAnalyzer.exe.config
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\bin\Release\RobotCSVAnalyzer.exe
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\bin\Release\RobotCSVAnalyzer.pdb
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.SelectFieldsInRangeDialog.resources
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.mainWindow.resources
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.Properties.Resources.resources
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.SelectFieldsWithDialog.resources
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.csproj.GenerateResource.Cache
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.exe
+C:\Users\Raphael\Documents\Visual Studio 2012\Projects\RobotCSVAnalyzer\RobotCSVAnalyzer\obj\Release\RobotCSVAnalyzer.pdb

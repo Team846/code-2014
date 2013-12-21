@@ -1,0 +1,9 @@
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\bin\Debug\RobotCSVAnalyzer2.exe.config
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\bin\Debug\RobotCSVAnalyzer2.exe
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\bin\Debug\RobotCSVAnalyzer2.pdb
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\obj\Debug\RobotCSVAnalyzer2.csprojResolveAssemblyReference.cache
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\obj\Debug\RobotCSVAnalyzer.Form1.resources
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\obj\Debug\RobotCSVAnalyzer2.Properties.Resources.resources
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\obj\Debug\RobotCSVAnalyzer2.csproj.GenerateResource.Cache
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\obj\Debug\RobotCSVAnalyzer2.exe
+c:\users\raphael\documents\visual studio 2012\Projects\RobotCSVAnalyzer2\RobotCSVAnalyzer2\obj\Debug\RobotCSVAnalyzer2.pdb
