@@ -1,0 +1,1293 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<workbook version='8.2' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <!-- build 8100.13.1119.2300                -->
+  <preferences>
+  </preferences>
+  <datasources>
+    <datasource caption='log(1)#csv (log(1).csv)' inline='true' name='csv.41618.949208229169' version='8.2'>
+      <connection auto-extract='yes' character-set='65001' class='csv' directory='C:\Users\Raphael\workspace\LogDecoder\Debug\' driver='' filename='log(1).csv' force-character-set='no' force-header='no' force-separator='no' header='yes' separator=','>
+        <relation name='log(1)#csv' table='[log(1)#csv]' type='table' />
+      </connection>
+      <column datatype='real' name='[AsyncCANJaguarLeftDriveA/DutyCycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[AsyncCANJaguarLeftDriveA/NeutralMode]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[AsyncCANJaguarLeftDriveB/DutyCycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[AsyncCANJaguarLeftDriveB/NeutralMode]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[AsyncCANJaguarRightDriveA/DutyCycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[AsyncCANJaguarRightDriveA/NeutralMode]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[AsyncCANJaguarRightDriveB/DutyCycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[AsyncCANJaguarRightDriveB/NeutralMode]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Climb/State]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DriveEncoders/DriveDistance]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DriveEncoders/NormalizedDriveSpeed]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DriveEncoders/NormalizedLeftSpeed]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DriveEncoders/NormalizedRightSpeed]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DriveEncoders/NormalizedTurningSpeed]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DriveEncoders/TurnAngle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DriveEncoders/TurnTicks]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/ControlModes(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/ControlModes(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/DesiredRates(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/DesiredRates(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/ForwardCurrentLimit]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/MaxSpeeds(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/MaxSpeeds(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/OpenLoopOutputs(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/OpenLoopOutputs(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/OverrideForwardCurrentLimit]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/OverrideReverseCurrentLimit]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/PositionSetpointChanged(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/PositionSetpointChanged(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/PositionSetpoints(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/PositionSetpoints(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/PositionStartLocations(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/PositionStartLocations(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/ReverseCurrentLimit]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[DrivetrainData/SyncArc]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[DrivetrainData/ZeroHeading]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick1/Axes(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick1/Axes(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick1/Axes(2)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick1/Axes(3)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick1/Axes(4)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick1/Axes(5)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(10)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(11)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(2)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(3)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(4)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(5)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(6)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(7)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(8)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick1/Buttons(9)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick2/Axes(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick2/Axes(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick2/Axes(2)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick2/Axes(3)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick2/Axes(4)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick2/Axes(5)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(10)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(11)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(2)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(3)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(4)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(5)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(6)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(7)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(8)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick2/Buttons(9)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick3/Axes(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick3/Axes(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Joystick3/Axes(2)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(0)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(1)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(10)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(2)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(3)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(4)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(5)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(6)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(7)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(8)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Joystick3/Buttons(9)]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[LeftDriveESC/Brake]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[LeftDriveESC/DutyCycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[LeftDriveEncoder/Count]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[LeftDriveEncoder/Rate]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column datatype='integer' name='[PneumaticsAngle/State]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[PneumaticsCollector/State]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[RightDriveESC/Brake]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[RightDriveESC/DutyCycle]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[RightDriveEncoder/Count]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' name='[RightDriveEncoder/Rate]' role='measure' type='quantitative'>
+      </column>
+      <column-instance column='[AsyncCANJaguarLeftDriveA/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveA/DutyCycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarLeftDriveA/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveA/NeutralMode:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarLeftDriveB/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveB/DutyCycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarLeftDriveB/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveB/NeutralMode:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarRightDriveA/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveA/DutyCycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarRightDriveA/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveA/NeutralMode:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarRightDriveB/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveB/DutyCycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[AsyncCANJaguarRightDriveB/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveB/NeutralMode:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Climb/State]' derivation='Sum' name='[sum:Climb/State:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cycle]' derivation='Sum' name='[sum:Cycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/DriveDistance]' derivation='Sum' name='[sum:DriveEncoders/DriveDistance:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/NormalizedDriveSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedDriveSpeed:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/NormalizedLeftSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedLeftSpeed:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/NormalizedRightSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedRightSpeed:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/NormalizedTurningSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedTurningSpeed:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/TurnAngle]' derivation='Sum' name='[sum:DriveEncoders/TurnAngle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DriveEncoders/TurnTicks]' derivation='Sum' name='[sum:DriveEncoders/TurnTicks:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/ControlModes(0)]' derivation='Sum' name='[sum:DrivetrainData/ControlModes(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/ControlModes(1)]' derivation='Sum' name='[sum:DrivetrainData/ControlModes(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/DesiredRates(0)]' derivation='Sum' name='[sum:DrivetrainData/DesiredRates(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/DesiredRates(1)]' derivation='Sum' name='[sum:DrivetrainData/DesiredRates(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/ForwardCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/ForwardCurrentLimit:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/MaxSpeeds(0)]' derivation='Sum' name='[sum:DrivetrainData/MaxSpeeds(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/MaxSpeeds(1)]' derivation='Sum' name='[sum:DrivetrainData/MaxSpeeds(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/OpenLoopOutputs(0)]' derivation='Sum' name='[sum:DrivetrainData/OpenLoopOutputs(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/OpenLoopOutputs(1)]' derivation='Sum' name='[sum:DrivetrainData/OpenLoopOutputs(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/OverrideForwardCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/OverrideForwardCurrentLimit:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/OverrideReverseCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/OverrideReverseCurrentLimit:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/PositionSetpointChanged(0)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpointChanged(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/PositionSetpointChanged(1)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpointChanged(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/PositionSetpoints(0)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpoints(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/PositionSetpoints(1)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpoints(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/PositionStartLocations(0)]' derivation='Sum' name='[sum:DrivetrainData/PositionStartLocations(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/PositionStartLocations(1)]' derivation='Sum' name='[sum:DrivetrainData/PositionStartLocations(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/ReverseCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/ReverseCurrentLimit:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/SyncArc]' derivation='Sum' name='[sum:DrivetrainData/SyncArc:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[DrivetrainData/ZeroHeading]' derivation='Sum' name='[sum:DrivetrainData/ZeroHeading:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Axes(0)]' derivation='Sum' name='[sum:Joystick1/Axes(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Axes(1)]' derivation='Sum' name='[sum:Joystick1/Axes(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Axes(2)]' derivation='Sum' name='[sum:Joystick1/Axes(2):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Axes(3)]' derivation='Sum' name='[sum:Joystick1/Axes(3):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Axes(4)]' derivation='Sum' name='[sum:Joystick1/Axes(4):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Axes(5)]' derivation='Sum' name='[sum:Joystick1/Axes(5):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(0)]' derivation='Sum' name='[sum:Joystick1/Buttons(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(1)]' derivation='Sum' name='[sum:Joystick1/Buttons(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(10)]' derivation='Sum' name='[sum:Joystick1/Buttons(10):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(11)]' derivation='Sum' name='[sum:Joystick1/Buttons(11):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(2)]' derivation='Sum' name='[sum:Joystick1/Buttons(2):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(3)]' derivation='Sum' name='[sum:Joystick1/Buttons(3):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(4)]' derivation='Sum' name='[sum:Joystick1/Buttons(4):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(5)]' derivation='Sum' name='[sum:Joystick1/Buttons(5):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(6)]' derivation='Sum' name='[sum:Joystick1/Buttons(6):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(7)]' derivation='Sum' name='[sum:Joystick1/Buttons(7):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(8)]' derivation='Sum' name='[sum:Joystick1/Buttons(8):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick1/Buttons(9)]' derivation='Sum' name='[sum:Joystick1/Buttons(9):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Axes(0)]' derivation='Sum' name='[sum:Joystick2/Axes(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Axes(1)]' derivation='Sum' name='[sum:Joystick2/Axes(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Axes(2)]' derivation='Sum' name='[sum:Joystick2/Axes(2):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Axes(3)]' derivation='Sum' name='[sum:Joystick2/Axes(3):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Axes(4)]' derivation='Sum' name='[sum:Joystick2/Axes(4):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Axes(5)]' derivation='Sum' name='[sum:Joystick2/Axes(5):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(0)]' derivation='Sum' name='[sum:Joystick2/Buttons(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(1)]' derivation='Sum' name='[sum:Joystick2/Buttons(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(10)]' derivation='Sum' name='[sum:Joystick2/Buttons(10):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(11)]' derivation='Sum' name='[sum:Joystick2/Buttons(11):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(2)]' derivation='Sum' name='[sum:Joystick2/Buttons(2):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(3)]' derivation='Sum' name='[sum:Joystick2/Buttons(3):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(4)]' derivation='Sum' name='[sum:Joystick2/Buttons(4):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(5)]' derivation='Sum' name='[sum:Joystick2/Buttons(5):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(6)]' derivation='Sum' name='[sum:Joystick2/Buttons(6):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(7)]' derivation='Sum' name='[sum:Joystick2/Buttons(7):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(8)]' derivation='Sum' name='[sum:Joystick2/Buttons(8):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick2/Buttons(9)]' derivation='Sum' name='[sum:Joystick2/Buttons(9):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Axes(0)]' derivation='Sum' name='[sum:Joystick3/Axes(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Axes(1)]' derivation='Sum' name='[sum:Joystick3/Axes(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Axes(2)]' derivation='Sum' name='[sum:Joystick3/Axes(2):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(0)]' derivation='Sum' name='[sum:Joystick3/Buttons(0):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(1)]' derivation='Sum' name='[sum:Joystick3/Buttons(1):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(10)]' derivation='Sum' name='[sum:Joystick3/Buttons(10):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(2)]' derivation='Sum' name='[sum:Joystick3/Buttons(2):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(3)]' derivation='Sum' name='[sum:Joystick3/Buttons(3):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(4)]' derivation='Sum' name='[sum:Joystick3/Buttons(4):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(5)]' derivation='Sum' name='[sum:Joystick3/Buttons(5):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(6)]' derivation='Sum' name='[sum:Joystick3/Buttons(6):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(7)]' derivation='Sum' name='[sum:Joystick3/Buttons(7):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(8)]' derivation='Sum' name='[sum:Joystick3/Buttons(8):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Joystick3/Buttons(9)]' derivation='Sum' name='[sum:Joystick3/Buttons(9):qk]' pivot='key' type='quantitative' />
+      <column-instance column='[LeftDriveESC/Brake]' derivation='Sum' name='[sum:LeftDriveESC/Brake:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[LeftDriveESC/DutyCycle]' derivation='Sum' name='[sum:LeftDriveESC/DutyCycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[LeftDriveEncoder/Count]' derivation='Sum' name='[sum:LeftDriveEncoder/Count:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[LeftDriveEncoder/Rate]' derivation='Sum' name='[sum:LeftDriveEncoder/Rate:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[PneumaticsAngle/State]' derivation='Sum' name='[sum:PneumaticsAngle/State:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[PneumaticsCollector/State]' derivation='Sum' name='[sum:PneumaticsCollector/State:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[RightDriveESC/Brake]' derivation='Sum' name='[sum:RightDriveESC/Brake:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[RightDriveESC/DutyCycle]' derivation='Sum' name='[sum:RightDriveESC/DutyCycle:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[RightDriveEncoder/Count]' derivation='Sum' name='[sum:RightDriveEncoder/Count:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[RightDriveEncoder/Rate]' derivation='Sum' name='[sum:RightDriveEncoder/Rate:qk]' pivot='key' type='quantitative' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' measure-percentage='0.4' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#17becf'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/ControlModes(0):qk]&quot;</bucket>
+            </map>
+            <map to='#17becf'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(1):qk]&quot;</bucket>
+            </map>
+            <map to='#17becf'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(3):qk]&quot;</bucket>
+            </map>
+            <map to='#17becf'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(10):qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/DesiredRates(1):qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(3):qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(2):qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(5):qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(3):qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveB/NeutralMode:qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/OpenLoopOutputs(0):qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(1):qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(11):qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(7):qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedRightSpeed:qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/ReverseCurrentLimit:qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(9):qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Axes(1):qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:RightDriveESC/DutyCycle:qk]&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Cycle:qk]&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpoints(0):qk]&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(5):qk]&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(7):qk]&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:LeftDriveEncoder/Rate:qk]&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveB/NeutralMode:qk]&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpointChanged(0):qk]&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(3):qk]&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(5):qk]&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:LeftDriveESC/DutyCycle:qk]&quot;</bucket>
+            </map>
+            <map to='#98df8a'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveA/DutyCycle:qk]&quot;</bucket>
+            </map>
+            <map to='#98df8a'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/OpenLoopOutputs(1):qk]&quot;</bucket>
+            </map>
+            <map to='#98df8a'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(10):qk]&quot;</bucket>
+            </map>
+            <map to='#98df8a'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(2):qk]&quot;</bucket>
+            </map>
+            <map to='#98df8a'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(8):qk]&quot;</bucket>
+            </map>
+            <map to='#9edae5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/ControlModes(1):qk]&quot;</bucket>
+            </map>
+            <map to='#9edae5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/DesiredRates(0):qk]&quot;</bucket>
+            </map>
+            <map to='#9edae5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(2):qk]&quot;</bucket>
+            </map>
+            <map to='#9edae5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(2):qk]&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveA/DutyCycle:qk]&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/ForwardCurrentLimit:qk]&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(4):qk]&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(0):qk]&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(4):qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/TurnAngle:qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/ZeroHeading:qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(1):qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(0):qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:RightDriveEncoder/Rate:qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/DriveDistance:qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpoints(1):qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(6):qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(8):qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:PneumaticsAngle/State:qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Climb/State:qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpointChanged(1):qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(4):qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(6):qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:LeftDriveEncoder/Count:qk]&quot;</bucket>
+            </map>
+            <map to='#c7c7c7'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedTurningSpeed:qk]&quot;</bucket>
+            </map>
+            <map to='#c7c7c7'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/SyncArc:qk]&quot;</bucket>
+            </map>
+            <map to='#c7c7c7'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(0):qk]&quot;</bucket>
+            </map>
+            <map to='#c7c7c7'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Axes(2):qk]&quot;</bucket>
+            </map>
+            <map to='#c7c7c7'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:RightDriveEncoder/Count:qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveA/NeutralMode:qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/OverrideForwardCurrentLimit:qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(11):qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(3):qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(9):qk]&quot;</bucket>
+            </map>
+            <map to='#dbdb8d'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/TurnTicks:qk]&quot;</bucket>
+            </map>
+            <map to='#dbdb8d'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(0):qk]&quot;</bucket>
+            </map>
+            <map to='#dbdb8d'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(4):qk]&quot;</bucket>
+            </map>
+            <map to='#dbdb8d'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(1):qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedDriveSpeed:qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionStartLocations(0):qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(7):qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(9):qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:PneumaticsCollector/State:qk]&quot;</bucket>
+            </map>
+            <map to='#f7b6d2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedLeftSpeed:qk]&quot;</bucket>
+            </map>
+            <map to='#f7b6d2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionStartLocations(1):qk]&quot;</bucket>
+            </map>
+            <map to='#f7b6d2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(8):qk]&quot;</bucket>
+            </map>
+            <map to='#f7b6d2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Axes(0):qk]&quot;</bucket>
+            </map>
+            <map to='#f7b6d2'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:RightDriveESC/Brake:qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveA/NeutralMode:qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/MaxSpeeds(0):qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(5):qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(1):qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(5):qk]&quot;</bucket>
+            </map>
+            <map to='#ff9896'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveB/DutyCycle:qk]&quot;</bucket>
+            </map>
+            <map to='#ff9896'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/OverrideReverseCurrentLimit:qk]&quot;</bucket>
+            </map>
+            <map to='#ff9896'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(2):qk]&quot;</bucket>
+            </map>
+            <map to='#ff9896'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(4):qk]&quot;</bucket>
+            </map>
+            <map to='#ff9896'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:LeftDriveESC/Brake:qk]&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveB/DutyCycle:qk]&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:DrivetrainData/MaxSpeeds(1):qk]&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(0):qk]&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(10):qk]&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(6):qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='log(1)#csv (log(1).csv)' name='csv.41618.949208229169' />
+          </datasources>
+          <datasource-dependencies datasource='csv.41618.949208229169'>
+            <column datatype='real' name='[AsyncCANJaguarLeftDriveA/DutyCycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[AsyncCANJaguarLeftDriveA/NeutralMode]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[AsyncCANJaguarLeftDriveB/DutyCycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[AsyncCANJaguarLeftDriveB/NeutralMode]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[AsyncCANJaguarRightDriveA/DutyCycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[AsyncCANJaguarRightDriveA/NeutralMode]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[AsyncCANJaguarRightDriveB/DutyCycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[AsyncCANJaguarRightDriveB/NeutralMode]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Climb/State]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Cycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DriveEncoders/DriveDistance]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DriveEncoders/NormalizedDriveSpeed]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DriveEncoders/NormalizedLeftSpeed]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DriveEncoders/NormalizedRightSpeed]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DriveEncoders/NormalizedTurningSpeed]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DriveEncoders/TurnAngle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DriveEncoders/TurnTicks]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/ControlModes(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/ControlModes(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/DesiredRates(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/DesiredRates(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/ForwardCurrentLimit]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/MaxSpeeds(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/MaxSpeeds(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/OpenLoopOutputs(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/OpenLoopOutputs(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/OverrideForwardCurrentLimit]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/OverrideReverseCurrentLimit]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/PositionSetpointChanged(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/PositionSetpointChanged(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/PositionSetpoints(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/PositionSetpoints(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/PositionStartLocations(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/PositionStartLocations(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/ReverseCurrentLimit]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[DrivetrainData/SyncArc]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[DrivetrainData/ZeroHeading]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick1/Axes(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick1/Axes(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick1/Axes(2)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick1/Axes(3)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick1/Axes(4)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick1/Axes(5)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(10)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(11)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(2)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(3)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(4)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(5)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(6)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(7)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(8)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick1/Buttons(9)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick2/Axes(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick2/Axes(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick2/Axes(2)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick2/Axes(3)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick2/Axes(4)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick2/Axes(5)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(10)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(11)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(2)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(3)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(4)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(5)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(6)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(7)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(8)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick2/Buttons(9)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick3/Axes(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick3/Axes(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[Joystick3/Axes(2)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(0)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(1)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(10)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(2)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(3)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(4)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(5)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(6)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(7)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(8)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Joystick3/Buttons(9)]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[LeftDriveESC/Brake]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[LeftDriveESC/DutyCycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[LeftDriveEncoder/Count]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[LeftDriveEncoder/Rate]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[PneumaticsAngle/State]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[PneumaticsCollector/State]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[RightDriveESC/Brake]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[RightDriveESC/DutyCycle]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[RightDriveEncoder/Count]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='real' name='[RightDriveEncoder/Rate]' role='measure' type='quantitative'>
+            </column>
+            <column-instance column='[Cycle]' derivation='None' name='[none:Cycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarLeftDriveA/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveA/DutyCycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarLeftDriveA/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveA/NeutralMode:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarLeftDriveB/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveB/DutyCycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarLeftDriveB/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarLeftDriveB/NeutralMode:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarRightDriveA/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveA/DutyCycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarRightDriveA/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveA/NeutralMode:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarRightDriveB/DutyCycle]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveB/DutyCycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AsyncCANJaguarRightDriveB/NeutralMode]' derivation='Sum' name='[sum:AsyncCANJaguarRightDriveB/NeutralMode:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Climb/State]' derivation='Sum' name='[sum:Climb/State:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/DriveDistance]' derivation='Sum' name='[sum:DriveEncoders/DriveDistance:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/NormalizedDriveSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedDriveSpeed:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/NormalizedLeftSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedLeftSpeed:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/NormalizedRightSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedRightSpeed:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/NormalizedTurningSpeed]' derivation='Sum' name='[sum:DriveEncoders/NormalizedTurningSpeed:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/TurnAngle]' derivation='Sum' name='[sum:DriveEncoders/TurnAngle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DriveEncoders/TurnTicks]' derivation='Sum' name='[sum:DriveEncoders/TurnTicks:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/ControlModes(0)]' derivation='Sum' name='[sum:DrivetrainData/ControlModes(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/ControlModes(1)]' derivation='Sum' name='[sum:DrivetrainData/ControlModes(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/DesiredRates(0)]' derivation='Sum' name='[sum:DrivetrainData/DesiredRates(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/DesiredRates(1)]' derivation='Sum' name='[sum:DrivetrainData/DesiredRates(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/ForwardCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/ForwardCurrentLimit:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/MaxSpeeds(0)]' derivation='Sum' name='[sum:DrivetrainData/MaxSpeeds(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/MaxSpeeds(1)]' derivation='Sum' name='[sum:DrivetrainData/MaxSpeeds(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/OpenLoopOutputs(0)]' derivation='Sum' name='[sum:DrivetrainData/OpenLoopOutputs(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/OpenLoopOutputs(1)]' derivation='Sum' name='[sum:DrivetrainData/OpenLoopOutputs(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/OverrideForwardCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/OverrideForwardCurrentLimit:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/OverrideReverseCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/OverrideReverseCurrentLimit:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/PositionSetpointChanged(0)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpointChanged(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/PositionSetpointChanged(1)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpointChanged(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/PositionSetpoints(0)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpoints(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/PositionSetpoints(1)]' derivation='Sum' name='[sum:DrivetrainData/PositionSetpoints(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/PositionStartLocations(0)]' derivation='Sum' name='[sum:DrivetrainData/PositionStartLocations(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/PositionStartLocations(1)]' derivation='Sum' name='[sum:DrivetrainData/PositionStartLocations(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/ReverseCurrentLimit]' derivation='Sum' name='[sum:DrivetrainData/ReverseCurrentLimit:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/SyncArc]' derivation='Sum' name='[sum:DrivetrainData/SyncArc:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DrivetrainData/ZeroHeading]' derivation='Sum' name='[sum:DrivetrainData/ZeroHeading:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Axes(0)]' derivation='Sum' name='[sum:Joystick1/Axes(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Axes(1)]' derivation='Sum' name='[sum:Joystick1/Axes(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Axes(2)]' derivation='Sum' name='[sum:Joystick1/Axes(2):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Axes(3)]' derivation='Sum' name='[sum:Joystick1/Axes(3):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Axes(4)]' derivation='Sum' name='[sum:Joystick1/Axes(4):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Axes(5)]' derivation='Sum' name='[sum:Joystick1/Axes(5):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(0)]' derivation='Sum' name='[sum:Joystick1/Buttons(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(1)]' derivation='Sum' name='[sum:Joystick1/Buttons(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(10)]' derivation='Sum' name='[sum:Joystick1/Buttons(10):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(11)]' derivation='Sum' name='[sum:Joystick1/Buttons(11):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(2)]' derivation='Sum' name='[sum:Joystick1/Buttons(2):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(3)]' derivation='Sum' name='[sum:Joystick1/Buttons(3):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(4)]' derivation='Sum' name='[sum:Joystick1/Buttons(4):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(5)]' derivation='Sum' name='[sum:Joystick1/Buttons(5):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(6)]' derivation='Sum' name='[sum:Joystick1/Buttons(6):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(7)]' derivation='Sum' name='[sum:Joystick1/Buttons(7):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(8)]' derivation='Sum' name='[sum:Joystick1/Buttons(8):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick1/Buttons(9)]' derivation='Sum' name='[sum:Joystick1/Buttons(9):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Axes(0)]' derivation='Sum' name='[sum:Joystick2/Axes(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Axes(1)]' derivation='Sum' name='[sum:Joystick2/Axes(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Axes(2)]' derivation='Sum' name='[sum:Joystick2/Axes(2):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Axes(3)]' derivation='Sum' name='[sum:Joystick2/Axes(3):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Axes(4)]' derivation='Sum' name='[sum:Joystick2/Axes(4):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Axes(5)]' derivation='Sum' name='[sum:Joystick2/Axes(5):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(0)]' derivation='Sum' name='[sum:Joystick2/Buttons(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(1)]' derivation='Sum' name='[sum:Joystick2/Buttons(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(10)]' derivation='Sum' name='[sum:Joystick2/Buttons(10):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(11)]' derivation='Sum' name='[sum:Joystick2/Buttons(11):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(2)]' derivation='Sum' name='[sum:Joystick2/Buttons(2):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(3)]' derivation='Sum' name='[sum:Joystick2/Buttons(3):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(4)]' derivation='Sum' name='[sum:Joystick2/Buttons(4):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(5)]' derivation='Sum' name='[sum:Joystick2/Buttons(5):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(6)]' derivation='Sum' name='[sum:Joystick2/Buttons(6):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(7)]' derivation='Sum' name='[sum:Joystick2/Buttons(7):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(8)]' derivation='Sum' name='[sum:Joystick2/Buttons(8):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick2/Buttons(9)]' derivation='Sum' name='[sum:Joystick2/Buttons(9):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Axes(0)]' derivation='Sum' name='[sum:Joystick3/Axes(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Axes(1)]' derivation='Sum' name='[sum:Joystick3/Axes(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Axes(2)]' derivation='Sum' name='[sum:Joystick3/Axes(2):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(0)]' derivation='Sum' name='[sum:Joystick3/Buttons(0):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(1)]' derivation='Sum' name='[sum:Joystick3/Buttons(1):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(10)]' derivation='Sum' name='[sum:Joystick3/Buttons(10):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(2)]' derivation='Sum' name='[sum:Joystick3/Buttons(2):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(3)]' derivation='Sum' name='[sum:Joystick3/Buttons(3):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(4)]' derivation='Sum' name='[sum:Joystick3/Buttons(4):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(5)]' derivation='Sum' name='[sum:Joystick3/Buttons(5):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(6)]' derivation='Sum' name='[sum:Joystick3/Buttons(6):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(7)]' derivation='Sum' name='[sum:Joystick3/Buttons(7):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(8)]' derivation='Sum' name='[sum:Joystick3/Buttons(8):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Joystick3/Buttons(9)]' derivation='Sum' name='[sum:Joystick3/Buttons(9):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[LeftDriveESC/Brake]' derivation='Sum' name='[sum:LeftDriveESC/Brake:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[LeftDriveESC/DutyCycle]' derivation='Sum' name='[sum:LeftDriveESC/DutyCycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[LeftDriveEncoder/Count]' derivation='Sum' name='[sum:LeftDriveEncoder/Count:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[LeftDriveEncoder/Rate]' derivation='Sum' name='[sum:LeftDriveEncoder/Rate:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[PneumaticsAngle/State]' derivation='Sum' name='[sum:PneumaticsAngle/State:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[PneumaticsCollector/State]' derivation='Sum' name='[sum:PneumaticsCollector/State:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[RightDriveESC/Brake]' derivation='Sum' name='[sum:RightDriveESC/Brake:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[RightDriveESC/DutyCycle]' derivation='Sum' name='[sum:RightDriveESC/DutyCycle:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[RightDriveEncoder/Count]' derivation='Sum' name='[sum:RightDriveEncoder/Count:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[RightDriveEncoder/Rate]' derivation='Sum' name='[sum:RightDriveEncoder/Rate:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[csv.41618.949208229169].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveA/DutyCycle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveA/NeutralMode:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveB/DutyCycle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarLeftDriveB/NeutralMode:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveA/DutyCycle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveA/NeutralMode:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveB/DutyCycle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:AsyncCANJaguarRightDriveB/NeutralMode:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Climb/State:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/DriveDistance:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedDriveSpeed:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedLeftSpeed:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedRightSpeed:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/NormalizedTurningSpeed:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/TurnAngle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DriveEncoders/TurnTicks:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/ControlModes(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/ControlModes(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/DesiredRates(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/DesiredRates(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/ForwardCurrentLimit:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/MaxSpeeds(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/MaxSpeeds(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/OpenLoopOutputs(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/OpenLoopOutputs(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/OverrideForwardCurrentLimit:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/OverrideReverseCurrentLimit:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpointChanged(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpointChanged(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpoints(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionSetpoints(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionStartLocations(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/PositionStartLocations(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/ReverseCurrentLimit:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/SyncArc:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:DrivetrainData/ZeroHeading:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(2):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(3):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(4):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Axes(5):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(10):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(11):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(2):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(3):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(4):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(5):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(6):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(7):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(8):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick1/Buttons(9):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(2):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(3):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(4):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Axes(5):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(10):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(11):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(2):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(3):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(4):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(5):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(6):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(7):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(8):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick2/Buttons(9):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Axes(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Axes(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Axes(2):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(0):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(1):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(10):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(2):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(3):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(4):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(5):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(6):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(7):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(8):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:Joystick3/Buttons(9):qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:LeftDriveESC/Brake:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:LeftDriveESC/DutyCycle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:LeftDriveEncoder/Count:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:LeftDriveEncoder/Rate:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:PneumaticsAngle/State:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:PneumaticsCollector/State:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:RightDriveESC/Brake:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:RightDriveESC/DutyCycle:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:RightDriveEncoder/Count:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[csv.41618.949208229169].[sum:RightDriveEncoder/Rate:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[csv.41618.949208229169].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='subtitle' class='0' field='[csv.41618.949208229169].[none:Cycle:qk]' scope='cols' value='' />
+            <format attr='auto-subtitle' class='0' field='[csv.41618.949208229169].[none:Cycle:qk]' scope='cols' value='true' />
+            <encoding attr='space' class='0' field='[csv.41618.949208229169].[none:Cycle:qk]' field-type='quantitative' max='1222' min='853' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[csv.41618.949208229169].[Multiple Values]' field-type='quantitative' max='17.605168696903341' min='-15.173810644545155' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[csv.41618.949208229169].[:Measure Names]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[csv.41618.949208229169].[Multiple Values]</rows>
+        <cols>[csv.41618.949208229169].[none:Cycle:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <windows>
+    <window class='schema' source-height='-1' />
+    <window auto-hidden='0' class='worksheet' maximized='1' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card size='29' type='pages' />
+            <card size='0' type='filters' />
+            <card size='210' type='marks' />
+            <card size='446' type='measures' />
+            <card pane-specification-id='0' param='[csv.41618.949208229169].[:Measure Names]' size='33' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[csv.41618.949208229169].[:Measure Names]</field>
+        </color-one-way>
+      </highlight>
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Sheet 1' width='192'>
+      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
+    </thumbnail>
+  </thumbnails>
+</workbook>
