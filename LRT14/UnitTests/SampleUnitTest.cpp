@@ -1,3 +1,12 @@
+#ifdef UNIT_TEST
+
+#include <WPILib.h>
+#include <sysLib.h>
+
+#include "RUnit/TestApparatus.h"
+
+using namespace RUnit;
+
 INT32 TestDummy()
 {
 	RU_ASSERT(true, "The universe is broken.");
@@ -20,3 +29,5 @@ extern "C"
 		return 0;
 	}
 }
+
+#endif

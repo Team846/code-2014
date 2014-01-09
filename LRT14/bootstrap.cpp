@@ -1,3 +1,5 @@
+#ifndef UNIT_TEST
+
 #include "LRTRobot14.h"
 
 /*!
@@ -19,3 +21,5 @@ extern "C"
 		return 0;
 	}
 }
+
+#endif
