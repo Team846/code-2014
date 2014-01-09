@@ -146,7 +146,7 @@
             <stringAttribute key="BLD::Info|Tool|C-Compiler|nonDbgFlags|PPC32diab" value="-XO -Xsize-opt"/>
             <stringAttribute key="BLD::Info|Tool|C-Compiler|nonDbgFlags|PPC32gnu" value="-O2 -fstrength-reduce -fno-builtin"/>
             <stringAttribute key="BLD::Info|Tool|C-Compiler|nonDbgFlags|PPC603diab" value="-XO -Xsize-opt"/>
-            <stringAttribute key="BLD::Info|Tool|C-Compiler|nonDbgFlags|PPC603gnu" value="-O2 -fstrength-reduce -fno-builtin"/>
+            <stringAttribute key="BLD::Info|Tool|C-Compiler|nonDbgFlags|PPC603gnu" value="-O3 -fstrength-reduce -fno-builtin"/>
             <booleanAttribute key="BLD::Info|Tool|C-Compiler|object" value="true"/>
             <booleanAttribute key="BLD::Info|Tool|C-Compiler|passAble" value="false"/>
             <stringAttribute key="BLD::Info|Tool|C-Compiler|sigs" value="*.c"/>
