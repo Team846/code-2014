@@ -1,5 +1,5 @@
 #include "RobotLocation.h"
-#include "../RobotState.h"
+#include "../LRTRobot14.h"
 #include "math.h"
 
 RobotLocation *RobotLocation::m_instance = NULL;

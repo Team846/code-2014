@@ -1,5 +1,5 @@
 #include "LRTDriverStation.h"
-#include "../RobotState.h"
+#include "../LRTRobot14.h"
 
 LRTDriverStation* LRTDriverStation::m_instance = NULL;
 
@@ -50,7 +50,7 @@ LRTDriverStation::~LRTDriverStation()
 
 void LRTDriverStation::Update()
 {
-	if (RobotState::Instance().GameMode() != RobotState::DISABLED)
+	if (LRTRobot14::Robot()->GameState() != RobotState::DISABLED)
 	{
 		Instance()->m_driver_stick->Update();
 		Instance()->m_operator_stick->Update();

@@ -3,7 +3,6 @@
 
 #include <WPILib.h>
 #include "../Process/SynchronizedProcess.h"
-#include "../RobotState.h"
 
 /**
  * Provides LCD output on the Driver Station LCD. Utilizes scrolling.
@@ -58,8 +57,6 @@ private:
 	char *textBuffer;
 	char *outputBuffer;
 	semaphore *textBufferSemaphore;
-
-	RobotState &m_robotState;
 };
 
 #endif //LRT_DRIVER_STATION_LCD_H_

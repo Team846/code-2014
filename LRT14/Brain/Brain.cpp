@@ -3,7 +3,6 @@
 #include "../Utils/Util.h"
 #include <fstream>
 #include <sstream>
-#include "../RobotState.h"
 #include "../DriverStation/LRTDriverStation.h"
 #include "../Config/DriverStationConfig.h"
 
@@ -23,6 +22,8 @@
 #include "Events/JoystickHeldEvent.h"
 #include "Events/JoystickReleasedEvent.h"
 #include "Events/MultipleEvent.h"
+
+using namespace Rhesus::Toolkit;
 
 Brain* Brain::m_instance = NULL;
 
@@ -61,7 +62,7 @@ Brain::Brain() :
 	m_automation.push_back(positionHold);
 	
 	// Create events to be used
-	Event *toAuto = new GameModeChangeEvent(RobotState::AUTONOMOUS);
+	Event *toAuto = new GameModeChangeEvent(RobotState::AUTON);
 	Event *driverStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetDriverStick());
 	Event *operatorStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetOperatorStick());
 	Event *driverStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick());

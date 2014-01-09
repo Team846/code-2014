@@ -1,7 +1,7 @@
 #include "Logger.h"
 #include "Loggable.h"
 #include "../Config/RobotConfig.h"
-#include "../RobotState.h"
+#include "../LRTRobot14.h"
 #include "../Utils/AsyncPrinter.h"
 
 Logger *Logger::m_instance = NULL;
@@ -65,9 +65,9 @@ void Logger::Run()
 		AsyncPrinter::Printf("[ERROR] Logger is not initialized\n");
 		return;
 	}
-	if (RobotState::Instance().GameMode() == RobotState::DISABLED)
+	if (LRTRobot14::Robot()->GameState() == RobotState::DISABLED)
 	{
-		if (RobotState::Instance().LastGameMode() != RobotState::DISABLED)
+		if (LRTRobot14::Robot()->GameState() != RobotState::DISABLED)
 #ifdef USE_IOLIB
 			close(file);
 #else
@@ -76,7 +76,7 @@ void Logger::Run()
 	}
 	else
 	{
-		if (RobotState::Instance().LastGameMode() == RobotState::DISABLED)
+		if (LRTRobot14::Robot()->GameState() == RobotState::DISABLED)
 #ifdef USE_IOLIB
 			file = open(RobotConfig::LOG_FILE_PATH.c_str(), O_CREAT | O_WRONLY, 0777);
 #else
@@ -111,7 +111,7 @@ void Logger::Tick()
 
 void Logger::Write(void* field, size_t size)
 {
-	if (RobotState::Instance().GameMode() != RobotState::DISABLED)
+	if (LRTRobot14::Robot()->GameState() != RobotState::DISABLED)
 	{
 		memcpy(curLoc, field, size);
 		curLoc += size;

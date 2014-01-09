@@ -9,8 +9,7 @@ LCD* LCD::instance = NULL;
 
 LCD::LCD() :
 	SynchronizedProcess("LCD", Task::kDefaultPriority + 3),
-	loadArray("\\|/-"),
-	m_robotState(RobotState::Instance())
+	loadArray("\\|/-")
 {
 	textBuffer = new char[kNumBufferLines * kNumBufferColumns];
 	outputBuffer = new char[USER_DS_LCD_DATA_SIZE];
@@ -110,7 +109,7 @@ void LCD::Tick()
 		LCDUpdate();
 
 	char heartbeat = loadArray[(loops / 10) % 4];
-	Print(kHeartbeatLine, 0, true, "%c  %s  %f", heartbeat, "LRT14", m_robotState.TotalTime());
+	//Print(kHeartbeatLine, 0, true, "%c  %s  %f", heartbeat, "LRT14", --);
 //	Print(5, 0, true, "");
 //	Print(5, loops % 42 >= 21 ? loops % 21 : 20 - loops % 21, true, "%c", '_');
 	loops++;

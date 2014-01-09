@@ -1,12 +1,13 @@
 #include "GameModeChangeEvent.h"
+#include "../../LRTRobot14.h"
 
-GameModeChangeEvent::GameModeChangeEvent(RobotState::Mode toMode)
+GameModeChangeEvent::GameModeChangeEvent(RobotState::Enum toMode)
 {
 	m_toMode = toMode;
 	m_from = false;
 }
 
-GameModeChangeEvent::GameModeChangeEvent(RobotState::Mode fromMode, RobotState::Mode toMode)
+GameModeChangeEvent::GameModeChangeEvent(RobotState::Enum fromMode, RobotState::Enum toMode)
 {
 	m_toMode = toMode;
 	m_fromMode = fromMode;
@@ -21,7 +22,7 @@ bool GameModeChangeEvent::Fired()
 {
 	if (Event::Fired())
 	{
-		if (m_from && RobotState::Instance().LastGameMode() != m_fromMode)
+		if (m_from && LRTRobot14::Robot()->LastGameState() != m_fromMode)
 		{
 			return false;
 		}
@@ -32,6 +33,6 @@ bool GameModeChangeEvent::Fired()
 
 bool GameModeChangeEvent::CheckCondition()
 {
-	return RobotState::Instance().GameMode() == m_toMode;
+	return LRTRobot14::Robot()->GameState() == m_toMode;
 }
 

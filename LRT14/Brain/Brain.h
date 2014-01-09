@@ -1,8 +1,9 @@
 #ifndef BRAIN_H_
 #define BRAIN_H_
 
+#include "../Rhesus/Toolkit/Rhesus.h"
+
 #include <string>
-#include <WPILib.h>
 #include "Automation/Automation.h"
 #include "InputProcessor/InputProcessor.h"
 #include <list>

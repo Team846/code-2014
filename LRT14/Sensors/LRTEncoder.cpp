@@ -28,7 +28,7 @@ double LRTEncoder::GetRate()
 	return rate;
 }
 
-int32_t LRTEncoder::Get()
+INT32 LRTEncoder::Get()
 {
 	return (INT32) (Encoder::Get() * trim);
 }
