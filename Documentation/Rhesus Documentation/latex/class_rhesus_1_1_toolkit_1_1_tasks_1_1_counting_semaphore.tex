@@ -1,0 +1,85 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore}{\section{Rhesus\-:\-:Toolkit\-:\-:Tasks\-:\-:Counting\-Semaphore Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore}\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}}
+}
+
+
+simple wrapper around sem\-C\-Lib for easier transition to linux  
+
+
+
+
+{\ttfamily \#include $<$Counting\-Semaphore.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_ae249f411092cd86136d4dc5192a3f67f}{Counting\-Semaphore} (U\-I\-N\-T32 initialcount)
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a973554dba33222f0ff7f287928191267}{Give} ()
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a2bc3fe4d8153cd979558ee09b66ca73e}{Take} ()
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a9b54bea70b5decdcf7131375906f0a25}{Take} (I\-N\-T32 timeout)
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a3b2d7faf8d16e75dfd343ec682de03b4}{Flush} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+simple wrapper around sem\-C\-Lib for easier transition to linux 
+
+\begin{DoxyAuthor}{Author}
+Varun Parthasarathy 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_ae249f411092cd86136d4dc5192a3f67f}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}!Counting\-Semaphore@{Counting\-Semaphore}}
+\index{Counting\-Semaphore@{Counting\-Semaphore}!Rhesus::Toolkit::Tasks::CountingSemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}}
+\subsubsection[{Counting\-Semaphore}]{\setlength{\rightskip}{0pt plus 5cm}Counting\-Semaphore\-::\-Counting\-Semaphore (
+\begin{DoxyParamCaption}
+\item[{U\-I\-N\-T32}]{initialcount}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_ae249f411092cd86136d4dc5192a3f67f}
+
+\begin{DoxyParams}{Parameters}
+{\em initialcount} & the capacity of the semaphore \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a3b2d7faf8d16e75dfd343ec682de03b4}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}!Flush@{Flush}}
+\index{Flush@{Flush}!Rhesus::Toolkit::Tasks::CountingSemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}}
+\subsubsection[{Flush}]{\setlength{\rightskip}{0pt plus 5cm}void Counting\-Semaphore\-::\-Flush (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a3b2d7faf8d16e75dfd343ec682de03b4}
+Flushes the semaphore \hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a973554dba33222f0ff7f287928191267}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}!Give@{Give}}
+\index{Give@{Give}!Rhesus::Toolkit::Tasks::CountingSemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}}
+\subsubsection[{Give}]{\setlength{\rightskip}{0pt plus 5cm}void Counting\-Semaphore\-::\-Give (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a973554dba33222f0ff7f287928191267}
+gives the semaphore, increments the count by 1 \hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a2bc3fe4d8153cd979558ee09b66ca73e}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}!Take@{Take}}
+\index{Take@{Take}!Rhesus::Toolkit::Tasks::CountingSemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}}
+\subsubsection[{Take}]{\setlength{\rightskip}{0pt plus 5cm}void Counting\-Semaphore\-::\-Take (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a2bc3fe4d8153cd979558ee09b66ca73e}
+waits forever for an available semaphore \hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a9b54bea70b5decdcf7131375906f0a25}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}!Take@{Take}}
+\index{Take@{Take}!Rhesus::Toolkit::Tasks::CountingSemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Counting\-Semaphore}}
+\subsubsection[{Take}]{\setlength{\rightskip}{0pt plus 5cm}void Counting\-Semaphore\-::\-Take (
+\begin{DoxyParamCaption}
+\item[{I\-N\-T32}]{timeout}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_counting_semaphore_a9b54bea70b5decdcf7131375906f0a25}
+waits until the end of the timeout for an available semaphore 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Tasks/Counting\-Semaphore.\-h\item 
+Toolkit/\-Tasks/Counting\-Semaphore.\-cpp\end{DoxyCompactItemize}

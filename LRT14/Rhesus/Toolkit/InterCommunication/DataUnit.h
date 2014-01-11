@@ -21,7 +21,7 @@ namespace InterCommunication
 {
 	
 	/*!
-	 * @brief Provides an object to store individual component data
+	 * @brief Provides an object to store individual component data.  Usually accessed through DataPool and not directly
 	 * @author Varun Parthasarathy
 	 * @author Tony Peng
 	 */
@@ -30,12 +30,24 @@ namespace InterCommunication
 	public:
 		DataUnit();
 		
+		/*!
+		 * Sets a specified value at a specified key
+		 * @param key the key to associate the value to
+		 * @param value the value to set
+		 */
 		template <typename T>
 		void Set(string key, T value);
 		
+		/*!
+		 * @return the value associated with the specified key
+		 * @param key the key of the desired value
+		 */
 		template <typename T>
 		T Get(string key);
 		
+		/*!
+		 * Purges the DataUnit of all data
+		 */
 		void Clear();
 		
 	private:

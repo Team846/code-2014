@@ -1,0 +1,113 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{\section{Rhesus\-:\-:Toolkit\-:\-:Net\-:\-:Net\-Buffer Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}\index{Rhesus\-::\-Toolkit\-::\-Net\-::\-Net\-Buffer@{Rhesus\-::\-Toolkit\-::\-Net\-::\-Net\-Buffer}}
+}
+
+
+Implements a buffer for data that can be sent over the network.  
+
+
+
+
+{\ttfamily \#include $<$Net\-Buffer.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a5249b2bddb8de70ceb793f16584409bf}{\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a5249b2bddb8de70ceb793f16584409bf}{Net\-Buffer} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a5249b2bddb8de70ceb793f16584409bf}
+
+\begin{DoxyCompactList}\small\item\em Initializes the \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer}. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a230b5a4319c523589801f02b9a85fd13}{\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a230b5a4319c523589801f02b9a85fd13}{Net\-Buffer} (const int buffer\-Default\-Size)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a230b5a4319c523589801f02b9a85fd13}
+
+\begin{DoxyCompactList}\small\item\em Initializes the \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer} with a buffer size of buffer\-Default\-Size. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aa9ad4cec99599e38c277f6632dc62f53}{\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aa9ad4cec99599e38c277f6632dc62f53}{Net\-Buffer} (U\-I\-N\-T8 $\ast$buff, int len)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aa9ad4cec99599e38c277f6632dc62f53}
+
+\begin{DoxyCompactList}\small\item\em Initializes the \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer} with a buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ad96acfc9ad9e5d2239b5b0f9594e2f8b}{\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ad96acfc9ad9e5d2239b5b0f9594e2f8b}{$\sim$\-Net\-Buffer} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ad96acfc9ad9e5d2239b5b0f9594e2f8b}
+
+\begin{DoxyCompactList}\small\item\em Releases the resources utilized by the \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer}. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a63e8fa8ae532047cca6563ae4a12ee6a}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a63e8fa8ae532047cca6563ae4a12ee6a}{Write} (U\-I\-N\-T8 c)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a63e8fa8ae532047cca6563ae4a12ee6a}
+
+\begin{DoxyCompactList}\small\item\em Writes a one-\/byte value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ab0fe2370f145a6117e08e14530221a38}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ab0fe2370f145a6117e08e14530221a38}{Write} (U\-I\-N\-T8 $\ast$c, U\-I\-N\-T16 len)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ab0fe2370f145a6117e08e14530221a38}
+
+\begin{DoxyCompactList}\small\item\em Writes a length-\/prefixed byte array to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a0114911ccb6b725bd82e42a1baf69cd7}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a0114911ccb6b725bd82e42a1baf69cd7}{Write\-Raw} (U\-I\-N\-T8 $\ast$c, U\-I\-N\-T16 len)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a0114911ccb6b725bd82e42a1baf69cd7}
+
+\begin{DoxyCompactList}\small\item\em Writes a byte array to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ae5d140d4a94197049408b5374b0990eb}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ae5d140d4a94197049408b5374b0990eb}{Write} (string str)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ae5d140d4a94197049408b5374b0990eb}
+
+\begin{DoxyCompactList}\small\item\em Wriets a length-\/prefixed string to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a7dead5a66cca104d97cb7b55a060287e}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a7dead5a66cca104d97cb7b55a060287e}{Write} (I\-N\-T32 i)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a7dead5a66cca104d97cb7b55a060287e}
+
+\begin{DoxyCompactList}\small\item\em Writes an four-\/byte value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a73d800717f555344acb66c77804a9a4e}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a73d800717f555344acb66c77804a9a4e}{Write} (U\-I\-N\-T32 i)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a73d800717f555344acb66c77804a9a4e}
+
+\begin{DoxyCompactList}\small\item\em Writes a four-\/byte unsigned value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a205121402364d93179da1bb5d06b5b61}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a205121402364d93179da1bb5d06b5b61}{Write} (I\-N\-T16 s)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a205121402364d93179da1bb5d06b5b61}
+
+\begin{DoxyCompactList}\small\item\em Writes a two-\/byte value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_af1f341b15b02ba1d4237005a8dc342a0}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_af1f341b15b02ba1d4237005a8dc342a0}{Write} (double d)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_af1f341b15b02ba1d4237005a8dc342a0}
+
+\begin{DoxyCompactList}\small\item\em Writes a floating point value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a103a353b04f91083169ca258d003a60d}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a103a353b04f91083169ca258d003a60d}{Write} (float f)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a103a353b04f91083169ca258d003a60d}
+
+\begin{DoxyCompactList}\small\item\em Writes a floating point value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aca5501215044b3062b136f54b864fd90}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aca5501215044b3062b136f54b864fd90}{Write} (bool b)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aca5501215044b3062b136f54b864fd90}
+
+\begin{DoxyCompactList}\small\item\em Writes a one-\/bit boolean value to the buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_af4f94bf216fd12f773e7d35ad2910be5}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_af4f94bf216fd12f773e7d35ad2910be5}{Write\-Pad\-Bits} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_af4f94bf216fd12f773e7d35ad2910be5}
+
+\begin{DoxyCompactList}\small\item\em Finishes the current byte to improve C\-P\-U read/write time. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a774cf83e844eeac761d56419fb57a03e}{U\-I\-N\-T8 \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a774cf83e844eeac761d56419fb57a03e}{Read\-Char} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a774cf83e844eeac761d56419fb57a03e}
+
+\begin{DoxyCompactList}\small\item\em Reads a one-\/byte value from the buffer and advances the internal pointer by 8 bits. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a5ae0249e846fae97674597d3b43f92ce}{U\-I\-N\-T8 $\ast$ \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a5ae0249e846fae97674597d3b43f92ce}{Read\-Bytes} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a5ae0249e846fae97674597d3b43f92ce}
+
+\begin{DoxyCompactList}\small\item\em Reads a length-\/prefixed byte array from the buffer and advances the internal pointer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a2cd79cb9c3c746b57b0f7d9f5ac64ca6}{string \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a2cd79cb9c3c746b57b0f7d9f5ac64ca6}{Read\-Std\-String} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a2cd79cb9c3c746b57b0f7d9f5ac64ca6}
+
+\begin{DoxyCompactList}\small\item\em Reads a length-\/prefixed S\-T\-L string from the buffer and advances the internal pointer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a9eec38fcaaa533abe3ebf308c1428f72}{I\-N\-T32 \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a9eec38fcaaa533abe3ebf308c1428f72}{Read\-Int32} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a9eec38fcaaa533abe3ebf308c1428f72}
+
+\begin{DoxyCompactList}\small\item\em Reads a four-\/byte value from the buffer and advances the internal pointer by 32 bits. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ae997bea8f104f6ac4f7d49ae4a5570f9}{U\-I\-N\-T32 \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ae997bea8f104f6ac4f7d49ae4a5570f9}{Read\-U\-Int32} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ae997bea8f104f6ac4f7d49ae4a5570f9}
+
+\begin{DoxyCompactList}\small\item\em Reads a four-\/byte unsigned value from the buffer and advances the internal pointer by 32 bits. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a50b025d7b8c8e799a19c3cba431812e3}{I\-N\-T16 \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a50b025d7b8c8e799a19c3cba431812e3}{Read\-Int16} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a50b025d7b8c8e799a19c3cba431812e3}
+
+\begin{DoxyCompactList}\small\item\em Reads a two-\/byte value from the buffer and advances the internal pointer by 16 bits. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a99908cf96b8a69214e477b0aa94481e4}{double \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a99908cf96b8a69214e477b0aa94481e4}{Read\-Double} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a99908cf96b8a69214e477b0aa94481e4}
+
+\begin{DoxyCompactList}\small\item\em Reads a floating point value from the buffer and advances the internal pointer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a497f6fad97d316edef5ff0184646469e}{float \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a497f6fad97d316edef5ff0184646469e}{Read\-Float} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a497f6fad97d316edef5ff0184646469e}
+
+\begin{DoxyCompactList}\small\item\em Reads a floating point value from the buffer and advances the internal pointer. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a3829db0150a4700c80e2f7f688dfe207}{bool \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a3829db0150a4700c80e2f7f688dfe207}{Read\-Bool} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a3829db0150a4700c80e2f7f688dfe207}
+
+\begin{DoxyCompactList}\small\item\em Reads a one-\/bit boolean value from the buffer and advances the internal pointer to the next bit. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a0736e0e1bc136c8e2bf3f6eee2798ace}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a0736e0e1bc136c8e2bf3f6eee2798ace}{Skip\-Pad\-Bits} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a0736e0e1bc136c8e2bf3f6eee2798ace}
+
+\begin{DoxyCompactList}\small\item\em Advances the internal pointer to skip over the remaining values in the current byte to improve C\-P\-U read time. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aedee90a5049558678700bc9a2d5c16a5}{int \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aedee90a5049558678700bc9a2d5c16a5}{Get\-Byte\-Pos} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_aedee90a5049558678700bc9a2d5c16a5}
+
+\begin{DoxyCompactList}\small\item\em Gets the position of the internal pointer in bytes. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ad2212b7f38393e98fb2ad63113d4e82e}{int \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ad2212b7f38393e98fb2ad63113d4e82e}{Get\-Bit\-Index\-In\-Current\-Byte} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_ad2212b7f38393e98fb2ad63113d4e82e}
+
+\begin{DoxyCompactList}\small\item\em Gets the position of the internal pointer in bits. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a97fe15d9a739c32287ee3b0b957745f4}{U\-I\-N\-T8 $\ast$ \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a97fe15d9a739c32287ee3b0b957745f4}{Get\-Buffer} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer_a97fe15d9a739c32287ee3b0b957745f4}
+
+\begin{DoxyCompactList}\small\item\em Gets the internal buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a buffer for data that can be sent over the network. 
+
+\begin{DoxyAuthor}{Author}
+Tony Peng 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Net/Net\-Buffer.\-h\item 
+Toolkit/\-Net/Net\-Buffer.\-cpp\end{DoxyCompactItemize}

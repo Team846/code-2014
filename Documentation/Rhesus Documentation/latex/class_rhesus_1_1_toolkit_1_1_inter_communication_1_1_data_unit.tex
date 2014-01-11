@@ -1,0 +1,77 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{\section{Rhesus\-:\-:Toolkit\-:\-:Inter\-Communication\-:\-:Data\-Unit Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}}
+}
+
+
+Provides an object to store individual component data. Usually accessed through \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool}{Data\-Pool} and not directly.  
+
+
+
+
+{\ttfamily \#include $<$Data\-Unit.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a61bcf14dd855aee0c4710bee53c393b2}{Set} (string key, T value)
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a2e7b9a5c7d0fc381085456eded846cc5}{Get} (string key)
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a9e49e0086e134e98cb097746bbcd82d5}{Clear} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides an object to store individual component data. Usually accessed through \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool}{Data\-Pool} and not directly. 
+
+\begin{DoxyAuthor}{Author}
+Varun Parthasarathy 
+
+Tony Peng 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a9e49e0086e134e98cb097746bbcd82d5}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}!Clear@{Clear}}
+\index{Clear@{Clear}!Rhesus::Toolkit::InterCommunication::DataUnit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}}
+\subsubsection[{Clear}]{\setlength{\rightskip}{0pt plus 5cm}void Data\-Unit\-::\-Clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a9e49e0086e134e98cb097746bbcd82d5}
+Purges the \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} of all data \hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a2e7b9a5c7d0fc381085456eded846cc5}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}!Get@{Get}}
+\index{Get@{Get}!Rhesus::Toolkit::InterCommunication::DataUnit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}}
+\subsubsection[{Get}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ T Data\-Unit\-::\-Get (
+\begin{DoxyParamCaption}
+\item[{string}]{key}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a2e7b9a5c7d0fc381085456eded846cc5}
+\begin{DoxyReturn}{Returns}
+the value associated with the specified key 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em key} & the key of the desired value \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a61bcf14dd855aee0c4710bee53c393b2}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}!Set@{Set}}
+\index{Set@{Set}!Rhesus::Toolkit::InterCommunication::DataUnit@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Unit}}
+\subsubsection[{Set}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Data\-Unit\-::\-Set (
+\begin{DoxyParamCaption}
+\item[{string}]{key, }
+\item[{T}]{value}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit_a61bcf14dd855aee0c4710bee53c393b2}
+Sets a specified value at a specified key 
+\begin{DoxyParams}{Parameters}
+{\em key} & the key to associate the value to \\
+\hline
+{\em value} & the value to set \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Inter\-Communication/Data\-Unit.\-h\item 
+Toolkit/\-Inter\-Communication/Data\-Unit.\-cpp\end{DoxyCompactItemize}

@@ -70,6 +70,9 @@ namespace Utilities
 			DELETE(m_storedValue);
 		}
 		
+		/*!
+		 * @return whether or not the object holds a value
+		 */
 		bool isEmpty()
 		{
 			return m_storedValue == NULL;

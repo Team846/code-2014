@@ -19,11 +19,30 @@ namespace Tasks
 	class BinarySemaphore 
 	{	
 	public:
+		/*!
+		 * @param state initial state of the semaphore
+		 */
 		explicit BinarySemaphore(UINT32 state);
 		
+		/*!
+		 * Gives the semaphore
+		 */
 		void Give();
+		
+		/*!
+		 * Waits forever for a semaphore to be given, and takes it
+		 */
 		void Take();
+		
+		/*!
+		 * Waits until the timeout expires or a semaphore is given
+		 * @param timeout the number of milliseconds to wait before continuing
+		 */
 		void Take(int timeout);
+		
+		/*!
+		 * Flushes the semaphore
+		 */
 		void Flush();
 		
 	private:

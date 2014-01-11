@@ -1,0 +1,76 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager}{\section{Rhesus\-:\-:Toolkit\-:\-:Action\-:\-:Action\-Manager Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager}\index{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}}
+}
+
+
+Used to execute a series of actions represented by \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_i_robot_action}{I\-Robot\-Action} objects.  
+
+
+
+
+{\ttfamily \#include $<$Action\-Manager.\-h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a0a9349399d5990e37da78facb58131b8}{Start} ()
+\item 
+static void \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a55495a1b1869e61f8901295a9818a11a}{Add} (\hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_i_robot_action}{I\-Robot\-Action} $\ast$act)
+\item 
+static void \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a4497efe142bd8cf1ba7c635dd6a839cb}{Clear} ()
+\item 
+static bool \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a1593cd5e491af1fc9b679a4b682039ac}{is\-Done} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Used to execute a series of actions represented by \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_i_robot_action}{I\-Robot\-Action} objects. 
+
+\begin{DoxyAuthor}{Author}
+Varun Parthasarathy 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a55495a1b1869e61f8901295a9818a11a}{\index{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}!Add@{Add}}
+\index{Add@{Add}!Rhesus::Toolkit::Action::ActionManager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}}
+\subsubsection[{Add}]{\setlength{\rightskip}{0pt plus 5cm}void Action\-Manager\-::\-Add (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Robot\-Action} $\ast$}]{act}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a55495a1b1869e61f8901295a9818a11a}
+Adds an action to the queue 
+\begin{DoxyParams}{Parameters}
+{\em act} & The \hyperlink{class_rhesus_1_1_toolkit_1_1_action_1_1_i_robot_action}{I\-Robot\-Action} object to add to the back of the queue \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a4497efe142bd8cf1ba7c635dd6a839cb}{\index{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}!Clear@{Clear}}
+\index{Clear@{Clear}!Rhesus::Toolkit::Action::ActionManager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}}
+\subsubsection[{Clear}]{\setlength{\rightskip}{0pt plus 5cm}void Action\-Manager\-::\-Clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a4497efe142bd8cf1ba7c635dd6a839cb}
+Clears the queue of all actions \hypertarget{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a1593cd5e491af1fc9b679a4b682039ac}{\index{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}!is\-Done@{is\-Done}}
+\index{is\-Done@{is\-Done}!Rhesus::Toolkit::Action::ActionManager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}}
+\subsubsection[{is\-Done}]{\setlength{\rightskip}{0pt plus 5cm}bool Action\-Manager\-::is\-Done (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a1593cd5e491af1fc9b679a4b682039ac}
+\begin{DoxyReturn}{Returns}
+whether or not the action queue is empty 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a0a9349399d5990e37da78facb58131b8}{\index{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}!Start@{Start}}
+\index{Start@{Start}!Rhesus::Toolkit::Action::ActionManager@{Rhesus\-::\-Toolkit\-::\-Action\-::\-Action\-Manager}}
+\subsubsection[{Start}]{\setlength{\rightskip}{0pt plus 5cm}void Action\-Manager\-::\-Start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_action_1_1_action_manager_a0a9349399d5990e37da78facb58131b8}
+Starts the sequence of actions 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Action/Action\-Manager.\-h\item 
+Toolkit/\-Action/Action\-Manager.\-cpp\end{DoxyCompactItemize}

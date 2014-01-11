@@ -23,6 +23,10 @@ namespace Utilities
 	class StringUtil
 	{
 	public:
+		
+		/*!
+		 * Trims the string from the beginning
+		 */
 		static std::string ltrim(std::string s)
 		{
 			s.erase(
@@ -33,7 +37,9 @@ namespace Utilities
 			return s;
 		}
 	
-		// trim from end
+		/*!
+		 * trims the string from the end
+		 */
 		static std::string rtrim(std::string s)
 		{
 			s.erase(
@@ -44,12 +50,21 @@ namespace Utilities
 			return s;
 		}
 	
-		// trim from both ends
+		/*!
+		 * @return the input string with all whitespace removed
+		 * @param s the original string
+		 */
 		static std::string Trim(std::string s)
 		{
 			return ltrim(rtrim(s));
 		}
 	
+		/*!
+		 * splits the string by the specified character
+		 * @return a vector containing the split strings
+		 * @param s the original string
+		 * @param d the delimeter
+		 */
 		static std::vector<std::string> Split(std::string s, char d)
 		{
 			std::vector<std::string> ret;
@@ -72,6 +87,11 @@ namespace Utilities
 			return ret;
 		}
 	
+		/*!
+		 * converts a string to a value of a specified type
+		 * @return T representation of the string value
+		 * @param val the string to convert
+		 */
 		template<class T>
 		static std::string ValToString(T val)
 		{

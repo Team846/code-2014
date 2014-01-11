@@ -18,19 +18,32 @@ namespace Toolkit
 namespace Action
 {
 	/*!
-	 * @brief Used to execute a series of actions
+	 * @brief Used to execute a series of actions represented by IRobotAction objects
 	 * @author Varun Parthasarathy
 	 */
 	class ActionManager
 	{	
 	public:
 		
+		/*!
+		 * Starts the sequence of actions
+		 */
 		static void Start();
 		
+		/*!
+		 * Adds an action to the queue
+		 * @param act The IRobotAction object to add to the back of the queue
+		 */
 		static void Add(IRobotAction* act);
 		
+		/*!
+		 * Clears the queue of all actions
+		 */
 		static void Clear();
 		
+		/*!
+		 * @return whether or not the action queue is empty
+		 */
 		static bool isDone();
 		
 	private:

@@ -19,11 +19,29 @@ namespace Tasks
 	class CountingSemaphore 
 	{
 	public:
+		/*!
+		 * @param initialcount the capacity of the semaphore
+		 */
 		explicit CountingSemaphore(UINT32 initialcount);
 		
+		/*!
+		 * gives the semaphore, increments the count by 1
+		 */
 		void Give();
+		
+		/*!
+		 * waits forever for an available semaphore
+		 */
 		void Take();
+		
+		/*!
+		 * waits until the end of the timeout for an available semaphore
+		 */
 		void Take(INT32 timeout);
+		
+		/*!
+		 * Flushes the semaphore
+		 */
 		void Flush();
 		
 	private:

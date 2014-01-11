@@ -1,0 +1,94 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool}{\section{Rhesus\-:\-:Toolkit\-:\-:Inter\-Communication\-:\-:Data\-Pool Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool}\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}}
+}
+
+
+Provides access to multiple \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} objects.  
+
+
+
+
+{\ttfamily \#include $<$Data\-Pool.\-h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_a77259c74e875fd638d1a15bd42a46c08}{Add\-Unit} (string name)
+\item 
+static \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} \& \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_ae826f62b3708d0f2db37a788879456f1}{Get} (string unit)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static void \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_a3dcf216fb8aa49255b10fd245bb06cfe}{Set} (string unit, string key, T value)
+\item 
+static void \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_ad4b07d57880ee9dc05195e4b8715529e}{Clear} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides access to multiple \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} objects. 
+
+\begin{DoxyAuthor}{Author}
+Varun Parthasarathy 
+
+Tony Peng 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_a77259c74e875fd638d1a15bd42a46c08}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}!Add\-Unit@{Add\-Unit}}
+\index{Add\-Unit@{Add\-Unit}!Rhesus::Toolkit::InterCommunication::DataPool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}}
+\subsubsection[{Add\-Unit}]{\setlength{\rightskip}{0pt plus 5cm}void Data\-Pool\-::\-Add\-Unit (
+\begin{DoxyParamCaption}
+\item[{string}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_a77259c74e875fd638d1a15bd42a46c08}
+Adds a \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} (a new section of data) to the \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool}{Data\-Pool} 
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the added \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} (used to access it) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_ad4b07d57880ee9dc05195e4b8715529e}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}!Clear@{Clear}}
+\index{Clear@{Clear}!Rhesus::Toolkit::InterCommunication::DataPool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}}
+\subsubsection[{Clear}]{\setlength{\rightskip}{0pt plus 5cm}void Data\-Pool\-::\-Clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_ad4b07d57880ee9dc05195e4b8715529e}
+Purges the \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool}{Data\-Pool} of all Data\-Units \hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_ae826f62b3708d0f2db37a788879456f1}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}!Get@{Get}}
+\index{Get@{Get}!Rhesus::Toolkit::InterCommunication::DataPool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}}
+\subsubsection[{Get}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Data\-Unit} \& Data\-Pool\-::\-Get (
+\begin{DoxyParamCaption}
+\item[{string}]{unit}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_ae826f62b3708d0f2db37a788879456f1}
+\begin{DoxyReturn}{Returns}
+a reference to the specified \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & the name of the \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} to retrieve \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_a3dcf216fb8aa49255b10fd245bb06cfe}{\index{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}!Set@{Set}}
+\index{Set@{Set}!Rhesus::Toolkit::InterCommunication::DataPool@{Rhesus\-::\-Toolkit\-::\-Inter\-Communication\-::\-Data\-Pool}}
+\subsubsection[{Set}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Data\-Pool\-::\-Set (
+\begin{DoxyParamCaption}
+\item[{string}]{unit, }
+\item[{string}]{key, }
+\item[{T}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_pool_a3dcf216fb8aa49255b10fd245bb06cfe}
+sets a specific value within a specified \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} 
+\begin{DoxyParams}{Parameters}
+{\em unit} & the \hyperlink{class_rhesus_1_1_toolkit_1_1_inter_communication_1_1_data_unit}{Data\-Unit} to access \\
+\hline
+{\em key} & the name of the value to be set \\
+\hline
+{\em value} & the value to set \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Inter\-Communication/Data\-Pool.\-h\item 
+Toolkit/\-Inter\-Communication/Data\-Pool.\-cpp\end{DoxyCompactItemize}

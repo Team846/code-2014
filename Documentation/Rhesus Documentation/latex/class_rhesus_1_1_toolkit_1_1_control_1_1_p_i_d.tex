@@ -1,0 +1,370 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{\section{Rhesus\-:\-:Toolkit\-:\-:Control\-:\-:P\-I\-D Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+}
+
+
+Simple implementation of a \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller.  
+
+
+
+
+{\ttfamily \#include $<$P\-I\-D.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a53bb6d44ce9c59fa6b96a9767c881264}{P\-I\-D} (double p\-\_\-gain, double i\-\_\-gain, double d\-\_\-gain, double ff\-\_\-gain=1.\-0, double i\-\_\-decay=0.\-5, bool feedforward=true)
+\begin{DoxyCompactList}\small\item\em Constructs a \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller. All gains are in constant (not timebase) form. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a0311b6f7de348499ce24e53ba353514a}{\hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a0311b6f7de348499ce24e53ba353514a}{P\-I\-D} ()}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a0311b6f7de348499ce24e53ba353514a}
+
+\begin{DoxyCompactList}\small\item\em Constructs a \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller with no gains set. \end{DoxyCompactList}\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a1fbc821c8f5ad0ccb66911e21dc25283}{set\-Parameters} (double p\-\_\-gain, double i\-\_\-gain, double d\-\_\-gain, double ff\-\_\-gain=1.\-0, double i\-\_\-decay=0.\-87, bool feedforward=true)
+\begin{DoxyCompactList}\small\item\em Sets \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} parameters. All gains are in constant (not timebase) form. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a0c394d229031c585a76f7488f94cd5cb}{update} (double dt)
+\begin{DoxyCompactList}\small\item\em updates the \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller, call on each loop \end{DoxyCompactList}\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_abcf5b67ca37d758eb305bddaf5c946dc}{set\-Input} (double input)
+\begin{DoxyCompactList}\small\item\em sets the feedback input \end{DoxyCompactList}\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a73844627f25d622723ac8f77ed7912da}{set\-Setpoint} (double setpoint)
+\begin{DoxyCompactList}\small\item\em sets the setpoint \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ae0f84ab82896e8a66839454d6ed53a99}{get\-Output} ()
+\begin{DoxyCompactList}\small\item\em gets the \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} output \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_af168072b520a39402b41da6107080e01}{get\-Proportional\-Gain} ()
+\begin{DoxyCompactList}\small\item\em Gets the p gain. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a5627825f6b9ef28b23c5a4dcf89faf1f}{get\-Integral\-Gain} ()
+\begin{DoxyCompactList}\small\item\em Gets the i gain. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a79fcedef4f3cb756e393643a6b26d72e}{get\-Derivative\-Gain} ()
+\begin{DoxyCompactList}\small\item\em Gets the d gain. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a2ec7c5a35585baaf864da7e1871fcd2f}{get\-Feed\-Forward\-Gain} ()
+\begin{DoxyCompactList}\small\item\em Gets the feed forward gain. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_aa164ad9b11c414655620cd5453f7b184}{get\-Integral\-Decay} ()
+\begin{DoxyCompactList}\small\item\em Gets the integral decay rate. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ad25c23924ac1f5ba70d192d09fb0be61}{get\-Input} ()
+\begin{DoxyCompactList}\small\item\em Gets the input value. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a7c05501c606490ce708cbfbbebe18511}{get\-Setpoint} ()
+\begin{DoxyCompactList}\small\item\em Gets the setpoint value. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_afab1724ee3007eb4d690ad58aa218b2b}{get\-Error} ()
+\begin{DoxyCompactList}\small\item\em Gets the error value. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a4ba71ca6864e50a51b1390eb5ad2e490}{get\-Accumulated\-Error} ()
+\begin{DoxyCompactList}\small\item\em Gets the accumulated m\-\_\-is\-\_\-running sum. \end{DoxyCompactList}\item 
+double \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a027aeba11f1103dd26b6e982d2d57dc1}{get\-Previous\-Error} ()
+\begin{DoxyCompactList}\small\item\em Gets the previous error (one iteration ago) \end{DoxyCompactList}\item 
+bool \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_aada2cf1f67c529dc0abfc87e3df599ba}{is\-Feed\-Forward} ()
+\begin{DoxyCompactList}\small\item\em m\-\_\-status flag for feed-\/forward \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_af9677e76cb1beffbcf3f54cbc627c530}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_af9677e76cb1beffbcf3f54cbc627c530}{reset} ()}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_af9677e76cb1beffbcf3f54cbc627c530}
+
+\begin{DoxyCompactList}\small\item\em Resets \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} setpoint, input, error, accumulated error, differential, and output. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a446347f685662ad6de5ba1e2929aedb2}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a446347f685662ad6de5ba1e2929aedb2}{disable\-P\-I\-D} ()}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a446347f685662ad6de5ba1e2929aedb2}
+
+\begin{DoxyCompactList}\small\item\em Disables \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} -- output returns setpoint. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a81cb87c22475e6d049a3d2ac3b5d0499}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a81cb87c22475e6d049a3d2ac3b5d0499}{enable\-P\-I\-D} ()}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a81cb87c22475e6d049a3d2ac3b5d0499}
+
+\begin{DoxyCompactList}\small\item\em Enables \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D}. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ab99ae2745f14726ab0950db624b37810}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ab99ae2745f14726ab0950db624b37810}{set\-I\-I\-R\-Enabled} (bool enabled)}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ab99ae2745f14726ab0950db624b37810}
+
+\begin{DoxyCompactList}\small\item\em Enables an I\-I\-R filter on output. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a8fe00f5547895b5563ec687a6a4672d8}{void \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a8fe00f5547895b5563ec687a6a4672d8}{set\-I\-I\-R\-Decay} (double decay)}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a8fe00f5547895b5563ec687a6a4672d8}
+
+\begin{DoxyCompactList}\small\item\em Sets the I\-F\-R Decay rate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Simple implementation of a \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller. 
+
+\begin{DoxyAuthor}{Author}
+Robert Ying 
+
+Brian Axelrod 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a53bb6d44ce9c59fa6b96a9767c881264}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!P\-I\-D@{P\-I\-D}}
+\index{P\-I\-D@{P\-I\-D}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{P\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}P\-I\-D\-::\-P\-I\-D (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-gain, }
+\item[{double}]{i\-\_\-gain, }
+\item[{double}]{d\-\_\-gain, }
+\item[{double}]{ff\-\_\-gain = {\ttfamily 1.0}, }
+\item[{double}]{i\-\_\-decay = {\ttfamily 0.5}, }
+\item[{bool}]{feedforward = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a53bb6d44ce9c59fa6b96a9767c881264}
+
+
+Constructs a \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller. All gains are in constant (not timebase) form. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-\_\-gain} & proportional gain \\
+\hline
+{\em i\-\_\-gain} & integral gain \\
+\hline
+{\em d\-\_\-gain} & derivative gain \\
+\hline
+{\em ff\-\_\-gain} & feedforward gain (defaults to 1.\-0) \\
+\hline
+{\em i\-\_\-decay} & integral decay (defaults to 0.\-5) \\
+\hline
+{\em feedforward} & whether or not feedforward is used \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a4ba71ca6864e50a51b1390eb5ad2e490}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Accumulated\-Error@{get\-Accumulated\-Error}}
+\index{get\-Accumulated\-Error@{get\-Accumulated\-Error}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Accumulated\-Error}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Accumulated\-Error (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a4ba71ca6864e50a51b1390eb5ad2e490}
+
+
+Gets the accumulated m\-\_\-is\-\_\-running sum. 
+
+\begin{DoxyReturn}{Returns}
+m\-\_\-is\-\_\-running sum 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a79fcedef4f3cb756e393643a6b26d72e}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Derivative\-Gain@{get\-Derivative\-Gain}}
+\index{get\-Derivative\-Gain@{get\-Derivative\-Gain}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Derivative\-Gain}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Derivative\-Gain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a79fcedef4f3cb756e393643a6b26d72e}
+
+
+Gets the d gain. 
+
+\begin{DoxyReturn}{Returns}
+derivative \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} gain 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_afab1724ee3007eb4d690ad58aa218b2b}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Error@{get\-Error}}
+\index{get\-Error@{get\-Error}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Error}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Error (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_afab1724ee3007eb4d690ad58aa218b2b}
+
+
+Gets the error value. 
+
+\begin{DoxyReturn}{Returns}
+error 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a2ec7c5a35585baaf864da7e1871fcd2f}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Feed\-Forward\-Gain@{get\-Feed\-Forward\-Gain}}
+\index{get\-Feed\-Forward\-Gain@{get\-Feed\-Forward\-Gain}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Feed\-Forward\-Gain}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Feed\-Forward\-Gain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a2ec7c5a35585baaf864da7e1871fcd2f}
+
+
+Gets the feed forward gain. 
+
+\begin{DoxyReturn}{Returns}
+feed forward gain 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ad25c23924ac1f5ba70d192d09fb0be61}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Input@{get\-Input}}
+\index{get\-Input@{get\-Input}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Input}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ad25c23924ac1f5ba70d192d09fb0be61}
+
+
+Gets the input value. 
+
+\begin{DoxyReturn}{Returns}
+input 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_aa164ad9b11c414655620cd5453f7b184}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Integral\-Decay@{get\-Integral\-Decay}}
+\index{get\-Integral\-Decay@{get\-Integral\-Decay}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Integral\-Decay}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Integral\-Decay (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_aa164ad9b11c414655620cd5453f7b184}
+
+
+Gets the integral decay rate. 
+
+\begin{DoxyReturn}{Returns}
+integral decay rate 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a5627825f6b9ef28b23c5a4dcf89faf1f}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Integral\-Gain@{get\-Integral\-Gain}}
+\index{get\-Integral\-Gain@{get\-Integral\-Gain}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Integral\-Gain}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Integral\-Gain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a5627825f6b9ef28b23c5a4dcf89faf1f}
+
+
+Gets the i gain. 
+
+\begin{DoxyReturn}{Returns}
+integral \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} gain 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ae0f84ab82896e8a66839454d6ed53a99}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Output@{get\-Output}}
+\index{get\-Output@{get\-Output}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Output}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_ae0f84ab82896e8a66839454d6ed53a99}
+
+
+gets the \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} output 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} output 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a027aeba11f1103dd26b6e982d2d57dc1}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Previous\-Error@{get\-Previous\-Error}}
+\index{get\-Previous\-Error@{get\-Previous\-Error}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Previous\-Error}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Previous\-Error (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a027aeba11f1103dd26b6e982d2d57dc1}
+
+
+Gets the previous error (one iteration ago) 
+
+\begin{DoxyReturn}{Returns}
+previous error 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_af168072b520a39402b41da6107080e01}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Proportional\-Gain@{get\-Proportional\-Gain}}
+\index{get\-Proportional\-Gain@{get\-Proportional\-Gain}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Proportional\-Gain}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Proportional\-Gain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_af168072b520a39402b41da6107080e01}
+
+
+Gets the p gain. 
+
+\begin{DoxyReturn}{Returns}
+proportional \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} gain 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a7c05501c606490ce708cbfbbebe18511}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!get\-Setpoint@{get\-Setpoint}}
+\index{get\-Setpoint@{get\-Setpoint}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{get\-Setpoint}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::get\-Setpoint (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a7c05501c606490ce708cbfbbebe18511}
+
+
+Gets the setpoint value. 
+
+\begin{DoxyReturn}{Returns}
+setpoint 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_aada2cf1f67c529dc0abfc87e3df599ba}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!is\-Feed\-Forward@{is\-Feed\-Forward}}
+\index{is\-Feed\-Forward@{is\-Feed\-Forward}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{is\-Feed\-Forward}]{\setlength{\rightskip}{0pt plus 5cm}bool Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D\-::is\-Feed\-Forward (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_aada2cf1f67c529dc0abfc87e3df599ba}
+
+
+m\-\_\-status flag for feed-\/forward \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} 
+
+\begin{DoxyReturn}{Returns}
+whether this controller uses feedforward \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} 
+\end{DoxyReturn}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_abcf5b67ca37d758eb305bddaf5c946dc}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!set\-Input@{set\-Input}}
+\index{set\-Input@{set\-Input}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{set\-Input}]{\setlength{\rightskip}{0pt plus 5cm}void P\-I\-D\-::set\-Input (
+\begin{DoxyParamCaption}
+\item[{double}]{input}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_abcf5b67ca37d758eb305bddaf5c946dc}
+
+
+sets the feedback input 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D}} & input \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a1fbc821c8f5ad0ccb66911e21dc25283}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!set\-Parameters@{set\-Parameters}}
+\index{set\-Parameters@{set\-Parameters}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{set\-Parameters}]{\setlength{\rightskip}{0pt plus 5cm}void P\-I\-D\-::set\-Parameters (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-gain, }
+\item[{double}]{i\-\_\-gain, }
+\item[{double}]{d\-\_\-gain, }
+\item[{double}]{ff\-\_\-gain = {\ttfamily 1.0}, }
+\item[{double}]{i\-\_\-decay = {\ttfamily 0.87}, }
+\item[{bool}]{feedforward = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a1fbc821c8f5ad0ccb66911e21dc25283}
+
+
+Sets \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} parameters. All gains are in constant (not timebase) form. 
+
+This method does reset accumulated error and differential error 
+\begin{DoxyParams}{Parameters}
+{\em p\-\_\-gain} & proportional gain \\
+\hline
+{\em i\-\_\-gain} & integral gain \\
+\hline
+{\em d\-\_\-gain} & derivative gain \\
+\hline
+{\em ff\-\_\-gain} & feedforward gain (defaults to 1.\-0) \\
+\hline
+{\em i\-\_\-decay} & integral decay (defaults to 0.\-5) \\
+\hline
+{\em feedforward} & whether or not feedforward is used \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a73844627f25d622723ac8f77ed7912da}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!set\-Setpoint@{set\-Setpoint}}
+\index{set\-Setpoint@{set\-Setpoint}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{set\-Setpoint}]{\setlength{\rightskip}{0pt plus 5cm}void P\-I\-D\-::set\-Setpoint (
+\begin{DoxyParamCaption}
+\item[{double}]{setpoint}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a73844627f25d622723ac8f77ed7912da}
+
+
+sets the setpoint 
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a0c394d229031c585a76f7488f94cd5cb}{\index{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}!update@{update}}
+\index{update@{update}!Rhesus::Toolkit::Control::PID@{Rhesus\-::\-Toolkit\-::\-Control\-::\-P\-I\-D}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}double P\-I\-D\-::update (
+\begin{DoxyParamCaption}
+\item[{double}]{dt}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d_a0c394d229031c585a76f7488f94cd5cb}
+
+
+updates the \hyperlink{class_rhesus_1_1_toolkit_1_1_control_1_1_p_i_d}{P\-I\-D} controller, call on each loop 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & time differential \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pid output 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Control/P\-I\-D.\-h\item 
+Toolkit/\-Control/P\-I\-D.\-cpp\end{DoxyCompactItemize}

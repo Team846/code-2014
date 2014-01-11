@@ -1,0 +1,51 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer}{\section{Rhesus\-:\-:Toolkit\-:\-:Net\-:\-:Net\-Peer Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer}\index{Rhesus\-::\-Toolkit\-::\-Net\-::\-Net\-Peer@{Rhesus\-::\-Toolkit\-::\-Net\-::\-Net\-Peer}}
+}
+
+
+Represents a network connection.  
+
+
+
+
+{\ttfamily \#include $<$Net\-Peer.\-h$>$}
+
+
+
+Inherited by Rhesus\-::\-Toolkit\-::\-Net\-::\-Net\-Client, and Rhesus\-::\-Toolkit\-::\-Net\-::\-Net\-Server.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a7b3c18f79329e009a8d7551a1d2dc2d8}{\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a7b3c18f79329e009a8d7551a1d2dc2d8}{Net\-Peer} (char $\ast$ip, int port, Net\-Connection\-Type\-::\-Enum conn\-Type)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a7b3c18f79329e009a8d7551a1d2dc2d8}
+
+\begin{DoxyCompactList}\small\item\em Sets up a network connection. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a1916bf3bc08d58f239a2c2b86a058f8d}{virtual \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a1916bf3bc08d58f239a2c2b86a058f8d}{$\sim$\-Net\-Peer} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a1916bf3bc08d58f239a2c2b86a058f8d}
+
+\begin{DoxyCompactList}\small\item\em Releases the resources used by the Net\-Connection. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a69e9672c8b99af1c7addc1a18a65a0e1}{int \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a69e9672c8b99af1c7addc1a18a65a0e1}{Open} (int options=0,...)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a69e9672c8b99af1c7addc1a18a65a0e1}
+
+\begin{DoxyCompactList}\small\item\em Opens the network connection. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a7f8d748a7c50d8e2bd4c1c70580db0e2}{int \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a7f8d748a7c50d8e2bd4c1c70580db0e2}{Close} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a7f8d748a7c50d8e2bd4c1c70580db0e2}
+
+\begin{DoxyCompactList}\small\item\em Closes and disconnects the network connection. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a447aae01b13ac8f36b58da91e5ef8a73}{int \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a447aae01b13ac8f36b58da91e5ef8a73}{Send} (\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer} $\ast$buff, Net\-Connection $\ast$to, \hyperlink{namespace_rhesus_1_1_toolkit_1_1_net_1_1_net_channel_acf0293f3b2ad1085b27f1d7feff35033}{Net\-Channel\-::\-Enum} method, int channel, int id=-\/1)}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a447aae01b13ac8f36b58da91e5ef8a73}
+
+\begin{DoxyCompactList}\small\item\em Sends the contents of the \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer} over the network connection. \end{DoxyCompactList}\item 
+\hypertarget{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a8f31d58519d76063596f3a7aafde0ba1}{\hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_buffer}{Net\-Buffer} $\ast$ \hyperlink{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a8f31d58519d76063596f3a7aafde0ba1}{Read\-Message} ()}\label{class_rhesus_1_1_toolkit_1_1_net_1_1_net_peer_a8f31d58519d76063596f3a7aafde0ba1}
+
+\begin{DoxyCompactList}\small\item\em Returns the next message in the message queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represents a network connection. 
+
+\begin{DoxyAuthor}{Author}
+Tony Peng 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Net/Net\-Peer.\-h\item 
+Toolkit/\-Net/Net\-Peer.\-cpp\end{DoxyCompactItemize}

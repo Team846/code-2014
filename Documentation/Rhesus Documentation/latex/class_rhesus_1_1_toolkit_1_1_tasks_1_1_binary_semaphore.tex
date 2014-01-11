@@ -1,0 +1,90 @@
+\hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore}{\section{Rhesus\-:\-:Toolkit\-:\-:Tasks\-:\-:Binary\-Semaphore Class Reference}
+\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore}\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}}
+}
+
+
+simple wrapper around sem\-B\-Lib for easier transition to linux  
+
+
+
+
+{\ttfamily \#include $<$Binary\-Semaphore.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_ad5cd5ebcc6e76cd731e3fa2475cbfff4}{Binary\-Semaphore} (U\-I\-N\-T32 state)
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_add97793126c118db4464416df28107a1}{Give} ()
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_aa73747d0e80b1792130be1a1d6f45525}{Take} ()
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_af7c12c6de6ebb9bfe46023b852015a5a}{Take} (int timeout)
+\item 
+void \hyperlink{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_ac9a0c9f49ef88360dad0741f20ed21a2}{Flush} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+simple wrapper around sem\-B\-Lib for easier transition to linux 
+
+\begin{DoxyAuthor}{Author}
+Varun Parthasarathy 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_ad5cd5ebcc6e76cd731e3fa2475cbfff4}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}!Binary\-Semaphore@{Binary\-Semaphore}}
+\index{Binary\-Semaphore@{Binary\-Semaphore}!Rhesus::Toolkit::Tasks::BinarySemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}}
+\subsubsection[{Binary\-Semaphore}]{\setlength{\rightskip}{0pt plus 5cm}Binary\-Semaphore\-::\-Binary\-Semaphore (
+\begin{DoxyParamCaption}
+\item[{U\-I\-N\-T32}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_ad5cd5ebcc6e76cd731e3fa2475cbfff4}
+
+\begin{DoxyParams}{Parameters}
+{\em state} & initial state of the semaphore \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_ac9a0c9f49ef88360dad0741f20ed21a2}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}!Flush@{Flush}}
+\index{Flush@{Flush}!Rhesus::Toolkit::Tasks::BinarySemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}}
+\subsubsection[{Flush}]{\setlength{\rightskip}{0pt plus 5cm}void Binary\-Semaphore\-::\-Flush (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_ac9a0c9f49ef88360dad0741f20ed21a2}
+Flushes the semaphore \hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_add97793126c118db4464416df28107a1}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}!Give@{Give}}
+\index{Give@{Give}!Rhesus::Toolkit::Tasks::BinarySemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}}
+\subsubsection[{Give}]{\setlength{\rightskip}{0pt plus 5cm}void Binary\-Semaphore\-::\-Give (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_add97793126c118db4464416df28107a1}
+Gives the semaphore \hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_aa73747d0e80b1792130be1a1d6f45525}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}!Take@{Take}}
+\index{Take@{Take}!Rhesus::Toolkit::Tasks::BinarySemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}}
+\subsubsection[{Take}]{\setlength{\rightskip}{0pt plus 5cm}void Binary\-Semaphore\-::\-Take (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_aa73747d0e80b1792130be1a1d6f45525}
+Waits forever for a semaphore to be given, and takes it \hypertarget{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_af7c12c6de6ebb9bfe46023b852015a5a}{\index{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}!Take@{Take}}
+\index{Take@{Take}!Rhesus::Toolkit::Tasks::BinarySemaphore@{Rhesus\-::\-Toolkit\-::\-Tasks\-::\-Binary\-Semaphore}}
+\subsubsection[{Take}]{\setlength{\rightskip}{0pt plus 5cm}void Binary\-Semaphore\-::\-Take (
+\begin{DoxyParamCaption}
+\item[{int}]{timeout}
+\end{DoxyParamCaption}
+)}}\label{class_rhesus_1_1_toolkit_1_1_tasks_1_1_binary_semaphore_af7c12c6de6ebb9bfe46023b852015a5a}
+Waits until the timeout expires or a semaphore is given 
+\begin{DoxyParams}{Parameters}
+{\em timeout} & the number of milliseconds to wait before continuing \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Toolkit/\-Tasks/Binary\-Semaphore.\-h\item 
+Toolkit/\-Tasks/Binary\-Semaphore.\-cpp\end{DoxyCompactItemize}
