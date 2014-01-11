@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.*;
 
@@ -55,6 +56,16 @@ public class Grapher extends JPanel implements ActionListener
             g.setColor( colors.get( fieldArray[i] ) );
             g.drawString( fieldArray[i] + " - " + values.get(fieldArray[i]).peekLast(), 10, 20 + 15 * i );
         }
+        g.setFont(new Font("Arial", 32, 50));
+        if (table.getNumber( "Pressure", 0.0 ) > 80.0)
+        {
+	        g.setColor( Color.GREEN );
+        }
+        else
+        {
+	        g.setColor( Color.RED );
+        }
+        g.drawString( "" + table.getNumber( "Pressure", 0.0 ), 550, 50 );
     }
     
     void paintLine(Color c1, Deque<Float> d, Graphics g)

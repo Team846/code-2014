@@ -25,9 +25,9 @@ public class LocalizationViz extends JPanel implements ActionListener
 	{	
 		
 		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("192.168.1.105");
+		NetworkTable.setIPAddress("10.8.46.2");
 		
-		nt = NetworkTable.getTable("Test");
+		nt = NetworkTable.getTable("Location");
 		
 		x = y = theta = "0";
 		
@@ -42,7 +42,7 @@ public class LocalizationViz extends JPanel implements ActionListener
 				
 		try
 		{
-			String val = nt.getString("values");
+			String val = nt.getString("Data");
 			String[] valArray = val.split(" ");
 			x = valArray[0];
 			y = valArray[1];
@@ -64,10 +64,11 @@ public class LocalizationViz extends JPanel implements ActionListener
 		
 		super.paintComponent(g);
 		
-		
-		g.drawOval(width/2 - 50 + Integer.parseInt(x),height/2 -50 + Integer.parseInt(y),100,100);
+		g.drawOval(width/2 - 10 + (int)(Double.parseDouble(x) * 10),height/2 - 10 - (int)(Double.parseDouble(y) * 10),20,20);
 		
 		g.setColor(Color.RED);
+		g.drawLine(width / 2, height / 2 - 10, width / 2, height / 2 + 10);
+		g.drawLine(width / 2 - 10, height / 2, width / 2 + 10, height / 2);
 		g.drawString("X Position: " + x, 0, 10);
 		g.drawString("Y Position: " + y, 0, 20);
 		g.drawString("Rotation Angle: " + theta, 0, 30);
