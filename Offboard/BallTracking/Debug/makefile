@@ -37,19 +37,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: ObjectTracking
+all: BallTracking
 
 # Tool invocations
-ObjectTracking: $(OBJS) $(USER_OBJS)
+BallTracking: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L/home/raphael/OpenNI-Linux-x64-2.2/Redist -o "ObjectTracking" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L/home/raphael/OpenNI-Linux-x64-2.2/Redist -o "BallTracking" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) ObjectTracking
+	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) BallTracking
 	-@echo ' '
 
 .PHONY: all clean dependents

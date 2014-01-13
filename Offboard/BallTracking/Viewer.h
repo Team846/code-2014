@@ -28,7 +28,7 @@
 class Viewer
 {
 public:
-	Viewer(const char* strSampleName, openni::VideoStream& depth);
+	Viewer(const char* strSampleName, openni::VideoStream& depth, openni::VideoStream& color);
 	virtual ~Viewer();
 
 	virtual openni::Status init(int argc, char **argv);
@@ -54,13 +54,14 @@ private:
 	static void glutResize(int w, int h);
 	static void glutSpecialKeys(int key, int x, int y);
 
-	void pointCloudCenter(vector<float*> &cloud, float *x, float *y, float *z);
+	void pointCloudCenter(vector<float*> &cloud, vector<openni::RGB888Pixel> &rgb, float *x, float *y, float *z);
 	float raw_depth_to_meters(int depth_value);
 	void depthToWorld(float cgx, float cgy, float cgz, float *x, float *y, float *z);
 
 	char			m_strSampleName[ONI_MAX_STR];
 	int					m_width;
 	int					m_height;
+	const openni::RGB888Pixel* m_colorData;
 	bool*				m_inPlane;
 	float**				m_pointCloud;
 	int*				m_pixelToCloud;
@@ -70,13 +71,17 @@ private:
 	BlobExtractor*		m_blobExtractor;
 
 	openni::VideoStream&		m_depth;
-	openni::VideoStream*		m_stream;
+	openni::VideoStream&		m_color;
+	openni::VideoStream*		m_stream[2];
 
 	openni::VideoFrameRef	m_depthFrame;
+	openni::VideoFrameRef	m_colorFrame;
 
 	float angle;
 	float lx, lz;
 	float cx, cz;
+
+	bool first;
 };
 
 

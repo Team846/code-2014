@@ -9,7 +9,7 @@ Viewer.d: ../Viewer.cpp ../Viewer.h \
  /home/raphael/OpenNI-Linux-x64-2.2/Include/OniCEnums.h \
  /home/raphael/OpenNI-Linux-x64-2.2/Include/OniCProperties.h \
  /home/raphael/OpenNI-Linux-x64-2.2/Include/OniVersion.h ../RANSAC.h \
- ../BlobExtractor.h ../DisjointSet.h
+ ../BlobExtractor.h ../DisjointSet.h ../Matrix.h
 
 ../Viewer.h:
 
@@ -38,3 +38,5 @@ Viewer.d: ../Viewer.cpp ../Viewer.h \
 ../BlobExtractor.h:
 
 ../DisjointSet.h:
+
+../Matrix.h:

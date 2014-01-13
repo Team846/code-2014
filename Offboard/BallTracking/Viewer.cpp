@@ -24,6 +24,7 @@
 #endif
 
 #include "Viewer.h"
+#include "Matrix.h"
 #include "math.h"
 
 #if (ONI_PLATFORM == ONI_PLATFORM_MACOSX)
@@ -64,8 +65,8 @@ void Viewer::glutResize(int w, int h)
 	Viewer::ms_self->handleResize(w, h);
 }
 
-Viewer::Viewer(const char* strSampleName, openni::VideoStream& depth1) :
-	m_depth(depth1)
+Viewer::Viewer(const char* strSampleName, openni::VideoStream& depth, openni::VideoStream& color) :
+	m_depth(depth), m_color(color)
 {
 	ms_self = this;
 	strncpy(m_strSampleName, strSampleName, ONI_MAX_STR);
@@ -74,6 +75,8 @@ Viewer::Viewer(const char* strSampleName, openni::VideoStream& depth1) :
 	m_width = videoMode.getResolutionX();
 	m_height = videoMode.getResolutionY();
 
+	m_stream[0] = &depth;
+	m_stream[1] = &color;
 	m_inPlane = new bool[m_width * m_height];
 	m_pointCloud = new float*[m_width * m_height];
 	for (int i = 0; i < m_width * m_height; i++)
@@ -90,7 +93,7 @@ Viewer::Viewer(const char* strSampleName, openni::VideoStream& depth1) :
 	angle = 0.0;
 	lx = 0.0f, lz = -1.0f;
 	cx = 0.0f, cz = 5.0f;
-	m_stream = &m_depth;
+	first = true;
 }
 
 Viewer::~Viewer()
@@ -140,116 +143,252 @@ void Viewer::handleResize(int w, int h)
 
 void Viewer::display()
 {
-	printf("Read\n");
-	fflush(stdout);
-	m_depth.readFrame(&m_depthFrame);
-	printf("Done\n");
-	fflush(stdout);
-
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-
-	gluLookAt(cx, 1.0f, cz,
-		cx + lx, 1.0f, cz + lz,
-		0.0f, 1.0f,  0.0f);
-
-	memset(m_inPlane, false, m_width * m_height * sizeof(bool));
-
-	const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
-	int rowSize = m_depthFrame.getStrideInBytes() / sizeof(openni::DepthPixel);
-	int cnt = 0;
-	for (int y = 0; y < m_depthFrame.getHeight(); y += 2)
+	int changedIndex;
+	openni::Status rc = openni::OpenNI::waitForAnyStream(m_stream, 2, &changedIndex);
+	if (rc != openni::STATUS_OK)
 	{
-		const openni::DepthPixel* pDepth = pDepthRow;
-
-		for (int x = 0; x < m_depthFrame.getWidth(); x += 2, pDepth += 2)
-		{
-			if (*pDepth != 0)
-			{
-				float wx, wy, wz;
-				openni::CoordinateConverter::convertDepthToWorld(*m_stream, x, y, *pDepth, &wx, &wy, &wz);
-				//depthToWorld(x, y, *pDepth, &wx, &wy, &wz);
-				m_pointCloud[cnt][0] = wx;
-				m_pointCloud[cnt][1] = wy;
-				m_pointCloud[cnt][2] = wz;
-				m_pixelToCloud[y * m_width + x] = cnt;
-				cnt++;
-			}
-			else
-				m_pixelToCloud[y * m_width + x] = -1;
-		}
-
-		pDepthRow += rowSize * 2;
+		printf("Wait failed\n");
+		return;
 	}
 
-	m_ransac->MarkPointsInBestFitPlane(m_pointCloud, cnt, m_inPlane);
-
-	pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
-	rowSize = m_depthFrame.getStrideInBytes() / sizeof(openni::DepthPixel);
-
-	for (int y = 0; y < m_depthFrame.getHeight(); y += 2)
+	if (changedIndex == 0 && !first)
 	{
-		for (int x = 0; x < m_depthFrame.getWidth(); x += 2)
-		{
-			m_binaryImage[y / 2][x / 2] = m_pixelToCloud[y * m_width + x] != -1 ? !m_inPlane[m_pixelToCloud[y * m_width + x]] : false;
-		}
-	}
+		m_depth.readFrame(&m_depthFrame);
 
-	int blobs = m_blobExtractor->ExtractBlobs(m_binaryImage, m_blobs);
-	vector<float*> blobPoints[blobs];
-	for (int y = 0; y < m_depthFrame.getHeight(); y += 2)
-	{
-		for (int x = 0; x < m_depthFrame.getWidth(); x += 2)
+		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		gluLookAt(cx, 1.0f, cz,
+			cx + lx, 1.0f, cz + lz,
+			0.0f, 1.0f,  0.0f);
+
+		memset(m_inPlane, false, m_width * m_height * sizeof(bool));
+
+		const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
+		int rowSize = m_depthFrame.getStrideInBytes() / sizeof(openni::DepthPixel);
+		int cnt = 0;
+		for (int y = 0; y < m_depthFrame.getHeight(); y += 2)
 		{
-			if (m_pixelToCloud[y * m_width + x] != -1)
+			const openni::DepthPixel* pDepth = pDepthRow;
+
+			for (int x = 0; x < m_depthFrame.getWidth(); x += 2, pDepth += 2)
 			{
-				int i = m_pixelToCloud[y * m_width + x];
-				if (m_blobs[y / 2][x / 2] == 0)
+				if (*pDepth != 0)
 				{
-					glColor3f(0.1, 0.1, 0.1);
-					if (m_binaryImage[y / 2][x / 2])
-						glColor3f(1, 0, 0);
+					float wx, wy, wz;
+					openni::CoordinateConverter::convertDepthToWorld(m_depth, x, y, *pDepth, &wx, &wy, &wz);
+					//depthToWorld(x, y, *pDepth, &wx, &wy, &wz);
+					m_pointCloud[cnt][0] = wx;
+					m_pointCloud[cnt][1] = wy;
+					m_pointCloud[cnt][2] = wz;
+					m_pixelToCloud[y * m_width + x] = cnt;
+					cnt++;
 				}
 				else
+					m_pixelToCloud[y * m_width + x] = -1;
+			}
+
+			pDepthRow += rowSize * 2;
+		}
+
+		float intersect;
+		float normalX, normalY, normalZ, d;
+		m_ransac->MarkPointsInBestFitPlane(m_pointCloud, cnt, m_inPlane, &normalX, &normalY, &normalZ, &d, &intersect);
+
+		pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
+		rowSize = m_depthFrame.getStrideInBytes() / sizeof(openni::DepthPixel);
+
+		for (int y = 0; y < m_depthFrame.getHeight(); y += 2)
+		{
+			for (int x = 0; x < m_depthFrame.getWidth(); x += 2)
+			{
+				m_binaryImage[y / 2][x / 2] = m_pixelToCloud[y * m_width + x] != -1 ? !m_inPlane[m_pixelToCloud[y * m_width + x]] : false;
+			}
+		}
+
+		int blobs = m_blobExtractor->ExtractBlobs(m_binaryImage, m_blobs);
+		vector<float*> blobPoints[blobs];
+		vector<openni::RGB888Pixel> blobColors[blobs];
+		for (int y = 0; y < m_depthFrame.getHeight(); y += 2)
+		{
+			for (int x = 0; x < m_depthFrame.getWidth(); x += 2)
+			{
+				if (m_pixelToCloud[y * m_width + x] != -1)
 				{
-					glColor3f(1 - (float)m_blobs[y / 2][x / 2] / (blobs + 1), 1, 1 - (float)m_blobs[y / 2][x / 2] / (blobs + 1));
-					glBegin(GL_POINTS);
-					glVertex3f(m_pointCloud[i][0], m_pointCloud[i][1], -m_pointCloud[i][2]);
-					glEnd();
-					blobPoints[m_blobs[y / 2][x / 2] - 1].push_back(m_pointCloud[i]);
+					int i = m_pixelToCloud[y * m_width + x];
+					if (m_blobs[y / 2][x / 2] == 0)
+					{
+					}
+					else
+					{
+						openni::RGB888Pixel pixel = m_colorData[y * m_width + x];
+						blobColors[m_blobs[y / 2][x / 2] - 1].push_back(pixel);
+						glColor3f(pixel.r / 255.0, pixel.g / 255.0, pixel.b / 255.0);
+						glBegin(GL_POINTS);
+						glVertex3f(m_pointCloud[i][0], m_pointCloud[i][1], -m_pointCloud[i][2]);
+						glEnd();
+						blobPoints[m_blobs[y / 2][x / 2] - 1].push_back(m_pointCloud[i]);
+					}
 				}
 			}
 		}
-	}
-	for (int i = 0; i < blobs; i++)
-	{
-		float x, y, z;
-		pointCloudCenter(blobPoints[i], &x, &y, &z);
-		glPointSize( 20.0 );
+		float maxPercentRed = -1;
+		float maxPercentBlue = -1;
+		int blueBlob;
+		int redBlob;
+		for (int i = 0; i < blobs; i++)
+		{
+			int numBlue = 0, numRed = 0;
+			for (vector<openni::RGB888Pixel>::iterator it = blobColors[i].begin(); it < blobColors[i].end(); it++)
+			{
+				openni::RGB888Pixel pixel = *it;
+				if (pixel.b > 100 && pixel.b - pixel.r > 0 && pixel.b - pixel.g > 0)
+				{
+					numBlue++;
+				}
+				if (pixel.r > 100 && pixel.r - pixel.g > 50 && pixel.r - pixel.b > 50)
+				{
+					numRed++;
+				}
+			}
+			if ((float)numBlue / blobColors[i].size() > maxPercentBlue)
+			{
+				maxPercentBlue = (float)numBlue / blobColors[i].size();
+				blueBlob = i;
+			}
+			if ((float)numRed / blobColors[i].size() > maxPercentRed)
+			{
+				maxPercentRed = (float)numRed / blobColors[i].size();
+				redBlob = i;
+			}
+		}
+		float redX, redY, redZ;
+		float blueX, blueY, blueZ;
+		if (blobs > 0)
+		{
+			pointCloudCenter(blobPoints[blueBlob], blobColors[blueBlob], &blueX, &blueY, &blueZ);
+			glPointSize( 20.0 );
+			glColor3f(0, 0, 1);
+			glBegin(GL_POINTS);
+			glVertex3f(blueX, blueY, -blueZ);
+			glEnd();
+
+			pointCloudCenter(blobPoints[redBlob], blobColors[redBlob], &redX, &redY, &redZ);
+			glColor3f(1, 0, 0);
+			glBegin(GL_POINTS);
+			glVertex3f(redX, redY, -redZ);
+			glEnd();
+			glPointSize( 2.0 );
+		}
+		float originX = -d * normalX;
+		float originY = -d * normalY;
+		float originZ = -d * normalZ;
+		glColor3f(1, 1, 0);
+//		glBegin(GL_LINES);
+//		glVertex3f(0,0,-intersect);
+//		glVertex3f(normalX * 100, normalY * 100, -(intersect + normalZ * 100));
+//		glEnd();
+//		glBegin(GL_LINES);
+//		glVertex3f(0,0,0);
+//		glVertex3f(0,0,-intersect);
+//		glEnd();
+//		glBegin(GL_LINES);
+//		glVertex3f(originX, originY, -originZ);
+//		glVertex3f(0, 0, -intersect);
+//		glEnd();
+		float yx = -normalX;
+		float yy = -normalY;
+		float yz = -normalZ;
+		float mag = sqrt(originX * originX + originY * originY + (originZ - intersect) * (originZ - intersect));
+		float zx = -originX / mag;
+		float zy = -originY / mag;
+		float zz = (intersect - originZ) / mag;
+		float xx = yy * zz - yz * zy;
+		float xy = yz * zx - yx * zz;
+		float xz = yx * zy - yy * zx;
+//		originX = originY = 0;
+//		originZ = intersect;
 		glColor3f(0, 1, 1);
-		glBegin(GL_POINTS);
-		glVertex3f(x, y, -z);
+		glBegin(GL_LINES);
+		glVertex3f(originX, originY, -originZ);
+		glVertex3f(originX + zx * 100, originY + zy * 100, -(originZ + zz * 100));
 		glEnd();
-		glPointSize( 2.0 );
+		glColor3f(1, 0, 1);
+		glBegin(GL_LINES);
+		glVertex3f(originX, originY, -originZ);
+		glVertex3f(originX + yx * 100, originY + yy * 100, -(originZ + yz * 100));
+		glEnd();
+		glColor3f(1, 1, 0);
+		glBegin(GL_LINES);
+		glVertex3f(originX, originY, -originZ);
+		glVertex3f(originX + xx * 100, originY + xy * 100, -(originZ + xz * 100));
+		glEnd();
+		Matrix<float> transform(4, 4);
+		Matrix<float> blue(4, 1);
+		Matrix<float> red(4, 1);
+		transform.put(0, 0, xx);
+		transform.put(1, 0, xy);
+		transform.put(2, 0, xz);
+		transform.put(3, 0, 0);
+		transform.put(0, 1, yx);
+		transform.put(1, 1, yy);
+		transform.put(2, 1, yz);
+		transform.put(3, 1, 0);
+		transform.put(0, 2, zx);
+		transform.put(1, 2, zy);
+		transform.put(2, 2, zz);
+		transform.put(3, 2, 0);
+		transform.put(0, 3, originX);
+		transform.put(1, 3, originY);
+		transform.put(2, 3, originZ);
+		transform.put(3, 3, 1);
+		blue.put(0, 0, blueX);
+		blue.put(1, 0, blueY);
+		blue.put(2, 0, blueZ);
+		blue.put(3, 0, 1);
+		red.put(0, 0, redX);
+		red.put(1, 0, redY);
+		red.put(2, 0, redZ);
+		red.put(3, 0, 1);
+		Matrix<float> localBlue = transform.getInverse() * blue;
+		Matrix<float> localRed = transform.getInverse() * red;
+
+		printf("Blue: %f, %f, %f\n", localBlue.get(0, 0), localBlue.get(1, 0), localBlue.get(2, 0));
+		printf("Red: %f, %f, %f\n", localRed.get(0, 0), localRed.get(1, 0), localRed.get(2, 0));
+		fflush(stdout);
+
+		// Swap the OpenGL display buffers
+		glutSwapBuffers();
+		first = true;
 	}
-	// Swap the OpenGL display buffers
-	glutSwapBuffers();
+	else
+	{
+		m_color.readFrame(&m_colorFrame);
+		m_colorData = (const openni::RGB888Pixel*)m_colorFrame.getData();
+		first = false;
+	}
 }
 
-void Viewer::pointCloudCenter(vector<float*> &cloud, float *x, float *y, float *z)
+void Viewer::pointCloudCenter(vector<float*> &cloud, vector<openni::RGB888Pixel> &rgb, float *x, float *y, float *z)
 {
 	float sumX = 0, sumY = 0, sumZ = 0;
-	for (vector<float*>::iterator it = cloud.begin(); it < cloud.end(); it++)
+	int count = 0;
+	for (unsigned int i = 0; i < cloud.size(); i++)
 	{
-		sumX += (*it)[0];
-		sumY += (*it)[1];
-		sumZ += (*it)[2];
+		openni::RGB888Pixel pixel = rgb[i];
+		if ((pixel.b > 100 && pixel.b - pixel.r > 0 && pixel.b - pixel.g > 0) || (pixel.r > 100 && pixel.r - pixel.g > 50 && pixel.r - pixel.b > 50))
+		{
+			sumX += (cloud[i])[0];
+			sumY += (cloud[i])[1];
+			sumZ += (cloud[i])[2];
+			count++;
+		}
 	}
-	*x = sumX / cloud.size();
-	*y = sumY / cloud.size();
-	*z = sumZ / cloud.size();
+	*x = sumX / (float)count;
+	*y = sumY / (float)count;
+	*z = sumZ / (float)count;
 }
 
 float Viewer::raw_depth_to_meters(int depth_value)

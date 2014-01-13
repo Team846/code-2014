@@ -7,6 +7,7 @@ int main(int argc, char** argv)
 
 	openni::Device device;
 	openni::VideoStream depth;
+	openni::VideoStream color;
 	const char* deviceURI = openni::ANY_DEVICE;
 	if (argc > 1)
 	{
@@ -22,6 +23,8 @@ int main(int argc, char** argv)
 		openni::OpenNI::shutdown();
 		return 1;
 	}
+//	device.setImageRegistrationMode(openni::IMAGE_REGISTRATION_DEPTH_TO_COLOR);
+	device.setDepthColorSyncEnabled(true);
 
 	rc = depth.create(device, openni::SENSOR_DEPTH);
 	if (rc == openni::STATUS_OK)
@@ -38,14 +41,29 @@ int main(int argc, char** argv)
 		printf("Couldn't find depth stream: %s\n", openni::OpenNI::getExtendedError());
 	}
 
-	if (!depth.isValid())
+	rc = color.create(device, openni::SENSOR_COLOR);
+	if (rc == openni::STATUS_OK)
+	{
+		rc = color.start();
+		if (rc != openni::STATUS_OK)
+		{
+			printf("Couldn't start color stream: %s\n", openni::OpenNI::getExtendedError());
+			color.destroy();
+		}
+	}
+	else
+	{
+		printf("Couldn't find color stream: %s\n", openni::OpenNI::getExtendedError());
+	}
+
+	if (!depth.isValid() || !color.isValid())
 	{
 		printf("No valid streams. Exiting\n");
 		openni::OpenNI::shutdown();
 		return 2;
 	}
 
-	Viewer sampleViewer("Viewer", depth);
+	Viewer sampleViewer("Viewer", depth, color);
 
 	rc = sampleViewer.init(argc, argv);
 	if (rc != openni::STATUS_OK)

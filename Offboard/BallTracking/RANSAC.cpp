@@ -7,7 +7,7 @@ RANSAC::RANSAC(int iterations, float inlierDist)
 	m_inlierDist = inlierDist;
 }
 
-void RANSAC::MarkPointsInBestFitPlane(float **pointCloud, int numPts, bool *result)
+void RANSAC::MarkPointsInBestFitPlane(float **pointCloud, int numPts, bool *result, float *normalX, float *normalY, float *normalZ, float *d, float *intersect)
 {
 	if (numPts < 3)
 		return;
@@ -86,4 +86,11 @@ void RANSAC::MarkPointsInBestFitPlane(float **pointCloud, int numPts, bool *resu
 			result[j] = true;
 		}
 	}
+
+	*intersect = -D / C;
+
+	*normalX = A / sqrt(A * A + B * B + C * C) * (D < 0 ? 1 : -1);
+	*normalY = B / sqrt(A * A + B * B + C * C) * (D < 0 ? 1 : -1);
+	*normalZ = C / sqrt(A * A + B * B + C * C) * (D < 0 ? 1 : -1);
+	*d = D / sqrt(A * A + B * B + C * C) * (D < 0 ? 1 : -1);
 }

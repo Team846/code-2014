@@ -10,7 +10,7 @@ class RANSAC
 public:
 	RANSAC(int iterations, float inlierDist);
 
-	void MarkPointsInBestFitPlane(float **pointCloud, int numPts, bool *result);
+	void MarkPointsInBestFitPlane(float **pointCloud, int numPts, bool *result, float *normalX, float *normalY, float *normalZ, float *d, float *intersect);
 
 private:
 	int m_iterations;
