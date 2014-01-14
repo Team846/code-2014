@@ -1,5 +1,5 @@
 #include <OpenNI.h>
-#include "Viewer.h"
+#include "BallTracking.h"
 
 int main(int argc, char** argv)
 {
@@ -63,8 +63,9 @@ int main(int argc, char** argv)
 		return 2;
 	}
 
-	Viewer sampleViewer("Viewer", depth, color);
+	BallTracking sampleViewer("Viewer", depth, color);
 
+#ifdef GUI
 	rc = sampleViewer.init(argc, argv);
 	if (rc != openni::STATUS_OK)
 	{
@@ -72,4 +73,10 @@ int main(int argc, char** argv)
 		return 3;
 	}
 	sampleViewer.run();
+#else
+	while (true)
+	{
+		sampleViewer.update();
+	}
+#endif
 }

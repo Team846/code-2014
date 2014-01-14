@@ -7,8 +7,9 @@ main.d: ../main.cpp /home/raphael/OpenNI-Linux-x64-2.2/Include/OpenNI.h \
  /home/raphael/OpenNI-Linux-x64-2.2/Include/OniCTypes.h \
  /home/raphael/OpenNI-Linux-x64-2.2/Include/OniCEnums.h \
  /home/raphael/OpenNI-Linux-x64-2.2/Include/OniCProperties.h \
- /home/raphael/OpenNI-Linux-x64-2.2/Include/OniVersion.h ../Viewer.h \
- ../RANSAC.h ../BlobExtractor.h ../DisjointSet.h
+ /home/raphael/OpenNI-Linux-x64-2.2/Include/OniVersion.h \
+ ../BallTracking.h ../RANSAC.h ../BlobExtractor.h ../DisjointSet.h \
+ ../Serial.h
 
 /home/raphael/OpenNI-Linux-x64-2.2/Include/OpenNI.h:
 
@@ -30,10 +31,12 @@ main.d: ../main.cpp /home/raphael/OpenNI-Linux-x64-2.2/Include/OpenNI.h \
 
 /home/raphael/OpenNI-Linux-x64-2.2/Include/OniVersion.h:
 
-../Viewer.h:
+../BallTracking.h:
 
 ../RANSAC.h:
 
 ../BlobExtractor.h:
 
 ../DisjointSet.h:
+
+../Serial.h:
