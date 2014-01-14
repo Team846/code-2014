@@ -2,6 +2,7 @@
 #include "sysLib.h"
 #include "AsyncCANJaguar.h"
 #include "../Utils/AsyncPrinter.h"
+#include "../LRTRobot14.h"
 
 #define DISABLE_SETPOINT_CACHING 0
 
@@ -18,7 +19,7 @@ AsyncCANJaguar::AsyncCANJaguar(UINT8 channel, std::string name) :
 	m_should_disable_control = false;
 	m_should_disable_position_limits = false;
 	m_collection_flags = 0;
-	m_last_game_mode = RobotState::Instance().GameMode();
+	m_last_game_mode = LRTRobot14::Robot()->GameState();
 	jaguar_vector.push_back(this);
 
 	printf("Constructed AsyncCANJaguar %s on channel %d\n", name.c_str(), channel);
@@ -39,7 +40,7 @@ void AsyncCANJaguar::Tick()
 	{
 		// Set data
 		// If game mode has changed, uncache all cached values
-		if (m_last_game_mode != RobotState::Instance().GameMode())
+		if (m_last_game_mode != LRTRobot14::Robot()->GameState())
 		{
 			ResetCache();
 		}
@@ -298,7 +299,7 @@ void AsyncCANJaguar::Tick()
 				Println("Invalid hardware value, not storing\n");
 		}
 
-		m_last_game_mode = RobotState::Instance().GameMode();
+		m_last_game_mode = LRTRobot14::Robot()->GameState();
 	}
 	else
 	{

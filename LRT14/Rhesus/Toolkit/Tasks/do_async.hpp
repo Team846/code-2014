@@ -11,76 +11,112 @@ namespace Toolkit
 {
 namespace Tasks
 {
-	template<typename AsyncMethodClassPtr, typename AsyncMethodFuncPtr, typename AsyncCallbackClassPtr = AsyncMethodClassPtr, typename AsyncCallbackFuncPtr = AsyncMethodFuncPtr>
-	class do_async
-	{
-	public:
-		static INT32 AsyncMethodWrapper(UINT32 p0, UINT32 p1, UINT32 p2, UINT32 p3, UINT32 p4, UINT32 p5,
-											UINT32 p6, UINT32 p7, UINT32 p8)
-		{
-			printf("!!in wrapper!!\n");
-			
-			do_async* instance = reinterpret_cast<do_async*>(p0);
-			
-			if(instance->m_asyncFunc == NULL) return -1;
-			
-			printf("calling func: %u\n", p0);
-			
-			INT32 ret = instance->do_func(p1, p2, p3, p4, p5, p6, p7, p8);
-			
-			instance->do_callback(ret);
-			
-			return 0;
-		}
-		do_async(AsyncMethodClassPtr inst, AsyncMethodFuncPtr asyncFunc, UINT32 p0 = 0, UINT32 p1 = 0, UINT32 p2 = 0, UINT32 p3 = 0, UINT32 p4 = 0, UINT32 p5 = 0,
-				UINT32 p6 = 0, UINT32 p7 = 0)
-			: m_asyncTask(RhesusTask::CreateNew("Async Function", (FUNCPTR)AsyncMethodWrapper)),
-			  m_asyncInst(inst),
-			  m_asyncFunc(asyncFunc),
-			  m_callbackInst(NULL),
-			  m_asyncCallback(NULL)
-		{
-			printf("!!starting wrapper!!\n");
-			m_asyncTask.Start((UINT32)this, p0, p1, p2, p3, p4, p5, p6, p7);
-		}
-		
-		do_async(AsyncMethodClassPtr inst, AsyncMethodFuncPtr asyncFunc, AsyncMethodClassPtr c_inst, AsyncCallbackFuncPtr callback, UINT32 p0 = 0, UINT32 p1 = 0, UINT32 p2 = 0, UINT32 p3 = 0, UINT32 p4 = 0, UINT32 p5 = 0,
-				UINT32 p6 = 0, UINT32 p7 = 0)
-			: m_asyncTask(RhesusTask::CreateNew("Async Function", (FUNCPTR)AsyncMethodWrapper)),
-			  m_asyncInst(inst),
-			  m_asyncFunc(asyncFunc),
-			  m_callbackInst(c_inst),
-			  m_asyncCallback(callback)
-		{
-			printf("!!starting wrapper!!\n");
-			TaskPool::EnqueueTask((FUNCPTR)AsyncMethodWrapper, (UINT32)this, p0, p1, p2, p3, p4, p5, p6, p7);
-//			m_asyncTask.Start((UINT32)this, p0, p1, p2, p3, p4, p5, p6, p7);
-		}
-		
+
+	template<typename AsyncMethodClassPtr, typename AsyncMethodFuncPtr,
+			typename AsyncCallbackClassPtr = AsyncMethodClassPtr,
+			typename AsyncCallbackFuncPtr = AsyncMethodFuncPtr>
+	class do_async {
 	private:
+		struct TaskStruct {
+			AsyncMethodClassPtr ptr;
+			AsyncMethodFuncPtr mptr;
+			AsyncCallbackFuncPtr cptr;
+			AsyncCallbackClassPtr ccptr;
+			UINT32 arg0;
+			UINT32 arg1;
+			UINT32 arg2;
+			UINT32 arg3;
+			UINT32 arg4;
+			UINT32 arg5;
+			UINT32 arg6;
+			UINT32 arg7;
+		};
 		
-		INT32 do_func(UINT32 p0, UINT32 p1, UINT32 p2, UINT32 p3, UINT32 p4, UINT32 p5,
-											UINT32 p6, UINT32 p7)
-		{
-			(m_asyncInst->*m_asyncFunc)(p0, p1, p2, p3, p4, p5, p6, p7);
+	public:
+		static INT32 AsyncMethodWrapper(TaskStruct t) {
+			//		printf("!!in wrapper!!\n");
+	
+			//			do_async* instance = reinterpret_cast<do_async*>(p0);
+			//			
+			//			if(instance->m_asyncFunc == NULL) return -1;
+	
+			//		printf("calling func: %u\n", p0);
+	
+			//call function
+			INT32 retCode = (t.ptr->*t.mptr)(t.p0, t.p1, t.p2, t.p3, t.p4, t.p5, t.p6, t.p7);
+	
+			//callback
+			if (t.ccptr != NULL &&t.cptr != NULL)
+				(t.ccptr->*t.cptr)(retCode);
 			
 			return 0;
 		}
-		
-		void do_callback(INT32 retCode)
+	
+		do_async(AsyncMethodClassPtr inst, AsyncMethodFuncPtr asyncFunc,
+				UINT32 p0 = 0, UINT32 p1 = 0, UINT32 p2 = 0, UINT32 p3 = 0,
+				UINT32 p4 = 0, UINT32 p5 = 0, UINT32 p6 = 0, UINT32 p7 = 0)
 		{
-			if(m_callbackInst == NULL || m_asyncCallback == NULL)
-				return;
-			
-			(m_callbackInst->*m_asyncCallback)(retCode);
+			//		printf("!!starting wrapper!!\n");
+			TaskStruct t = create(inst, asyncFunc, NULL, NULL, p0, p1, p2,p3, p4, p5, p6, p7);
+			TaskPool::EnqueueTask((FUNCPTR) AsyncMethodWrapper(t));
+			//			m_asyncTask.Start((UINT32)this, p0, p1, p2, p3, p4, p5, p6, p7);
 		}
-		
-		RhesusTask& m_asyncTask;
-		
-		AsyncMethodClassPtr m_asyncInst;
-		AsyncMethodFuncPtr m_asyncFunc;
-		AsyncMethodClassPtr m_callbackInst;
-		AsyncCallbackFuncPtr m_asyncCallback;
+	
+		do_async(AsyncMethodClassPtr inst, AsyncMethodFuncPtr asyncFunc,
+				AsyncMethodClassPtr c_inst, AsyncCallbackFuncPtr callback,
+				UINT32 p0 = 0, UINT32 p1 = 0, UINT32 p2 = 0, UINT32 p3 = 0,
+				UINT32 p4 = 0, UINT32 p5 = 0, UINT32 p6 = 0, UINT32 p7 = 0)
+		{
+			//		printf("!!starting wrapper!!\n");
+			TaskStruct t = create(inst, asyncFunc, callback, c_inst, p0, p1, p2,p3, p4, p5, p6, p7);
+			TaskPool::EnqueueTask((FUNCPTR) AsyncMethodWrapper(t));
+			//			m_asyncTask.Start((UINT32)this, p0, p1, p2, p3, p4, p5, p6, p7);
+		}
+	
+	private:
+	
+		TaskStruct create(AsyncMethodClassPtr ptr, AsyncMethodFuncPtr mptr,
+				AsyncCallbackFuncPtr cptr, AsyncCallbackClassPtr ccptr, UINT32 arg0, UINT32 arg1, UINT32 arg2,
+				UINT32 arg3, UINT32 arg4, UINT32 arg5, UINT32 arg6, UINT32 arg7) 
+		{
+			TaskStruct t;
+			t.ptr = ptr;
+			t.mptr = mptr;
+			t.cptr = cptr;
+			t.ccptr = ccptr;
+			t.arg0 = arg0;
+			t.arg1 = arg1;
+			t.arg2 = arg2;
+			t.arg3 = arg3;
+			t.arg4 = arg4;
+			t.arg5 = arg5;
+			t.arg6 = arg6;
+			t.arg7 = arg7;
+			return t;
+		}
+	
+		//		INT32 do_func(UINT32 p0, UINT32 p1, UINT32 p2, UINT32 p3, UINT32 p4, UINT32 p5,
+		//											UINT32 p6, UINT32 p7)
+		//		{
+		//			(m_asyncInst->*m_asyncFunc)(p0, p1, p2, p3, p4, p5, p6, p7);
+		//			
+		//			return 0;
+		//		}
+		//		
+		//		void do_callback(INT32 retCode)
+		//		{
+		//			if(m_callbackInst == NULL || m_asyncCallback == NULL)
+		//				return;
+		//			
+		//			(m_callbackInst->*m_asyncCallback)(retCode);
+		//		}
+		//		
+		//		RhesusTask& m_asyncTask;
+		//		
+		//		AsyncMethodClassPtr m_asyncInst;
+		//		AsyncMethodFuncPtr m_asyncFunc;
+		//		AsyncMethodClassPtr m_callbackInst;
+		//		AsyncCallbackFuncPtr m_asyncCallback;
 	};
 }
 }

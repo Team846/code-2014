@@ -7,13 +7,16 @@
 #include "../Utilities/StringUtil.hpp"
 #include "../Utilities/ContainerCleanup.hpp"
 
+#include "../Defines.h"
+
 using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Utilities;
 
 std::queue<TaskPool::taskStructure> TaskPool::s_taskQ;
 SyncObject TaskPool::s_taskQSyncObj;
-BinarySemaphore TaskPool::s_taskSignal(0);
+CountingSemaphore TaskPool::s_taskSignal(0);
 std::vector<Task*> TaskPool::s_tasks;
+UINT32 TaskPool::s_availableTasks;
 
 void TaskPool::Start()
 {
@@ -22,6 +25,7 @@ void TaskPool::Start()
 
 void TaskPool::Start(INT32 numThreads)
 {
+	s_availableTasks = numThreads;
 	for(int i = 0; i < numThreads; i++)
 	{
 		std::string name = "TaskPool Worker Thread #" + StringUtil::ValToString<int>(i + 1);
@@ -40,6 +44,15 @@ void TaskPool::EnqueueTask(FUNCPTR ptr, UINT32 arg0, UINT32 arg1, UINT32 arg2, U
 	
 	memcpy(&task, &ptr, sizeof(FUNCPTR) + 9 * sizeof(UINT32)); // one-liner!
 	
+	if(s_availableTasks == 0)
+	{
+		Task* tempTask = new Task("TaskPool Worker Thread: Temp Task", (FUNCPTR)WorkerTemp, Task::kDefaultPriority);
+		taskStructure* pTaskStruct = new taskStructure();
+		memcpy(pTaskStruct, &task, sizeof(task));
+		tempTask->Start((UINT32)pTaskStruct, (UINT32)tempTask);
+		return;
+	}
+	
 	{
 		lock_ptr<std::queue<taskStructure> > q(s_taskQ, s_taskQSyncObj);
 		
@@ -49,35 +62,33 @@ void TaskPool::EnqueueTask(FUNCPTR ptr, UINT32 arg0, UINT32 arg1, UINT32 arg2, U
 	s_taskSignal.Give();
 }
 
-// TODO: have a master task distributor thread; if all threads are occupied, create a temporary new one.
+INT32 TaskPool::WorkerTemp(taskStructure* t, Task* thisTask)
+{
+	t->ptr(t->arg0, t->arg1, t->arg2, t->arg3, t->arg4, t->arg5, t->arg6, t->arg7, t->arg8);
+	
+	DELETE(t);
+	DELETE(thisTask);
+}
+
 INT32 TaskPool::WorkerTask()
 {
-	std::queue<taskStructure> taskQ;
+	taskStructure t;
 	
 	while(true)
 	{
 		s_taskSignal.Take();
 		
+		s_availableTasks--;
+		
 		{
 			lock_ptr<std::queue<taskStructure> > q(s_taskQ, s_taskQSyncObj);
 			
-			while(!q->empty())
-			{
-				taskStructure t = q->front();
-				q->pop();
-				
-				taskQ.push(t);
-			}
-		}
+			t = s_taskQ.front();
+			s_taskQ.pop();
+		}	
 		
-		while(!taskQ.empty())
-		{
-			taskStructure t = taskQ.front();
-			taskQ.pop();
-			
-			t.ptr(t.arg0, t.arg1, t.arg2, t.arg3, t.arg4, t.arg5, t.arg6, t.arg7, t.arg8);
-		}
+		t.ptr(t.arg0, t.arg1, t.arg2, t.arg3, t.arg4, t.arg5, t.arg6, t.arg7, t.arg8);
 		
-		ContainerCleanup::ClearQueue(taskQ);
+		s_availableTasks++;
 	}
 }
