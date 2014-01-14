@@ -2,6 +2,8 @@
 #define TYPEDEF_H_
 
 #ifdef __VXWORKS__
+#elif BUILD_ENV==BUILD_ENV_WINDOWS
+#include <Windows.h>
 #else
 #include <stdint.h>
 
