@@ -1,6 +1,6 @@
 #include "Component.h"
 #include "Drivetrain.h"
-#include "../LRTRobot14.h"
+#include "../RobotState.h"
 
 vector<Component*> Component::component_vector;
 
@@ -41,7 +41,7 @@ void Component::UpdateAll()
 
 void Component::Update()
 {
-	if (LRTRobot14::Robot()->GameState() != RobotState::DISABLED || !m_requiresEnabled)
+	if (RobotState::Instance().GameMode() != RobotState::DISABLED || !m_requiresEnabled)
 	{
 		if (m_digitalIn == -1 || DriverStation::GetInstance()->GetDigitalIn(m_digitalIn))
 		{

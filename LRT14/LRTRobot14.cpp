@@ -5,7 +5,7 @@
 #include "Actuators/Actuator.h"
 #include "Actuators/AsyncCANJaguar.h"
 #include "Actuators/Pneumatics.h"
-//#include "RobotState.h"
+#include "RobotState.h"
 #include "DriverStation/LRTDriverStation.h"
 #include "ComponentData/ComponentData.h"
 #include "Sensors/RobotLocation.h"
@@ -19,20 +19,11 @@
 #include "Communication/LiveNetworkSender.h"
 #include "Communication/OffboardCommunication.h"
 
-using namespace Rhesus::Toolkit;
-
-LRTRobot14* LRTRobot14::Robot()
-{
-	return mInstance;
-}
-
 LRTRobot14::LRTRobot14()
 {
 	_watchdog = wdCreate();
 	
 	printf("LRTRobot14 Constructed\n");
-	
-	mInstance = this;
 }
 
 LRTRobot14::~LRTRobot14()
@@ -51,19 +42,19 @@ LRTRobot14::~LRTRobot14()
 	ConfigPortMappings::Finalize();
 	ConfigRuntime::Finalize();
 	Logger::Finalize();
-	//LiveNetworkSender::Finalize();
+	LiveNetworkSender::Finalize();
 	Pneumatics::DestroyCompressor();
 	Brain::Finalize();
 	LCD::Finalize();
 	AsyncPrinter::Finalize();
 	LRTDriverStation::Finalize();
-	//RobotState::Finalize();
+	RobotState::Finalize();
 }
 
 void LRTRobot14::RobotInit()
 {
-	// Initialize robot state object
-	mLastGameState = mGameState = RobotState::DISABLED;
+	// Initialize global robot state object
+	RobotState::Initialize();
 	
 	// Initialize Utilities
 	AsyncPrinter::Initialize();
@@ -113,8 +104,8 @@ void LRTRobot14::RobotInit()
 	Logger::Instance()->Initialize();
 	
 	// Initialize the LiveNetworkSender
-	//AsyncPrinter::Println("Initializing LiveNetworkSender...");
-	//LiveNetworkSender::Initialize();
+	AsyncPrinter::Println("Initializing LiveNetworkSender...");
+	LiveNetworkSender::Initialize();
 	
 	// Apply runtime configuration
 	ConfigRuntime::ConfigureAll();
@@ -142,11 +133,11 @@ void LRTRobot14::Main()
 		AsyncPrinter::RestoreToConsole();
 	}
 	
-	// Update robot state object
-	UpdateGameState();
+	// Update global robot state object
+	RobotState::Update();
 	
-	// Zero robot location if we just enabled
-	if (mGameState != RobotState::DISABLED && mLastGameState == RobotState::DISABLED)
+	// Zero robot location if enabled
+	if (RobotState::Instance().GameMode() != RobotState::DISABLED && RobotState::Instance().LastGameMode() == RobotState::DISABLED)
 	{
 		RobotLocation::Instance()->Zero();
 	}
@@ -174,7 +165,7 @@ void LRTRobot14::Main()
 	}
 	
 	// Check for runtime configuration file changes
-	if (GameState() == RobotState::DISABLED)
+	if (RobotState::Instance().GameMode() == RobotState::DISABLED)
 	{
 		ConfigRuntime::Instance()->CheckForFileUpdates();
 	}
@@ -182,39 +173,11 @@ void LRTRobot14::Main()
 	// Utilities
 	LCD::Instance()->RunOneCycle();
 	Logger::Instance()->Run();
-	//LiveNetworkSender::Instance()->Run();
+	LiveNetworkSender::Instance()->Run();
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
 	
 	wdCancel(_watchdog);
-}
-
-RobotState::Enum LRTRobot14::GameState()
-{
-	return mGameState;
-}
-
-RobotState::Enum LRTRobot14::LastGameState()
-{
-	return mLastGameState;
-}
-
-void LRTRobot14::UpdateGameState()
-{
-	mLastGameState = mGameState;
-	
-	if(IsDisabled())
-	{
-		mGameState = RobotState::DISABLED;
-	}
-	else if(IsAutonomous())
-	{
-		mGameState = RobotState::AUTON;
-	}
-	else if(IsOperatorControl())
-	{
-		mGameState = RobotState::TELEOP;
-	}
 }
 

@@ -1,8 +1,6 @@
 #ifndef ASYNC_CAN_JAGUAR_H_
 #define ASYNC_CAN_JAGUAR_H_
 
-#include "../Rhesus/Toolkit/Rhesus.h"
-
 #include <taskLib.h>
 
 #include <CANJaguar.h>
@@ -12,11 +10,10 @@
 #include "../Utils/Util.h"
 #include "../Utils/PrintInConstructor.h"
 #include "../Utils/CachedValue.h"
+#include "../RobotState.h"
 
 #include "LRTSpeedController.h"
 #include "../Logging/Loggable.h"
-
-using namespace Rhesus::Toolkit;
 
 /*!
  * @brief Asynchronous implementation of a CAN driver for the Jaguar.
@@ -365,7 +362,7 @@ private:
 	volatile float m_expire;
 	volatile float m_value;
 
-	RobotState::Enum m_last_game_mode;
+	RobotState::Mode m_last_game_mode;
 };
 
 #endif /* ASYNC_CAN_JAGUAR_H_ */
