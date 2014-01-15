@@ -30,6 +30,16 @@ namespace Tasks
 			UINT32 arg5;
 			UINT32 arg6;
 			UINT32 arg7;
+			
+			INT32 callMethod()
+			{
+				return (ptr->*mptr)(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+			}
+			
+			INT32 callCallback(INT32 retCode)
+			{
+				return (ccptr->*cptr)(retCode);
+			}
 		};
 		
 	public:
@@ -43,11 +53,11 @@ namespace Tasks
 			//		printf("calling func: %u\n", p0);
 	
 			//call function
-			INT32 retCode = (t->ptr->*t->mptr)(t->p0, t->p1, t->p2, t->p3, t->p4, t->p5, t->p6, t->p7);
+			INT32 retCode = t->callMethod();
 	
 			//callback
 			if (t->ccptr != NULL &&t->cptr != NULL)
-				(t->ccptr->*t->cptr)(retCode);
+				t->callCallback(retCode);
 			
 			DELETE(t);
 			

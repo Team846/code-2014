@@ -20,6 +20,7 @@
 #include "Communication/OffboardCommunication.h"
 
 #include "Rhesus/Toolkit/GameState.h"
+#include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 
 LRTRobot14::LRTRobot14()
 {
