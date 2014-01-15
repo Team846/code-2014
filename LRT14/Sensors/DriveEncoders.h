@@ -5,7 +5,7 @@
 #include "LRTEncoder.h"
 #include "../Config/Configurable.h"
 #include "../Logging/Loggable.h"
-#include "../Utils/Defines.h"
+#include "../Rhesus/Toolkit/Defines.h"
 
 /*!
  * @brief Class containing left and right drivetrain encoders.

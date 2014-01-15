@@ -25,7 +25,6 @@ void BinarySemaphore::Give()
 void BinarySemaphore::Take()
 {
 	// TODO -1 may not be forever on all platforms
-#warning see todo
 	Take(-1);
 }
 

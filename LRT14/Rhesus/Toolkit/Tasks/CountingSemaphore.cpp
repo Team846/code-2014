@@ -25,7 +25,6 @@ void CountingSemaphore::Give()
 void CountingSemaphore::Take()
 {
 	// TODO -1 may not be forever on all platforms
-#warning see todo
 	Take(-1);
 }
 

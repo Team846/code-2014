@@ -2,9 +2,6 @@
 
 using namespace Rhesus::Toolkit::Control;
 
-#define IIR_DECAY 0.95
-#define IIR_DECAY(FREQ) (2 * 3.14159 * (FREQ) / 50)
-
 PID::PID(double p_gain, double i_gain, double d_gain, double ff_gain,
 		double i_decay, bool feedforward) :
 	m_runningSum(0.87)

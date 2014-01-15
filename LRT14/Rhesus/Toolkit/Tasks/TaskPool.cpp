@@ -68,6 +68,8 @@ INT32 TaskPool::WorkerTemp(taskStructure* t, Task* thisTask)
 	
 	DELETE(t);
 	DELETE(thisTask);
+	
+	return 0;
 }
 
 INT32 TaskPool::WorkerTask()
