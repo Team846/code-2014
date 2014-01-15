@@ -4,21 +4,19 @@
 #include <RobotBase.h>
 #include <Timer.h>
 
+#include "Rhesus/Toolkit/GameState.h"
+
+using namespace Rhesus::Toolkit;
+
 class RobotState
 {
 public:
-	enum Mode
-	{
-		DISABLED = 0,
-		AUTONOMOUS = 1,
-		TELEOPERATED = 2
-	};
 	static void Initialize();
 	static RobotState& Instance();
 	static void Finalize();
 	
-	Mode GameMode();
-	Mode LastGameMode();
+	GameState::Enum GameMode();
+	GameState::Enum LastGameMode();
 	double GameTime(); // Seconds
 	double TotalTime(); // Seconds
 	
@@ -28,8 +26,8 @@ private:
 	~RobotState();
 	static RobotState *m_instance;
 	
-	Mode m_gameMode;
-	Mode m_lastGameMode;
+	GameState::Enum m_gameMode;
+	GameState::Enum m_lastGameMode;
 	Timer m_gameTimer;
 	Timer m_totalTimer;
 	

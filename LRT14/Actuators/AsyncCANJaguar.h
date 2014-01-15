@@ -15,6 +15,10 @@
 #include "LRTSpeedController.h"
 #include "../Logging/Loggable.h"
 
+#include "../Rhesus/Toolkit/GameState.h"
+
+using namespace Rhesus::Toolkit;
+
 /*!
  * @brief Asynchronous implementation of a CAN driver for the Jaguar.
  * @brief Reimplements the large majority of useful operations on the Jaguar in a threaded fashion.
@@ -362,7 +366,7 @@ private:
 	volatile float m_expire;
 	volatile float m_value;
 
-	RobotState::Mode m_last_game_mode;
+	GameState::Enum m_last_game_mode;
 };
 
 #endif /* ASYNC_CAN_JAGUAR_H_ */

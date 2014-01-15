@@ -23,19 +23,19 @@ void RobotState::Finalize()
 RobotState::RobotState()
 {
 	m_totalTimer.Start();
-	m_gameMode = DISABLED;
+	m_gameMode = GameState::DISABLED;
 }
 
 RobotState::~RobotState()
 {
 }
 
-RobotState::Mode RobotState::GameMode()
+GameState::Enum RobotState::GameMode()
 {
 	return m_gameMode;
 }
 
-RobotState::Mode RobotState::LastGameMode()
+GameState::Enum RobotState::LastGameMode()
 {
 	return m_lastGameMode;
 }
@@ -55,18 +55,18 @@ void RobotState::Update()
 	m_instance->m_lastGameMode = m_instance->m_gameMode;
 	if (RobotBase::getInstance().IsDisabled())
 	{
-		m_instance->m_gameMode = DISABLED;
+		m_instance->m_gameMode = GameState::DISABLED;
 		m_instance->m_gameTimer.Stop();
 		m_instance->m_gameTimer.Reset();
 	}
 	else if (RobotBase::getInstance().IsAutonomous())
 	{
-		m_instance->m_gameMode = AUTONOMOUS;
+		m_instance->m_gameMode = GameState::AUTON;
 		m_instance->m_gameTimer.Start();
 	}
 	else if (RobotBase::getInstance().IsOperatorControl())
 	{
-		m_instance->m_gameMode = TELEOPERATED;
+		m_instance->m_gameMode = GameState::TELEOP;
 		m_instance->m_gameTimer.Start();
 	}
 }

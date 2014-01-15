@@ -1,6 +1,10 @@
 #include "LRTDriverStation.h"
 #include "../RobotState.h"
 
+#include "../Rhesus/Toolkit/GameState.h"
+
+using namespace Rhesus::Toolkit;
+
 LRTDriverStation* LRTDriverStation::m_instance = NULL;
 
 void LRTDriverStation::Initialize()
@@ -50,7 +54,7 @@ LRTDriverStation::~LRTDriverStation()
 
 void LRTDriverStation::Update()
 {
-	if (RobotState::Instance().GameMode() != RobotState::DISABLED)
+	if (RobotState::Instance().GameMode() != GameState::DISABLED)
 	{
 		Instance()->m_driver_stick->Update();
 		Instance()->m_operator_stick->Update();

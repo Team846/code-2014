@@ -19,6 +19,8 @@
 #include "Communication/LiveNetworkSender.h"
 #include "Communication/OffboardCommunication.h"
 
+#include "Rhesus/Toolkit/GameState.h"
+
 LRTRobot14::LRTRobot14()
 {
 	_watchdog = wdCreate();
@@ -137,7 +139,7 @@ void LRTRobot14::Main()
 	RobotState::Update();
 	
 	// Zero robot location if enabled
-	if (RobotState::Instance().GameMode() != RobotState::DISABLED && RobotState::Instance().LastGameMode() == RobotState::DISABLED)
+	if (RobotState::Instance().GameMode() != GameState::DISABLED && RobotState::Instance().LastGameMode() == GameState::DISABLED)
 	{
 		RobotLocation::Instance()->Zero();
 	}
@@ -165,7 +167,7 @@ void LRTRobot14::Main()
 	}
 	
 	// Check for runtime configuration file changes
-	if (RobotState::Instance().GameMode() == RobotState::DISABLED)
+	if (RobotState::Instance().GameMode() == GameState::DISABLED)
 	{
 		ConfigRuntime::Instance()->CheckForFileUpdates();
 	}

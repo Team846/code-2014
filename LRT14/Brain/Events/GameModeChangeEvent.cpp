@@ -1,12 +1,12 @@
 #include "GameModeChangeEvent.h"
 
-GameModeChangeEvent::GameModeChangeEvent(RobotState::Mode toMode)
+GameModeChangeEvent::GameModeChangeEvent(Rhesus::Toolkit::GameState::Enum toMode)
 {
 	m_toMode = toMode;
 	m_from = false;
 }
 
-GameModeChangeEvent::GameModeChangeEvent(RobotState::Mode fromMode, RobotState::Mode toMode)
+GameModeChangeEvent::GameModeChangeEvent(Rhesus::Toolkit::GameState::Enum fromMode, Rhesus::Toolkit::GameState::Enum toMode)
 {
 	m_toMode = toMode;
 	m_fromMode = fromMode;

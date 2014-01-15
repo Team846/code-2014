@@ -2,6 +2,10 @@
 #include "Drivetrain.h"
 #include "../RobotState.h"
 
+#include "../Rhesus/Toolkit/GameState.h"
+
+using namespace Rhesus::Toolkit;
+
 vector<Component*> Component::component_vector;
 
 Component::Component(const char *name, int di, bool requiresEnabledState) :
@@ -41,7 +45,7 @@ void Component::UpdateAll()
 
 void Component::Update()
 {
-	if (RobotState::Instance().GameMode() != RobotState::DISABLED || !m_requiresEnabled)
+	if (RobotState::Instance().GameMode() != GameState::DISABLED || !m_requiresEnabled)
 	{
 		if (m_digitalIn == -1 || DriverStation::GetInstance()->GetDigitalIn(m_digitalIn))
 		{

@@ -4,6 +4,10 @@
 #include "../RobotState.h"
 #include "../Utils/AsyncPrinter.h"
 
+#include "../Rhesus/Toolkit/GameState.h"
+
+using namespace Rhesus::Toolkit;
+
 LiveNetworkSender *LiveNetworkSender::m_instance = NULL;
 vector<LiveNetworkSendable*> LiveNetworkSender::liveNetworkSendables;
 
@@ -36,7 +40,7 @@ LiveNetworkSender::~LiveNetworkSender()
 
 void LiveNetworkSender::Run()
 {
-	if (RobotState::Instance().GameMode() != RobotState::DISABLED)
+	if (RobotState::Instance().GameMode() != GameState::DISABLED)
 	{
 		for (vector<LiveNetworkSendable*>::iterator it = liveNetworkSendables.begin(); it < liveNetworkSendables.end(); it++)
 		{

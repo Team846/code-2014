@@ -4,22 +4,24 @@
 #include "Event.h"
 #include "../../RobotState.h"
 
+#include "../../Rhesus/Toolkit/GameState.h"
+
 /*!
  * @brief Event that fires when the game mode changes to a particular mode.
  */
 class GameModeChangeEvent : public Event
 {
 public:
-	GameModeChangeEvent(RobotState::Mode toMode);
-	GameModeChangeEvent(RobotState::Mode fromMode, RobotState::Mode toMode);
+	GameModeChangeEvent(Rhesus::Toolkit::GameState::Enum toMode);
+	GameModeChangeEvent(Rhesus::Toolkit::GameState::Enum fromMode, Rhesus::Toolkit::GameState::Enum toMode);
 	virtual ~GameModeChangeEvent();
 	
 	virtual bool Fired();
 	virtual bool CheckCondition();
 	
 private:
-	RobotState::Mode m_toMode;
-	RobotState::Mode m_fromMode;
+	Rhesus::Toolkit::GameState::Enum m_toMode;
+	Rhesus::Toolkit::GameState::Enum m_fromMode;
 	bool m_from;
 };
 

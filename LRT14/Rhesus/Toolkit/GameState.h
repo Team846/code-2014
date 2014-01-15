@@ -5,7 +5,7 @@ namespace Rhesus
 {
 namespace Toolkit
 {
-	namespace RobotState
+	namespace GameState
 	{
 		enum Enum
 		{
