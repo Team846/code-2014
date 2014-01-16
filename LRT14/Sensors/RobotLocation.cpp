@@ -1,6 +1,7 @@
 #include "RobotLocation.h"
 #include "../RobotState.h"
 #include "math.h"
+#include "../Utils/Util.h"
 
 RobotLocation *RobotLocation::m_instance = NULL;
 
@@ -14,7 +15,7 @@ RobotLocation::RobotLocation() :
 	
 	sem = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
 	
-	m_notifier.StartPeriodic(1.0 / 100.0);
+	m_notifier.StartPeriodic(1.0 / 200.0);
 }
 
 void RobotLocation::Initialize()
@@ -41,15 +42,15 @@ void RobotLocation::Update()
 	Synchronized s(sem);
 	
 	d = m_encoders->GetRobotDist();
-	theta = m_encoders->GetTurnAngle();
+	theta = m_encoders->GetTurnAngle() - theta_zero;
 	
 	double delta_d = d - d_last;
 	double delta_theta = theta - theta_last;
 	double translation = delta_d * 360 * sin(delta_theta / 2 * acos(-1) / 180.0) / (acos(-1) * delta_theta);
 	if (translation != translation) // Catch NaN when delta_theta is zero
 		translation = delta_d;
-	x = x_last - translation * sin(theta_last + delta_theta / 2);
-	y = y_last + translation * cos(theta_last + delta_theta / 2);
+	x = x_last - translation * sin((theta_last + delta_theta / 2) * acos(-1) / 180.0);
+	y = y_last + translation * cos((theta_last + delta_theta / 2) * acos(-1) / 180.0);
 	
 	x_last = x;
 	y_last = y;
@@ -88,6 +89,11 @@ void RobotLocation::Log()
 	LogToFile(&x, "X");
 	LogToFile(&y, "Y");
 	LogToFile(&theta, "Theta");
+}
+
+void RobotLocation::Send()
+{
+	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta - theta_zero), "Data", "Location");
 }
 
 void RobotLocation::Periodic(void *param)

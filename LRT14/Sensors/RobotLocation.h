@@ -5,11 +5,12 @@
 #include "DriveEncoders.h"
 #include "../Logging/Loggable.h"
 #include "semLib.h"
+#include "../Communication/LiveNetworkSendable.h"
 
 /*!
  * @brief Localizes the robot's location relative to its start position using changes in encoder values. Uses arcs to approximate path.
  */
-class RobotLocation : public Loggable
+class RobotLocation : public Loggable, public LiveNetworkSendable
 {
 public:
 	static void Initialize();
@@ -48,6 +49,11 @@ public:
 	 * @brief Logs values to the log file.
 	 */
 	void Log();
+	
+	/*!
+	 * @brief Sends location data to the network.
+	 */
+	void Send();
 	
 	/*!
 	 * @brief Periodically called by notifier to update.

@@ -56,5 +56,5 @@ bool Repeating::Repeat()
 
 bool Repeating::FinishRepeat()
 {
-	return m_count != 0 ? m_count >= m_times : false;
+	return m_times != 0 ? m_count >= m_times : false;
 }

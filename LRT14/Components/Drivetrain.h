@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "../Control/PID.h"
 #include "../ComponentData/DrivetrainData.h"
+#include "../Communication/LiveNetworkSendable.h"
 
 class DriveESC;
 
@@ -13,7 +14,7 @@ class DriveEncoders;
 /*!
  * @brief Provides control over the drivetrain component.
  */
-class Drivetrain : public Component, public Configurable
+class Drivetrain : public Component, public Configurable, public LiveNetworkSendable
 {
 public:
 	enum Side
@@ -33,9 +34,10 @@ public:
 	
 	void Configure();
 	
-	double ComputeOutput(DrivetrainData::Axis);
+	void Send();
 
 private:
+	double ComputeOutput(DrivetrainData::Axis);
 	void ConfigurePIDObject(PID *pid, std::string objName, bool feedForward);
 	void ConfigureForwardCurrentLimit();
 	void ConfigureReverseCurrentLimit();

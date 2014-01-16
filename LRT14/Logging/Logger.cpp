@@ -107,7 +107,7 @@ void Logger::Tick()
 	fflush(file);
 #endif
 	double end = Timer::GetFPGATimestamp();
-	if (end - start > 0.01)
+	if (end - start > 0.005)
 	{
 		AsyncPrinter::Printf("Logging time overflow: %f\n", 1000 * (end - start));
 	}

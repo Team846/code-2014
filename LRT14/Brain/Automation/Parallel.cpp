@@ -1,4 +1,5 @@
 #include "Parallel.h"
+#include "../../Utils/AsyncPrinter.h"
 
 Parallel::Parallel(const char *name, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
@@ -36,7 +37,7 @@ bool Parallel::Start()
 	}
 	if (success)
 	{
-		running = routines;
+		running.insert(running.begin(), routines.begin(), routines.end());
 	}
 	return success;
 }
@@ -44,7 +45,7 @@ bool Parallel::Start()
 bool Parallel::Run()
 {
 	bool completed = true;
-	for (vector<Automation*>::iterator it = routines.begin(); it < routines.end(); it++)
+	for (vector<Automation*>::iterator it = running.begin(); it < running.end(); it++)
 	{
 		if(!(*it)->Update())
 		{
@@ -54,6 +55,7 @@ bool Parallel::Run()
 		{
 			running.erase(it++);
 			it--;
+			it--;
 		}
 	}
 	return completed;
@@ -62,7 +64,7 @@ bool Parallel::Run()
 bool Parallel::Abort()
 {
 	bool success = true;
-	for (vector<Automation*>::iterator it = routines.begin(); it < routines.end(); it++)
+	for (vector<Automation*>::iterator it = running.begin(); it < running.end(); it++)
 	{
 		bool ret = (*it)->AbortAutomation(GetAbortEvent());
 		if (!ret)
@@ -70,6 +72,7 @@ bool Parallel::Abort()
 		else
 		{
 			running.erase(it++);
+			it--;
 			it--;
 		}
 	}

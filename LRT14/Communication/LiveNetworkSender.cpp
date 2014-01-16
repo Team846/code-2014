@@ -54,21 +54,21 @@ template void LiveNetworkSender::Send<float>(float value, string key, string tab
 template void LiveNetworkSender::Send<double>(double value, string key, string table);
 template<> void LiveNetworkSender::Send<bool>(bool value, string key, string table)
 {
-	if (tables.find(table) != tables.end())
+	if (tables.find(table) == tables.end())
 		tables[table] = NetworkTable::GetTable(table);
 	tables[table]->PutBoolean(key, value);
 }
 
 template<> void LiveNetworkSender::Send<string>(string value, string key, string table)
 {
-	if (tables.find(table) != tables.end())
+	if (tables.find(table) == tables.end())
 		tables[table] = NetworkTable::GetTable(table);
 	tables[table]->PutString(key, value);
 }
 
 template<typename T> void LiveNetworkSender::Send(T value, string key, string table)
 {
-	if (tables.find(table) != tables.end())
+	if (tables.find(table) == tables.end())
 		tables[table] = NetworkTable::GetTable(table);
 	tables[table]->PutNumber(key, (double)value);
 }

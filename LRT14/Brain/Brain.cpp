@@ -60,7 +60,7 @@ Brain::Brain() :
 	Parallel *positionHold = new Parallel("PositionHold");
 	positionHold->AddAutomation(new Drive(0.0));
 	positionHold->AddAutomation(new Turn(0.0));
-	positionHold->AddAutomation(new Repeating("RepeatPause", new Pause(0.0)));
+	positionHold->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	

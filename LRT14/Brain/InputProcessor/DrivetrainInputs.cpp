@@ -55,12 +55,12 @@ void DrivetrainInputs::Update()
 	double turnComposite = turnInPlace * (blend) + constRadiusTurn
 			* (1 - blend); //blended function
 
-	if (m_driver_wheel->IsButtonDown(
-			DriverStationConfig::JoystickButtons::STOP_ROBOT))
-	{
-		forward = 0.0;
-		turnComposite = 0.0;
-		turn = 0.0;
+//	if (m_driver_wheel->IsButtonDown(
+//			DriverStationConfig::JoystickButtons::STOP_ROBOT))
+//	{
+//		forward = 0.0;
+//		turnComposite = 0.0;
+//		turn = 0.0;
 //		if (!lastStop)
 //		{
 //			stoppedForward
@@ -85,10 +85,10 @@ void DrivetrainInputs::Update()
 //				stoppedTurn
 //						- drivetrainData->getCurrentPos(
 //								TURN), 1.0);
-		lastStop = true;
-	}
-	else
-		lastStop = false;
+//		lastStop = true;
+//	}
+//	else
+//		lastStop = false;
 	if (m_driver_wheel->IsButtonJustPressed(
 		DriverStationConfig::JoystickButtons::REVERSE_DRIVE))
 	{
