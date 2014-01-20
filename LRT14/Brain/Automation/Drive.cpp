@@ -2,6 +2,7 @@
 #include "../../ComponentData/DrivetrainData.h"
 #include <math.h>
 #include "../../Utils/Util.h"
+#include "../../Sensors/DriveEncoders.h"
 
 Drive::Drive(double distance, double maxSpeed, double errorThreshold, bool continuous) :
 	Automation("Drive")
@@ -29,13 +30,14 @@ bool Drive::Start()
 		m_drivetrain->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
 		m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, Util::Sign(m_distance) * m_maxSpeed);
 	}
-	//m_drivetrain->SetRelativePositionSetpoint(DrivetrainData::FORWARD, m_distance, m_maxSpeed, true);
+	m_drivetrain->SetRelativePositionSetpoint(DrivetrainData::FORWARD, m_distance);
+	m_drivetrain->SetPositionControlMaxSpeed(DrivetrainData::FORWARD, m_maxSpeed);
 	return true;
 }
 
 bool Drive::Run()
 {
-	return true;//fabs(m_drivetrain->GetRelativePositionSetpoint(DrivetrainData::FORWARD)) < m_errorThreshold;
+	return fabs(DriveEncoders::Get()->GetRobotDist() - m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD)) < m_errorThreshold;
 }
 
 bool Drive::Abort()

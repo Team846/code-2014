@@ -2,6 +2,8 @@
 
 #include "RUnitException.h"
 
+#include <iostream>
+
 using namespace RUnit;
 
 const unsigned char TestApparatus::OPT_QUIET = 1; // 0001
@@ -42,6 +44,8 @@ void TestApparatus::Run()
 {
 	for(std::vector<Test>::iterator it = m_tests.begin(); it != m_tests.end(); ++it)
 	{
+		std::cout << "Running test...\n";
+		
 		it->result = TestResult(TestResultType::NO_RESULT, TestStatus::IN_PROGRESS, "");
 		
 		bool success = true;
@@ -62,6 +66,8 @@ void TestApparatus::Run()
 		if(success)
 		{
 			it->result = TestResult(TestResultType::SUCCESS, TestStatus::DONE, "Succeeded.");
+			std::cout << "Test succeeded.";
+			//std::cout << it->name << ": " << it->result.Message() << "\n";
 		}
 	}
 }

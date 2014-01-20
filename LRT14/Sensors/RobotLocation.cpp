@@ -11,7 +11,7 @@ RobotLocation::RobotLocation() :
 {
 	x = y = x_last = y_last = theta_zero = d = theta = d_last = theta_last = 0.0;
 	
-	m_encoders = DriveEncoders::Instance();
+	m_encoders = DriveEncoders::Get();
 	
 	sem = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
 	
@@ -93,7 +93,7 @@ void RobotLocation::Log()
 
 void RobotLocation::Send()
 {
-	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta - theta_zero), "Data", "Location");
+	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta), "Data", "Location");
 }
 
 void RobotLocation::Periodic(void *param)

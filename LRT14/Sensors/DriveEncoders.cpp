@@ -36,7 +36,7 @@ DriveEncoders::~DriveEncoders()
 	m_instance = NULL;
 }
 
-DriveEncoders* DriveEncoders::Instance()
+DriveEncoders* DriveEncoders::Get()
 {
 	return m_instance;
 }

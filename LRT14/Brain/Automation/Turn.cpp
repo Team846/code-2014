@@ -1,6 +1,8 @@
 #include "Turn.h"
 #include "../../ComponentData/DrivetrainData.h"
 #include <math.h>
+#include "../../Utils/Util.h"
+#include "../../Sensors/DriveEncoders.h"
 
 Turn::Turn(double angle, double maxSpeed, double errorThreshold) :
 	Automation("Turn")
@@ -18,14 +20,14 @@ void Turn::AllocateResources()
 
 bool Turn::Start()
 {
-	m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::POSITION_CONTROL);
-	//m_drivetrain->SetRelativePositionSetpoint(DrivetrainData::TURN, m_angle, m_maxSpeed, true);
+	m_drivetrain->SetRelativePositionSetpoint(DrivetrainData::TURN, m_angle);
+	m_drivetrain->SetPositionControlMaxSpeed(DrivetrainData::TURN, m_maxSpeed);
 	return true;
 }
 
 bool Turn::Run()
 {
-	return true;//fabs(m_drivetrain->GetRelativePositionSetpoint(DrivetrainData::TURN)) < m_errorThreshold;
+	return fabs(DriveEncoders::Get()->GetTurnAngle() - m_drivetrain->GetPositionSetpoint(DrivetrainData::TURN)) < m_errorThreshold;
 }
 
 bool Turn::Abort()

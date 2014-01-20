@@ -50,9 +50,10 @@ void Autonomous::AllocateResources()
 {
 	AllocateResource(DRIVE);
 	AllocateResource(TURN);
-	AllocateResource(COLLECTOR_SLIDE);
+	AllocateResource(COLLECTOR_ARM);
 	AllocateResource(COLLECTOR_ROLLERS);
-	AllocateResource(ANGLE);
+	AllocateResource(SHOOTER_ANGLE);
+	AllocateResource(SHOOTER_LOADER);
 }
 
 void Autonomous::LoadRoutine(std::string path)

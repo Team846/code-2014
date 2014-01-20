@@ -65,13 +65,13 @@ Brain::Brain() :
 	m_automation.push_back(positionHold);
 	
 	// Create events to be used
-	Event *toAuto = new GameModeChangeEvent(GameState::AUTON);
+	Event *toAuto = new GameModeChangeEvent(GameState::AUTONOMOUS);
 	Event *driverStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetDriverStick());
 	Event *operatorStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetOperatorStick());
 	Event *driverStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick());
 	Event *operatorStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick());
-	Event *position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
-	Event *position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
+	Event *position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
+	Event *position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
 	
 	// Map events to tasks to start/abort/continue
 	toAuto->AddStartListener(auton);

@@ -10,8 +10,8 @@ namespace Toolkit
 		enum Enum
 		{
 			DISABLED = 0x00,
-			AUTON = 0x01,
-			TELEOP = 0x02,
+			AUTONOMOUS = 0x01,
+			TELEOPERATED = 0x02,
 		};
 	};
 }

@@ -61,12 +61,12 @@ void RobotState::Update()
 	}
 	else if (RobotBase::getInstance().IsAutonomous())
 	{
-		m_instance->m_gameMode = GameState::AUTON;
+		m_instance->m_gameMode = GameState::AUTONOMOUS;
 		m_instance->m_gameTimer.Start();
 	}
 	else if (RobotBase::getInstance().IsOperatorControl())
 	{
-		m_instance->m_gameMode = GameState::TELEOP;
+		m_instance->m_gameMode = GameState::TELEOPERATED;
 		m_instance->m_gameTimer.Start();
 	}
 }

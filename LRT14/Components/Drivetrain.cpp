@@ -40,7 +40,7 @@ Drivetrain::~Drivetrain()
 
 double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 {
-//	double positionSetpoint = m_drivetrainData->GetRelativePositionSetpoint(axis);
+	double positionSetpoint = m_drivetrainData->GetPositionSetpoint(axis);
 
 	double velocitySetpoint = m_drivetrainData->GetVelocitySetpoint(axis);
 	
@@ -51,12 +51,11 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	case DrivetrainData::POSITION_CONTROL:
 //		if (!m_drivetrainData->SyncingArc() || axis == DrivetrainData::FORWARD)
 //		{
-//			m_PIDs[POSITION][axis].setInput(0.0); // We're always at our current position! -BA
-//			m_PIDs[POSITION][axis].setSetpoint(positionSetpoint);
-//			velocitySetpoint = m_PIDs[POSITION][axis].update(
-//					1.0 / RobotConfig::LOOP_RATE);
-//			if (fabs(velocitySetpoint)> m_drivetrainData->GetPositionControlMaxSpeed(axis))
-//				velocitySetpoint = Util::Sign(velocitySetpoint) * m_drivetrainData->getPositionControlMaxSpeed(axis);
+			m_PIDs[POSITION][axis].SetInput(axis == DrivetrainData::FORWARD ? m_driveEncoders->GetRobotDist() : m_driveEncoders->GetTurnAngle()); // We're always at our current position! -BA
+			m_PIDs[POSITION][axis].SetSetpoint(positionSetpoint);
+			velocitySetpoint = m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
+			if (fabs(velocitySetpoint)> m_drivetrainData->GetPositionControlMaxSpeed(axis))
+				velocitySetpoint = Util::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
 //		}
 //		else // Turn control in arc syncing mode
 //		{

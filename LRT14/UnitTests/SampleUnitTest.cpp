@@ -17,7 +17,7 @@ INT32 TestDummy()
 extern "C"
 {
 	INT32 FRC_UserProgram_StartupLibraryInit()
-	{
+	{      
 		TestApparatus app;
 		
 		app.EnableOption(TestApparatus::OPT_BASIC);

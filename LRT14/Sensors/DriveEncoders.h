@@ -26,7 +26,7 @@ public:
 	 */
 	~DriveEncoders();
 	
-	static DriveEncoders* Instance();
+	static DriveEncoders* Get();
 	
 	/*!
 	 * @brief Configures constants.
