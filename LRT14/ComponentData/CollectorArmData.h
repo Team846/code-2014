@@ -8,8 +8,8 @@ class CollectorArmData : public ComponentData
 public:
 	CollectorArmData();
 	
-private:
-	
+	void ResetCommands();
+	void Log();
 };
 
 #endif

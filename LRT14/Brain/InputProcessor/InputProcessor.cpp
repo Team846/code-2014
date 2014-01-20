@@ -12,7 +12,7 @@ InputProcessor::~InputProcessor()
 
 bool InputProcessor::CheckResources()
 {
-	for (vector<ControlResource>::iterator it = resources.begin(); it < resources.end(); it++)
+	for (vector<ControlResource::Enum>::iterator it = resources.begin(); it < resources.end(); it++)
 	{
 		if (Automation::GetAllocation(*it))
 			return false;
@@ -20,7 +20,7 @@ bool InputProcessor::CheckResources()
 	return true;
 }
 
-void InputProcessor::RegisterResource(ControlResource resource)
+void InputProcessor::RegisterResource(ControlResource::Enum resource)
 {
 	resources.push_back(resource);
 }

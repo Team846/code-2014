@@ -7,10 +7,6 @@
 
 #include "Drive.h"
 #include "Turn.h"
-//#include "Routines/Shoot.h"
-//#include "Routines/Angle.h"
-//#include "Routines/Arms.h"
-//#include "Routines/Arc.h"
 #include "Pause.h"
 #include "Repeating.h"
 #include "Parallel.h"
@@ -48,12 +44,12 @@ bool Autonomous::Start()
 
 void Autonomous::AllocateResources()
 {
-	AllocateResource(DRIVE);
-	AllocateResource(TURN);
-	AllocateResource(COLLECTOR_ARM);
-	AllocateResource(COLLECTOR_ROLLERS);
-	AllocateResource(SHOOTER_ANGLE);
-	AllocateResource(SHOOTER_LOADER);
+	AllocateResource(ControlResource::DRIVE);
+	AllocateResource(ControlResource::TURN);
+	AllocateResource(ControlResource::COLLECTOR_ARM);
+	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
+	AllocateResource(ControlResource::SHOOTER_ANGLE);
+	AllocateResource(ControlResource::SHOOTER_LOADER);
 }
 
 void Autonomous::LoadRoutine(std::string path)

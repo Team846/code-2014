@@ -5,3 +5,13 @@ CollectorArmData::CollectorArmData() :
 {
 	
 }
+
+void CollectorArmData::ResetCommands()
+{
+	
+}
+
+void CollectorArmData::Log()
+{
+	
+}

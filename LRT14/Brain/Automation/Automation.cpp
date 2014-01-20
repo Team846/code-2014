@@ -1,6 +1,6 @@
 #include "Automation.h"
 
-map<ControlResource, int> Automation::allocated;
+map<ControlResource::Enum, int> Automation::allocated;
 vector<Automation*> Automation::automation_vector;
 
 Automation::Automation(const char *name, bool requiresAbortCycles, bool queueIfBlocked, bool restartable)
@@ -34,10 +34,10 @@ bool Automation::Update()
 
 bool Automation::CheckResources()
 {
-	map<ControlResource, int> original = allocated;
+	map<ControlResource::Enum, int> original = allocated;
 	AllocateResources();
 	bool success = true;
-	for (map<ControlResource, int>::iterator it = allocated.begin(); it != allocated.end(); it++)
+	for (map<ControlResource::Enum, int>::iterator it = allocated.begin(); it != allocated.end(); it++)
 	{
 		if (it->second > 1) // Resource allocated by this routine twice or resource already allocated by another routine
 		{
@@ -57,7 +57,7 @@ bool Automation::CheckResources()
 	}
 	else
 	{
-		for (map<ControlResource, int>::iterator it = allocated.begin(); it != allocated.end(); it++)
+		for (map<ControlResource::Enum, int>::iterator it = allocated.begin(); it != allocated.end(); it++)
 		{
 			if (original.find(it->first) == original.end())
 				resources.push_back(it->first);
@@ -116,7 +116,7 @@ Event* Automation::GetContinueEvent()
 	return m_continueEvent;
 }
 
-bool Automation::AllocateResource(ControlResource resource)
+bool Automation::AllocateResource(ControlResource::Enum resource)
 {
 	if (allocated.find(resource) == allocated.end())
 	{
@@ -129,7 +129,7 @@ bool Automation::AllocateResource(ControlResource resource)
 
 void Automation::DeallocateResources()
 {
-	for (vector<ControlResource>::iterator it = resources.begin(); it != resources.end(); it++)
+	for (vector<ControlResource::Enum>::iterator it = resources.begin(); it != resources.end(); it++)
 	{
 		if (allocated.find(*it) != allocated.end())
 			allocated.erase(*it);
@@ -137,7 +137,7 @@ void Automation::DeallocateResources()
 	resources.clear();
 }
 
-bool Automation::GetAllocation(ControlResource resource)
+bool Automation::GetAllocation(ControlResource::Enum resource)
 {
 	if (allocated.find(resource) != allocated.end())
 		return allocated[resource] == 1;

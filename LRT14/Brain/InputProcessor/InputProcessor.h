@@ -29,10 +29,10 @@ protected:
 	 * @brief Adds a resource to be used.
 	 * @param resource the resource to add
 	 */
-	void RegisterResource(ControlResource resource);
+	void RegisterResource(ControlResource::Enum resource);
 	
 private:
-	vector<ControlResource> resources;
+	vector<ControlResource::Enum> resources;
 };
 
 #endif

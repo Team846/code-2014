@@ -5,3 +5,13 @@ ShooterAngleData::ShooterAngleData() :
 {
 	
 }
+
+void ShooterAngleData::ResetCommands()
+{
+	
+}
+
+void ShooterAngleData::Log()
+{
+	
+}

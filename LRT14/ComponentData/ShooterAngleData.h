@@ -7,9 +7,9 @@ class ShooterAngleData : public ComponentData
 {
 public:
 	ShooterAngleData();
-	
-private:
-	
+
+	void ResetCommands();
+	void Log();
 };
 
 #endif

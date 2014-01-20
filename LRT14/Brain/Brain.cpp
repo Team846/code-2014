@@ -23,6 +23,7 @@
 #include "Events/JoystickHeldEvent.h"
 #include "Events/JoystickReleasedEvent.h"
 #include "Events/MultipleEvent.h"
+#include "Events/DelayedEvent.h"
 
 #include "../Rhesus/Toolkit/GameState.h"
 
@@ -70,6 +71,7 @@ Brain::Brain() :
 	Event *operatorStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetOperatorStick());
 	Event *driverStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick());
 	Event *operatorStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick());
+	Event *disabledTimeout = new DelayedEvent(new GameModeChangeEvent(GameState::DISABLED), 100);
 	Event *position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
 	Event *position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
 	
@@ -79,6 +81,7 @@ Brain::Brain() :
 	operatorStickMoved->AddAbortListener(auton);
 	driverStickPressed->AddAbortListener(auton);
 	operatorStickPressed->AddAbortListener(auton);
+	disabledTimeout->AddAbortListener(auton);
 	position_hold_start->AddStartListener(positionHold);
 	position_hold_abort->AddAbortListener(positionHold);
 }

@@ -16,7 +16,7 @@ Drive::Drive(double distance, double maxSpeed, double errorThreshold, bool conti
 
 void Drive::AllocateResources()
 {
-	AllocateResource(DRIVE);
+	AllocateResource(ControlResource::DRIVE);
 }
 
 bool Drive::Start()

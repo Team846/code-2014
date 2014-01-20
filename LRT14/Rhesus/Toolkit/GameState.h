@@ -13,7 +13,7 @@ namespace Toolkit
 			AUTONOMOUS = 0x01,
 			TELEOPERATED = 0x02,
 		};
-	};
+	}
 }
 }
 

@@ -15,11 +15,12 @@ Turn::Turn(double angle, double maxSpeed, double errorThreshold) :
 
 void Turn::AllocateResources()
 {
-	AllocateResource(TURN);
+	AllocateResource(ControlResource::TURN);
 }
 
 bool Turn::Start()
 {
+	m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::POSITION_CONTROL);
 	m_drivetrain->SetRelativePositionSetpoint(DrivetrainData::TURN, m_angle);
 	m_drivetrain->SetPositionControlMaxSpeed(DrivetrainData::TURN, m_maxSpeed);
 	return true;

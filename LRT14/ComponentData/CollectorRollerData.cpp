@@ -5,3 +5,13 @@ CollectorRollerData::CollectorRollerData() :
 {
 	
 }
+
+void CollectorRollerData::ResetCommands()
+{
+	
+}
+
+void CollectorRollerData::Log()
+{
+	
+}

@@ -1,5 +1,9 @@
 #include "ComponentData.h"
 #include "DrivetrainData.h"
+#include "CollectorArmData.h"
+#include "CollectorRollerData.h"
+#include "ShooterLoaderData.h"
+#include "ShooterAngleData.h"
 
 map<string, ComponentData*> ComponentData::componentData_map;
 vector<ComponentData*> ComponentData::data;
@@ -13,6 +17,10 @@ ComponentData::ComponentData(string name) :
 void ComponentData::Initialize()
 {
 	data.push_back(new DrivetrainData());
+	data.push_back(new CollectorArmData());
+	data.push_back(new CollectorRollerData());
+	data.push_back(new ShooterLoaderData());
+	data.push_back(new ShooterAngleData());
 }
 
 void ComponentData::Finalize()

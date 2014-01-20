@@ -7,9 +7,9 @@ class CollectorRollerData : public ComponentData
 {
 public:
 	CollectorRollerData();
-	
-private:
-	
+
+	void ResetCommands();
+	void Log();
 };
 
 #endif

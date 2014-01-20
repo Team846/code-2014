@@ -73,7 +73,7 @@ public:
 	 * @param resource the resource to check
 	 * @return the task that allocated the resource, or NULL if the resource is not allocated
 	 */
-	static bool GetAllocation(ControlResource resource);
+	static bool GetAllocation(ControlResource::Enum resource);
 	
 	/*!
 	 * @brief Gets whether a task can be restarted (started again when already running).
@@ -125,7 +125,7 @@ protected:
 	 * @param resource the resource to allocate
 	 * @return if the allocation was successful
 	 */
-	bool AllocateResource(ControlResource resource);
+	bool AllocateResource(ControlResource::Enum resource);
 
 	/*!
 	 * @brief Gets whether this task is aborting (abort event fired and requires abort cycles).
@@ -158,8 +158,8 @@ protected:
 	Event* GetContinueEvent();
 	
 private:
-	static map<ControlResource, int> allocated;
-	vector<ControlResource> resources;
+	static map<ControlResource::Enum, int> allocated;
+	vector<ControlResource::Enum> resources;
 	Event *m_startEvent;
 	Event *m_abortEvent;
 	Event *m_continueEvent;
