@@ -20,6 +20,8 @@ public class LocalizationViz extends JPanel implements ActionListener
 	
 	private NetworkTable nt;
 
+	private String redBall, blueBall;
+
 	
 	public LocalizationViz()
 	{	
@@ -34,6 +36,8 @@ public class LocalizationViz extends JPanel implements ActionListener
 		timer  = new Timer(10, this);
 		timer.start();
 		
+		redBall = blueBall = "";
+		
 	}
 	
 	@Override
@@ -47,6 +51,9 @@ public class LocalizationViz extends JPanel implements ActionListener
 			x = valArray[0];
 			y = valArray[1];
 			theta = valArray[2];
+			
+			redBall = nt.getString("redBall");
+			blueBall = nt.getString("blueBall");
 		}
 		
 		catch(TableKeyNotDefinedException ex)
@@ -72,6 +79,21 @@ public class LocalizationViz extends JPanel implements ActionListener
 		g.drawString("X Position: " + x, 0, 10);
 		g.drawString("Y Position: " + y, 0, 20);
 		g.drawString("Rotation Angle: " + theta, 0, 30);
+		
+		if(redBall !=  "")
+		{
+			String[] val = redBall.split(" ");
+			g.setColor(Color.MAGENTA);
+			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1]) * 10),20,20);		
+		}
+		
+		if(blueBall !=  "")
+		{
+			String[] val = blueBall.split(" ");
+			g.setColor(Color.BLUE);
+			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1]) * 10),20,20);					
+			
+		}
 	
 		
 	}
