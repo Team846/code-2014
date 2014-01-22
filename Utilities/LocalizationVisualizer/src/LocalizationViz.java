@@ -1,9 +1,12 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
@@ -21,14 +24,14 @@ public class LocalizationViz extends JPanel implements ActionListener
 	private NetworkTable nt;
 
 	private String redBall, blueBall;
-
+	
 	
 	public LocalizationViz()
 	{	
 		
 		NetworkTable.setClientMode();
 		NetworkTable.setIPAddress("10.8.46.2");
-		
+				
 		nt = NetworkTable.getTable("Location");
 		
 		x = y = theta = "0";
@@ -37,6 +40,7 @@ public class LocalizationViz extends JPanel implements ActionListener
 		timer.start();
 		
 		redBall = blueBall = "";
+		
 		
 	}
 	
@@ -80,21 +84,29 @@ public class LocalizationViz extends JPanel implements ActionListener
 		g.drawString("Y Position: " + y, 0, 20);
 		g.drawString("Rotation Angle: " + theta, 0, 30);
 		
+		
+		
+		
+		
 		if(redBall !=  "")
 		{
 			String[] val = redBall.split(" ");
 			g.setColor(Color.MAGENTA);
-			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1]) * 10),20,20);		
+			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1])*10),20,20);		
+			g.drawString("Ball X : "+ (int)(Double.parseDouble(val[0]) * 10), width-75, 10);
+			g.drawString("Ball Y : "+ (int)(Double.parseDouble(val[1])*10), width-75, 20);
 		}
 		
 		if(blueBall !=  "")
 		{
 			String[] val = blueBall.split(" ");
 			g.setColor(Color.BLUE);
-			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1]) * 10),20,20);					
-			
+			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1])*10),20,20);					
+			g.drawString("Ball X : "+ (int)(Double.parseDouble(val[0]) * 10), width-75, 10);
+			g.drawString("Ball Y : "+ (int)(Double.parseDouble(val[1])*10), width-75, 20);
 		}
-	
+		
+		
 		
 	}
 	
