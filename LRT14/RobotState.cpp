@@ -24,6 +24,7 @@ RobotState::RobotState()
 {
 	m_totalTimer.Start();
 	m_gameMode = GameState::DISABLED;
+	m_lastTime = 0.0;
 }
 
 RobotState::~RobotState()
@@ -50,6 +51,11 @@ double RobotState::TotalTime()
 	return m_totalTimer.Get();
 }
 
+double RobotState::LastCycleTime()
+{
+	return m_currentTime - m_lastTime;
+}
+
 void RobotState::Update()
 {
 	m_instance->m_lastGameMode = m_instance->m_gameMode;
@@ -69,4 +75,6 @@ void RobotState::Update()
 		m_instance->m_gameMode = GameState::TELEOPERATED;
 		m_instance->m_gameTimer.Start();
 	}
+	m_lastTime = m_currentTime;
+	m_currentTime = Timer::GetFPGATimestamp();
 }

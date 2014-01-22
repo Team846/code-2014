@@ -19,6 +19,7 @@ public:
 	GameState::Enum LastGameMode();
 	double GameTime(); // Seconds
 	double TotalTime(); // Seconds
+	double LastCycleTime(); // Seconds
 	
 	static void Update();
 private:
@@ -30,6 +31,8 @@ private:
 	GameState::Enum m_lastGameMode;
 	Timer m_gameTimer;
 	Timer m_totalTimer;
+	double m_lastTime;
+	double m_currentTime;
 	
 	DISALLOW_COPY_AND_ASSIGN(RobotState);
 };
