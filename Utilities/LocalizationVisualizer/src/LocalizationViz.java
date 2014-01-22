@@ -93,8 +93,8 @@ public class LocalizationViz extends JPanel implements ActionListener
 			String[] val = redBall.split(" ");
 			g.setColor(Color.MAGENTA);
 			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1])*10),20,20);		
-			g.drawString("Ball X : "+ (int)(Double.parseDouble(val[0]) * 10), width-75, 10);
-			g.drawString("Ball Y : "+ (int)(Double.parseDouble(val[1])*10), width-75, 20);
+			g.drawString("Red Ball X : "+ (int)(Double.parseDouble(val[0]) * 10), width-75, 10);
+			g.drawString("Red Ball Y : "+ (int)(Double.parseDouble(val[1])*10), width-75, 20);
 		}
 		
 		if(blueBall !=  "")
@@ -102,8 +102,8 @@ public class LocalizationViz extends JPanel implements ActionListener
 			String[] val = blueBall.split(" ");
 			g.setColor(Color.BLUE);
 			g.fillOval(width/2 - 10 + (int)(Double.parseDouble(val[0]) * 10),height/2 - 10 - (int)(Double.parseDouble(val[1])*10),20,20);					
-			g.drawString("Ball X : "+ (int)(Double.parseDouble(val[0]) * 10), width-75, 10);
-			g.drawString("Ball Y : "+ (int)(Double.parseDouble(val[1])*10), width-75, 20);
+			g.drawString("Blue Ball X : "+ (int)(Double.parseDouble(val[0]) * 10), width-75, 30);
+			g.drawString("Blue Ball Y : "+ (int)(Double.parseDouble(val[1])*10), width-75, 40);
 		}
 		
 		
