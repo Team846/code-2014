@@ -31,7 +31,7 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/windriver/workspace
+WS_ROOT_DIR := C:/WindRiver/workspace
 PRJ_ROOT_DIR := D:/Robotics/Code14/WPILib
 
 

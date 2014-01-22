@@ -6,10 +6,29 @@
 class CollectorRollerData : public ComponentData
 {
 public:
+	enum RollerDirection
+	{
+		FORWARD = 1, 
+		BACKWARD = -1
+	};
+	
 	CollectorRollerData();
+	
+	CollectorRollerData* Get();
 
+	void SetEnabled(bool enabled);
+	bool GetEnabled();
+	
+	void SetDirection(RollerDirection r);
+	RollerDirection GetDirection();
+	
 	void ResetCommands();
 	void Log();
+	
+private:
+	bool m_enabled;
+	RollerDirection m_direction;
+	
 };
 
 #endif
