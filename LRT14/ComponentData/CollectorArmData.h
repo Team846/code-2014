@@ -6,10 +6,26 @@
 class CollectorArmData : public ComponentData
 {
 public:
-	CollectorArmData();
+	enum Position
+	{
+		STOWED,
+		HOLD,
+		PURGE,
+		COLLECT
+	};
 	
+	CollectorArmData();
+	CollectorArmData* Get();
+	
+	void SetPosition(Position position);
+	Position GetPosition();
+	
+protected:
 	void ResetCommands();
 	void Log();
+private:
+	Position m_position;
+	
 };
 
 #endif
