@@ -16,7 +16,6 @@ public:
 	bool Abort();
 	void AllocateResources();
 
-protected:
 	void Configure();
 	
 private:

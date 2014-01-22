@@ -42,7 +42,6 @@ public:
 	bool ShouldOverrideForwardCurrentLimit();
 	bool ShouldOverrideReverseCurrentLimit();
 	
-protected:
 	void ResetCommands();
 	void Log();
 	

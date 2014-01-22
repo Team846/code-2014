@@ -1,18 +1,15 @@
-#ifndef COLLECTOR_H_
-#define COLLECTOR_H_
+#ifndef COLLECTOR_ROLLERS_H_
+#define COLLECTOR_ROLLERS_H_
 
-#include "../Config/Configurable.h"
 #include "Component.h"
-#include "../Control/PID.h"
+#include "../Config/Configurable.h"
 #include "../ComponentData/CollectorRollerData.h"
-#include "../Communication/LiveNetworkSendable.h"
 
 /*!
- * @brief Provides control over the collector roller component.
+ * @brief Provides control over the collector rollers.
  */
-class CollectorRollers : public Component, public Configurable, public LiveNetworkSendable
+class CollectorRollers : public Component, public Configurable
 {
-	
 public:
 	CollectorRollers();
 	~CollectorRollers();
@@ -24,12 +21,6 @@ public:
 	void UpdateDisabled();
 		
 	void Configure();
-		
-	void Send();
-	
-private:
-	
-	
 };
 
 #endif

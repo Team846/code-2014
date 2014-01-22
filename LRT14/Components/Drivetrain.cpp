@@ -1,6 +1,5 @@
 #include "Drivetrain.h"
 
-#include "../Config/ConfigRuntime.h"
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/RobotConfig.h"
 #include "../Sensors/DriveEncoders.h"
@@ -11,7 +10,7 @@
 #include "../Actuators/LRTJaguar.h"
 
 Drivetrain::Drivetrain() :
-	Component("Drivetrain", DriverStationConfig::DigitalIns::DRIVETRAIN, true),
+	Component("Drivetrain", DriverStationConfig::DigitalIns::DRIVETRAIN),
 	Configurable("Drivetrain")
 {
 	m_driveEncoders = new DriveEncoders(ConfigPortMappings::Get("Digital/LEFT_DRIVE_ENCODER_A"),
@@ -50,52 +49,11 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	switch (m_drivetrainData->GetControlMode(axis))
 	{
 	case DrivetrainData::POSITION_CONTROL:
-//		if (!m_drivetrainData->SyncingArc() || axis == DrivetrainData::FORWARD)
-//		{
-			m_PIDs[POSITION][axis].SetInput(axis == DrivetrainData::FORWARD ? m_driveEncoders->GetRobotDist() : m_driveEncoders->GetTurnAngle());
-			m_PIDs[POSITION][axis].SetSetpoint(positionSetpoint);
-			velocitySetpoint += m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
-			if (fabs(velocitySetpoint)> m_drivetrainData->GetPositionControlMaxSpeed(axis))
-				velocitySetpoint = Util::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
-//		}
-//		else // Turn control in arc syncing mode
-//		{
-//			m_PIDs[POSITION][axis].setInput(m_drivetrainData->getRelativePositionSetpoint(FORWARD)
-//					/ (m_drivetrainData->getAbsolutePositionSetpoint(FORWARD)
-//							- m_drivetrainData->getPositionControlStartingPosition(FORWARD))
-//					- m_drivetrainData->getRelativePositionSetpoint(TURN)
-//					/ (m_drivetrainData->getAbsolutePositionSetpoint(TURN)
-//							- m_drivetrainData->getPositionControlStartingPosition(TURN))); // Turn vs. forward proportion difference
-//			m_PIDs[POSITION][axis].setSetpoint(0.0);
-//			
-//			/* 
-//			 * To get a turn velocity from a forward velocity and a desired arc radius, use the following formula:
-//			 * Turn = Forward * Robot Width / (2 * Desired Radius),
-//			 * derived from arc radius formula (Desired Radius = Robot Width / (1 - Slower Wheel / Faster Wheel) - Robot Width / 2,
-//			 * where Slower Wheel = Forward - Turn and Faster Wheel = Forward + Turn).
-//			 * Turn is always the same sign as Forward, so add a sign to velocitySetpoint.
-//			 * -RC 10/16/2013
-//			 */
-//			double radius = fabs((m_drivetrainData->getAbsolutePositionSetpoint(FORWARD)
-//					- m_drivetrainData->getPositionControlStartingPosition(FORWARD))
-//					/ ((m_drivetrainData->getAbsolutePositionSetpoint(TURN)
-//					- m_drivetrainData->getPositionControlStartingPosition(TURN)) * acos(-1) / 180.0)); // Radius = Arc Length (distance setpoint) / Central Angle (angle setpoint to radians)
-//			velocitySetpoint = m_drivetrainData->getVelocitySetpoint(FORWARD)
-//					* RobotConfig::ROBOT_WIDTH / (2 * radius); // Match turn rate to forward rate
-//			velocitySetpoint *= Util::Sign(m_drivetrainData->getAbsolutePositionSetpoint(TURN)
-//					- m_drivetrainData->getPositionControlStartingPosition(TURN))
-//					* Util::Sign(m_drivetrainData->getAbsolutePositionSetpoint(FORWARD)
-//					- m_drivetrainData->getPositionControlStartingPosition(FORWARD));
-//			AsyncPrinter::Printf("Turn velocity: %f %f %f %f %f %f\n", velocitySetpoint, m_drivetrainData->getAbsolutePositionSetpoint(FORWARD)
-//					- m_drivetrainData->getPositionControlStartingPosition(FORWARD), m_drivetrainData->getAbsolutePositionSetpoint(TURN)
-//					- m_drivetrainData->getPositionControlStartingPosition(TURN), m_driveEncoders->getWheelDist(LEFT), m_driveEncoders->getWheelDist(RIGHT), radius);
-//			
-//			velocitySetpoint += m_arcGain / m_PIDs[POSITION][axis].getProportionalGain() * Util::Sign(m_drivetrainData->getAbsolutePositionSetpoint(TURN)
-//					- m_drivetrainData->getPositionControlStartingPosition(TURN)) * m_PIDs[POSITION][axis].update(
-//					1.0 / RobotConfig::LOOP_RATE); // Correction for turn vs. forward proportion difference
-//			AsyncPrinter::Printf("Turn velocitySetpoint: %f\n", velocitySetpoint);
-//		}
-//		m_drivetrainData->SetVelocitySetpoint(axis, velocitySetpoint);
+		m_PIDs[POSITION][axis].SetInput(axis == DrivetrainData::FORWARD ? m_driveEncoders->GetRobotDist() : m_driveEncoders->GetTurnAngle());
+		m_PIDs[POSITION][axis].SetSetpoint(positionSetpoint);
+		velocitySetpoint += m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
+		if (fabs(velocitySetpoint) > m_drivetrainData->GetPositionControlMaxSpeed(axis))
+			velocitySetpoint = Util::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
 	case DrivetrainData::VELOCITY_CONTROL:
 		if (fabs(velocitySetpoint) < 2.0E-2)
 			m_PIDs[VELOCITY][axis].SetIIREnabled(true);

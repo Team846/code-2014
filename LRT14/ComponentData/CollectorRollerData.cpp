@@ -3,8 +3,8 @@
 CollectorRollerData::CollectorRollerData() :
 	ComponentData("CollectorRollerData")
 {
-	m_enabled = false;
-	m_direction = CollectorRollerData::FORWARD;
+	m_running = false;
+	m_direction = FORWARD;
 }
 
 CollectorRollerData* CollectorRollerData::Get()
@@ -22,22 +22,22 @@ void CollectorRollerData::Log()
 	
 }
 
-void CollectorRollerData::SetEnabled(bool enabled)
+void CollectorRollerData::SetRunning(bool run)
 {
-	m_enabled = enabled;
+	m_running = run;
 }
 
-bool CollectorRollerData::GetEnabled()
+bool CollectorRollerData::IsRunning()
 {
-	return m_enabled;
+	return m_running;
 }
 
-void CollectorRollerData::SetDirection(RollerDirection r)
+void CollectorRollerData::SetDirection(Direction direction)
 {
-	m_direction = r;
+	m_direction = direction;
 }
 
-CollectorRollerData::RollerDirection CollectorRollerData::GetDirection()
+CollectorRollerData::Direction CollectorRollerData::GetDirection()
 {
 	return m_direction;
 }

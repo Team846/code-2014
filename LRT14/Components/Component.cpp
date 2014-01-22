@@ -8,8 +8,8 @@ using namespace Rhesus::Toolkit;
 
 vector<Component*> Component::component_vector;
 
-Component::Component(const char *name, int di, bool requiresEnabledState) :
-	m_name(name), m_digitalIn(di), m_requiresEnabled(requiresEnabledState)
+Component::Component(const char *name, int driverStationDigitalIn) :
+	m_name(name), m_digitalIn(driverStationDigitalIn)
 {
 	m_lastEnabled = false;
 	
@@ -45,7 +45,7 @@ void Component::UpdateAll()
 
 void Component::Update()
 {
-	if (RobotState::Instance().GameMode() != GameState::DISABLED || !m_requiresEnabled)
+	if (RobotState::Instance().GameMode() != GameState::DISABLED)
 	{
 		if (m_digitalIn == -1 || DriverStation::GetInstance()->GetDigitalIn(m_digitalIn))
 		{
@@ -74,11 +74,6 @@ void Component::Update()
 const char* Component::GetName()
 {
 	return m_name;
-}
-
-bool Component::EnableRequired()
-{
-	return m_requiresEnabled;
 }
 
 int Component::GetDigitalIn()

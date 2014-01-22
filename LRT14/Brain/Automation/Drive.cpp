@@ -51,7 +51,12 @@ bool Drive::Run()
 		m_drivetrain->SetPositionSetpoint(DrivetrainData::FORWARD, m_start + m_profile->Update(Timer::GetFPGATimestamp()));
 		m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, m_profile->GetVelocity() / m_maxVelocity);
 	}
-	return fabs(DriveEncoders::Get()->GetRobotDist() - m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD)) < m_errorThreshold;
+	if (fabs(DriveEncoders::Get()->GetRobotDist() - m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD)) < m_errorThreshold)
+	{
+		m_drivetrain->SetPositionSetpoint(DrivetrainData::FORWARD, m_start + m_distance);
+		return true;
+	}
+	return false;
 }
 
 bool Drive::Abort()
@@ -60,6 +65,7 @@ bool Drive::Abort()
 	{
 		m_drivetrain->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::POSITION_CONTROL);
 	}
+	m_drivetrain->SetPositionSetpoint(DrivetrainData::FORWARD, m_start + m_distance);
 	return true;
 }
 

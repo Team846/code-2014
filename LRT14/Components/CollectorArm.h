@@ -1,18 +1,15 @@
 #ifndef COLLECTOR_ARM_H_
 #define COLLECTOR_ARM_H_
 
-#include "../Config/Configurable.h"
 #include "Component.h"
-#include "../Control/PID.h"
+#include "../Config/Configurable.h"
 #include "../ComponentData/CollectorArmData.h"
-#include "../Communication/LiveNetworkSendable.h"
 
 /*!
  * @brief Provides control over the collector arm component.
  */
-class CollectorArm : public Component, public Configurable, public LiveNetworkSendable
+class CollectorArm : public Component, public Configurable
 {
-	
 public:
 	CollectorArm();
 	~CollectorArm();
@@ -24,12 +21,6 @@ public:
 	void UpdateDisabled();
 		
 	void Configure();
-		
-	void Send();
-	
-private:
-	
-	
 };
 
 #endif

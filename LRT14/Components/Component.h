@@ -1,12 +1,13 @@
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
 
-#include <WPILib.h>
-
+#include <vector>
 #include <string>
 
+using namespace std;
+
 /*!
- * @brief Generic abstract class for components
+ * @brief Base class for components.
  */
 class Component
 {
@@ -15,7 +16,7 @@ public:
 	/*!
 	 * @brief Constructs a component with a name
 	 */
-	Component(const char *name, int di, bool requiresEnabledState);
+	Component(const char *name, int driverStationDigitalIn);
 	
 	/*!
 	 * @brief Frees the resources allocated by the component.
@@ -85,10 +86,7 @@ private:
 	static vector<Component*> component_vector;
 	
 	const char *m_name;
-
 	int m_digitalIn;
-	bool m_requiresEnabled;
-	
 	bool m_lastEnabled;
 };
 

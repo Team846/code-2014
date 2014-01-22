@@ -20,12 +20,11 @@ public:
 	void SetPosition(Position position);
 	Position GetPosition();
 	
-protected:
 	void ResetCommands();
 	void Log();
+	
 private:
 	Position m_position;
-	
 };
 
 #endif
