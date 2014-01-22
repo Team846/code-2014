@@ -137,7 +137,7 @@ void LRTRobot14::Main()
 	}
 	
 	// Update global robot state object
-	RobotState::Update();
+	RobotState::Instance().Update();
 	
 	// Zero robot location if enabled
 	if (RobotState::Instance().GameMode() != GameState::DISABLED && RobotState::Instance().LastGameMode() == GameState::DISABLED)

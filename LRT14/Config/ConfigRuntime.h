@@ -11,9 +11,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "Configurable.h"
-
 using namespace std;
+
+class Configurable;
 
 /*!
  * @brief Provides an interface for accessing robot configuration.

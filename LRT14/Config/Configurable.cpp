@@ -1,5 +1,4 @@
 #include "Configurable.h"
-#include "ConfigRuntime.h"
 
 Configurable::Configurable(string configSection)
 :m_config(ConfigRuntime::Instance())

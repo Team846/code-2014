@@ -191,8 +191,7 @@ Pneumatics::State Pneumatics::GetHardwareValue()
 
 void Pneumatics::Configure()
 {
-	ConfigRuntime *c = ConfigRuntime::Instance();
-	m_pulse_length = c->Get<int> (m_configSection, "pulseLength", 25);
+	m_pulse_length = GetConfig("pulseLength", 25);
 }
 
 void Pneumatics::Log()

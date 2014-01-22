@@ -1,4 +1,5 @@
 #include "ConfigRuntime.h"
+#include "Configurable.h"
 #include "RobotConfig.h"
 #include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"

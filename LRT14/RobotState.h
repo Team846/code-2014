@@ -21,7 +21,8 @@ public:
 	double TotalTime(); // Seconds
 	double LastCycleTime(); // Seconds
 	
-	static void Update();
+	void Update();
+	
 private:
 	RobotState();
 	~RobotState();

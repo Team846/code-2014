@@ -136,12 +136,11 @@ double DriveEncoders::GetTurnRadius()
 
 void DriveEncoders::Configure()
 {
-	PULSES_PER_REVOLUTION = m_config->Get<double> (m_configSection, "pulses_per_revolution", 360.0);
-	MAX_ENCODER_RATE = m_config->Get<double> (m_configSection, "max_encoder_rate", 2214.762);
-	MAX_TURNING_RATE = m_config->Get<double> (m_configSection, "max_turning_rate", 3782);
-	WHEEL_DIAMETER = m_config->Get<double> (m_configSection, "wheel_diameter", 6.0); // Inches
-	TICKS_PER_FULL_TURN = m_config->Get<double> (m_configSection, "ticks_per_full_turn",
-			2.0 * 26.1 * PI / (WHEEL_DIAMETER * PI) * PULSES_PER_REVOLUTION);
+	PULSES_PER_REVOLUTION = GetConfig("pulses_per_revolution", 360.0);
+	MAX_ENCODER_RATE = GetConfig("max_encoder_rate", 2214.762);
+	MAX_TURNING_RATE = GetConfig("max_turning_rate", 3782);
+	WHEEL_DIAMETER = GetConfig("wheel_diameter", 6.0); // Inches
+	TICKS_PER_FULL_TURN = GetConfig("ticks_per_full_turn", 2.0 * 26.1 * PI / (WHEEL_DIAMETER * PI) * PULSES_PER_REVOLUTION);
 }
 
 void DriveEncoders::Log()

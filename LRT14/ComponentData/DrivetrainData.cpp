@@ -59,6 +59,12 @@ void DrivetrainData::SetOpenLoopOutput(DrivetrainData::Axis axis, double setpoin
 	m_desiredOpenLoopOutputs[axis] = setpoint;
 }
 
+void DrivetrainData::SetPositionSetpoint(DrivetrainData::Axis axis, double setpoint)
+{
+	m_resetPositionSetpoint[axis] = false;
+	m_positionSetpoints[axis] = setpoint;
+}
+
 void DrivetrainData::SetRelativePositionSetpoint(DrivetrainData::Axis axis, double setpoint)
 {
 	m_resetPositionSetpoint[axis] = false;

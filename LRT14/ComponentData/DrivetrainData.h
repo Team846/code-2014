@@ -23,12 +23,11 @@ public:
 	
 	DrivetrainData();
 	static DrivetrainData* Get();
-	void ResetCommands();
-	void Log();
 	
 	void SetControlMode(Axis axis, ControlMode mode);
 	void SetVelocitySetpoint(Axis axis, float velocity);
 	void SetOpenLoopOutput(Axis axis, double setpoint);
+	void SetPositionSetpoint(Axis axis, double setpoint);
 	void SetRelativePositionSetpoint(Axis axis, double setpoint);
 	void SetPositionControlMaxSpeed(Axis axis, double speed);
 	ControlMode GetControlMode(Axis axis);
@@ -42,6 +41,10 @@ public:
 	float GetReverseCurrentLimit();
 	bool ShouldOverrideForwardCurrentLimit();
 	bool ShouldOverrideReverseCurrentLimit();
+	
+protected:
+	void ResetCommands();
+	void Log();
 	
 private:
 	ControlMode m_controlModes[2];

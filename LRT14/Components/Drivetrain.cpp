@@ -31,6 +31,7 @@ Drivetrain::Drivetrain() :
 			new LRTJaguar(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B")),
 			m_driveEncoders->GetEncoder(DriveEncoders::RIGHT), "RightDriveESC");
 	m_drivetrainData = DrivetrainData::Get();
+	Kv = 1;
 }
 
 Drivetrain::~Drivetrain()
@@ -51,9 +52,9 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	case DrivetrainData::POSITION_CONTROL:
 //		if (!m_drivetrainData->SyncingArc() || axis == DrivetrainData::FORWARD)
 //		{
-			m_PIDs[POSITION][axis].SetInput(axis == DrivetrainData::FORWARD ? m_driveEncoders->GetRobotDist() : m_driveEncoders->GetTurnAngle()); // We're always at our current position! -BA
+			m_PIDs[POSITION][axis].SetInput(axis == DrivetrainData::FORWARD ? m_driveEncoders->GetRobotDist() : m_driveEncoders->GetTurnAngle());
 			m_PIDs[POSITION][axis].SetSetpoint(positionSetpoint);
-			velocitySetpoint = m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
+			velocitySetpoint += m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
 			if (fabs(velocitySetpoint)> m_drivetrainData->GetPositionControlMaxSpeed(axis))
 				velocitySetpoint = Util::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
 //		}
@@ -169,6 +170,8 @@ void Drivetrain::OnDisabled()
 
 void Drivetrain::Configure()
 {
+	Kv = GetConfig("Kv", 1.0);
+	
 	ConfigurePIDObject(&m_PIDs[VELOCITY][DrivetrainData::TURN], "velocity_turn", true);
 	ConfigurePIDObject(&m_PIDs[VELOCITY][DrivetrainData::FORWARD], "velocity_fwd", true);
 
@@ -186,21 +189,21 @@ void Drivetrain::Send()
 
 void Drivetrain::ConfigurePIDObject(PID *pid, std::string objName, bool feedForward)
 {
-	double p = m_config->Get<double> (m_configSection, objName + "_P", 2.0);
-	double i = m_config->Get<double> (m_configSection, objName + "_I", 0.0);
-	double d = m_config->Get<double> (m_configSection, objName + "_D", 0.0);
+	double p = GetConfig(objName + "_P", 2.0);
+	double i = GetConfig(objName + "_I", 0.0);
+	double d = GetConfig(objName + "_D", 0.0);
 
 	pid->SetParameters(p, i, d, 1.0, 0.87, feedForward);
 }
 
 void Drivetrain::ConfigureForwardCurrentLimit()
 {
-	m_escs[LEFT]->SetForwardCurrentLimit(m_config->Get<float>(m_configSection, "forwardCurrentLimit", 50.0 / 100.0));
-	m_escs[RIGHT]->SetForwardCurrentLimit(m_config->Get<float>(m_configSection, "forwardCurrentLimit", 50.0 / 100.0));
+	m_escs[LEFT]->SetForwardCurrentLimit(GetConfig("forwardCurrentLimit", 50.0 / 100.0));
+	m_escs[RIGHT]->SetForwardCurrentLimit(GetConfig("forwardCurrentLimit", 50.0 / 100.0));
 }
 
 void Drivetrain::ConfigureReverseCurrentLimit()
 {
-	m_escs[LEFT]->SetReverseCurrentLimit(m_config->Get<float>(m_configSection, "reverseCurrentLimit", 50.0 / 100.0));
-	m_escs[RIGHT]->SetReverseCurrentLimit(m_config->Get<float>(m_configSection, "reverseCurrentLimit", 50.0 / 100.0));
+	m_escs[LEFT]->SetReverseCurrentLimit(GetConfig("reverseCurrentLimit", 50.0 / 100.0));
+	m_escs[RIGHT]->SetReverseCurrentLimit(GetConfig("reverseCurrentLimit", 50.0 / 100.0));
 }

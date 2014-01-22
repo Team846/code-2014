@@ -27,7 +27,7 @@ protected:
 	 * @param field pointer to the variable
 	 * @param name name of the field
 	 */
-	template<typename T> void Loggable::LogToFile(T *field, string name)
+	template<typename T> inline void Loggable::LogToFile(T *field, string name)
 	{
 		m_logger->Log(field, name, m_name);
 	}
@@ -37,7 +37,7 @@ protected:
 	 * @param count number of elements from the array pointer to log
 	 * @param name name of the field
 	 */
-	template<typename T> void Loggable::LogToFile(T *field, int count, string name)
+	template<typename T> inline void Loggable::LogToFile(T *field, int count, string name)
 	{
 		m_logger->Log(field, count * sizeof(*field), name, m_name);
 	}
@@ -47,7 +47,7 @@ protected:
 	 * @param value value to log
 	 * @param name name of the field
 	 */
-	template<typename T> void Loggable::LogToFile(T value, string name)
+	template<typename T> inline void Loggable::LogToFile(T value, string name)
 	{
 		m_logger->Log(value, name, m_name);
 	}

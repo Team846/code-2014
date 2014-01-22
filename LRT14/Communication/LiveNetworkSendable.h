@@ -29,7 +29,7 @@ protected:
 	 * @param key name of the field
 	 * @param table NetworkTable to send to
 	 */
-	template<typename T> void LiveNetworkSendable::SendToNetwork(T value, string key, string table)
+	template<typename T> inline void LiveNetworkSendable::SendToNetwork(T value, string key, string table)
 	{
 		m_sender->Send(value, key, table);
 	}

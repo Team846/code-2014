@@ -6,6 +6,7 @@
 #include "../Control/PID.h"
 #include "../ComponentData/DrivetrainData.h"
 #include "../Communication/LiveNetworkSendable.h"
+#include "../Control/LinearFilter.h"
 
 class DriveESC;
 
@@ -48,6 +49,7 @@ private:
 	DrivetrainData *m_drivetrainData;
 	DriveEncoders* m_driveEncoders;
 	DriveESC *m_escs[4];
+	double Kv;
 };	
 
 #endif

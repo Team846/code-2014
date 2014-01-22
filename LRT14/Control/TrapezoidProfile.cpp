@@ -11,7 +11,7 @@ TrapezoidProfile::TrapezoidProfile(double maxV, double timeToMaxV)
 	m_velocity = 0;
 }
 
-void TrapezoidProfile::updateValues(double maxV, double timeToMaxV)
+void TrapezoidProfile::UpdateValues(double maxV, double timeToMaxV)
 {
 	m_maxV = maxV;
 	m_timeToMaxV = timeToMaxV;
@@ -49,12 +49,12 @@ double TrapezoidProfile::Update(double currentTime)
 	return m_output;
 }
 
-double TrapezoidProfile::getVelocity()
+double TrapezoidProfile::GetVelocity()
 {
 	return m_velocity;
 }
 
-double TrapezoidProfile::getOutput()
+double TrapezoidProfile::GetOutput()
 {
 	return m_output;
 }

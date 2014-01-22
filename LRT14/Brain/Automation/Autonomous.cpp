@@ -158,6 +158,13 @@ void Autonomous::LoadRoutine(std::string path)
 //				else
 //					failed = true;
 //			}
+			else if (command == "wait")
+			{
+				if (arglist.size() == 1)
+					current = new Pause(Util::lexical_cast<double>(arglist[0]));
+				else
+					failed = true;
+			}
 			else
 			{
 				AsyncPrinter::Printf(

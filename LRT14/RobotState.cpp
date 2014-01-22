@@ -58,22 +58,22 @@ double RobotState::LastCycleTime()
 
 void RobotState::Update()
 {
-	m_instance->m_lastGameMode = m_instance->m_gameMode;
+	m_lastGameMode = m_gameMode;
 	if (RobotBase::getInstance().IsDisabled())
 	{
-		m_instance->m_gameMode = GameState::DISABLED;
-		m_instance->m_gameTimer.Stop();
-		m_instance->m_gameTimer.Reset();
+		m_gameMode = GameState::DISABLED;
+		m_gameTimer.Stop();
+		m_gameTimer.Reset();
 	}
 	else if (RobotBase::getInstance().IsAutonomous())
 	{
-		m_instance->m_gameMode = GameState::AUTONOMOUS;
-		m_instance->m_gameTimer.Start();
+		m_gameMode = GameState::AUTONOMOUS;
+		m_gameTimer.Start();
 	}
 	else if (RobotBase::getInstance().IsOperatorControl())
 	{
-		m_instance->m_gameMode = GameState::TELEOPERATED;
-		m_instance->m_gameTimer.Start();
+		m_gameMode = GameState::TELEOPERATED;
+		m_gameTimer.Start();
 	}
 	m_lastTime = m_currentTime;
 	m_currentTime = Timer::GetFPGATimestamp();

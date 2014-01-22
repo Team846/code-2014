@@ -3,8 +3,10 @@
 
 #include "Automation.h"
 #include "../../ComponentData/DrivetrainData.h"
+#include "../../Control/TrapezoidProfile.h"
+#include "../../Config/Configurable.h"
 
-class Drive : public Automation
+class Drive : public Automation, public Configurable
 {
 public:
 	Drive(double distance, double maxSpeed = 1.0, double errorThreshold = 0.5, bool continuous = false);
@@ -13,6 +15,9 @@ public:
 	bool Run();
 	bool Abort();
 	void AllocateResources();
+
+protected:
+	void Configure();
 	
 private:
 	DrivetrainData *m_drivetrain;
@@ -21,6 +26,11 @@ private:
 	double m_maxSpeed;
 	double m_errorThreshold;
 	bool m_continuous;
+	
+	double m_start;
+	TrapezoidProfile *m_profile;
+	double m_maxVelocity;
+	double m_timeToMax;
 };
 
 #endif

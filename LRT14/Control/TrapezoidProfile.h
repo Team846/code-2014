@@ -10,9 +10,9 @@ public:
 	
 	virtual double Update(double currentTime);
 	virtual void SetSetpoint(double setpoint, double time);
-	void updateValues(double maxV, double timeToMaxV);
-	double getVelocity();
-	double getOutput();
+	void UpdateValues(double maxV, double timeToMaxV);
+	double GetVelocity();
+	double GetOutput();
 	
 private:
 	double m_maxV;
