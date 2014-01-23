@@ -1,9 +1,9 @@
-#ifndef COLLECTOR_DATA_H_
-#define COLLECTOR_DATA_H_
+#ifndef COLLECTOR_ROLLERS_DATA_H_
+#define COLLECTOR_ROLLERS_DATA_H_
 
 #include "ComponentData.h"
 
-class CollectorRollerData : public ComponentData
+class CollectorRollersData : public ComponentData
 {
 public:
 	enum Direction
@@ -12,8 +12,8 @@ public:
 		REVERSE = -1
 	};
 	
-	CollectorRollerData();
-	CollectorRollerData* Get();
+	CollectorRollersData();
+	static CollectorRollersData* Get();
 
 	void SetRunning(bool run);
 	bool IsRunning();

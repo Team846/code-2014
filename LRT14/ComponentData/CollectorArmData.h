@@ -15,7 +15,7 @@ public:
 	};
 	
 	CollectorArmData();
-	CollectorArmData* Get();
+	static CollectorArmData* Get();
 	
 	void SetPosition(Position position);
 	Position GetPosition();

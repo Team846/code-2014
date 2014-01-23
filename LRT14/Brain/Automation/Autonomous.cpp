@@ -48,8 +48,8 @@ void Autonomous::AllocateResources()
 	AllocateResource(ControlResource::TURN);
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
-	AllocateResource(ControlResource::SHOOTER_ANGLE);
-	AllocateResource(ControlResource::SHOOTER_LOADER);
+	AllocateResource(ControlResource::LAUNCHER_ANGLE);
+	AllocateResource(ControlResource::LAUNCHER_LOADER);
 }
 
 void Autonomous::LoadRoutine(std::string path)

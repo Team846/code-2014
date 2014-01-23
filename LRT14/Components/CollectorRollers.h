@@ -3,7 +3,8 @@
 
 #include "Component.h"
 #include "../Config/Configurable.h"
-#include "../ComponentData/CollectorRollerData.h"
+#include "../ComponentData/CollectorRollersData.h"
+#include "../Actuators/LRTTalon.h"
 
 /*!
  * @brief Provides control over the collector rollers.
@@ -22,7 +23,7 @@ public:
 		
 	void Configure();
 private:
-	CollectorRollerData* m_rollerData;
+	CollectorRollersData* m_rollerData;
 	LRTTalon* m_talon;
 	float m_forwardSpeed, m_reverseSpeed;
 };
