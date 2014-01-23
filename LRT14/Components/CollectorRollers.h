@@ -21,6 +21,10 @@ public:
 	void UpdateDisabled();
 		
 	void Configure();
+private:
+	CollectorRollerData* m_rollerData;
+	LRTTalon* m_talon;
+	float m_forwardSpeed, m_reverseSpeed;
 };
 
 #endif
