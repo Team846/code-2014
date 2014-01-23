@@ -35,7 +35,7 @@ bool Arc::Start()
 	m_startDistance = m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
 	m_startAngle = DriveEncoders::Get()->GetTurnAngle();
 	m_drive = new Drive(m_driveDistance, m_maxSpeed, m_errorThreshold, m_continuous);
-	return true;
+	return m_drive->StartAutomation(GetStartEvent());
 }
 
 bool Arc::Run()
