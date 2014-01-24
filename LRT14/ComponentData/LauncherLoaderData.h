@@ -9,8 +9,12 @@ public:
 	LauncherLoaderData();
 	static LauncherLoaderData* Get();
 
+	void SetFire(bool shouldFire);
+	bool GetFire();
 	void ResetCommands();
 	void Log();
+private:
+	bool m_fire;
 };
 
 #endif

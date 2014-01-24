@@ -14,7 +14,7 @@ CollectorRollers::CollectorRollers() :
 
 CollectorRollers::~CollectorRollers()
 {
-	
+	DELETE(m_talon);
 }
 
 void CollectorRollers::OnEnabled()
