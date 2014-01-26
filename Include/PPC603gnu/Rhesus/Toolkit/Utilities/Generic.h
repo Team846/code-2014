@@ -2,7 +2,7 @@
 #define RHESUS_GENERIC_H_
 
 #include "../Defines.h"
-#include "remove_reference.hpp"
+#include "remove_reference.h"
 #include <typeinfo>
 
 namespace Rhesus

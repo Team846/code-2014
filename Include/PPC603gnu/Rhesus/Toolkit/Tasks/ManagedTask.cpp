@@ -1,6 +1,6 @@
 #include "ManagedTask.h"
 
-#include "lock_on.hpp"
+#include "lock_on.h"
 
 #include "../Defines.h"
 

@@ -2,8 +2,8 @@
 
 #include <sstream>
 
-#include "../Tasks/lock_on.hpp"
-#include "../Utilities/ContainerCleanup.hpp"
+#include "../Tasks/lock_on.h"
+#include "../Utilities/ContainerCleanup.h"
 #include "../Defines.h"
 
 using namespace Rhesus::Toolkit::Tasks;

@@ -1,6 +1,6 @@
 #include "DataUnit.h"
 
-#include "../Tasks/lock_on.hpp"
+#include "../Tasks/lock_on.h"
 
 using namespace std;
 

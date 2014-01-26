@@ -2,7 +2,7 @@
 #define RHESUS_COMPONENT_DATA_MANAGER_H_
 
 #include "DataUnit.h"
-#include "../Tasks/lock_on.hpp"
+#include "../Tasks/lock_on.h"
 
 #include <hash_map>
 #include <string>

@@ -1,6 +1,6 @@
 #include "ActionManager.h"
 
-#include "IRobotAction.hpp"
+#include "IRobotAction.h"
 #include "../Defines.h"
 
 using namespace Rhesus::Toolkit::Tasks;

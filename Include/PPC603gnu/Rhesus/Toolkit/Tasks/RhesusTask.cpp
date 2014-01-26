@@ -1,7 +1,7 @@
 #include "RhesusTask.h"
 #include "../Defines.h"
 
-#include "lock_on.hpp"
+#include "lock_on.h"
 
 using namespace std;
 using namespace Rhesus::Toolkit::Tasks;

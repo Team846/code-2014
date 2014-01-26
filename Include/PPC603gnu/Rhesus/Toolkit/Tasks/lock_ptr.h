@@ -1,5 +1,5 @@
-#ifndef LOCK_PTR_H_
-#define LOCK_PTR_H_
+#ifndef RHESUS_LOCK_PTR_H_
+#define RHESUS_LOCK_PTR_H_
 
 #include "SyncObject.h"
 

@@ -3,7 +3,7 @@
 #include <hash_map>
 #include <string>
 
-#include "../Tasks/lock_on.hpp"
+#include "../Tasks/lock_on.h"
 
 using namespace std;
 using namespace Rhesus::Toolkit::Tasks;

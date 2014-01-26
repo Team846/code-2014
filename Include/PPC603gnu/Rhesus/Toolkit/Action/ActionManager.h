@@ -1,9 +1,9 @@
 #ifndef RHESUS_ACTION_MANAGER_H_
 #define RHESUS_ACTION_MANAGER_H_
 
-#include "IRobotAction.hpp"
+#include "IRobotAction.h"
 #include "../Tasks/BinarySemaphore.h"
-#include "../Tasks/lock_on.hpp"
+#include "../Tasks/lock_on.h"
 #include "../Tasks/RhesusTask.h"
 #include "../Tasks/SyncObject.h"
 

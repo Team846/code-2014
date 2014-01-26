@@ -3,10 +3,10 @@
 #include <string>
 #include <algorithm>
 
-#include "lock_ptr.hpp"
+#include "lock_ptr.h"
 
-#include "../Utilities/StringUtil.hpp"
-#include "../Utilities/ContainerCleanup.hpp"
+#include "../Utilities/StringUtil.h"
+#include "../Utilities/ContainerCleanup.h"
 
 #include "../Defines.h"
 

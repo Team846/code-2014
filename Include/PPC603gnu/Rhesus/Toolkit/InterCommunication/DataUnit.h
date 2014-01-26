@@ -4,7 +4,7 @@
 #include <string>
 #include <hash_map>
 
-#include "../Utilities/Generic.hpp"
+#include "../Utilities/Generic.h"
 #include "../Tasks/SyncObject.h"
 
 namespace Rhesus 

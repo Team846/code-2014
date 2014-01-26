@@ -1,6 +1,6 @@
 #include "Config.h"
 
-#include "../Utilities/StringUtil.hpp"
+#include "../Utilities/StringUtil.h"
 
 #include <sstream>
 #include <fstream>
