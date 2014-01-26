@@ -1,5 +1,8 @@
+#include <Rhesus/Toolkit/Tasks/TaskPool.h>
 #include "LRTRobotBase.h"
 #include <sysLib.h>
+
+using namespace Rhesus::Toolkit::Tasks;
 
 LRTRobotBase::LRTRobotBase()
 : m_loopSynchronizer((TimerEventHandler) LRTRobotBase::ReleaseLoop, this)
@@ -20,8 +23,14 @@ void LRTRobotBase::StartCompetition()
 	GetWatchdog().SetEnabled(false);
 	m_loopSynchronizer.StartPeriodic(1.0 / 50.0);
 
+	// Start the task pool
+	TaskPool::Start();
+	
 	RobotInit();
 	Run();
+	
+	// Stop the task pool
+	TaskPool::Stop();
 }
 
 void LRTRobotBase::Run()
