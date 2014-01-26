@@ -1,93 +1,54 @@
-//#include "BufferedConsole.h"
-//#include "../Defines.h"
-//
-//using namespace std;
-//using namespace Rhesus::Framework::IO;
-//
-//BinarySemaphore BufferedConsole::s_binsem(0);
-//SyncObject BufferedConsole::s_so;
-//queue<string> BufferedConsole::s_printQueue;
-//RhesusTask BufferedConsole::s_printThread = RhesusTask::CreateNew("BufferedConsole", (FUNCPTR) PrintThread);;
-//
-//void BufferedConsole::Start() 
-//{
-//	s_printThread.Start();
-//}
-//
-//void BufferedConsole::PrintThread()
-//{
-//	
-//	while(true)
-//	{
-//
-//		s_binsem.Take(WAIT_FOREVER);
-//		
-//		{
-//			lock_on l(BufferedConsole::s_so);
-//
-//			while(!s_printQueue.empty())
-//			{
-//
-//				string msg = s_printQueue.front();
-//				s_printQueue.pop();
-//				printf(msg.c_str());
-//
-//			}
-//		
-//		}
-//
-//	}
-//	
-//}
-//
-//void BufferedConsole::Printf(const char* p, ...)
-//{
-//	
-//	char buffer[256];
-//
-//	va_list args;
-//	va_start(args, p);
-//
-//	vsprintf(buffer, p, args);
-//	va_end(args);
-//	
-//	string n = string(buffer);
-//	
-//	{
-//		
-//		lock_on l(s_so);
-//		
-//		s_printQueue.push(n);
-//		
-//	}
-//	
-//	s_binsem.Give();
-//	
-//}
-//
-//void BufferedConsole::Printfln(const char* p, ...)
-//{
-//	
-//	char buffer[256];
-//
-//	va_list args;
-//	va_start(args, p);
-//
-//	vsprintf(buffer, p, args);
-//	va_end(args);
-//
-//	string n = string(buffer) + "\n";
-//
-//	{
-//
-//		lock_on l(s_so);
-//
-//		s_printQueue.push(n);
-//
-//	}
-//
-//	s_binsem.Give();
-//	
-//}
-//
+#include "BufferedConsole.h"
+#include "../Defines.h"
+
+#include "../Tasks/TaskPool.h"
+
+#include <sstream>
+
+using namespace std;
+using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Tasks;
+
+void BufferedConsole::Printfln(std::string msg, ...)
+{
+	std::stringstream ss;
+	ss << msg << "\n";
+	msg = ss.str();
+	
+	char buffer[msg.length()];
+	msg.copy(buffer, msg.length(), 0);
+
+	va_list args;
+	va_start(args, msg);
+
+	vsprintf(buffer, msg.c_str(), args);
+	va_end(args);
+	
+	string n(buffer);
+	
+	PrintParams* params = new PrintParams();
+	params->message = n;
+	
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)params);
+}
+
+void BufferedConsole::Printf(std::string msg, ...)
+{
+	char buffer[msg.length()];
+	msg.copy(buffer, msg.length(), 0);
+
+	va_list args;
+	va_start(args, msg);
+
+	vsprintf(buffer, msg.c_str(), args);
+	va_end(args);
+	
+	string n(buffer);
+	
+	PrintParams* params = new PrintParams();
+	params->message = n;
+	
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)params);
+}
+
 

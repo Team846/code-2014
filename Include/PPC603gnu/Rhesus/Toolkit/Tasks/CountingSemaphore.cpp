@@ -35,6 +35,13 @@ void CountingSemaphore::Take(INT32 timeout)
 #endif
 }
 
+bool CountingSemaphore::IsEmpty()
+{
+#ifdef __VXWORKS__
+	return (semTake(m_sem, NO_WAIT) == ERROR);
+#endif
+}
+
 void CountingSemaphore::Flush()
 {
 #ifdef __VXWORKS__

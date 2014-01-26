@@ -50,7 +50,7 @@ private:
 	static CountingSemaphore s_taskSignal;
 	static std::vector<Task*> s_tasks;
 	static std::vector<Task*> s_tempTasks;
-	static UINT32 s_availableTasks;
+	static CountingSemaphore s_availableTasks;
 };
 
 }

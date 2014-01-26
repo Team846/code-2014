@@ -40,6 +40,11 @@ namespace Tasks
 		void Take(INT32 timeout);
 		
 		/*!
+		 * Checks if this CountingSemaphore is empty.
+		 */
+		bool IsEmpty();
+		
+		/*!
 		 * Flushes the semaphore
 		 */
 		void Flush();
