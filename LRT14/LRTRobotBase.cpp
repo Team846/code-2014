@@ -38,11 +38,11 @@ void LRTRobotBase::Run()
 	while(true)
 	{
 		semTake(m_loopSynchSem, WAIT_FOREVER);
-		Main();
+		Tick();
 	}
 }
 
-void LRTRobotBase::Main()
+void LRTRobotBase::Tick()
 {
 	printf("LRTRobotBase::Run(): Override me!");
 }

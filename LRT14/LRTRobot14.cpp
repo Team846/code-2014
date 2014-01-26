@@ -121,7 +121,7 @@ static int TimeoutCallback(...)
 	return 0;
 }
 
-void LRTRobot14::Main()
+void LRTRobot14::Tick()
 {
 	wdStart(_watchdog, sysClkRateGet() / RobotConfig::LOOP_RATE,
 			TimeoutCallback, 0);
