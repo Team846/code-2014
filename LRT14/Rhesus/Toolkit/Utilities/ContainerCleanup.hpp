@@ -2,6 +2,7 @@
 #define RHESUS_CONTAINERCLEANUP_H_
 
 #include <queue>
+#include "../Defines.h"
 
 namespace Rhesus
 {

@@ -24,6 +24,8 @@ public:
 	static void EnqueueTask(FUNCPTR ptr, UINT32 arg0 = 0, UINT32 arg1 = 0,
 			UINT32 arg2 = 0, UINT32 arg3 = 0, UINT32 arg4 = 0, UINT32 arg5 = 0,
 			UINT32 arg6 = 0, UINT32 arg7 = 0, UINT32 arg8 = 0);
+	
+	static void Stop();
 
 private:
 	struct taskStructure {
@@ -47,6 +49,7 @@ private:
 	static SyncObject s_taskQSyncObj;
 	static CountingSemaphore s_taskSignal;
 	static std::vector<Task*> s_tasks;
+	static std::vector<Task*> s_tempTasks;
 	static UINT32 s_availableTasks;
 };
 

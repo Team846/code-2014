@@ -1,6 +1,7 @@
 #include "TaskPool.h"
 
 #include <string>
+#include <algorithm>
 
 #include "lock_ptr.hpp"
 
@@ -16,6 +17,7 @@ std::queue<TaskPool::taskStructure> TaskPool::s_taskQ;
 SyncObject TaskPool::s_taskQSyncObj;
 CountingSemaphore TaskPool::s_taskSignal(0);
 std::vector<Task*> TaskPool::s_tasks;
+std::vector<Task*> TaskPool::s_tempTasks;
 UINT32 TaskPool::s_availableTasks;
 
 void TaskPool::Start()
@@ -50,6 +52,7 @@ void TaskPool::EnqueueTask(FUNCPTR ptr, UINT32 arg0, UINT32 arg1, UINT32 arg2, U
 		taskStructure* pTaskStruct = new taskStructure();
 		memcpy(pTaskStruct, &task, sizeof(task));
 		tempTask->Start((UINT32)pTaskStruct, (UINT32)tempTask);
+		s_tempTasks.push_back(tempTask);
 		return;
 	}
 	
@@ -62,9 +65,30 @@ void TaskPool::EnqueueTask(FUNCPTR ptr, UINT32 arg0, UINT32 arg1, UINT32 arg2, U
 	s_taskSignal.Give();
 }
 
+void TaskPool::Stop()
+{
+	for(int i = 0; i < s_tasks.size(); i++)
+	{
+		s_tasks[i]->Stop();
+	}
+	
+	s_tasks.erase(std::remove_if(s_tasks.begin(), s_tasks.end(), ContainerCleanup::DeleteVector<Task*>), s_tasks.end());
+	
+	for(int i = 0; s_tempTasks.size(); i++)
+	{
+		s_tempTasks[i]->Stop();
+	}
+	
+	s_tempTasks.erase(std::remove_if(s_tempTasks.begin(), s_tempTasks.end(), ContainerCleanup::DeleteVector<Task*>), s_tempTasks.end());
+}
+
 INT32 TaskPool::WorkerTemp(taskStructure* t, Task* thisTask)
 {
 	t->ptr(t->arg0, t->arg1, t->arg2, t->arg3, t->arg4, t->arg5, t->arg6, t->arg7, t->arg8);
+	
+	for(int i = 0; i < s_tempTasks.size(); i++)
+		if(thisTask == s_tempTasks[i])
+			s_tempTasks.erase(s_tempTasks.begin()+i);
 	
 	DELETE(t);
 	DELETE(thisTask);

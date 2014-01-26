@@ -44,30 +44,31 @@ void TestApparatus::Run()
 {
 	for(std::vector<Test>::iterator it = m_tests.begin(); it != m_tests.end(); ++it)
 	{
+		Test& test = *it;
 		std::cout << "Running test...\n";
 		
-		it->result = TestResult(TestResultType::NO_RESULT, TestStatus::IN_PROGRESS, "");
+		test.result = TestResult(TestResultType::NO_RESULT, TestStatus::IN_PROGRESS, "");
 		
 		bool success = true;
 		
 		try
 		{
-			it->target();
+			test.target();
 		}
 		catch(RUnitException r)
 		{
 			++m_failedCount;
 			
-			it->result = TestResult(TestResultType::FAIL, TestStatus::DONE, r.errorMsg(), r.should(), r.actual());
+			test.result = TestResult(TestResultType::FAIL, TestStatus::DONE, r.errorMsg(), r.should(), r.actual());
 			
 			success = false;
 		}
 		
 		if(success)
 		{
-			it->result = TestResult(TestResultType::SUCCESS, TestStatus::DONE, "Succeeded.");
-			std::cout << "Test succeeded.";
-			//std::cout << it->name << ": " << it->result.Message() << "\n";
+			test.result = TestResult(TestResultType::SUCCESS, TestStatus::DONE, "Succeeded.");
+			std::printf("Test succeeded.\n");
+			std::printf("%s: %s\n", test.name.c_str(), test.result.Message().c_str());
 		}
 	}
 }
