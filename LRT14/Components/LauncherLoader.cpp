@@ -7,10 +7,9 @@ LauncherLoader::LauncherLoader() :
 	Component("LauncherLoader", DriverStationConfig::DigitalIns::LAUNCHER_LOADER),
 	Configurable("LauncherLoader")
 {
-	
 	m_loaderData = LauncherLoaderData::Get();
-	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER"), "launcherLoader");
-	m_sensor = new DigitalInput(ConfigPortMappings::Get("Digital/LAUNCHER_lOADER_SENSOR"));
+	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER"), "LauncherLoader");
+	m_sensor = new DigitalInput(ConfigPortMappings::Get("Digital/LAUNCHER_LOADER_SENSOR"));
 	m_firing = false;
 }
 
@@ -51,7 +50,7 @@ void LauncherLoader::UpdateEnabled()
 
 void LauncherLoader::UpdateDisabled()
 {
-	
+	m_talon->SetDutyCycle(0.0);
 }
 
 void LauncherLoader::Configure()

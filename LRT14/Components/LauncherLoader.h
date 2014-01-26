@@ -3,14 +3,13 @@
 
 #include "Component.h"
 #include "../Config/Configurable.h"
-#include "../Actuators/LRTTalon.h"
 #include "../ComponentData/LauncherLoaderData.h"
+#include "../Actuators/LRTTalon.h"
 #include "DigitalInput.h"
 
 /*!
- * @brief Provides control over luancher loader
+ * @brief Provides control over launcher loading mechanism.
  */
-
 class LauncherLoader : public Component, public Configurable
 {
 public:
@@ -26,10 +25,9 @@ public:
 	void Configure();
 	
 private:
-	LRTTalon* m_talon;
 	LauncherLoaderData* m_loaderData;
+	LRTTalon* m_talon;
 	DigitalInput* m_sensor;
-	bool m_launcherLoaderData;
 	bool m_firing;
 	float m_speed;
 };

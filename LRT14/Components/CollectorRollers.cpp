@@ -14,7 +14,8 @@ CollectorRollers::CollectorRollers() :
 
 CollectorRollers::~CollectorRollers()
 {
-	DELETE(m_talon);
+	delete m_talon;
+	m_talon = NULL;
 }
 
 void CollectorRollers::OnEnabled()
@@ -29,15 +30,15 @@ void CollectorRollers::OnDisabled()
 
 void CollectorRollers::UpdateEnabled()
 {
-	if(m_rollerData->IsRunning())
+	if (m_rollerData->IsRunning())
 	{
 		if(m_rollerData->GetDirection() == CollectorRollersData::FORWARD)
 			m_talon->SetDutyCycle(m_forwardSpeed);
 		else
-			m_talon->SetDutyCycle(-1.0);
+			m_talon->SetDutyCycle(m_reverseSpeed);
 	}
 	else
-		m_talon->SetDutyCycle(m_reverseSpeed);
+		m_talon->SetDutyCycle(0.0);
 }
 
 void CollectorRollers::UpdateDisabled()
