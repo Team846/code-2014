@@ -1,5 +1,7 @@
 #include "Automation.h"
 
+using namespace std;
+
 map<ControlResource::Enum, int> Automation::allocated;
 vector<Automation*> Automation::automation_vector;
 

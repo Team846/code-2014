@@ -11,7 +11,7 @@ class MultipleEvent : public Event
 {
 public:
 	MultipleEvent();
-	MultipleEvent(vector<Event*> events);
+	MultipleEvent(std::vector<Event*> events);
 	virtual ~MultipleEvent();
 	
 	virtual bool CheckCondition();
@@ -19,7 +19,7 @@ public:
 	void AddEvent(Event *event);
 	
 private:
-	vector<Event*> m_events;
+	std::vector<Event*> m_events;
 };
 
 #endif

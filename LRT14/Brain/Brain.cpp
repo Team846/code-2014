@@ -27,6 +27,7 @@
 
 #include <Rhesus/Toolkit/GameState.h>
 
+using namespace std;
 using namespace Rhesus::Toolkit;
 
 Brain* Brain::m_instance = NULL;

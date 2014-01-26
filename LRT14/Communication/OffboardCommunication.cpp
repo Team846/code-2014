@@ -1,5 +1,7 @@
 #include "OffboardCommunication.h"
 
+using namespace std;
+
 OffboardCommunication *OffboardCommunication::m_instance = NULL;
 
 OffboardCommunication* OffboardCommunication::Instance()

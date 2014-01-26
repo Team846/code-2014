@@ -1,5 +1,7 @@
 #include "LRTJaguar.h"
 
+using namespace std;
+
 vector<LRTJaguar*> LRTJaguar::jaguar_vector;
 
 LRTJaguar::LRTJaguar(UINT32 channel, const char* name, UINT32 jumperChannel) :

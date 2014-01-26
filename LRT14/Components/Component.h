@@ -4,8 +4,6 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 /*!
  * @brief Base class for components.
  */
@@ -83,7 +81,7 @@ protected:
 	virtual void OnDisabled() = 0;
 	
 private:
-	static vector<Component*> component_vector;
+	static std::vector<Component*> component_vector;
 	
 	const char *m_name;
 	int m_digitalIn;

@@ -1,5 +1,7 @@
 #include "Repeating.h"
 
+using namespace std;
+
 Repeating::Repeating(const char *name, Automation *routine, int times, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {

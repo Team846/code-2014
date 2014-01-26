@@ -6,8 +6,6 @@
 #include <vector>
 #include <semLib.h>
 
-using namespace std;
-
 /*!
  * @brief Intermediate interface for serial communications between cRIO and offboard computer. Assumes that the stream has been properly escaped by the offboard computer.
  */
@@ -46,7 +44,7 @@ public:
 	 * @param stream the stream to read from
 	 * @param buffer the buffer to read the message into
 	 */
-	void Read(Stream stream, vector<char> &buffer);
+	void Read(Stream stream, std::vector<char> &buffer);
 	
 protected:
 	void Tick();
@@ -69,8 +67,8 @@ private:
 	
 	SerialPort *m_serial;
 	
-	vector<char> buffers[3];
-	vector<char> buffer;
+	std::vector<char> buffers[3];
+	std::vector<char> buffer;
 	
 	Stream currentStream;
 	ReadState currentState;

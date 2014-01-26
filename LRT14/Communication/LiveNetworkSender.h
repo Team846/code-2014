@@ -8,8 +8,6 @@
 
 class LiveNetworkSendable;
 
-using namespace std;
-
 /*!
  * @brief Sends data from LiveNetworkSendable objects to the network each cycle.
  */
@@ -33,7 +31,7 @@ public:
 	 * @param key name of the field
 	 * @param table NetworkTable to send to
 	 */
-	template<typename T> void Send(T value, string key, string table);
+	template<typename T> void Send(T value, std::string key, std::string table);
 
 	/*!
 	 * @brief Registers a LiveNetworkSendable object for sending.
@@ -46,9 +44,9 @@ private:
 	
 	static LiveNetworkSender *m_instance;
 
-	static vector<LiveNetworkSendable*> liveNetworkSendables;
+	static std::vector<LiveNetworkSendable*> liveNetworkSendables;
 
-	map<string, NetworkTable*> tables;
+	std::map<string, NetworkTable*> tables;
 };
 
 #endif /* LIVE_NETWORK_SENDER_H_ */

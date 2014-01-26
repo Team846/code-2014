@@ -1,5 +1,7 @@
 #include "Sequential.h"
 
+using namespace std;
+
 Sequential::Sequential(const char *name, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {

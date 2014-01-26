@@ -1,5 +1,7 @@
 #include "Loggable.h"
 
+using namespace std;
+
 Loggable::Loggable(string name) :
 	m_name(name)
 {

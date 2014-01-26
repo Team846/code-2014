@@ -6,6 +6,8 @@
 #include <fstream>
 #include <sstream>
 
+using namespace std;
+
 vector<Configurable*> ConfigRuntime::configurables; // note: static vectors must be declared in the CPP file -TP
 ConfigRuntime* ConfigRuntime::m_instance = NULL;
 const string ConfigRuntime::CONFIG_FILE_PATH = RobotConfig::CONFIG_FILE_PATH;

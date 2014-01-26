@@ -1,5 +1,7 @@
 #include "LRTTalon.h"
 
+using namespace std;
+
 vector<LRTTalon*> LRTTalon::talon_vector;
 
 LRTTalon::LRTTalon(UINT32 channel, const char* name, UINT32 jumperChannel) :

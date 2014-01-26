@@ -5,15 +5,13 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Base class for classes that can log to the global log file.
  */
 class Loggable
 {
 public:
-	Loggable(string name);
+	Loggable(std::string name);
 	virtual ~Loggable();
 	
 	/*!
@@ -27,7 +25,7 @@ protected:
 	 * @param field pointer to the variable
 	 * @param name name of the field
 	 */
-	template<typename T> inline void Loggable::LogToFile(T *field, string name)
+	template<typename T> inline void Loggable::LogToFile(T *field, std::string name)
 	{
 		m_logger->Log(field, name, m_name);
 	}
@@ -37,7 +35,7 @@ protected:
 	 * @param count number of elements from the array pointer to log
 	 * @param name name of the field
 	 */
-	template<typename T> inline void Loggable::LogToFile(T *field, int count, string name)
+	template<typename T> inline void Loggable::LogToFile(T *field, int count, std::string name)
 	{
 		m_logger->Log(field, count * sizeof(*field), name, m_name);
 	}
@@ -47,14 +45,14 @@ protected:
 	 * @param value value to log
 	 * @param name name of the field
 	 */
-	template<typename T> inline void Loggable::LogToFile(T value, string name)
+	template<typename T> inline void Loggable::LogToFile(T value, std::string name)
 	{
 		m_logger->Log(value, name, m_name);
 	}
 
 private:
 	Logger *m_logger;
-	string m_name;
+	std::string m_name;
 };
 
 #endif /* LOGGABLE_H_ */

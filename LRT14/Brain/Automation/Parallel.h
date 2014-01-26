@@ -4,8 +4,6 @@
 #include "Automation.h"
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Container for routines executing in parallel.
  */
@@ -27,7 +25,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Parallel(const char *name, vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
+	Parallel(const char *name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Parallel();
 
 	virtual bool Start();
@@ -45,7 +43,7 @@ public:
 	 * @brief Adds a list of automation routine to the parallel routines.
 	 * @param automation the list of routines to add
 	 */
-	void AddAutomation(vector<Automation*> automation);
+	void AddAutomation(std::vector<Automation*> automation);
 	
 	/*!
 	 * @brief Clears the list of parallel routines.
@@ -53,8 +51,8 @@ public:
 	void ClearAutomation();
 	
 private:
-	vector<Automation*> routines;
-	vector<Automation*> running;
+	std::vector<Automation*> routines;
+	std::vector<Automation*> running;
 };
 
 #endif

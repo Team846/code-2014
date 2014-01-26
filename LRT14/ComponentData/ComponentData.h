@@ -7,15 +7,13 @@
 #include <vector>
 #include "../Logging/Loggable.h"
 
-using namespace std;
-
 /*!
  * @brief Base class for objects containing commands and states of components.
  */
 class ComponentData : public Loggable
 {
 public:
-	ComponentData(string name);
+	ComponentData(std::string name);
 	
 	static void Initialize();
 	static void Finalize();
@@ -25,11 +23,11 @@ public:
 protected:
 	virtual void ResetCommands() = 0;
 	
-	static ComponentData* GetComponentData(string name);
+	static ComponentData* GetComponentData(std::string name);
 	
 private:
-	static map<string, ComponentData*> componentData_map;
-	static vector<ComponentData*> data;
+	static std::map<string, ComponentData*> componentData_map;
+	static std::vector<ComponentData*> data;
 };
 
 #endif

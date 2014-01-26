@@ -1,6 +1,8 @@
 #include "Parallel.h"
 #include "../../Utils/AsyncPrinter.h"
 
+using namespace std;
+
 Parallel::Parallel(const char *name, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {

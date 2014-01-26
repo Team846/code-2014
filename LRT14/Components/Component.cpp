@@ -4,6 +4,7 @@
 
 #include <Rhesus/Toolkit/GameState.h>
 
+using namespace std;
 using namespace Rhesus::Toolkit;
 
 vector<Component*> Component::component_vector;

@@ -5,8 +5,6 @@
 #include <queue>
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Container for a repeating automation routine.
  */

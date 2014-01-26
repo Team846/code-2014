@@ -8,8 +8,6 @@
 #include <list>
 #include "../Logging/Loggable.h"
 
-using namespace std;
-
 /*!
  * @brief Controls all automation and input processing. Coordinates and sends commands to components.
  */
@@ -34,11 +32,11 @@ private:
 	
 	static Brain* m_instance;
 	
-	vector<InputProcessor*> m_inputs;
-	vector<Automation*> m_automation;
+	std::vector<InputProcessor*> m_inputs;
+	std::vector<Automation*> m_automation;
 	
-	list<Automation*> m_runningTasks;
-	map<Automation*, Event*> m_waitingTasks;
+	std::list<Automation*> m_runningTasks;
+	std::map<Automation*, Event*> m_waitingTasks;
 	
 	DISALLOW_COPY_AND_ASSIGN(Brain);
 };

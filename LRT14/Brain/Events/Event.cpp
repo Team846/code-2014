@@ -1,5 +1,7 @@
 #include "Event.h"
 
+using namespace std;
+
 vector<Event*> Event::event_vector;
 
 Event::Event()

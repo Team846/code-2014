@@ -10,8 +10,6 @@
 #include "../Utils/AsyncPrinter.h"
 #include "../Logging/Loggable.h"
 
-using namespace std;
-
 /*!
  * @brief Container for multiple speed controllers for the drivetrain. Features dithered braking and current limiting.
  */
@@ -25,7 +23,7 @@ public:
 	 * @param encoder the encoder that measures the speed of this ESC
 	 * @param name the name of this ESC
 	 */
-	DriveESC(LRTSpeedController *esc, LRTEncoder *encoder, string name);
+	DriveESC(LRTSpeedController *esc, LRTEncoder *encoder, std::string name);
 	
 	/*!
 	 * @brief Constructs a new drivetrain ESC object with two motors. 
@@ -34,7 +32,7 @@ public:
 	 * @param encoder the encoder that measures the speed of this ESC
 	 * @param name the name of this ESC
 	 */
-	DriveESC(LRTSpeedController *esc1, LRTSpeedController *esc2, LRTEncoder *encoder, string name);
+	DriveESC(LRTSpeedController *esc1, LRTSpeedController *esc2, LRTEncoder *encoder, std::string name);
 
 	
 	/*!

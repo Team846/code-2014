@@ -8,8 +8,6 @@
 
 class Event;
 
-using namespace std;
-
 /*!
  * @brief Base class for all automation tasks.
  */
@@ -99,7 +97,7 @@ public:
 	 */
 	const char* GetName();
 	
-	static vector<Automation*> automation_vector;
+	static std::vector<Automation*> automation_vector;
 	
 protected:
 	/*!
@@ -158,8 +156,8 @@ protected:
 	Event* GetContinueEvent();
 	
 private:
-	static map<ControlResource::Enum, int> allocated;
-	vector<ControlResource::Enum> resources;
+	static std::map<ControlResource::Enum, int> allocated;
+	std::vector<ControlResource::Enum> resources;
 	Event *m_startEvent;
 	Event *m_abortEvent;
 	Event *m_continueEvent;

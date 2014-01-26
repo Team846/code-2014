@@ -4,8 +4,6 @@
 #include <vector>
 #include "../Automation/Automation.h"
 
-using namespace std;
-
 /*!
  * @brief Base class for events, which are used to control automation routines.
  */
@@ -51,24 +49,24 @@ public:
 	 * @brief Gets the automation routines that are started by this event.
 	 * @return a vector of automation routines to be started
 	 */
-	vector<Automation*>& GetStartListeners();
+	std::vector<Automation*>& GetStartListeners();
 	/*!
 	 * @brief Gets the automation routines that are aborted by this event.
 	 * @return a vector of automation routines to be aborted
 	 */
-	vector<Automation*>& GetAbortListeners();
+	std::vector<Automation*>& GetAbortListeners();
 	/*!
 	 * @brief Gets the automation routines that are continued by this event.
 	 * @return a vector of automation routines to be continued
 	 */
-	vector<Automation*>& GetContinueListeners();
+	std::vector<Automation*>& GetContinueListeners();
 	
-	static vector<Event*> event_vector;
+	static std::vector<Event*> event_vector;
 	
 private:
-	vector<Automation*> start_listeners;
-    vector<Automation*> abort_listeners;
-    vector<Automation*> continue_listeners;
+	std::vector<Automation*> start_listeners;
+	std::vector<Automation*> abort_listeners;
+	std::vector<Automation*> continue_listeners;
     bool lastFired;
 };
 

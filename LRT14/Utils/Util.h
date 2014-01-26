@@ -18,8 +18,6 @@
  * @author Manoj Vasishta
  */
 
-using namespace std;
-
 class Util
 {
 public:
@@ -218,18 +216,18 @@ public:
 	}
 
 	template<typename T>
-	static inline T lexical_cast(string value)
+	static inline T lexical_cast(std::string value)
 	{
 	    T temp;
-	    stringstream sstream(value);
+	    std::stringstream sstream(value);
 	    sstream >> std::boolalpha >> temp;
 	    return temp;
 	}
 	
 	template<typename T>
-	static inline string lexical_cast(T value)
+	static inline std::string lexical_cast(T value)
 	{
-		return std::string(static_cast<ostringstream*>(&(ostringstream() << value))->str());
+		return std::string(static_cast<std::ostringstream*>(&(std::ostringstream() << value))->str());
 	}
 	
 	template<typename T>
@@ -253,7 +251,7 @@ public:
 	 * @brief Frees the resources pointed to in a map<pointer, object>
 	 */
 	template<class A, class B>
-	static bool DeleteMapFirst(pair<A, B> x)
+	static bool DeleteMapFirst(std::pair<A, B> x)
 	{
 		if(x.first == NULL)
 			return true;
@@ -267,7 +265,7 @@ public:
 	 * @brief Frees the resources pointed to in a map<object, pointer>
 	 */
 	template<class A, class B>
-	static bool DeleteMapSecond(pair<A, B> x)
+	static bool DeleteMapSecond(std::pair<A, B> x)
 	{
 		if(x.second == NULL)
 			return true;
@@ -281,7 +279,7 @@ public:
 	 * @brief Frees the resources pointed to in a map<pointer, pointer>
 	 */
 	template<class A, class B>
-	static bool DeleteMapBoth(pair<A, B> x)
+	static bool DeleteMapBoth(std::pair<A, B> x)
 	{
 		if(x.first != NULL)
 		{
@@ -311,7 +309,7 @@ public:
 		return true;
 	}
 
-	static inline string Trim(string str)
+	static inline std::string Trim(std::string str)
 	{
 		int startIndex = -1, endIndex = str.size() - 1;
 

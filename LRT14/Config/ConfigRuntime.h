@@ -11,8 +11,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-using namespace std;
-
 class Configurable;
 
 /*!
@@ -40,11 +38,11 @@ public:
 	/*!
 	 * @brief Returns value of key at section from loaded file. A default value is required for correct type to be returned.
 	 */
-	template<typename T> T Get(string section, string key, T defaultValue);
+	template<typename T> T Get(std::string section, std::string key, T defaultValue);
 	/*!
 	 * @brief Sets value of key at section in memory. Does not save to config file until Save() is called.
 	 */
-	template<typename T> void Set(string section, string key, T value);
+	template<typename T> void Set(std::string section, std::string key, T value);
 	/*!
 	 * @brief Registers a configurable into configurable list
 	 */
@@ -61,24 +59,24 @@ public:
 private:
 	ConfigRuntime();
 	static ConfigRuntime* m_instance;
-	static vector<Configurable*> configurables;
+	static std::vector<Configurable*> configurables;
 	
 	/*!
 	 * @brief Loads the config file into memory
 	 */
-	void LoadConfig(string path);
+	void LoadConfig(std::string path);
 	/*!
 	 * @brief Saves config data from memory into config file
 	 */
-	void SaveConfig(string path);
-	list<string> *fileData;
+	void SaveConfig(std::string path);
+	std::list<string> *fileData;
 	config* configData;
-	map<string, list<string>::iterator> *sectionMap;
-	time_t lastReadTime;
-	bool KeyExists(string section, string key);
+	std::map<string, std::list<std::string>::iterator> *sectionMap;
+	std::time_t lastReadTime;
+	bool KeyExists(std::string section, std::string key);
 	
-	const static string ConfigRuntime::CONFIG_FILE_PATH;
-	const static string ConfigRuntime::COMMENT_DELIMITERS;
+	const static std::string ConfigRuntime::CONFIG_FILE_PATH;
+	const static std::string ConfigRuntime::COMMENT_DELIMITERS;
 	
 	DISALLOW_COPY_AND_ASSIGN(ConfigRuntime);
 };

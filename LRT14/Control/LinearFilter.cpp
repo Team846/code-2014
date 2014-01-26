@@ -1,5 +1,7 @@
 #include "LinearFilter.h"
 
+using namespace std;
+
 LinearFilter* LinearFilter::SinglePoleIIRLowPassFilter(double decay)
 {
 	vector<double> ffGains(1, 1.0 - decay);

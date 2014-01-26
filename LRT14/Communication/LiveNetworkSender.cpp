@@ -6,6 +6,7 @@
 
 #include <Rhesus/Toolkit/GameState.h>
 
+using namespace std;
 using namespace Rhesus::Toolkit;
 
 LiveNetworkSender *LiveNetworkSender::m_instance = NULL;

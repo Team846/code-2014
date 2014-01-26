@@ -6,6 +6,7 @@
 
 #include <Rhesus/Toolkit/GameState.h>
 
+using namespace std;
 using namespace Rhesus::Toolkit;
 
 Logger *Logger::m_instance = NULL;

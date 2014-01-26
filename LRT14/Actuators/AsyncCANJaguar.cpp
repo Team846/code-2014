@@ -5,6 +5,8 @@
 
 #define DISABLE_SETPOINT_CACHING 0
 
+using namespace std;
+
 vector<AsyncCANJaguar*> AsyncCANJaguar::jaguar_vector;
 
 AsyncCANJaguar::AsyncCANJaguar(UINT8 channel, std::string name) :

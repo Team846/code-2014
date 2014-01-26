@@ -17,8 +17,6 @@
 
 #include <Rhesus/Toolkit/GameState.h>
 
-using namespace Rhesus::Toolkit;
-
 /*!
  * @brief Asynchronous implementation of a CAN driver for the Jaguar.
  * @brief Reimplements the large majority of useful operations on the Jaguar in a threaded fashion.
@@ -41,7 +39,7 @@ public:
 	/*!
 	 * @brief Linked list of all of the constructed AsyncCANJaguars
 	 */
-	static vector<AsyncCANJaguar*> jaguar_vector;
+	static std::vector<AsyncCANJaguar*> jaguar_vector;
 
 	void Send();
 	
@@ -326,7 +324,7 @@ private:
 
 	void Println(const char *str);
 	
-	string m_task_name;
+	std::string m_task_name;
 	int m_channel;
 
 	CachedValue<float> m_setpoint;

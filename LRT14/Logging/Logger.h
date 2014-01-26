@@ -14,8 +14,6 @@
 
 class Loggable;
 
-using namespace std;
-
 /*!
  * @brief Logs data from Loggable classes to a global log file in binary format each cycle.
  */
@@ -44,7 +42,7 @@ public:
 	 * @param name name of the field
 	 * @param source name of the Loggable object that logged this field
 	 */
-	template<typename T> void Log(T *field, size_t size, string name, string source)
+	template<typename T> void Log(T *field, std::size_t size, std::string name, std::string source)
 	{
 		if (!initialized)
 		{
@@ -64,7 +62,7 @@ public:
 	 * @param name name of the field
 	 * @param source name of the Loggable object that logged this variable
 	 */
-	template<typename T> void Log(T *field, string name, string source)
+	template<typename T> void Log(T *field, std::string name, std::string source)
 	{
 		Log(field, sizeof(*field), name, source);
 	}
@@ -75,7 +73,7 @@ public:
 	 * @param name name of the field
 	 * @param source name of the Loggable object that logged this field
 	 */
-	template<typename T> void Log(T value, string name, string source)
+	template<typename T> void Log(T value, std::string name, std::string source)
 	{
 		Log(&value, sizeof(value), name, source);
 	}
@@ -92,9 +90,9 @@ protected:
 private:
 	typedef struct
 	{
-		string type;
-		string name;
-		size_t size;
+		std::string type;
+		std::string name;
+		std::size_t size;
 	} Field;
 	
 	Logger();
@@ -104,19 +102,19 @@ private:
 	 * @param field pointer to the data
 	 * @param size number of bytes to write
 	 */
-	void Write(void* field, size_t size);
+	void Write(void* field, std::size_t size);
 	
 	static Logger *m_instance;
 
-	static vector<Loggable*> loggables;
-	vector<Field> fields;
+	static std::vector<Loggable*> loggables;
+	std::vector<Field> fields;
 #ifdef USE_IOLIB
 	int file;
 #else
 	FILE* file;
 #endif
 	bool initialized;
-	size_t dataSize;
+	std::size_t dataSize;
 	char *curLoc;
 	void *startLoc;
 	SEM_ID m_writeSem;

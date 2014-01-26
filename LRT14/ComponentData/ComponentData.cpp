@@ -5,6 +5,8 @@
 #include "LauncherLoaderData.h"
 #include "LauncherAngleData.h"
 
+using namespace std;
+
 map<string, ComponentData*> ComponentData::componentData_map;
 vector<ComponentData*> ComponentData::data;
 

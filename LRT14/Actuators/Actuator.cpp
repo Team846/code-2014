@@ -2,6 +2,8 @@
 #include <ErrorBase.h>
 #include "../Utils/AsyncPrinter.h"
 
+using namespace std;
+
 vector<Actuator*> Actuator::actuator_vector;
 
 Actuator::Actuator(const char *name)

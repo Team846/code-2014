@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 
+using namespace std;
+
 ConfigPortMappings* ConfigPortMappings::m_instance = NULL;
 const string ConfigPortMappings::CONFIG_FILE_PATH = RobotConfig::PORT_MAPPINGS_FILE_PATH;
 const string ConfigPortMappings::COMMENT_DELIMITERS = "#;";

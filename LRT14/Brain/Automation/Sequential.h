@@ -5,8 +5,6 @@
 #include <queue>
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Container for sequentially executing automation routines.
  */
@@ -28,7 +26,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Sequential(const char *name, vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
+	Sequential(const char *name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Sequential();
 
 	virtual bool Start();
@@ -46,7 +44,7 @@ public:
 	 * @brief Adds a list of automation routine to the sequence of routines.
 	 * @param automation the list of routines to add
 	 */
-	void AddAutomation(vector<Automation*> automation);
+	void AddAutomation(std::vector<Automation*> automation);
 	
 	/*!
 	 * @brief Clears the sequence of routines.
@@ -61,8 +59,8 @@ protected:
 	virtual bool ContinueNextStep();
 	
 private:
-	vector<Automation*> routines;
-	queue<Automation*> queued;
+	std::vector<Automation*> routines;
+	std::queue<Automation*> queued;
     bool started;
 };
 

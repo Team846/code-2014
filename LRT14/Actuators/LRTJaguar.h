@@ -7,8 +7,6 @@
 #include "DigitalOutput.h"
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Wrapper for PWM Jaguars.
  */
@@ -34,7 +32,7 @@ public:
 	 */
 	void Send();
 	
-	static vector<LRTJaguar*> jaguar_vector;
+	static std::vector<LRTJaguar*> jaguar_vector;
 	
 private:
 	float m_pwm;

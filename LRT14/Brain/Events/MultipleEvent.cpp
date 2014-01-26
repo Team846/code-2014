@@ -1,5 +1,7 @@
 #include "MultipleEvent.h"
 
+using namespace std;
+
 MultipleEvent::MultipleEvent()
 {
 }

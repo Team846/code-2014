@@ -7,8 +7,6 @@
 #include "DigitalOutput.h"
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Wrapper for Talon speed controller.
  */
@@ -34,7 +32,7 @@ public:
 	 */
 	void Send();
 	
-	static vector<LRTTalon*> talon_vector;
+	static std::vector<LRTTalon*> talon_vector;
 	
 private:
 	float m_pwm;

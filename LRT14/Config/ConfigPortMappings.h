@@ -11,8 +11,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-using namespace std;
-
 /*!
  * @brief Provides an interface for accessing robot configuration.
  * @author Raphael Chang
@@ -31,7 +29,7 @@ public:
 	/*!
 	 * @brief Returns value of key at section from loaded file. A default value is required for correct type to be returned.
 	 */
-	static uint32_t Get(string name);
+	static uint32_t Get(std::string name);
 	
 private:
 	ConfigPortMappings();
@@ -40,15 +38,15 @@ private:
 	/*!
 	 * @brief Loads the config file into memory
 	 */
-	void LoadConfig(string path);
+	void LoadConfig(std::string path);
 	
-	list<string> *fileData;
-	map<string, map<string, uint32_t> > *portData;
+	std::list<std::string> *fileData;
+	std::map<std::string, map<std::string, uint32_t> > *portData;
 	
-	bool KeyExists(string section, string key);
+	bool KeyExists(std::string section, std::string key);
 	
-	const static string ConfigPortMappings::CONFIG_FILE_PATH;
-	const static string ConfigPortMappings::COMMENT_DELIMITERS;
+	const static std::string ConfigPortMappings::CONFIG_FILE_PATH;
+	const static std::string ConfigPortMappings::COMMENT_DELIMITERS;
 	
 	DISALLOW_COPY_AND_ASSIGN(ConfigPortMappings);
 };

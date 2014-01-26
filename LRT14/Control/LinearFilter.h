@@ -4,8 +4,6 @@
 #include <vector>
 #include <deque>
 
-using namespace std;
-
 /*!
  * @brief A recursive linear FIR or IIR filter.
  * Filters are of the form: y[n] = (b0*x[n] + b1*x[n-1] + ... + bN*x[n-N]) - (a0*y[n-1] + a2*y[n-2] + ... + aM*y[n-M])
@@ -24,7 +22,7 @@ public:
 	 * @param ffGains the feedforward gains
 	 * @param fbGains the feedback gains
 	 */
-	LinearFilter(vector<double> ffGains, vector<double> fbGains);
+	LinearFilter(std::vector<double> ffGains, std::vector<double> fbGains);
 	
 	/*!
 	 * @brief Creates a single pole IIR low-pass filter.
@@ -66,10 +64,10 @@ public:
 	void Reset();
 	
 private:
-	deque<double> m_inputSample;
-	deque<double> m_outputSample;
-	vector<double> m_ffGains;
-	vector<double> m_fbGains;
+	std::deque<double> m_inputSample;
+	std::deque<double> m_outputSample;
+	std::vector<double> m_ffGains;
+	std::vector<double> m_fbGains;
 };
 
 #endif

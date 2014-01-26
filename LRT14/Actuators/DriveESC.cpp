@@ -2,6 +2,8 @@
 #include "AsyncCANJaguar.h"
 #include "../Sensors/DriveEncoders.h"
 
+using namespace std;
+
 DriveESC::DriveESC(LRTSpeedController *esc, LRTEncoder* encoder, string name) :
 	Loggable(name),
 	m_encoder(encoder),

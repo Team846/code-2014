@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace std;
-
 /*!
  * @brief Base class for all actuators.
  */
@@ -19,7 +17,7 @@ public:
 	static void UpdateAll();
 	
 private:
-	static vector<Actuator*> actuator_vector;
+	static std::vector<Actuator*> actuator_vector;
 	const char *m_name;
 };
 
