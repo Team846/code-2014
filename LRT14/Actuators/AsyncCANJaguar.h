@@ -15,7 +15,7 @@
 #include "LRTSpeedController.h"
 #include "../Logging/Loggable.h"
 
-#include "../Rhesus/Toolkit/GameState.h"
+#include <Rhesus/Toolkit/GameState.h>
 
 using namespace Rhesus::Toolkit;
 

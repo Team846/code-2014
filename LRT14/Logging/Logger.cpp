@@ -4,7 +4,7 @@
 #include "../RobotState.h"
 #include "../Utils/AsyncPrinter.h"
 
-#include "../Rhesus/Toolkit/GameState.h"
+#include <Rhesus/Toolkit/GameState.h>
 
 using namespace Rhesus::Toolkit;
 

@@ -1,7 +1,7 @@
 #include "LRTDriverStation.h"
 #include "../RobotState.h"
 
-#include "../Rhesus/Toolkit/GameState.h"
+#include <Rhesus/Toolkit/GameState.h>
 
 using namespace Rhesus::Toolkit;
 

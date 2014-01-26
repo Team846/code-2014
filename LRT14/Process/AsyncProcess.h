@@ -4,7 +4,7 @@
 #include <WPILib.h>
 #include <sysLib.h>
 
-#include "../Rhesus/Toolkit/Defines.h"
+#include <Rhesus/Toolkit/Defines.h>
 
 /*!
  * @brief Base class for asynchronous processes. Asynchronous processes run in a free loop.

@@ -25,7 +25,7 @@
 #include "Events/MultipleEvent.h"
 #include "Events/DelayedEvent.h"
 
-#include "../Rhesus/Toolkit/GameState.h"
+#include <Rhesus/Toolkit/GameState.h>
 
 using namespace Rhesus::Toolkit;
 

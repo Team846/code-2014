@@ -4,7 +4,7 @@
 #include "Event.h"
 #include "../../RobotState.h"
 
-#include "../../Rhesus/Toolkit/GameState.h"
+#include <Rhesus/Toolkit/GameState.h>
 
 /*!
  * @brief Event that fires when the game mode changes to a particular mode.
