@@ -39,35 +39,25 @@ INT32 TestTaskPool()
 	
 	return 0;
 }
-void TestPrintForever1()
-{
-	TestPrintForever(1);
-}
-void TestPrintForever2()
-{
-	TestPrintForever(2);
-}
-void TestPrintForever3()
-{
-	TestPrintForever(3);
-}
+
 INT32 TestTaskPoolOverflow()
 {
 	std::printf("Starting overflow test.\n");
 	TaskPool::Start(3);
 	
-	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever1);
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever, 1);
 	std::printf("1 Worked\n");
-	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever2);
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever, 2);
 	std::printf("2 Worked\n");
-	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever3);
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever, 3);
 	std::printf("3 Worked\n");
 	TaskPool::EnqueueTask((FUNCPTR)TestPrint);
-	std::printf("4 Worked\n");
 	
 	sleep(5);
 	
 	TaskPool::Stop();
+	
+	std::printf("\nEverything worked!\n");
 	
 	return 0;
 }
