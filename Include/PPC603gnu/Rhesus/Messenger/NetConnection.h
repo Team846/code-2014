@@ -11,9 +11,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	class NetConnection
 	{
@@ -30,7 +28,6 @@ namespace Net
 		
 		void Send(NetBuffer* buff, NetChannel::Enum method, int channel);
 	};
-}
 }
 }
 

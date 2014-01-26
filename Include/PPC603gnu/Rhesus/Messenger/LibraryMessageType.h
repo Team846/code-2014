@@ -3,9 +3,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	/*!
 	 * @brief Contains an enumeration defining networked message headers used by the underlying networking library.
@@ -20,7 +18,6 @@ namespace Net
 			CONNECTION_CONFIRM = 0x11,
 		};
 	};
-}
 }
 }
 

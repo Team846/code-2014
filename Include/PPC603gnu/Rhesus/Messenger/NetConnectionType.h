@@ -3,9 +3,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	namespace NetConnectionType
 	{
@@ -16,7 +14,6 @@ namespace Net
 	
 		};
 	}
-}
 }
 }
 

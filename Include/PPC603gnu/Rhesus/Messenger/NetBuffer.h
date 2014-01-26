@@ -9,9 +9,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	/*!
 	 * @brief Implements a buffer for data that can be sent over the network.
@@ -173,7 +171,6 @@ namespace Net
 		
 		bool m_isReadOnly;
 	};
-}
 }
 }
 

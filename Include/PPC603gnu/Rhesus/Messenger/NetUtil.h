@@ -6,9 +6,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	class NetUtil
 	{
@@ -21,7 +19,6 @@ namespace Net
 		
 		static void DebugPrint(char* c);
 	};
-}
 }
 }
 

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-using namespace Rhesus::Toolkit::Net;
+using namespace Rhesus::Messenger;
 
 UINT32 NetUtil::PackFloat(float f)
 {

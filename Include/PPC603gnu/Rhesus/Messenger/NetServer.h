@@ -12,9 +12,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	class NetServer : public NetPeer
 	{
@@ -25,7 +23,6 @@ namespace Net
 		
 		vector<NetConnection*> Connections(); 
 	};
-}
 }
 }
 

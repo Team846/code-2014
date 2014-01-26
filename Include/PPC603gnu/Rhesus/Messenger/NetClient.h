@@ -11,9 +11,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	class NetClient : public NetPeer
 	{
@@ -29,7 +27,6 @@ namespace Net
 		double _connectionRequestTime;
 		bool _connectionRequested;
 	};
-}
 }
 }
 

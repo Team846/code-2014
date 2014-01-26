@@ -1,6 +1,6 @@
 #include "NetConnection.h"
 
-using namespace Rhesus::Toolkit::Net;
+using namespace Rhesus::Messenger;
 
 sockaddr_in* NetConnection::RemoteEndpoint()
 {

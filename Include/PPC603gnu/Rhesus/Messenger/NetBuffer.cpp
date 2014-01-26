@@ -1,10 +1,10 @@
 #include "NetBuffer.h"
 #include "NetReadOnlyBufferException.h"
 #include "NetBufferOverflowException.h"
-#include "../ArgumentOutOfRangeException.h"
+#include "NetArgumentOutOfRangeException.h"
 
 using namespace std;
-using namespace Rhesus::Toolkit::Net;
+using namespace Rhesus::Messenger;
 
 const int NetBuffer::kBufferResizeOverAllocateBytes = 4;
 
@@ -210,7 +210,7 @@ void NetBuffer::InternalWriteByte(const UINT8 data, int bit_length)
 	
 	if(bit_length < 1 || bit_length > 8)
 	{
-		throw ArgumentOutOfRangeException("Can't write less than one bit or more than eight bits!");
+		throw NetArgumentOutOfRangeException("Can't write less than one bit or more than eight bits!");
 		return;
 	}
 	
@@ -287,7 +287,7 @@ UINT8 NetBuffer::InternalReadByte(int bit_length)
 {
 	if(bit_length < 1 || bit_length > 8)
 	{
-		throw ArgumentOutOfRangeException("Can't write less than one bit or more than eight bits!");
+		throw NetArgumentOutOfRangeException("Can't write less than one bit or more than eight bits!");
 		return 0;
 	}
 	

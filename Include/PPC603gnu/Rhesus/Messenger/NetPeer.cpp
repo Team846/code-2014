@@ -1,9 +1,8 @@
 #include "NetPeer.h"
 #include "NetConnection.h"
-#include "../Defines.h"
 
 using namespace std;
-using namespace Rhesus::Toolkit::Net;
+using namespace Rhesus::Messenger;
 
 const double NetPeer::kResendPacketTime = 1.0; // resend if 100 ms passes with no ACK; max of 500ms roundtrip time
 
@@ -523,8 +522,12 @@ void NetPeer::InternalPlatformDestroyUpdateTasks()
 	m_internalUpdateTask->Stop();
 	m_internalMessageVerificationTask->Stop();
 	
-	DELETE(m_internalUpdateTask);
-	DELETE(m_internalMessageVerificationTask);
+	delete m_internalUpdateTask;
+	m_internalUpdateTask = NULL;
+	
+	delete m_internalMessageVerificationTask;
+	m_internalMessageVerificationTask = NULL;
+	
 #elif defined(USE_BOOST)
 	m_internalUpdateTask->interrupt();
 	m_internalMessageVerificationTask->interrupt();

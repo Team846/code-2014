@@ -2,7 +2,7 @@
 #include "NetConnection.h"
 #include "NetBuffer.h"
 
-using namespace Rhesus::Toolkit::Net;
+using namespace Rhesus::Messenger;
 
 NetClient::NetClient()
 	: NetPeer("0.0.0.0", 0, NetConnectionType::CLIENT)

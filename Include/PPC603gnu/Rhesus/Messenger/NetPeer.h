@@ -45,9 +45,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	class NetConnection;
 
@@ -196,7 +194,6 @@ namespace Net
 		int m_currentReliableOrderedCounter;
 		int m_currentUnreliableSequencedCounter;
 	};
-}
 }
 }
 

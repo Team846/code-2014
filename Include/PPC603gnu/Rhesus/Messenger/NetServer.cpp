@@ -2,7 +2,7 @@
 
 #include "NetConnection.h"
 
-using namespace Rhesus::Toolkit::Net;
+using namespace Rhesus::Messenger;
 
 NetServer::NetServer(int port)
 	: NetPeer("", port, NetConnectionType::SERVER)

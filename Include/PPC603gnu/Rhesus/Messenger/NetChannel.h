@@ -3,9 +3,7 @@
 
 namespace Rhesus
 {
-namespace Toolkit
-{
-namespace Net
+namespace Messenger
 {
 	/*!
 	 * @brief Contains an enumeration defining network channels.  Each channel has 16 subchannels.
@@ -41,7 +39,6 @@ namespace Net
 			NET_RELIABLE_IN_ORDER = 0x64,
 		};
 	};
-}
 }
 }
 
