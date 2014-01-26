@@ -3,7 +3,7 @@
 
 #include "../Defines.h"
 #include "remove_reference.hpp"
-#include<typeinfo>
+#include <typeinfo>
 
 namespace Rhesus
 {

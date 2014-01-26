@@ -43,8 +43,6 @@
 #define MAX_RECEIVE_BUFFER_SIZE 1024
 #define MAX_MESSAGE_TRACK 256 // 256 gives us ample time to wait for an ACK. ~ 5 messages per frame * 50 frames per second gives us 6 extra packets.
 
-using namespace std;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -114,7 +112,7 @@ namespace Net
 		
 		bool _connected;
 		
-		vector<NetConnection*> m_netConnections;
+		std::vector<NetConnection*> m_netConnections;
 		void InternalPlatformConnectionListSynchronizationEnter();
 		void InternalPlatformConnectionListSynchronizationLeave();
 	private:
@@ -177,7 +175,7 @@ namespace Net
 		boost::thread* m_internalMessageVerificationTask;
 #endif
 		
-		queue<NetBuffer*> m_receivedMessages;
+		std::queue<NetBuffer*> m_receivedMessages;
 		
 		NetConnectionType::Enum m_connType;
 		
@@ -186,9 +184,9 @@ namespace Net
 		int m_socket;
 		sockaddr_in m_socketEndpoint;
 
-		map<int, MessageAwaitingACK> m_reliableUnordered[16];
-		map<int, MessageAwaitingACK> m_reliableSequenced[16];
-		map<int, MessageAwaitingACK> m_reliableOrdered[16];
+		std::map<int, MessageAwaitingACK> m_reliableUnordered[16];
+		std::map<int, MessageAwaitingACK> m_reliableSequenced[16];
+		std::map<int, MessageAwaitingACK> m_reliableOrdered[16];
 		
 		int* m_lastUnreliableSequenced; // int array of length 16 ints - one for each channel 
 		int* m_lastReliableSequenced; // int array of length 16 ints - one for each channel

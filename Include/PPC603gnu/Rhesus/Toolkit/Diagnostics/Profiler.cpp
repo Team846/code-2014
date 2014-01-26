@@ -6,6 +6,7 @@
 #include "../Utilities/ContainerCleanup.hpp"
 #include "../Defines.h"
 
+using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Diagnostics;
 using namespace Rhesus::Toolkit::Utilities;
 

@@ -1,7 +1,7 @@
 #ifndef RHESUS_EXCEPTION_MESSAGE_H_
 #define RHESUS_EXCEPTION_MESSAGE_H_
 
-#include<string>
+#include <string>
 
 namespace Rhesus
 {

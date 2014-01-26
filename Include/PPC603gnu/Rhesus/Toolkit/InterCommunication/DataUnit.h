@@ -7,12 +7,6 @@
 #include "../Utilities/Generic.hpp"
 #include "../Tasks/SyncObject.h"
 
-using namespace std;
-using namespace Rhesus::Toolkit::Utilities;
-using namespace Rhesus::Toolkit::Tasks;
-
-typedef hash_map<string, Generic> DataMap;
-
 namespace Rhesus 
 {
 namespace Toolkit
@@ -36,14 +30,14 @@ namespace InterCommunication
 		 * @param value the value to set
 		 */
 		template <typename T>
-		void Set(string key, T value);
+		void Set(std::string key, T value);
 		
 		/*!
 		 * @return the value associated with the specified key
 		 * @param key the key of the desired value
 		 */
 		template <typename T>
-		T Get(string key);
+		T Get(std::string key);
 		
 		/*!
 		 * Purges the DataUnit of all data
@@ -51,9 +45,11 @@ namespace InterCommunication
 		void Clear();
 		
 	private:
+		typedef std::hash_map<std::string, Rhesus::Toolkit::Utilities::Generic> DataMap;
+
 		DataMap m_dataMap;
 		
-		SyncObject m_syncObject;
+		Rhesus::Toolkit::Tasks::SyncObject m_syncObject;
 	};
 
 }

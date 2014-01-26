@@ -1,8 +1,6 @@
 #ifndef RHESUS_ARGUMENTOUTOFRANGEEXCEPTION_H_
 #define RHESUS_ARGUMENTOUTOFRANGEEXCEPTION_H_
 
-using namespace std;
-
 #include <exception>
 
 #include "exception_message.hpp"

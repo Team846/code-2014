@@ -9,8 +9,6 @@
 
 #include <queue>
 
-using namespace Rhesus::Toolkit::Tasks;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -52,11 +50,11 @@ namespace Action
 
 		static std::queue<IRobotAction*> s_actionQueue;
 		
-		static SyncObject s_so;
+		static Rhesus::Toolkit::Tasks::SyncObject s_so;
 		
-		static RhesusTask s_task;
+		static Rhesus::Toolkit::Tasks::RhesusTask s_task;
 		
-		static BinarySemaphore s_sem;
+		static Rhesus::Toolkit::Tasks::BinarySemaphore s_sem;
 		
 	};
 	

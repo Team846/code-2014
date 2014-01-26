@@ -3,6 +3,7 @@
 #include "IRobotAction.hpp"
 #include "../Defines.h"
 
+using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Action;
 
 BinarySemaphore ActionManager::s_sem(0);

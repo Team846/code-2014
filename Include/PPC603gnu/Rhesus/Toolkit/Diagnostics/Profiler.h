@@ -8,8 +8,6 @@
 
 #include "../Tasks/SyncObject.h"
 
-using namespace Rhesus::Toolkit::Tasks;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -42,7 +40,7 @@ namespace Diagnostics
 		static std::hash_map<string, double> s_lastTimes;
 		static std::hash_map<string, double> s_maxTimes;
 		
-		static SyncObject s_syncObj;
+		static Rhesus::Toolkit::Tasks::SyncObject s_syncObj;
 	};
 }
 }

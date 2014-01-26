@@ -2,7 +2,10 @@
 
 #include "../Tasks/lock_on.hpp"
 
+using namespace std;
+
 using namespace Rhesus::Toolkit::InterCommunication;
+using namespace Rhesus::Toolkit::Tasks;
 
 DataUnit::DataUnit()
 {

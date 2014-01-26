@@ -2,6 +2,7 @@
 #include "NetConnection.h"
 #include "../Defines.h"
 
+using namespace std;
 using namespace Rhesus::Toolkit::Net;
 
 const double NetPeer::kResendPacketTime = 1.0; // resend if 100 ms passes with no ACK; max of 500ms roundtrip time

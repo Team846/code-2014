@@ -6,8 +6,6 @@
 #include <Task.h>
 #include "SyncObject.h"
 
-using namespace std;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -44,7 +42,7 @@ namespace Tasks
 		INT32 GetID();
 	
 	private:
-		static map<const char*, RhesusTask*> m_tasks;
+		static std::map<const char*, RhesusTask*> m_tasks;
 
 		static INT32 intern_taskEntry(UINT32 inst, UINT32 arg0, UINT32 arg1, UINT32 arg2, UINT32 arg3, UINT32 arg4, 
 				UINT32 arg5, UINT32 arg6, UINT32 arg7, UINT32 arg8);

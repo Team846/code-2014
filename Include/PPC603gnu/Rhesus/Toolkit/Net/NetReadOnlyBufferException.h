@@ -3,15 +3,13 @@
 
 #include <exception>
 
-using namespace std;
-
 namespace Rhesus
 {
 	namespace Toolkit
 	{
 		namespace Net
 		{
-			class NetReadOnlyBufferException : public exception
+			class NetReadOnlyBufferException : public std::exception
 			{
 			public:
 				NetReadOnlyBufferException(const char* message) : m_message(message) { }

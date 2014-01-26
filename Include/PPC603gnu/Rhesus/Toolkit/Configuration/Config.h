@@ -11,11 +11,6 @@
 #include "../error_val.hpp"
 #endif
 
-using namespace std;
-
-typedef hash_map<string, string> strMap;
-typedef hash_map<string, strMap> configMap;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -36,20 +31,20 @@ namespace Configuration
 		 * Sets the section that is accessed if none is specified
 		 * @param sectionId the name of the default section
 		 */
-		void SetDefaultSection(string sectionId);
+		void SetDefaultSection(std::string sectionId);
 		
 		/*!
 		 * @return The value at the specified key within the specified section
 		 * @param section the section in which to search for the given key
 		 * @param the key associated with the requested value
 		 */
-		template<typename T> T Get(string section, string key);
+		template<typename T> T Get(std::string section, std::string key);
 		
 		/*!
 		 * @return The value at the specified key within the default section
 		 * @param the key associated with the requested value
 		 */
-		template<typename T> T Get(string key);
+		template<typename T> T Get(std::string key);
 
 		/*!
 		 * sets the specified value at the specified location
@@ -57,41 +52,44 @@ namespace Configuration
 		 * @param key the key for the value to change
 		 * @value the desired value to be set
 		 */
-		void Set(string section, string key, string value);
+		void Set(std::string section, std::string key, std::string value);
 		
 		/*!
 		 * sets the value to a specific key within the default section
 		 * @param key the kay at which the desired value is located
 		 * @param value the value that is to be set
 		 */
-		void Set(string key, string value);
+		void Set(std::string key, std::string value);
 		
 		/*!
 		 * Adds a configuration section
 		 * @param section the name of the section to be added
 		 */
-		void AddSection(string section);
+		void AddSection(std::string section);
 		
 		/*!
 		 * static ConfigLoader function: used to load data from a file into the config object
 		 * @param filepath the path to the config file to be loaded
 		 * @return a new Config object populated with data from the specified file
 		 */
-		static Config Load(string filepath);
+		static Config Load(std::string filepath);
 		
 	private:
 		
+		typedef std::hash_map<std::string, std::string> strMap;
+		typedef std::hash_map<std::string, strMap> configMap;
+		
 		static std::string kDefaultSection;
 		
-		bool SectionExists(string section);
-		bool KeyExists(string section, string key);
+		bool SectionExists(std::string section);
+		bool KeyExists(std::string section, std::string key);
 		
 		//hash_map<string, hash_map<string, string> > m_configMap;
 		configMap m_configMap;
-		string m_defaultSection;
+		std::string m_defaultSection;
 		
 		//ConfigLoader function
-		static string RemoveComments(string s);
+		static std::string RemoveComments(std::string s);
 	};
 
 }

@@ -7,8 +7,6 @@
 
 #include "NetUtil.h"
 
-using namespace std;
-
 namespace Rhesus
 {
 namespace Toolkit

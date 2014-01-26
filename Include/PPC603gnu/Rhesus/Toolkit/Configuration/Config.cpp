@@ -11,6 +11,8 @@ using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Configuration;
 using namespace Rhesus::Toolkit::Utilities;
 
+using namespace std;
+
 std::string Config::kDefaultSection = "default";
 
 Config::Config()

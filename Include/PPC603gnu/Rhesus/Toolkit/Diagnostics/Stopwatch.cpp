@@ -1,5 +1,6 @@
 #include "Stopwatch.h"
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Diagnostics;
 
 Stopwatch::Stopwatch()

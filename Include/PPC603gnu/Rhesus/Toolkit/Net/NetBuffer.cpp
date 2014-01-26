@@ -3,6 +3,7 @@
 #include "NetBufferOverflowException.h"
 #include "../ArgumentOutOfRangeException.h"
 
+using namespace std;
 using namespace Rhesus::Toolkit::Net;
 
 const int NetBuffer::kBufferResizeOverAllocateBytes = 4;

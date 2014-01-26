@@ -3,15 +3,13 @@
 
 #include <exception>
 
-using namespace std;
-
 namespace Rhesus
 {
 	namespace Toolkit
 	{
 		namespace Net
 		{
-			class NetBufferOverflowException : public exception
+			class NetBufferOverflowException : public std::exception
 			{
 			public:
 				NetBufferOverflowException(const char* message) : m_message(message) { }

@@ -5,13 +5,11 @@
 
 #include "exception_message.hpp"
 
-using namespace std;
-
 namespace Rhesus
 {
 	namespace Toolkit
 	{
-		class IndexOutOfBoundsException : public exception, public exception_message
+		class IndexOutOfBoundsException : public std::exception, public exception_message
 		{
 		public:
 			IndexOutOfBoundsException() : exception_message("") {}

@@ -5,8 +5,6 @@
 
 #include "../TimeSpan.h"
 
-using namespace Rhesus::Toolkit;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -29,7 +27,7 @@ namespace Diagnostics
 		double TotalElapsedSeconds();
 		double TotalElapsedMilliseconds();
 		
-		TimeSpan TotalElapsedTime();
+		Rhesus::Toolkit::TimeSpan TotalElapsedTime();
 	private:
 		double m_begin;
 		double m_end;

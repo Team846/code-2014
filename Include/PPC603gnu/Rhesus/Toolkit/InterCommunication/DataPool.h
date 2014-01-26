@@ -7,9 +7,6 @@
 #include <hash_map>
 #include <string>
 
-using namespace std;
-using namespace Rhesus::Toolkit::Tasks;
-
 namespace Rhesus
 {
 namespace Toolkit
@@ -29,13 +26,13 @@ namespace InterCommunication
 		 * Adds a DataUnit (a new section of data) to the DataPool
 		 * @param name the name of the added DataUnit (used to access it)
 		 */
-		static void AddUnit(string name);
+		static void AddUnit(std::string name);
 		
 		/*!
 		 * @return a reference to the specified DataUnit
 		 * @param unit the name of the DataUnit to retrieve 
 		 */
-		static DataUnit& Get(string unit);
+		static DataUnit& Get(std::string unit);
 		
 		/*!
 		 * sets a specific value within a specified DataUnit
@@ -44,7 +41,7 @@ namespace InterCommunication
 		 * @param value the value to set
 		 */
 		template<typename T>
-		static void Set(string unit, string key, T value);
+		static void Set(std::string unit, std::string key, T value);
 		
 		/*!
 		 * Purges the DataPool of all DataUnits
@@ -53,11 +50,11 @@ namespace InterCommunication
 		
 	private:
 		
-		static hash_map<string, DataUnit> s_componentMap;
+		static std::hash_map<std::string, DataUnit> s_componentMap;
 		
-		static SyncObject s_syncObject;
+		static Rhesus::Toolkit::Tasks::SyncObject s_syncObject;
 		
-		static bool KeyExists(string c);
+		static bool KeyExists(std::string c);
 		
 	};
 }

@@ -3,6 +3,7 @@
 
 #include "lock_on.hpp"
 
+using namespace std;
 using namespace Rhesus::Toolkit::Tasks;
 
 map<const char*, RhesusTask*> RhesusTask::m_tasks;
