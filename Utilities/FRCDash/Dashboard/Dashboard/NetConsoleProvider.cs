@@ -59,7 +59,14 @@ namespace Dashboard
 
                 _socket.Bind(remote);
             }
-            catch(Exception e)
+            catch (SocketException se)
+            {
+                lock (_errorQMutex)
+                {
+                    _errorQ.Enqueue(se.ErrorCode + ": " + se.Message + (se.ErrorCode == 10013 ? " - is another Net Console running?" : ""));
+                }
+            }
+            catch (Exception e)
             {
                 lock (_errorQMutex)
                 {
