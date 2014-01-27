@@ -47,8 +47,7 @@ void Brain::Initialize()
 
 void Brain::Finalize()
 {
-	delete m_instance;
-	m_instance = NULL;
+	DELETE(m_instance);
 }
 
 Brain::Brain() :

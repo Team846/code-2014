@@ -24,8 +24,9 @@ LCD::LCD() :
 LCD::~LCD()
 {
 	semDelete(textBufferSemaphore);
-	delete[] textBuffer;
-	delete[] outputBuffer;
+	
+	DELETE_ARR(textBuffer);
+	DELETE_ARR(outputBuffer);
 }
 
 LCD* LCD::Instance()

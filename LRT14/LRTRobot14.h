@@ -18,7 +18,7 @@ class LRTRobot14 : public LRTRobotBase
 		
 		void RobotInit();
 	
-		void MainLoop();
+		void Tick();
 		
 	private:
 		Timer timer;

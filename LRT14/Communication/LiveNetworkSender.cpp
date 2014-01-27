@@ -27,8 +27,7 @@ void LiveNetworkSender::Initialize()
 
 void LiveNetworkSender::Finalize()
 {
-	delete m_instance;
-	m_instance = NULL;
+	DELETE(m_instance);
 }
 
 LiveNetworkSender::LiveNetworkSender()

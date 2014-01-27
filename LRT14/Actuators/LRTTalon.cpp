@@ -30,8 +30,7 @@ LRTTalon::LRTTalon(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 
 
 LRTTalon::~LRTTalon()
 {
-	delete m_brake_jumper;
-	m_brake_jumper = NULL;
+	DELETE(m_brake_jumper);
 }
 
 void LRTTalon::SetDutyCycle(float speed)

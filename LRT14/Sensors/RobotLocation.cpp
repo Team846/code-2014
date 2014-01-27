@@ -33,8 +33,7 @@ RobotLocation* RobotLocation::Instance()
 
 void RobotLocation::Finalize()
 {
-	delete m_instance;
-	m_instance = NULL;
+	DELETE(m_instance);
 }
 
 void RobotLocation::Update()

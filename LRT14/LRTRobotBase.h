@@ -15,8 +15,8 @@ public:
 	// Inherited from RobotBase, starts the competition
 	virtual void StartCompetition();
 	
-	// Function to execute each pass in the loop; similar to a main function, but it gets run multiple times.
-	virtual void MainLoop();
+	// Runs once every tick.
+	virtual void Tick();
 
 private:
 	void Run();
