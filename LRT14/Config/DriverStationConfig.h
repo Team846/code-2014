@@ -39,6 +39,7 @@ const uint32_t DRIVETRAIN = 1;
 const uint32_t COLLECTOR_ROLLERS = 2;
 const uint32_t COLLECTOR_ARM = 3;
 const uint32_t LAUNCHER_LOADER = 4;
+const uint32_t LAUNCHER_ANGLE = 5;
 const uint32_t COMPRESSOR = 8;
 }
 namespace AnalogIns
