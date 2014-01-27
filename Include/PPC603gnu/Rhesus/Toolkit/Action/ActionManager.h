@@ -4,8 +4,8 @@
 #include "IRobotAction.h"
 #include "../Tasks/BinarySemaphore.h"
 #include "../Tasks/lock_on.h"
-#include "../Tasks/RhesusTask.h"
 #include "../Tasks/Mutex.h"
+#include <Task.h>
 
 #include <queue>
 
@@ -52,7 +52,7 @@ namespace Action
 		
 		static Rhesus::Toolkit::Tasks::Mutex s_so;
 		
-		static Rhesus::Toolkit::Tasks::RhesusTask s_task;
+		static Task* s_task;
 		
 		static Rhesus::Toolkit::Tasks::BinarySemaphore s_sem;
 		

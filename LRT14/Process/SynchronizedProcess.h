@@ -9,6 +9,8 @@
 /*!
  * @brief Base class for synchronized processes. Synchronized processes wait for a signal before running a Tick.
  * @author Tony Peng, Raphael Chang
+ * 
+ * @remarks Consider deprecation in favor of do_async or TaskPool.
  */
 
 class SynchronizedProcess : public AsyncProcess

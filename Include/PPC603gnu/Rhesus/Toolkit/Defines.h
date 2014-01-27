@@ -9,4 +9,6 @@
 
 #define OVERRIDE
 
+#define DEPRECATED __attribute__ ((deprecated))
+
 #endif

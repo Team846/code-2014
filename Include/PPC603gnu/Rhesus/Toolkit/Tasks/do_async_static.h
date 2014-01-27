@@ -1,8 +1,6 @@
 #ifndef RHESUS_DO_ASYNC_STATIC_H_
 #define RHESUS_DO_ASYNC_STATIC_H_
 
-#include "RhesusTask.h"
-
 #include "TaskPool.h"
 
 #include "../Defines.h"

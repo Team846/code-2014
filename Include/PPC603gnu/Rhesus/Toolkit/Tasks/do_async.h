@@ -1,8 +1,6 @@
 #ifndef RHESUS_DO_ASYNC_H_
 #define RHESUS_DO_ASYNC_H_
 
-#include "RhesusTask.h"
-
 #include "TaskPool.h"
 
 namespace Rhesus

@@ -9,11 +9,11 @@ using namespace Rhesus::Toolkit::Action;
 BinarySemaphore ActionManager::s_sem(0);
 std::queue<IRobotAction*> ActionManager::s_actionQueue;
 Mutex ActionManager::s_so;
-RhesusTask ActionManager::s_task = RhesusTask::CreateNew("ActionManager", (FUNCPTR) RunAll);
+Task* ActionManager::s_task = new Task("ActionManager", (FUNCPTR)RunAll);
 
 void ActionManager::Start()
 {
-	s_task.Start();
+	s_task->Start();
 }
 
 void ActionManager::RunAll()
