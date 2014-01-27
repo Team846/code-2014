@@ -19,7 +19,7 @@ public:
 	virtual void Tick();
 
 private:
-	void Run();
+	void Main();
 
 	Notifier m_loopSynchronizer;
 	static bool m_isRunning;

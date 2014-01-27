@@ -27,13 +27,13 @@ void LRTRobotBase::StartCompetition()
 	TaskPool::Start();
 	
 	RobotInit();
-	Run();
+	Main();
 	
 	// Stop the task pool
 	TaskPool::Stop();
 }
 
-void LRTRobotBase::Run()
+void LRTRobotBase::Main()
 {
 	while(true)
 	{
