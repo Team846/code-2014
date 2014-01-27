@@ -133,7 +133,14 @@ public class LocalizationViz extends JPanel implements ActionListener {
 		drawRobot(g);
 		drawBall(g);
 
-		
+		int iX = width/2 + (int)(Double.parseDouble(x) * 5);
+		int iY = height/2 - (int)(Double.parseDouble(y) * 5);
+		g.drawOval(iX - 10, iY - 10, 20,20);
+		g.drawLine(iX, iY, iX + (int)(10 * -Math.sin(Double.parseDouble(theta) * Math.PI / 180)), iY - (int)(10 * Math.cos(Double.parseDouble(theta) * Math.PI / 180)));
+		g.setColor(Color.RED);
+		g.drawLine(width / 2, height / 2 - 10, width / 2, height / 2 + 10);
+		g.drawLine(width / 2 - 10, height / 2, width / 2 + 10, height / 2);
+
 		g.drawString("X Position: " + x, 0, 10);
 		g.drawString("Y Position: " + y, 0, 20);
 		g.drawString("Rotation Angle: " + theta, 0, 30);
