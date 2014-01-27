@@ -221,7 +221,7 @@ namespace RhesusNet.NET
 		        return;
 	        }
 	
-	        FitBufferToSize((uint)(GetBytePos() * 8 + bit_length));
+	        FitBufferToSize((uint)(m_internalBitPos + bit_length));
 	
 	        int bit_pos = GetBitIndexInCurrentByte();
 	

@@ -113,6 +113,14 @@ namespace Dashboard
 
         void file_loadlayoutButton_Click(object sender, EventArgs e)
         {
+            // for debugging purposes
+            ResetLayout();
+
+            ILayoutLoader loader = new CompiledLayoutLoader(System.IO.Path.GetFullPath("LRT14.dll"));
+            loader.LoadLayout(Manager, _contentLibrary);
+
+            return;
+
             FileDialog fileDialog = new FileDialog(Manager);
             fileDialog.Init();
             fileDialog.Text = "Test";
