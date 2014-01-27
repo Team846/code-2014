@@ -5,6 +5,8 @@
 
 #include "TaskPool.h"
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit

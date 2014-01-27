@@ -10,7 +10,7 @@ using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Diagnostics;
 using namespace Rhesus::Toolkit::Utilities;
 
-SyncObject Profiler::s_syncObj;
+Mutex Profiler::s_syncObj;
 
 std::hash_map<string, Stopwatch*> Profiler::s_profilers;
 std::hash_map<string, pair<double, int> > Profiler::s_averageTimes;

@@ -5,7 +5,7 @@
 #include <vector>
 
 #include <Task.h> // TaskPool does not use ManagedTasks to make cleanup easier
-#include "SyncObject.h"
+#include "Mutex.h"
 #include "CountingSemaphore.h"
 
 namespace Rhesus {
@@ -46,7 +46,7 @@ private:
 	static INT32 WorkerTemp(taskStructure* t, Task* thisTask);
 
 	static std::queue<taskStructure> s_taskQ;
-	static SyncObject s_taskQSyncObj;
+	static Mutex s_taskQSyncObj;
 	static CountingSemaphore s_taskSignal;
 	static std::vector<Task*> s_tasks;
 	static std::vector<Task*> s_tempTasks;

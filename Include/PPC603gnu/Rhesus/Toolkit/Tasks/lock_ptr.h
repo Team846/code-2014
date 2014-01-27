@@ -1,7 +1,7 @@
 #ifndef RHESUS_LOCK_PTR_H_
 #define RHESUS_LOCK_PTR_H_
 
-#include "SyncObject.h"
+#include "Mutex.h"
 
 #include <WPILib.h>
 
@@ -15,16 +15,16 @@ namespace Tasks
 	class lock_ptr
 	{
 	public:
-		lock_ptr(volatile T& lockObj, SyncObject& mutex)
+		lock_ptr(volatile T& lockObj, Mutex& mutex)
 			: m_lockObj(const_cast<T*>(&lockObj)),
 			  m_mutex(mutex)
 		{
-			m_mutex.lock();
+			m_mutex.Lock();
 		}
 		
 		~lock_ptr()
 		{
-			m_mutex.unlock();
+			m_mutex.Unlock();
 		}
 		
 		T& operator*()
@@ -39,7 +39,7 @@ namespace Tasks
 		
 	private:
 		T* m_lockObj;
-		SyncObject& m_mutex;
+		Mutex& m_mutex;
 		
 		DISALLOW_COPY_AND_ASSIGN(lock_ptr);
 	};

@@ -11,7 +11,14 @@ using namespace Rhesus::Toolkit::Tasks;
 CountingSemaphore::CountingSemaphore(UINT32 initialcount) 
 {
 #ifdef __VXWORKS__
-	m_sem = semCCreate(SEM_Q_FIFO, initialcount);
+	m_sem = semCCreate(SEM_Q_PRIORITY, initialcount);
+#endif
+}
+
+CountingSemaphore::~CountingSemaphore()
+{
+#ifdef __VXWORKS__
+	semDelete(m_sem);
 #endif
 }
 

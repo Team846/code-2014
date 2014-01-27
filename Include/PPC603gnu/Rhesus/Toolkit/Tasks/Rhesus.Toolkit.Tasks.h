@@ -8,7 +8,7 @@
 #include "lock_on.h"
 #include "lock_ptr.h"
 #include "ManagedTask.h"
-#include "SyncObject.h"
+#include "Mutex.h"
 #include "TaskPool.h"
 
 #endif

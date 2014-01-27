@@ -6,7 +6,7 @@
 #include "exception_message.hpp"
 #include "IndexOutOfBoundsException.h"
 #include "ManagedArray.h"
-#include "RobotState.h"
+#include "GameState.h"
 #include "TimeSpan.h"
 
 #endif

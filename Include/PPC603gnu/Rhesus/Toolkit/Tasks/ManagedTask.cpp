@@ -10,7 +10,7 @@ const int ManagedTask::kInvalidTask = -1;
 const int ManagedTask::kMaxManagedTasks = 50;
 bool ManagedTask::s_isQueueInitialized = false;
 std::queue<int> ManagedTask::s_availableIDs;
-SyncObject ManagedTask::s_idSync;
+Mutex ManagedTask::s_idSync;
 ManagedTask** ManagedTask::s_managedTasks;
 
 void ManagedTask::Finalize()

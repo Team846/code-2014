@@ -10,7 +10,7 @@ using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::InterCommunication;
 
 hash_map<string, DataUnit> DataPool::s_componentMap;
-SyncObject DataPool::s_syncObject;
+Mutex DataPool::s_syncObject;
 
 void DataPool::AddUnit(string name)
 {

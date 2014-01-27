@@ -1,4 +1,4 @@
-#include "BinarySemaphore.h"
+#include "Mutex.h"
 
 #ifdef __VXWORKS__
 #include <semLib.h>
@@ -8,41 +8,41 @@
 
 using namespace Rhesus::Toolkit::Tasks;
 
-BinarySemaphore::BinarySemaphore(UINT32 state) 
+Mutex::Mutex() 
 {
 #ifdef __VXWORKS__
-	m_sem = semBCreate(SEM_Q_PRIORITY, (SEM_B_STATE)state);
+	m_sem = semMCreate(SEM_Q_PRIORITY);
 #endif	
 }
 
-BinarySemaphore::~BinarySemaphore()
+Mutex::~Mutex()
 {
 #ifdef __VXWORKS__
 	semDelete(m_sem);
 #endif
 }
 
-void BinarySemaphore::Give() 
+void Mutex::Unlock() 
 {
 #ifdef __VXWORKS__
 	semGive(m_sem);
 #endif
 }
 
-void BinarySemaphore::Take()
+void Mutex::Lock()
 {
 	// TODO -1 may not be forever on all platforms
-	Take(-1);
+	Lock(-1);
 }
 
-void BinarySemaphore::Take(int timeout)
+void Mutex::Lock(int timeout)
 {
 #ifdef __VXWORKS__
 	semTake(m_sem, timeout);
 #endif
 }
 
-void BinarySemaphore::Flush()
+void Mutex::Flush()
 {
 #ifdef __VXWORKS__
 	semFlush(m_sem);

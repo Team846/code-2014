@@ -23,6 +23,7 @@ namespace Tasks
 		 * @param state initial state of the semaphore
 		 */
 		explicit BinarySemaphore(UINT32 state);
+		~BinarySemaphore();
 		
 		/*!
 		 * Gives the semaphore

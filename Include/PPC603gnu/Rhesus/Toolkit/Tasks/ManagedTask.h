@@ -6,7 +6,7 @@
 
 #include <Task.h>
 
-#include "SyncObject.h"
+#include "Mutex.h"
 
 namespace Rhesus
 {
@@ -33,7 +33,7 @@ namespace Tasks
 		static const int kMaxManagedTasks;
 		static bool s_isQueueInitialized;
 		static std::queue<int> s_availableIDs;
-		static SyncObject s_idSync;
+		static Mutex s_idSync;
 		static ManagedTask** s_managedTasks;
 		
 		static INT32 releaseTask(ManagedTask* instance);

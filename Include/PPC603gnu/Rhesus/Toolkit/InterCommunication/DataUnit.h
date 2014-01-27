@@ -5,7 +5,7 @@
 #include <hash_map>
 
 #include "../Utilities/Generic.h"
-#include "../Tasks/SyncObject.h"
+#include "../Tasks/Mutex.h"
 
 namespace Rhesus 
 {
@@ -49,7 +49,7 @@ namespace InterCommunication
 
 		DataMap m_dataMap;
 		
-		Rhesus::Toolkit::Tasks::SyncObject m_syncObject;
+		Rhesus::Toolkit::Tasks::Mutex m_syncObject;
 	};
 
 }

@@ -4,7 +4,7 @@
 #include <map>
 
 #include <Task.h>
-#include "SyncObject.h"
+#include "Mutex.h"
 
 namespace Rhesus
 {
@@ -54,7 +54,7 @@ namespace Tasks
 		
 		FUNCPTR m_taskFunc;
 		
-		SyncObject m_taskEndMutex;
+		Mutex m_taskEndMutex;
 		
 		Task* task();
 		

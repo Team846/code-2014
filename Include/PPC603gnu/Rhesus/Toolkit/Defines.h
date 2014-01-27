@@ -4,7 +4,7 @@
 #define DELETE(p) delete p; \
 	p = NULL;
 
-#define DELETE_ARR(p) delete[] p \
+#define DELETE_ARR(p) delete[] p; \
 	p = NULL;
 
 #define OVERRIDE

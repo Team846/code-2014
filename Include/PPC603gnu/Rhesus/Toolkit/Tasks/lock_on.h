@@ -1,7 +1,7 @@
 #ifndef RHESUS_LOCK_ON_H_
 #define RHESUS_LOCK_ON_H_
 
-#include "SyncObject.h"
+#include "Mutex.h"
 
 namespace Rhesus
 {
@@ -12,19 +12,19 @@ namespace Tasks
 	class lock_on
 	{
 	public:
-		lock_on(SyncObject& syncObj)
+		lock_on(Mutex& syncObj)
 			: m_syncObj(syncObj)
 		{
-			m_syncObj.lock();
+			m_syncObj.Lock();
 		}
 		
 		~lock_on()
 		{
-			m_syncObj.unlock();
+			m_syncObj.Unlock();
 		}
 		
 	private:
-		SyncObject& m_syncObj;
+		Mutex& m_syncObj;
 	};
 }
 }

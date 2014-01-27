@@ -14,7 +14,7 @@ using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Utilities;
 
 std::queue<TaskPool::taskStructure> TaskPool::s_taskQ;
-SyncObject TaskPool::s_taskQSyncObj;
+Mutex TaskPool::s_taskQSyncObj;
 CountingSemaphore TaskPool::s_taskSignal(0);
 std::vector<Task*> TaskPool::s_tasks;
 std::vector<Task*> TaskPool::s_tempTasks;

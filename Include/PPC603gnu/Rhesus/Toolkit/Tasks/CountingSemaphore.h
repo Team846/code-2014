@@ -23,6 +23,7 @@ namespace Tasks
 		 * @param initialcount the capacity of the semaphore
 		 */
 		explicit CountingSemaphore(UINT32 initialcount);
+		~CountingSemaphore();
 		
 		/*!
 		 * gives the semaphore, increments the count by 1

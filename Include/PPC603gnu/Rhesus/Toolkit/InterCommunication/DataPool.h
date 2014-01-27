@@ -52,7 +52,7 @@ namespace InterCommunication
 		
 		static std::hash_map<std::string, DataUnit> s_componentMap;
 		
-		static Rhesus::Toolkit::Tasks::SyncObject s_syncObject;
+		static Rhesus::Toolkit::Tasks::Mutex s_syncObject;
 		
 		static bool KeyExists(std::string c);
 		

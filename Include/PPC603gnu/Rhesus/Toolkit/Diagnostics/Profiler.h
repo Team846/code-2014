@@ -6,7 +6,7 @@
 
 #include "Stopwatch.h"
 
-#include "../Tasks/SyncObject.h"
+#include "../Tasks/Mutex.h"
 
 namespace Rhesus
 {
@@ -40,7 +40,7 @@ namespace Diagnostics
 		static std::hash_map<string, double> s_lastTimes;
 		static std::hash_map<string, double> s_maxTimes;
 		
-		static Rhesus::Toolkit::Tasks::SyncObject s_syncObj;
+		static Rhesus::Toolkit::Tasks::Mutex s_syncObj;
 	};
 }
 }
