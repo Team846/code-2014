@@ -16,7 +16,11 @@ public class LocalizationViz extends JPanel implements ActionListener {
 
 	private static final int width = 1200;
 	private static final int height = 700;
-
+	double scale = 1.75;
+	final int fWidth = (int) (650 * scale);
+	final int fHeight = (int) (296 * scale);
+	int wOffset = (1200 - fWidth) / 2;
+	int hOffset = (700 - fHeight) / 2;
 	private Timer timer;
 
 	private NetworkTable nt;
@@ -63,11 +67,8 @@ public class LocalizationViz extends JPanel implements ActionListener {
 
 	private void drawField(Graphics g) {
 
-		double scale = 1.75;
-		final int fWidth = (int) (650 * scale);
-		final int fHeight = (int) (296 * scale);
-		int wOffset = (1200 - fWidth) / 2;
-		int hOffset = (700 - fHeight) / 2;
+		
+		
 		g.drawRect(wOffset, hOffset, (fWidth), (fHeight));
 		g.setColor(Color.RED);
 		g.drawLine((fWidth / 3 + wOffset), hOffset, (fWidth / 3 + wOffset),
@@ -90,8 +91,11 @@ public class LocalizationViz extends JPanel implements ActionListener {
 	}
 
 	private void drawRobot(Graphics g) {
-		g.drawOval(width / 2 - 10 + (int) (Double.parseDouble(x) * 10), height
-				/ 2 - 10 - (int) (Double.parseDouble(y) * 10), 20, 20);
+		g.setColor(Color.BLACK);
+		g.drawOval(width / 2 - 10 + (int) (Double.parseDouble(x) * 10), ((fHeight/2) +hOffset)-10 - (int) (Double.parseDouble(y) * 10), 20, 20);
+		g.setColor(Color.RED);
+		g.drawLine(width / 2, (fHeight/2) +hOffset - 10, width / 2, (fHeight/2) +hOffset+ 10);
+		g.drawLine(width/ 2 - 10, (fHeight/2) +hOffset, width / 2 + 10, (fHeight/2) +hOffset);
 	}
 
 	private void drawBall(Graphics g) {
@@ -129,9 +133,7 @@ public class LocalizationViz extends JPanel implements ActionListener {
 		drawRobot(g);
 		drawBall(g);
 
-		g.setColor(Color.RED);
-		g.drawLine(width / 2, height / 2 - 10, width / 2, height / 2 + 10);
-		g.drawLine(width / 2 - 10, height / 2, width / 2 + 10, height / 2);
+		
 		g.drawString("X Position: " + x, 0, 10);
 		g.drawString("Y Position: " + y, 0, 20);
 		g.drawString("Rotation Angle: " + theta, 0, 30);
