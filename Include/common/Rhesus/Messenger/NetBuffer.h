@@ -31,7 +31,7 @@ namespace Messenger
 		/*!
 		 * @brief Initializes the NetBuffer with a buffer.
 		 */
-		NetBuffer(UINT8* buff, int len);
+		NetBuffer(const UINT8* buff, int len);
 		
 		/*!
 		 * @brief Releases the resources utilized by the NetBuffer.
@@ -49,7 +49,7 @@ namespace Messenger
 		/*!
 		 * @brief Writes a byte array to the buffer.
 		 */
-		void WriteRaw(UINT8* c, UINT16 len);
+		void WriteRaw(const UINT8* c, UINT16 len);
 		/*!
 		 * @brief Wriets a length-prefixed string to the buffer.
 		 */
@@ -143,13 +143,13 @@ namespace Messenger
 		/*!
 		 * @brief Gets the internal buffer.
 		 */
-		UINT8* GetBuffer();
+		const UINT8* GetBuffer();
 		
 		//friend int NetPeer::Send(NetBuffer buff, NetChannel::Enum method, int channel);
 		
 		bool m_sent;
 	private:
-		void construct(UINT8* buff, int size);
+		void construct(const UINT8* buff, int size);
 
 		bool AssertBufferHasSpace(UINT32 bits);
 		

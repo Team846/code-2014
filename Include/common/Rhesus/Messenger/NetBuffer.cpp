@@ -18,7 +18,7 @@ NetBuffer::NetBuffer(int bufferDefaultSize)
 	construct(NULL, bufferDefaultSize);
 }
 
-NetBuffer::NetBuffer(UINT8* buff, int len)
+NetBuffer::NetBuffer(const UINT8* buff, int len)
 {
 	construct(buff, len);
 }
@@ -29,7 +29,7 @@ NetBuffer::~NetBuffer()
 	m_internalBuffer = NULL;
 }
 
-void NetBuffer::construct(UINT8* buff, int size)
+void NetBuffer::construct(const UINT8* buff, int size)
 {
 	m_internalBitPos = 0;
 	m_internalBuffer = NULL;
@@ -61,15 +61,15 @@ void NetBuffer::Write(UINT8* c, UINT16 len)
 	InternalWriteBytes(c, len);
 }
 
-void NetBuffer::WriteRaw(UINT8* c, UINT16 len)
+void NetBuffer::WriteRaw(const UINT8* c, UINT16 len)
 {
 	InternalWriteBytes(c, len);
 }
 
-void NetBuffer::Write(string str)
+void NetBuffer::Write(std::string str)
 {
 	InternalWriteInteger((ULONG)str.length(), sizeof(UINT16) * 8);
-	InternalWriteBytes((UINT8*)str.c_str(), str.length());
+	InternalWriteBytes((UINT8*)(str.c_str()), str.length());
 }
 
 void NetBuffer::Write(bool b)
@@ -139,11 +139,12 @@ UINT8* NetBuffer::ReadBytes()
 	return InternalReadBytes(len);
 }
 
-string NetBuffer::ReadStdString()
+std::string NetBuffer::ReadStdString()
 {
 	UINT16 len = InternalReadInteger(sizeof(UINT16) * 8);
 	
-	return (char*)InternalReadBytes(len);
+	char* str = (char*)InternalReadBytes(len);
+	return std::string(str, str + len);
 }
 
 INT64 NetBuffer::ReadInt64()
@@ -214,7 +215,7 @@ void NetBuffer::InternalWriteByte(const UINT8 data, int bit_length)
 		return;
 	}
 	
-	FitBufferToSize(GetBytePos() * 8 + bit_length);
+	FitBufferToSize(m_internalBitPos + bit_length);
 	
 	int bit_pos = GetBitIndexInCurrentByte();
 	
@@ -227,7 +228,7 @@ void NetBuffer::InternalWriteByte(const UINT8 data, int bit_length)
 	int overflow = bit_length - remainingBits;
 
 	m_internalBuffer[GetBytePos()] |= (UINT8)(data_masked >> ((8 - bit_length) + overflow));
-	
+
 	// this byte is finished
 	if(overflow <= 0)
 	{
@@ -238,7 +239,7 @@ void NetBuffer::InternalWriteByte(const UINT8 data, int bit_length)
 		remainingBits = overflow;
 		
 		// mask off written bits
-		data_masked &= ((UINT8)((UINT32)(~(UINT32)(0)) >> (8 - remainingBits)));
+		data_masked &= ((UINT8)(~(UINT32)(0)) >> (8 - remainingBits));
 		
 		m_internalBuffer[GetBytePos() + 1] |= (data_masked << (8 - remainingBits));
 	}
@@ -333,8 +334,8 @@ UINT8 NetBuffer::InternalReadByte(int bit_length)
 
 UINT8* NetBuffer::InternalReadBytes(int bytes)
 {	
-	// done like this so that the array stays alive after the function returns
-	UINT8* retrieved = (UINT8*)malloc(bytes);
+	// uses a the heap so that the array stays alive after the function returns
+	UINT8* retrieved = new UINT8[bytes];
 	
 	for(int i = 0; i < bytes; i++)
 	{
@@ -407,7 +408,8 @@ void NetBuffer::FitBufferToSize(UINT32 bits)
 	}
 }
 
-UINT8* NetBuffer::GetBuffer()
+const UINT8* NetBuffer::GetBuffer()
 {
 	return m_internalBuffer;
 }
+
