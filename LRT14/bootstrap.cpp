@@ -1,7 +1,6 @@
 #ifndef UNIT_TEST
 
 #include "LRTRobot14.h"
-#include "Rhesus/FORCE_COMPILE_ALL.h"
 
 /*!
  * Pre-defined macro is:
