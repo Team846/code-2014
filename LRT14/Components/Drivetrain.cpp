@@ -9,6 +9,8 @@
 #include "../Actuators/AsyncCANJaguar.h"
 #include "../Actuators/LRTJaguar.h"
 
+#include "../Communication/Dashboard2.h"
+
 Drivetrain::Drivetrain() :
 	Component("Drivetrain", DriverStationConfig::DigitalIns::DRIVETRAIN),
 	Configurable("Drivetrain")
@@ -142,6 +144,7 @@ void Drivetrain::Configure()
 
 void Drivetrain::Send()
 {
+	Dashboard2::EnqueueDrivetrainTicksMessage(m_driveEncoders->GetTurnTicks());
 	SendToNetwork(m_driveEncoders->GetTurnTicks(), "TurnTicks", "RobotData");
 }
 

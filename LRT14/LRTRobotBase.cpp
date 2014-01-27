@@ -1,6 +1,6 @@
-#include <Rhesus/Toolkit/Tasks/TaskPool.h>
 #include "LRTRobotBase.h"
 #include <sysLib.h>
+#include <Rhesus/Toolkit/Tasks/TaskPool.h>
 
 using namespace Rhesus::Toolkit::Tasks;
 
@@ -28,7 +28,7 @@ void LRTRobotBase::StartCompetition()
 	
 	RobotInit();
 	Main();
-	
+
 	// Stop the task pool
 	TaskPool::Stop();
 }

@@ -16,6 +16,7 @@
 #include "Config/DriverStationConfig.h"
 #include "Utils/LCD.h"
 #include "Logging/Logger.h"
+#include "Communication/Dashboard2.h"
 #include "Communication/LiveNetworkSender.h"
 #include "Communication/OffboardCommunication.h"
 
@@ -32,6 +33,8 @@ LRTRobot14::LRTRobot14()
 LRTRobot14::~LRTRobot14()
 {
 	printf("LRTRobot14 Destructing\n");
+	
+	Dashboard2::Close();
 	
 	// Stop all tasks
 	for (vector<AsyncCANJaguar*>::iterator it = AsyncCANJaguar::jaguar_vector.begin(); it < AsyncCANJaguar::jaguar_vector.end(); it++)
@@ -180,6 +183,8 @@ void LRTRobot14::Tick()
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
+	
+	Dashboard2::Tick(); // flush all enqueued messages
 	
 	wdCancel(_watchdog);
 }

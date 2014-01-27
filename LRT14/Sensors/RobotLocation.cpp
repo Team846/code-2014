@@ -3,6 +3,8 @@
 #include "math.h"
 #include "../Utils/Util.h"
 
+#include "../Communication/Dashboard2.h"
+
 RobotLocation *RobotLocation::m_instance = NULL;
 
 RobotLocation::RobotLocation() :
@@ -92,6 +94,7 @@ void RobotLocation::Log()
 
 void RobotLocation::Send()
 {
+	Dashboard2::EnqueueLocatorMessage(x, y, theta);
 	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta), "Data", "Location");
 }
 
