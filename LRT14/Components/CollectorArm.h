@@ -21,6 +21,8 @@ public:
 	void UpdateDisabled();
 		
 	void Configure();
+private:
+	AnalogChannel *analogChannel;
 };
 
 #endif
