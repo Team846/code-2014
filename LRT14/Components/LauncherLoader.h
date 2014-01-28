@@ -5,7 +5,7 @@
 #include "../Config/Configurable.h"
 #include "../ComponentData/LauncherLoaderData.h"
 #include "../Actuators/LRTTalon.h"
-#include "DigitalInput.h"
+#include <AnalogChannel.h>
 
 /*!
  * @brief Provides control over launcher loading mechanism.
@@ -27,9 +27,12 @@ public:
 private:
 	LauncherLoaderData* m_loaderData;
 	LRTTalon* m_talon;
-	DigitalInput* m_sensor;
+	AnalogChannel* m_sensor;
 	bool m_firing;
 	float m_speed;
+	float setpoint;
+	float m_gain;
+	float m_closed_loop_threshold;
 };
 
 #endif

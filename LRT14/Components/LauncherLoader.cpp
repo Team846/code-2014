@@ -9,7 +9,7 @@ LauncherLoader::LauncherLoader() :
 {
 	m_loaderData = LauncherLoaderData::Get();
 	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER"), "LauncherLoader");
-	m_sensor = new DigitalInput(ConfigPortMappings::Get("Digital/LAUNCHER_LOADER_SENSOR"));
+	m_sensor = new AnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
 	m_firing = false;
 }
 
@@ -31,20 +31,17 @@ void LauncherLoader::OnDisabled()
 
 void LauncherLoader::UpdateEnabled()
 {
-	if(m_sensor->Get() == 0)
+	if(m_loaderData->GetFire() || m_firing)
 	{
-		if (m_loaderData->GetFire() || m_firing)
-		{
-			m_firing = true;
-			m_talon->SetDutyCycle(m_speed);
-		}
-		else
-			m_talon->SetDutyCycle(0.0);
+		m_talon->SetDutyCycle(m_speed);
+		m_firing = true;
+		if(m_sensor->GetAverageValue() > m_closed_loop_threshold)
+			m_firing = false;
 	}
 	else
 	{
-		m_firing = false;
-		m_talon->SetDutyCycle(m_speed);
+		float error = setpoint - m_sensor->GetAverageValue();
+		m_talon->SetDutyCycle(error * m_gain);
 	}
 }
 
@@ -56,4 +53,7 @@ void LauncherLoader::UpdateDisabled()
 void LauncherLoader::Configure()
 {
 	m_speed = GetConfig("speed", 1.0);
+	setpoint = GetConfig("setpoint", 1.0);
+	m_gain = GetConfig("gain", 1.0);
+	m_closed_loop_threshold = GetConfig("closed_loop_threshold", 1.0);
 }
