@@ -8,7 +8,7 @@ CollectorArm::CollectorArm() :
 	Component("CollectorArm", DriverStationConfig::DigitalIns::COLLECTOR_ARM),
 	Configurable("CollectorArm")
 {
-	
+	analogChannel = new AnalogChannel(ConfigPortMappings::Get("Analog/COLLECTOR_ARM"));
 }
 
 CollectorArm::~CollectorArm()
