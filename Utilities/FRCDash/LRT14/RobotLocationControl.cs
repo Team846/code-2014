@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 using TomShane.Neoforce.Controls;
+using STDConsole = System.Console;
 
 using RhesusNet.NET;
 
@@ -109,7 +111,24 @@ namespace LRT14
         public RobotLocationControl(Manager manager, string id, ContentLibrary content)
             : base(manager, id, content)
         {
-            
+            MouseOver += new MouseEventHandler(RobotLocationControl_MouseOver);
+            MouseOut += new MouseEventHandler(RobotLocationControl_MouseOut);
+
+            _isMousedOver = false;
+
+            _zoom = 1.0f;
+        }
+
+        bool _isMousedOver;
+
+        void RobotLocationControl_MouseOut(object sender, MouseEventArgs e)
+        {
+            _isMousedOver = false;
+        }
+
+        void RobotLocationControl_MouseOver(object sender, MouseEventArgs e)
+        {
+            _isMousedOver = true;
         }
 
         private void AddDataPoint(double x, double y, double theta)
@@ -119,9 +138,41 @@ namespace LRT14
             _theta = (float)theta;
         }
 
+        private int _lastScrollWheelValue;
+        private const int SCROLL_UNIT = 100;
+        private bool _isScrollWheelInitialized;
+        private float _zoom;
+
         public override void UpdateControl(GameTime gameTime)
         {
             NetBuffer nb;
+
+            MouseState mstate = Mouse.GetState();
+
+            if (base.Visible && _isMousedOver)
+            {
+                if (!_isScrollWheelInitialized)
+                {
+                    _lastScrollWheelValue = mstate.ScrollWheelValue;
+                    _isScrollWheelInitialized = true;
+                }
+
+                int currentScroll = mstate.ScrollWheelValue;
+                if (currentScroll > _lastScrollWheelValue + SCROLL_UNIT)
+                {
+                    _zoom += 0.25f;
+                }
+                else if (currentScroll < _lastScrollWheelValue - SCROLL_UNIT)
+                {
+                    _zoom -= 0.25f;
+                }
+
+                _zoom = MathHelper.Clamp(_zoom, 0.25f, 2f);
+
+                STDConsole.WriteLine(_zoom);
+
+                _lastScrollWheelValue = currentScroll;
+            }
 
             while ((nb = ReadMessage()) != null)
             {
@@ -137,10 +188,24 @@ namespace LRT14
             base.UpdateControl(gameTime);
         }
 
+        RenderTarget2D _canvas;
+
         protected override void DrawControl(Renderer renderer, Rectangle rect, GameTime gameTime)
         {
+            if (_canvas == null)
+            {
+                _canvas = new RenderTarget2D(renderer.SpriteBatch.GraphicsDevice,
+                renderer.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferWidth,
+                renderer.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight,
+                false,
+                renderer.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferFormat,
+                DepthFormat.Depth24);
+            }
+
             // clear BG
             renderer.Draw(Content.DummyTexture, rect, _backgroundColor);
+
+            renderer.SpriteBatch.GraphicsDevice.SetRenderTarget(_canvas);
 
             int controlWidth = Width;
             int controlHeight = Height;
@@ -150,7 +215,7 @@ namespace LRT14
 
             Rectangle fieldRect = new Rectangle(rect.X + rect.Width / 2 - fieldWidth / 2, rect.Y + rect.Height / 2 - fieldHeight / 2, fieldWidth, fieldHeight);
 
-            renderer.Draw(Content.DummyTexture, fieldRect, _fieldColor);
+            renderer.SpriteBatch.Draw(Content.DummyTexture, fieldRect, _fieldColor);
 
             Vector2 robotFieldPos = InitialPosition + RelativePosition;
             robotFieldPos.X = FeetToPixels(robotFieldPos.X);
@@ -166,6 +231,10 @@ namespace LRT14
 
             renderer.SpriteBatch.Draw(Content.DummyTexture, robotRect, null, _robotColor, _theta * (float)Math.PI / 180f, new Vector2(0.5f, 0.5f), SpriteEffects.None, 0);
             //renderer.Draw(Content.DummyTexture, robotRect, _robotColor, );
+
+            renderer.SpriteBatch.GraphicsDevice.SetRenderTarget(null);
+
+            renderer.SpriteBatch.Draw(_canvas, Vector2.Zero, Color.White);
         }
 
         private int FeetToPixels(float feet)
