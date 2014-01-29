@@ -4,6 +4,8 @@
 #include "Component.h"
 #include "../Config/Configurable.h"
 #include "../ComponentData/CollectorArmData.h"
+#include <AnalogChannel.h>
+#include "../Actuators/LRTTalon.h"
 
 /*!
  * @brief Provides control over the collector arm component.
@@ -22,7 +24,9 @@ public:
 		
 	void Configure();
 private:
+	LRTTalon *m_talon;
 	AnalogChannel *analogChannel;
+	float collectSetpoint, stowedSetpoint;
 };
 
 #endif

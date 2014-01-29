@@ -8,6 +8,7 @@ CollectorArm::CollectorArm() :
 	Component("CollectorArm", DriverStationConfig::DigitalIns::COLLECTOR_ARM),
 	Configurable("CollectorArm")
 {
+	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/COLLECTOR_ARM"), "CollectorArm");
 	analogChannel = new AnalogChannel(ConfigPortMappings::Get("Analog/COLLECTOR_ARM"));
 }
 
@@ -38,5 +39,6 @@ void CollectorArm::UpdateDisabled()
 
 void CollectorArm::Configure()
 {
-	
+	collectSetpoint = GetConfig("collect_setpoint", 0.0);
+	stowedSetpoint = GetConfig("stowed_setpoint", 0.0);
 }
