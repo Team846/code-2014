@@ -39,6 +39,6 @@ void CollectorArm::UpdateDisabled()
 
 void CollectorArm::Configure()
 {
-	collectSetpoint = GetConfig("collect_setpoint", 0.0);
-	stowedSetpoint = GetConfig("stowed_setpoint", 0.0);
+	m_collectSetpoint = GetConfig("collect_setpoint", 0);
+	m_stowedSetpoint = GetConfig("stowed_setpoint", 0);
 }

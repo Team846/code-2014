@@ -8,7 +8,7 @@ CollectorRollers::CollectorRollers() :
 	Component("CollectorRollers", DriverStationConfig::DigitalIns::COLLECTOR_ROLLERS),
 	Configurable("CollectorRollers")
 {
-	m_rollerData = CollectorRollersData::Get();
+	m_rollersData = CollectorRollersData::Get();
 	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/COLLECTOR_ROLLERS"), "CollectorRollers");
 }
 
@@ -29,12 +29,12 @@ void CollectorRollers::OnDisabled()
 
 void CollectorRollers::UpdateEnabled()
 {
-	if (m_rollerData->IsRunning())
+	if (m_rollersData->IsRunning())
 	{
-		if(m_rollerData->GetDirection() == CollectorRollersData::FORWARD)
-			m_talon->SetDutyCycle(m_forwardSpeed);
-		else
-			m_talon->SetDutyCycle(m_reverseSpeed);
+		if (m_rollersData->GetDirection() == CollectorRollersData::FORWARD)
+			m_talon->SetDutyCycle(m_rollersData->GetSpeed() * m_forwardSpeed);
+		if (m_rollersData->GetDirection() == CollectorRollersData::REVERSE)
+			m_talon->SetDutyCycle(m_rollersData->GetSpeed() * m_reverseSpeed);
 	}
 	else
 		m_talon->SetDutyCycle(0.0);

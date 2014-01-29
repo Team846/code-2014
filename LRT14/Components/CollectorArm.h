@@ -18,15 +18,16 @@ public:
 	
 	void OnEnabled(); 
 	void OnDisabled();
-		
+	
 	void UpdateEnabled();
 	void UpdateDisabled();
-		
+	
 	void Configure();
+	
 private:
 	LRTTalon *m_talon;
 	AnalogChannel *analogChannel;
-	float collectSetpoint, stowedSetpoint;
+	int m_collectSetpoint, m_stowedSetpoint;
 };
 
 #endif
