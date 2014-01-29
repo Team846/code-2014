@@ -23,6 +23,8 @@
 #include "Rhesus/Toolkit/GameState.h"
 #include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 
+#define PNEUMATICS 0
+
 LRTRobot14::LRTRobot14()
 {
 	_watchdog = wdCreate();
@@ -49,7 +51,9 @@ LRTRobot14::~LRTRobot14()
 	ConfigRuntime::Finalize();
 	Logger::Finalize();
 	LiveNetworkSender::Finalize();
+#if PNEUMATICS
 	Pneumatics::DestroyCompressor();
+#endif
 	Brain::Finalize();
 	LCD::Finalize();
 	AsyncPrinter::Finalize();
@@ -93,9 +97,11 @@ void LRTRobot14::RobotInit()
 		(*it)->Start();
 	}
 
+#if PNEUMATICS
 	// Create and start compressor
 	AsyncPrinter::Println("Creating Pneumatics Compressor...");
 	Pneumatics::CreateCompressor();
+#endif
 
 	// Initialize localization
 	AsyncPrinter::Println("Initializing Robot Localization...");
@@ -120,7 +126,6 @@ void LRTRobot14::RobotInit()
 static int TimeoutCallback(...)
 {
 	printf("Main loop execution time > 20 ms\n");
-	
 	return 0;
 }
 
@@ -160,6 +165,7 @@ void LRTRobot14::Tick()
 	// Flush outputs to all actuators
 	Actuator::UpdateAll();
 
+#if PNEUMATICS
 	// Toggle compressor based on Driver Station switches
 	if (DriverStation::GetInstance()->GetDigitalIn(DriverStationConfig::DigitalIns::COMPRESSOR))
 	{
@@ -169,6 +175,7 @@ void LRTRobot14::Tick()
 	{
 		Pneumatics::SetCompressor(false);
 	}
+#endif
 	
 	// Check for runtime configuration file changes
 	if (RobotState::Instance().GameMode() == GameState::DISABLED)
@@ -180,11 +187,10 @@ void LRTRobot14::Tick()
 	LCD::Instance()->RunOneCycle();
 	Logger::Instance()->Run();
 	LiveNetworkSender::Instance()->Run();
+	Dashboard2::Tick();
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
-	
-	Dashboard2::Tick(); // flush all enqueued messages
 	
 	wdCancel(_watchdog);
 }

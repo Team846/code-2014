@@ -3,7 +3,7 @@
 LauncherAngleData::LauncherAngleData() :
 	ComponentData("LauncherAngleData")
 {
-	m_launcherAngle = LOW;
+	ResetCommands();
 }
 
 LauncherAngleData* LauncherAngleData::Get()
@@ -13,13 +13,12 @@ LauncherAngleData* LauncherAngleData::Get()
 
 void LauncherAngleData::ResetCommands()
 {
-	
+	m_launcherAngle = LOW;
 }
 
 void LauncherAngleData::Log()
 {
-	
-
+	LogToFile(&m_launcherAngle, "Angle");
 }
 
 LauncherAngleData::Angle LauncherAngleData::GetAngle()

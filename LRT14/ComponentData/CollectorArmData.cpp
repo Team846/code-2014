@@ -3,7 +3,7 @@
 CollectorArmData::CollectorArmData() :
 	ComponentData("CollectorArmData")
 {
-	m_position = STOWED;
+	ResetCommands();
 }
 
 CollectorArmData* CollectorArmData::Get()
@@ -13,12 +13,12 @@ CollectorArmData* CollectorArmData::Get()
 
 void CollectorArmData::ResetCommands()
 {
-	
+	m_position = STOWED;
 }
 
 void CollectorArmData::Log()
 {
-	
+	LogToFile(&m_position, "Position");
 }
 
 void CollectorArmData::SetPosition(Position position)

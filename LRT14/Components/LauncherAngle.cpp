@@ -43,7 +43,7 @@ void LauncherAngle::UpdateEnabled()
 
 void LauncherAngle::UpdateDisabled()
 {
-	
+	m_talon->SetDutyCycle(0.0);
 }
 void LauncherAngle::Configure()
 {
