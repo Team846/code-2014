@@ -117,6 +117,8 @@ namespace LRT14
             _isMousedOver = false;
 
             _zoom = 1.0f;
+
+            Manager.PreDraws.Add(this);
         }
 
         bool _isMousedOver;
@@ -190,7 +192,7 @@ namespace LRT14
 
         RenderTarget2D _canvas;
 
-        protected override void DrawControl(Renderer renderer, Rectangle rect, GameTime gameTime)
+        public override void PreDraw(Renderer renderer)
         {
             if (_canvas == null)
             {
@@ -202,10 +204,9 @@ namespace LRT14
                 DepthFormat.Depth24);
             }
 
-            // clear BG
-            renderer.Draw(Content.DummyTexture, rect, _backgroundColor);
-
             renderer.SpriteBatch.GraphicsDevice.SetRenderTarget(_canvas);
+            renderer.SpriteBatch.GraphicsDevice.Clear(_backgroundColor);
+            renderer.SpriteBatch.Begin();
 
             int controlWidth = Width;
             int controlHeight = Height;
@@ -213,7 +214,7 @@ namespace LRT14
             int fieldWidth = FeetToPixels(FieldWidthFeet);
             int fieldHeight = FeetToPixels(FieldHeightFeet);
 
-            Rectangle fieldRect = new Rectangle(rect.X + rect.Width / 2 - fieldWidth / 2, rect.Y + rect.Height / 2 - fieldHeight / 2, fieldWidth, fieldHeight);
+            Rectangle fieldRect = new Rectangle(Width / 2 - fieldWidth / 2, Height / 2 - fieldHeight / 2, fieldWidth, fieldHeight);
 
             renderer.SpriteBatch.Draw(Content.DummyTexture, fieldRect, _fieldColor);
 
@@ -232,9 +233,16 @@ namespace LRT14
             renderer.SpriteBatch.Draw(Content.DummyTexture, robotRect, null, _robotColor, _theta * (float)Math.PI / 180f, new Vector2(0.5f, 0.5f), SpriteEffects.None, 0);
             //renderer.Draw(Content.DummyTexture, robotRect, _robotColor, );
 
+            renderer.SpriteBatch.End();
             renderer.SpriteBatch.GraphicsDevice.SetRenderTarget(null);
+        }
 
-            renderer.SpriteBatch.Draw(_canvas, Vector2.Zero, Color.White);
+        protected override void DrawControl(Renderer renderer, Rectangle rect, GameTime gameTime)
+        {
+            // clear BG
+            renderer.Draw(Content.DummyTexture, rect, _backgroundColor);
+
+            renderer.SpriteBatch.Draw(_canvas, new Vector2(rect.Center.X, rect.Center.Y), null, Color.White, 0, new Vector2(_canvas.Width / 2f, _canvas.Height / 2f), _zoom, SpriteEffects.None, 0);
         }
 
         private int FeetToPixels(float feet)
