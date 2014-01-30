@@ -35,9 +35,12 @@ namespace Dashboard
             ExitConfirmation = false;
 
             Manager.AutoUnfocus = false;
+            ExitConfirmation = true;
 
             _contentLibrary = new ContentLibrary();
         }
+
+        
 
         protected override void Initialize()
         {

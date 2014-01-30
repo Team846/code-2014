@@ -18,6 +18,80 @@ namespace LRT14
 {
     public class RobotLocationControl : NetworkedControl
     {
+        public class LocationOptionsDialog : Dialog
+        {
+            private Label _initPosXLabel;
+            private TextBox _initPosXInput;
+
+            private Label _initPosYLabel;
+            private TextBox _initPosYInput;
+
+            private Button _saveButton;
+            private Button _cancelButton;
+
+            public LocationOptionsDialog(Manager manager)
+                : base(manager)
+            {
+                string msg = "Do you really want to exit " + Manager.Game.Window.Title + "?";
+                //ClientWidth = (int)Manager.Skin.Controls["Label"].Layers[0].Text.Font.Resource.MeasureString(msg).X + 48 + 16 + 16 + 16;
+                ClientWidth = 300;
+                ClientHeight = 200;
+                TopPanel.Visible = false;
+                IconVisible = false;
+                Resizable = false;
+                Text = "Location Options";
+                Center();
+
+                _initPosXLabel = new Label(manager);
+                _initPosXLabel.Text = "Initial X (ft)";
+                _initPosXLabel.Width = (int)Manager.Skin.Controls["Label"].Layers[0].Text.Font.Resource.MeasureString("Initial X (ft)").X;
+                _initPosXLabel.Top = 4;
+                _initPosXLabel.Left = 4;
+                _initPosXLabel.Init();
+
+                _initPosXInput = new TextBox(manager);
+                _initPosXInput.Mode = TextBoxMode.Normal;
+                _initPosXInput.Top = 4;
+                _initPosXInput.Left = 4 + 4 + _initPosXLabel.Width;
+                _initPosXInput.Init();
+
+                _initPosYLabel = new Label(manager);
+                _initPosYLabel.Text = "Initial Y (ft)";
+                _initPosYLabel.Width = (int)Manager.Skin.Controls["Label"].Layers[0].Text.Font.Resource.MeasureString("Initial Y (ft)").X;
+                _initPosYLabel.Top = 4 + (int)Manager.Skin.Controls["Label"].Layers[0].Text.Font.Resource.MeasureString("Initial X (ft)").Y + 2 + 4;
+                _initPosYLabel.Left = 4;
+                _initPosYLabel.Init();
+
+                _initPosYInput = new TextBox(manager);
+                _initPosYInput.Mode = TextBoxMode.Normal;
+                _initPosYInput.Top = _initPosYLabel.Top;
+                _initPosYInput.Left = 4 + 4 + _initPosYLabel.Width;
+                _initPosYInput.Init();
+
+                _saveButton = new Button(Manager);
+                _saveButton.Init();
+                _saveButton.Left = (BottomPanel.ClientWidth / 2) - _saveButton.Width - 8;
+                _saveButton.Top = 8;
+                _saveButton.Text = "Save";
+                _saveButton.ModalResult = ModalResult.Ok;
+
+                _cancelButton = new Button(Manager);
+                _cancelButton.Init();
+                _cancelButton.Left = (BottomPanel.ClientWidth / 2) + 8;
+                _cancelButton.Top = 8;
+                _cancelButton.Text = "Cancel";
+                _cancelButton.ModalResult = ModalResult.Cancel;   
+
+                Add(_initPosXLabel);
+                Add(_initPosXInput);
+                Add(_initPosYLabel);
+                Add(_initPosYInput);
+
+                BottomPanel.Add(_saveButton);
+                BottomPanel.Add(_cancelButton);
+            }
+        }
+
         private Color _backgroundColor;
         private Color _robotColor;
 
@@ -114,6 +188,8 @@ namespace LRT14
             MouseOver += new MouseEventHandler(RobotLocationControl_MouseOver);
             MouseOut += new MouseEventHandler(RobotLocationControl_MouseOut);
 
+            _optionsOpen = false;
+
             _isMousedOver = false;
 
             _zoom = 1.0f;
@@ -144,6 +220,8 @@ namespace LRT14
         private const int SCROLL_UNIT = 100;
         private bool _isScrollWheelInitialized;
         private float _zoom;
+
+        private bool _optionsOpen;
 
         public override void UpdateControl(GameTime gameTime)
         {
@@ -176,6 +254,18 @@ namespace LRT14
                 _lastScrollWheelValue = currentScroll;
             }
 
+            KeyboardState kstate = Keyboard.GetState();
+
+            if (!_optionsOpen && kstate.IsKeyDown(Keys.O))
+            {
+                LocationOptionsDialog lod = new LocationOptionsDialog(Manager);
+                lod.Init();
+                lod.Closed += new WindowClosedEventHandler(lod_Closed);
+                lod.ShowModal();
+                Manager.Add(lod);
+                _optionsOpen = true;
+            }
+
             while ((nb = ReadMessage()) != null)
             {
                 double x = nb.ReadFloat();
@@ -188,6 +278,11 @@ namespace LRT14
             Invalidate();
 
             base.UpdateControl(gameTime);
+        }
+
+        void lod_Closed(object sender, WindowClosedEventArgs e)
+        {
+            _optionsOpen = false;
         }
 
         RenderTarget2D _canvas;
