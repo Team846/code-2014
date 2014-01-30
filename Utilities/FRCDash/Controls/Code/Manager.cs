@@ -86,7 +86,9 @@ namespace TomShane.Neoforce.Controls
       private Cursor cursor = null;
     #endif
     ////////////////////////////////////////////////////////////////////////////            
-    
+
+      private List<Control> preDraws = null;
+
     ////////////////////////////////////////////////////////////////////////////                    
     private bool deviceReset = false;
     private bool renderTargetValid = false; 
@@ -163,7 +165,12 @@ namespace TomShane.Neoforce.Controls
       }
     #endif
     ////////////////////////////////////////////////////////////////////////////            
-        
+
+      public List<Control> PreDraws
+      {
+          get { return preDraws; }
+      }
+
     ////////////////////////////////////////////////////////////////////////////            
     /// <summary>
     /// Returns associated <see cref="Game"/> component.
@@ -618,6 +625,8 @@ namespace TomShane.Neoforce.Controls
     /// </param>
     public Manager(Game game, GraphicsDeviceManager graphics, string skin): base(game)
     {
+        preDraws = new List<Control>();
+
       disposing = false;
       
       AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(HandleUnhadledExceptions);
@@ -1202,7 +1211,12 @@ namespace TomShane.Neoforce.Controls
 
     ////////////////////////////////////////////////////////////////////////////   
     public override void Draw(GameTime gameTime)
-    {      
+    {
+        foreach (Control c in preDraws)
+        {
+            c.PreDraw(renderer);
+        }
+
       if (renderTarget != null)
       {
         drawTime += gameTime.ElapsedGameTime.Ticks;     

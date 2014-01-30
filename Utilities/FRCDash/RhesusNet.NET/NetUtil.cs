@@ -22,6 +22,8 @@ namespace RhesusNet.NET
             while (f >= 2.0f) { f /= 2.0f; exponent++; }
             while (f < 1.0f) { f *= 2.0f; exponent--; }
 
+            // f is now in the interval [1.0, 2.0)
+
             uint mantissa = (uint)(f * Math.Pow(2, 22) + 0.5f);
 
             mantissa &= (uint)(~(uint)0) >> 9;

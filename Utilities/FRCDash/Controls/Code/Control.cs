@@ -1598,6 +1598,10 @@ namespace TomShane.Neoforce.Controls
     }
     ////////////////////////////////////////////////////////////////////////////              
 
+    public virtual void PreDraw(Renderer renderer)
+    {
+    }
+
     ////////////////////////////////////////////////////////////////////////////   
     internal virtual void Render(Renderer renderer, GameTime gameTime)
     {
