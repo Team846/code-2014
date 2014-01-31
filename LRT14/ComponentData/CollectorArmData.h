@@ -9,7 +9,6 @@ public:
 	enum Position
 	{
 		STOWED,
-		HOLD,
 		PURGE,
 		COLLECT
 	};

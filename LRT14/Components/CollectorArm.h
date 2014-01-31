@@ -5,7 +5,7 @@
 #include "../Config/Configurable.h"
 #include "../ComponentData/CollectorArmData.h"
 #include <AnalogChannel.h>
-#include "../Actuators/LRTTalon.h"
+#include "../Actuators/Pneumatics.h"
 
 /*!
  * @brief Provides control over the collector arm component.
@@ -16,8 +16,6 @@ public:
 	CollectorArm();
 	~CollectorArm();
 	
-	float ComputeOutput(int setpoint);
-	
 	void OnEnabled(); 
 	void OnDisabled();
 	
@@ -27,10 +25,9 @@ public:
 	void Configure();
 	
 private:
-	LRTTalon *m_talon;
-	AnalogChannel *m_pot;
 	CollectorArmData *m_armData;
-	int m_collectSetpoint, m_stowedSetpoint, m_maxPotValue;
+	Pneumatics *m_pneumatics;
+	
 };
 
 #endif
