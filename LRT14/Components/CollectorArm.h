@@ -16,6 +16,8 @@ public:
 	CollectorArm();
 	~CollectorArm();
 	
+	float ComputeOutput(int setpoint);
+	
 	void OnEnabled(); 
 	void OnDisabled();
 	
@@ -26,8 +28,9 @@ public:
 	
 private:
 	LRTTalon *m_talon;
-	AnalogChannel *analogChannel;
-	int m_collectSetpoint, m_stowedSetpoint;
+	AnalogChannel *m_pot;
+	CollectorArmData *m_armData;
+	int m_collectSetpoint, m_stowedSetpoint, m_maxPotValue;
 };
 
 #endif
