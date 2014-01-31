@@ -8,8 +8,6 @@
 
 /*!
  * @brief Abstract class for various speed controllers with stall protection.
- * 
- * @author Manoj Vasishta, Raphael Chang
  */
 class LRTSpeedController : public Actuator, public Loggable
 {
@@ -61,7 +59,7 @@ public:
 	/*!
 	 * @brief Sends the saved values to the speed controllers.
 	 */
-	virtual void Send() = 0;
+	virtual void Output() = 0;
 	
 	/*!
 	 * @brief Sets the neutral mode (brake or coast).
@@ -86,6 +84,8 @@ public:
 	static float CurrentLimit(float dutyCycle, float speed, float forwardLimit, float reverseLimit);
 	
 	virtual void Log();
+	
+	virtual void Send();
 	
 private:
 	CounterBase *m_encoder;

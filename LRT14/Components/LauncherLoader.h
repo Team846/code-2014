@@ -16,23 +16,25 @@ public:
 	LauncherLoader();
 	~LauncherLoader();
 	
-	void OnEnabled(); 
+	void OnEnabled();
 	void OnDisabled();
-			
+	
 	void UpdateEnabled();
 	void UpdateDisabled();
-			
+	
 	void Configure();
 	
 private:
-	LauncherLoaderData* m_loaderData;
-	LRTTalon* m_talon;
-	AnalogChannel* m_sensor;
+	LauncherLoaderData *m_loaderData;
+	LRTTalon *m_talonA;
+	LRTTalon *m_talonB;
+	AnalogChannel *m_sensor;
 	bool m_firing;
 	float m_speed;
 	float setpoint;
 	float m_gain;
 	float m_closed_loop_threshold;
+	int m_completionErrorThreshold;
 };
 
 #endif

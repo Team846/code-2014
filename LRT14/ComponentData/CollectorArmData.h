@@ -24,6 +24,8 @@ public:
 	
 private:
 	Position m_position;
+	
+	friend class CollectorArm;
 };
 
 #endif

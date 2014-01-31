@@ -2,11 +2,12 @@
 #define ACTUATOR_H_
 
 #include <vector>
+#include "../Communication/LiveNetworkSendable.h"
 
 /*!
  * @brief Base class for all actuators.
  */
-class Actuator
+class Actuator : public LiveNetworkSendable
 {
 public:
 	explicit Actuator(const char *name);

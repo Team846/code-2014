@@ -6,9 +6,7 @@
 
 /*!
  * @brief Interface for reading from configuration file through ConfigManager.
- * @author Raphael Chang
  */
-
 class Configurable
 {
 public:

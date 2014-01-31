@@ -27,7 +27,6 @@ void DrivetrainInputs::Update()
 	turn = sign * pow(turn , 2);
 
 	//			turn *= turn * sign;
-	//turn = -m_driver_stick->GetAxis(Joystick::kZAxis);
 
 	double forward = pow(
 			driveSign * m_driver_stick->GetAxis(Joystick::kYAxis),
@@ -55,40 +54,6 @@ void DrivetrainInputs::Update()
 	double turnComposite = turnInPlace * (blend) + constRadiusTurn
 			* (1 - blend); //blended function
 
-//	if (m_driver_wheel->IsButtonDown(
-//			DriverStationConfig::JoystickButtons::STOP_ROBOT))
-//	{
-//		forward = 0.0;
-//		turnComposite = 0.0;
-//		turn = 0.0;
-//		if (!lastStop)
-//		{
-//			stoppedForward
-//					= drivetrainData->getCurrentPos(
-//							FORWARD);
-//			stoppedTurn
-//					= drivetrainData->getCurrentPos(
-//							TURN);
-//		}
-//		drivetrainData->setControlMode(FORWARD,
-//				POSITION_CONTROL);
-//		drivetrainData->setRelativePositionSetpoint(
-//				FORWARD,
-//				stoppedForward
-//						- drivetrainData->getCurrentPos(
-//								FORWARD), 1.0);
-//
-//		drivetrainData->setControlMode(TURN,
-//				POSITION_CONTROL);
-//		drivetrainData->setRelativePositionSetpoint(
-//				TURN,
-//				stoppedTurn
-//						- drivetrainData->getCurrentPos(
-//								TURN), 1.0);
-//		lastStop = true;
-//	}
-//	else
-//		lastStop = false;
 	if (m_driver_wheel->IsButtonJustPressed(
 		DriverStationConfig::JoystickButtons::REVERSE_DRIVE))
 	{

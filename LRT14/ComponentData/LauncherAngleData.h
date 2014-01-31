@@ -8,8 +8,8 @@ class LauncherAngleData : public ComponentData
 public:
 	enum Angle
 	{
-		LOW,
-		HIGH
+		SHORT,
+		LONG
 	};
 	
 	LauncherAngleData();
@@ -17,12 +17,19 @@ public:
 	
 	Angle GetAngle();
 	void SetAngle(Angle angle);
-
+	
+	bool IsCompleteState();
+	
 	void ResetCommands();
 	void Log();
 	
 private:
+	void SetCompleteState(bool complete);
+	
 	Angle m_launcherAngle;
+	bool m_complete;
+	
+	friend class LauncherAngle;
 };
 
 #endif

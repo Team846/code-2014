@@ -8,9 +8,7 @@
 
 /*!
  * @brief Base class for asynchronous processes. Asynchronous processes run in a free loop.
- * @author Tony Peng
  */
-
 class AsyncProcess
 {
 public:

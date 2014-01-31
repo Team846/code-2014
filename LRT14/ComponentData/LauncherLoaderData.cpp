@@ -19,6 +19,7 @@ void LauncherLoaderData::ResetCommands()
 void LauncherLoaderData::Log()
 {
 	LogToFile(&m_fire, "Fire");
+	LogToFile(&m_complete, "Complete");
 }
 
 void LauncherLoaderData::SetFire(bool shouldFire)
@@ -29,4 +30,14 @@ void LauncherLoaderData::SetFire(bool shouldFire)
 bool LauncherLoaderData::GetFire()
 {
 	return m_fire;
+}
+
+bool LauncherLoaderData::IsLoadingComplete()
+{
+	return m_complete;
+}
+
+void LauncherLoaderData::SetLoadingComplete(bool complete)
+{
+	m_complete = complete;
 }

@@ -93,3 +93,8 @@ void LRTServo::Log()
 	LogToFile(&m_controlMode, "ControlMode");
 	LogToFile(&m_value, "Value");
 }
+
+void LRTServo::Send()
+{
+	SendToNetwork(m_value, "S_" + string(GetName()), "ActuatorData");
+}

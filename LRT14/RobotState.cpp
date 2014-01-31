@@ -25,6 +25,8 @@ RobotState::RobotState()
 	m_totalTimer.Start();
 	m_gameMode = GameState::DISABLED;
 	m_lastTime = 0.0;
+	m_alliance = DriverStation::GetInstance()->GetAlliance();
+	m_fms = DriverStation::GetInstance()->IsFMSAttached();
 }
 
 RobotState::~RobotState()
@@ -41,14 +43,24 @@ GameState::Enum RobotState::LastGameMode()
 	return m_lastGameMode;
 }
 
-double RobotState::GameTime()
+double RobotState::MatchTime()
 {
-	return m_gameTimer.Get();
+	return m_matchTimer.Get();
 }
 
 double RobotState::TotalTime()
 {
 	return m_totalTimer.Get();
+}
+
+DriverStation::Alliance RobotState::Alliance()
+{
+	return m_alliance;
+}
+
+bool RobotState::FMSAttached()
+{
+	return m_fms;
 }
 
 double RobotState::LastCycleTime()
@@ -62,19 +74,21 @@ void RobotState::Update()
 	if (RobotBase::getInstance().IsDisabled())
 	{
 		m_gameMode = GameState::DISABLED;
-		m_gameTimer.Stop();
-		m_gameTimer.Reset();
+		m_matchTimer.Stop();
+		m_matchTimer.Reset();
 	}
 	else if (RobotBase::getInstance().IsAutonomous())
 	{
 		m_gameMode = GameState::AUTONOMOUS;
-		m_gameTimer.Start();
+		m_matchTimer.Start();
 	}
 	else if (RobotBase::getInstance().IsOperatorControl())
 	{
 		m_gameMode = GameState::TELEOPERATED;
-		m_gameTimer.Start();
+		m_matchTimer.Start();
 	}
+	m_alliance = DriverStation::GetInstance()->GetAlliance();
+	m_fms = DriverStation::GetInstance()->IsFMSAttached();
 	m_lastTime = m_currentTime;
 	m_currentTime = Timer::GetFPGATimestamp();
 }

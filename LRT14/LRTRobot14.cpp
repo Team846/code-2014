@@ -23,8 +23,6 @@
 #include "Rhesus/Toolkit/GameState.h"
 #include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 
-#define PNEUMATICS 0
-
 LRTRobot14::LRTRobot14()
 {
 	_watchdog = wdCreate();
@@ -133,9 +131,12 @@ void LRTRobot14::Tick()
 {
 	wdStart(_watchdog, sysClkRateGet() / RobotConfig::LOOP_RATE,
 			TimeoutCallback, 0);
+
+	// Update global robot state object
+	RobotState::Instance().Update();
 	
 	// Redirect all prints to a file when console is blocked during matches
-	if (DriverStation::GetInstance()->IsFMSAttached())
+	if (RobotState::Instance().FMSAttached() && RobotState::Instance().GameMode() != GameState::DISABLED)
 	{
 		AsyncPrinter::RedirectToFile(RobotConfig::PRINT_FILE_PATH.c_str());
 	}
@@ -143,9 +144,6 @@ void LRTRobot14::Tick()
 	{
 		AsyncPrinter::RestoreToConsole();
 	}
-	
-	// Update global robot state object
-	RobotState::Instance().Update();
 	
 	// Zero robot location if enabled
 	if (RobotState::Instance().GameMode() != GameState::DISABLED && RobotState::Instance().LastGameMode() == GameState::DISABLED)

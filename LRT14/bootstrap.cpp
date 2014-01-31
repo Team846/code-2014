@@ -6,7 +6,7 @@
  * Pre-defined macro is:
  * START_ROBOT_CLASS(class);
  * 
- * The reason for expanding to macro is to make it easier to perform unit tests.
+ * The reason for expanding this macro is to make it easier to perform unit tests.
  */
 RobotBase* FRC_userClassFactory()
 {

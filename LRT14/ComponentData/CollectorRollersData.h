@@ -31,6 +31,8 @@ private:
 	bool m_running;
 	Direction m_direction;
 	float m_speed;
+	
+	friend class CollectorRollers;
 };
 
 #endif

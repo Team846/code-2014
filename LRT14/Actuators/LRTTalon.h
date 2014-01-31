@@ -30,7 +30,7 @@ public:
 	/*!
 	 * @brief Writes the values to the Talon.
 	 */
-	void Send();
+	void Output();
 	
 	static std::vector<LRTTalon*> talon_vector;
 	

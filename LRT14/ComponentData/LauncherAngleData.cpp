@@ -4,6 +4,7 @@ LauncherAngleData::LauncherAngleData() :
 	ComponentData("LauncherAngleData")
 {
 	ResetCommands();
+	m_complete = false;
 }
 
 LauncherAngleData* LauncherAngleData::Get()
@@ -13,12 +14,13 @@ LauncherAngleData* LauncherAngleData::Get()
 
 void LauncherAngleData::ResetCommands()
 {
-	m_launcherAngle = LOW;
+	m_launcherAngle = LONG;
 }
 
 void LauncherAngleData::Log()
 {
 	LogToFile(&m_launcherAngle, "Angle");
+	LogToFile(&m_complete, "Complete");
 }
 
 LauncherAngleData::Angle LauncherAngleData::GetAngle()
@@ -29,4 +31,14 @@ LauncherAngleData::Angle LauncherAngleData::GetAngle()
 void LauncherAngleData::SetAngle(LauncherAngleData::Angle angle)
 {
 	m_launcherAngle = angle;
+}
+
+bool LauncherAngleData::IsCompleteState()
+{
+	return m_complete;
+}
+
+void LauncherAngleData::SetCompleteState(bool complete)
+{
+	m_complete = complete;
 }

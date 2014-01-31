@@ -12,10 +12,8 @@
 #include <sys/types.h>
 
 /*!
- * @brief Provides an interface for accessing robot configuration.
- * @author Raphael Chang
+ * @brief Provides an interface for accessing the port mapping configuration file.
  */
-
 class ConfigPortMappings
 {
 public:
