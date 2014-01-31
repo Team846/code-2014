@@ -8,22 +8,19 @@
 
 /*!
  * @brief Base class for synchronized processes. Synchronized processes wait for a signal before running a Tick.
- * @author Tony Peng, Raphael Chang
- * 
- * @remarks Consider deprecation in favor of do_async or TaskPool.
  */
-
 class SynchronizedProcess : public AsyncProcess
 {
 public:
 	SynchronizedProcess(const char * taskName, INT32 priority=Task::kDefaultPriority);
 	SynchronizedProcess(const char * taskName, SEM_ID syncSem, INT32 priority=Task::kDefaultPriority);
 	virtual ~SynchronizedProcess();
+	
 	/*!
 	 * @brief Gives a semaphore which allows Tick() to be called
 	 */
 	void RunOneCycle();
-//protected:
+	
 	/*!
 	 * @brief Takes a semaphore which blocks Tick() until RunOneCycle() is called
 	 */

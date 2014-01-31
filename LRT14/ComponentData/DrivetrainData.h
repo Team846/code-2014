@@ -58,6 +58,8 @@ private:
 	float m_currentLimitReverse;
 	
 	bool m_resetPositionSetpoint[2];
+	
+	friend class Drivetrain;
 };
 
 #endif

@@ -72,8 +72,8 @@ Brain::Brain() :
 	Event *driverStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick());
 	Event *operatorStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick());
 	Event *disabledTimeout = new DelayedEvent(new GameModeChangeEvent(GameState::DISABLED), 100);
-	Event *position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
-	Event *position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::STOP_ROBOT);
+	Event *position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
+	Event *position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
 	
 	// Map events to tasks to start/abort/continue
 	toAuto->AddStartListener(auton);

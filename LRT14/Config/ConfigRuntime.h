@@ -15,9 +15,7 @@ class Configurable;
 
 /*!
  * @brief Provides an interface for accessing robot configuration.
- * @author Raphael Chang, Tony Peng
  */
-
 struct Config
 {
 	string value;

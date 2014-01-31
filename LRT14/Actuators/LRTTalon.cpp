@@ -79,7 +79,7 @@ LRTTalon::NeutralMode LRTTalon::GetNeutralMode()
 	return m_neutral;
 }
 
-void LRTTalon::Send()
+void LRTTalon::Output()
 {
 	Talon::Set(m_pwm);
 	if (m_brake_jumper != NULL)

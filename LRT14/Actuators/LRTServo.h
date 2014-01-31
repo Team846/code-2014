@@ -35,6 +35,8 @@ public:
     
     void Log();
     
+    void Send();
+    
 private:
     ControlMode m_controlMode;
     float m_value;

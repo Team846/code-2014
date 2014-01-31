@@ -48,6 +48,7 @@ public:
 
 	void Configure();
 	void Log();
+	void Send();
 	
 	static vector<Pneumatics*> pneumatic_vector;
 	

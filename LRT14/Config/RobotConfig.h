@@ -3,12 +3,11 @@
 
 #include <string>
 
+#define PNEUMATICS 1
+
 /*!
  * @brief Contains all constants for robot configuration.
  */
-
-#define CHANGEME 99
-
 namespace RobotConfig
 {
 const uint32_t LOOP_RATE = 50; //hertz

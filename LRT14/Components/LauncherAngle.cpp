@@ -31,14 +31,19 @@ void LauncherAngle::OnDisabled()
 		
 void LauncherAngle::UpdateEnabled()
 {
-	float setpoint;
-	if (m_launcherAngleData->GetAngle() == LauncherAngleData::LOW)
-		setpoint = m_highSetpoint;
-	else if (m_launcherAngleData->GetAngle() == LauncherAngleData::HIGH)
-		setpoint = m_lowSetpoint;
+	int setpoint;
+	if (m_launcherAngleData->GetAngle() == LauncherAngleData::LONG)
+		setpoint = m_longSetpoint;
+	else if (m_launcherAngleData->GetAngle() == LauncherAngleData::SHORT)
+		setpoint = m_shortSetpoint;
 	
-	float error = setpoint - analogChannel->GetAverageValue();
+	int error = setpoint - analogChannel->GetAverageValue();
 	m_talon->SetDutyCycle(error * m_gain);
+	
+	if (fabs(error) <= m_completionErrorThreshold)
+		m_launcherAngleData->SetCompleteState(true);
+	else
+		m_launcherAngleData->SetCompleteState(false);
 }
 
 void LauncherAngle::UpdateDisabled()
@@ -47,7 +52,8 @@ void LauncherAngle::UpdateDisabled()
 }
 void LauncherAngle::Configure()
 {
-	m_lowSetpoint = GetConfig("low_setpoint", 1.0);
-	m_highSetpoint = GetConfig("high_setpoint", 1.0);
+	m_shortSetpoint = GetConfig("short_setpoint", 0);
+	m_longSetpoint = GetConfig("long_setpoint", 0);
 	m_gain = GetConfig("gain", 1.0);
+	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5);
 }

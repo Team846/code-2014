@@ -30,7 +30,7 @@ public:
 	/*!
 	 * Writes the values to the Jaguar.
 	 */
-	void Send();
+	void Output();
 	
 	static std::vector<LRTJaguar*> jaguar_vector;
 	

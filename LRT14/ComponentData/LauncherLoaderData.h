@@ -11,12 +11,19 @@ public:
 
 	void SetFire(bool shouldFire);
 	bool GetFire();
+
+	bool IsLoadingComplete();
 	
 	void ResetCommands();
 	void Log();
 	
 private:
+	void SetLoadingComplete(bool complete);
+	
 	bool m_fire;
+	bool m_complete;
+	
+	friend class LauncherLoader;
 };
 
 #endif

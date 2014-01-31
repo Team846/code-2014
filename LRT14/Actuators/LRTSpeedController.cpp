@@ -31,7 +31,7 @@ void LRTSpeedController::Update()
 			m_timer.Reset();
 		}
 	}
-	Send();
+	Output();
 }
 
 void LRTSpeedController::RegisterSafety(CounterBase *encoder, double timeoutSeconds, float threshold)
@@ -70,4 +70,9 @@ void LRTSpeedController::Log()
 {
 	LogToFile(GetDutyCycle(), "DutyCycle");
 	LogToFile(GetNeutralMode(), "NeutralMode");
+}
+
+void LRTSpeedController::Send()
+{
+	SendToNetwork(GetDutyCycle(), "ESC_" + string(GetName()), "ActuatorData");
 }

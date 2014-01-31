@@ -198,3 +198,8 @@ void Pneumatics::Log()
 {
 	LogToFile(&state, "State");
 }
+
+void Pneumatics::Send()
+{
+	SendToNetwork(state == FORWARD ? true : false, "P_" + string(GetName()), "ActuatorData");
+}
