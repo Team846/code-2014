@@ -16,7 +16,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Parallel(const char *name, bool queueIfBlocked = false, bool restartable = false);
+	Parallel(const char* name, bool queueIfBlocked = false, bool restartable = false);
 	
 	/*!
 	 * @brief Creates a parallel routine initialized with a list of routines.
@@ -25,7 +25,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Parallel(const char *name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
+	Parallel(const char* name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Parallel();
 
 	virtual bool Start();

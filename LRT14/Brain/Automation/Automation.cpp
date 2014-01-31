@@ -5,7 +5,7 @@ using namespace std;
 map<ControlResource::Enum, int> Automation::allocated;
 vector<Automation*> Automation::automation_vector;
 
-Automation::Automation(const char *name, bool requiresAbortCycles, bool queueIfBlocked, bool restartable)
+Automation::Automation(const char* name, bool requiresAbortCycles, bool queueIfBlocked, bool restartable)
 {
 	m_startEvent = NULL;
 	m_abortEvent = NULL;
@@ -68,14 +68,14 @@ bool Automation::CheckResources()
 	return success;
 }
 
-bool Automation::StartAutomation(Event *trigger)
+bool Automation::StartAutomation(Event* trigger)
 {
 	m_startEvent = trigger;
 	m_aborting = false;
 	return Start();
 }
 
-bool Automation::AbortAutomation(Event *trigger)
+bool Automation::AbortAutomation(Event* trigger)
 {
 	m_abortEvent = trigger;
 	bool success = Abort();
@@ -93,7 +93,7 @@ bool Automation::AbortAutomation(Event *trigger)
 	return false;
 }
 
-void Automation::ContinueAutomation(Event *trigger)
+void Automation::ContinueAutomation(Event* trigger)
 {
 	m_continueEvent = trigger;
 }

@@ -63,9 +63,9 @@ private:
 		return UNSET;
 	}
 	
-	static OffboardCommunication *m_instance;
+	static OffboardCommunication* m_instance;
 	
-	SerialPort *m_serial;
+	SerialPort* m_serial;
 	
 	std::vector<char> buffers[3];
 	std::vector<char> buffer;

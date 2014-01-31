@@ -17,7 +17,7 @@ public:
 		kNeutralMode_Jumper = 0, kNeutralMode_Brake = 1, kNeutralMode_Coast = 2
 	} NeutralMode;
 
-	explicit LRTSpeedController(const char *name);
+	explicit LRTSpeedController(const char* name);
 	virtual ~LRTSpeedController();
 	
 	/*!
@@ -88,7 +88,7 @@ public:
 	virtual void Send();
 	
 private:
-	CounterBase *m_encoder;
+	CounterBase* m_encoder;
 	double m_timeoutSeconds;
 	float m_threshold;
 	Timer m_timer;

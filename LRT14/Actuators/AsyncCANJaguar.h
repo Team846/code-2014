@@ -322,7 +322,7 @@ protected:
 private:
 	void Set(float setpoint, UINT8 syncGroup = 0);
 
-	void Println(const char *str);
+	void Println(const char* str);
 	
 	std::string m_task_name;
 	int m_channel;

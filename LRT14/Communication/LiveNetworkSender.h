@@ -42,7 +42,7 @@ public:
 private:
 	LiveNetworkSender();
 	
-	static LiveNetworkSender *m_instance;
+	static LiveNetworkSender* m_instance;
 
 	static std::vector<LiveNetworkSendable*> liveNetworkSendables;
 

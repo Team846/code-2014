@@ -23,7 +23,7 @@ public:
 	 * @param encoder the encoder that measures the speed of this ESC
 	 * @param name the name of this ESC
 	 */
-	DriveESC(LRTSpeedController *esc, LRTEncoder *encoder, std::string name);
+	DriveESC(LRTSpeedController* esc, LRTEncoder *encoder, std::string name);
 	
 	/*!
 	 * @brief Constructs a new drivetrain ESC object with two motors. 
@@ -32,7 +32,7 @@ public:
 	 * @param encoder the encoder that measures the speed of this ESC
 	 * @param name the name of this ESC
 	 */
-	DriveESC(LRTSpeedController *esc1, LRTSpeedController *esc2, LRTEncoder *encoder, std::string name);
+	DriveESC(LRTSpeedController* esc1, LRTSpeedController* esc2, LRTEncoder *encoder, std::string name);
 
 	
 	/*!
@@ -79,7 +79,8 @@ private:
 	BrakeAndDutyCycle CalculateBrakeAndDutyCycle(float target_speed, float current_speed);
 
 	LRTEncoder* m_encoder;
-	LRTSpeedController *m_controller1, *m_controller2;
+	LRTSpeedController* m_controller1;
+	LRTSpeedController* m_controller2;
 	
 	float m_dutyCycle;
 	

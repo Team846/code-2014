@@ -10,7 +10,7 @@
 class Actuator : public LiveNetworkSendable
 {
 public:
-	explicit Actuator(const char *name);
+	explicit Actuator(const char* name);
 	
 	virtual const char* GetName();
 	virtual void Update() = 0;
@@ -19,7 +19,7 @@ public:
 	
 private:
 	static std::vector<Actuator*> actuator_vector;
-	const char *m_name;
+	const char* m_name;
 };
 
 #endif

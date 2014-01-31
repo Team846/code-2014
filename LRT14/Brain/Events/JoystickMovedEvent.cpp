@@ -1,7 +1,7 @@
 #include "JoystickMovedEvent.h"
 #include <Math.h>
 
-JoystickMovedEvent::JoystickMovedEvent(DebouncedJoystick *joystick, int axis, float sensitivity)
+JoystickMovedEvent::JoystickMovedEvent(DebouncedJoystick* joystick, int axis, float sensitivity)
 {
 	m_joystick = joystick;
 	m_axis = axis;

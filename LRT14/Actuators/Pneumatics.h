@@ -29,11 +29,11 @@ public:
 	};
 	
 	// Double solenoid
-	Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const char *name);
-	Pneumatics(uint32_t forward, uint32_t reverse, const char *name);
+	Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const char* name);
+	Pneumatics(uint32_t forward, uint32_t reverse, const char* name);
 	// Single solenoid
-	Pneumatics(uint32_t forward, uint8_t module, const char *name);
-	Pneumatics(uint32_t forward, const char *name);
+	Pneumatics(uint32_t forward, uint8_t module, const char* name);
+	Pneumatics(uint32_t forward, const char* name);
 	virtual ~Pneumatics();
 	
 	void Update();
@@ -57,9 +57,9 @@ private:
 
 	int m_pulse_length;
 
-	static Compressor *m_compressor;
+	static Compressor* m_compressor;
 
-	SolenoidBase *solenoid;
+	SolenoidBase* solenoid;
 	int counter;
 	bool pulsed;
 	State state;

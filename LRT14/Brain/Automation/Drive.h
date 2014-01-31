@@ -19,7 +19,7 @@ public:
 	void Configure();
 	
 private:
-	DrivetrainData *m_drivetrain;
+	DrivetrainData* m_drivetrain;
 	
 	double m_distance;
 	double m_maxSpeed;
@@ -27,7 +27,7 @@ private:
 	bool m_continuous;
 	
 	double m_start;
-	TrapezoidProfile *m_profile;
+	TrapezoidProfile* m_profile;
 	double m_maxVelocity;
 	double m_timeToMax;
 };

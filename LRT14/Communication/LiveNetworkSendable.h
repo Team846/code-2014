@@ -33,7 +33,7 @@ protected:
 	}
 
 private:
-	LiveNetworkSender *m_sender;
+	LiveNetworkSender* m_sender;
 };
 
 #endif /* LIVE_NETWORK_SENDABLE_H_ */

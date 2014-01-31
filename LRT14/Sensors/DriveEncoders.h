@@ -133,7 +133,7 @@ public:
 	static double GetMaxTurnRate();
 	
 private:
-	static DriveEncoders *m_instance;
+	static DriveEncoders* m_instance;
 	
 	const static double PI = 3.14159;
 

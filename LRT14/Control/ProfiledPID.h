@@ -31,7 +31,7 @@ public:
 
 private:
 	double m_setpoint;
-	MotionProfile *m_profile;
+	MotionProfile* m_profile;
 	Timer m_timer;
 };
 #endif

@@ -11,14 +11,14 @@
 class JoystickHeldEvent : public DelayedEvent
 {
 public:
-	JoystickHeldEvent(DebouncedJoystick *joystick, int button, int cycles);
+	JoystickHeldEvent(DebouncedJoystick* joystick, int button, int cycles);
 	virtual ~JoystickHeldEvent();
 	
 	int GetButton();
 	DebouncedJoystick* GetJoystick();
 	
 private:
-	DebouncedJoystick *m_joystick;
+	DebouncedJoystick* m_joystick;
 	int m_lastFiredButton;
 };
 

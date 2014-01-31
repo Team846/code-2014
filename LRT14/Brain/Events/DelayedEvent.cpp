@@ -1,6 +1,6 @@
 #include "DelayedEvent.h"
 
-DelayedEvent::DelayedEvent(Event *event, int delayCycles)
+DelayedEvent::DelayedEvent(Event* event, int delayCycles)
 {
 	m_event = event;
 	m_delay = delayCycles;

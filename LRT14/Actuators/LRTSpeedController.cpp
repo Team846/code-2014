@@ -3,7 +3,7 @@
 #include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
 
-LRTSpeedController::LRTSpeedController(const char *name) :
+LRTSpeedController::LRTSpeedController(const char* name) :
 	Actuator(name),
 	Loggable(name)
 {

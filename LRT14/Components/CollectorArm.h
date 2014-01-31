@@ -25,8 +25,8 @@ public:
 	void Configure();
 	
 private:
-	CollectorArmData *m_armData;
-	Pneumatics *m_pneumatics;
+	CollectorArmData* m_armData;
+	Pneumatics* m_pneumatics;
 	
 };
 

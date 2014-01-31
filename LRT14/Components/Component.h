@@ -14,7 +14,7 @@ public:
 	/*!
 	 * @brief Constructs a component with a name
 	 */
-	Component(const char *name, int driverStationDigitalIn);
+	Component(const char* name, int driverStationDigitalIn);
 	
 	/*!
 	 * @brief Frees the resources allocated by the component.
@@ -83,7 +83,7 @@ protected:
 private:
 	static std::vector<Component*> component_vector;
 	
-	const char *m_name;
+	const char* m_name;
 	int m_digitalIn;
 	bool m_lastEnabled;
 };

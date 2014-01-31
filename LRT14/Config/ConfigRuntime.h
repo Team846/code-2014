@@ -67,9 +67,9 @@ private:
 	 * @brief Saves config data from memory into config file
 	 */
 	void SaveConfig(std::string path);
-	std::list<string> *fileData;
+	std::list<string>* fileData;
 	config* configData;
-	std::map<string, std::list<std::string>::iterator> *sectionMap;
+	std::map<string, std::list<std::string>::iterator>* sectionMap;
 	std::time_t lastReadTime;
 	bool KeyExists(std::string section, std::string key);
 	

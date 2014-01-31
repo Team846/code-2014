@@ -3,12 +3,12 @@
 
 using namespace std;
 
-Parallel::Parallel(const char *name, bool queueIfBlocked, bool restartable) :
+Parallel::Parallel(const char* name, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 }
 
-Parallel::Parallel(const char *name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
+Parallel::Parallel(const char* name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 	routines = sequence;

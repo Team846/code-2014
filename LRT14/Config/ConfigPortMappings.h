@@ -38,8 +38,8 @@ private:
 	 */
 	void LoadConfig(std::string path);
 	
-	std::list<std::string> *fileData;
-	std::map<std::string, map<std::string, uint32_t> > *portData;
+	std::list<std::string>* fileData;
+	std::map<std::string, map<std::string, uint32_t> >* portData;
 	
 	bool KeyExists(std::string section, std::string key);
 	

@@ -9,14 +9,14 @@
 class DelayedEvent : public Event
 {
 public:
-	DelayedEvent(Event *event, int delayCycles);
+	DelayedEvent(Event* event, int delayCycles);
 	virtual ~DelayedEvent();
 	
 	virtual bool CheckCondition();
 	virtual void Update();
 	
 private:
-	Event *m_event;
+	Event* m_event;
 	int m_delay;
 	int m_count;
 };

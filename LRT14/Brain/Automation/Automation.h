@@ -21,7 +21,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
      * @param restartable whether the routine can be restarted
      */
-	Automation(const char *name, bool requiresAbortCycles = false, bool queueIfBlocked = false, bool restartable = false);
+	Automation(const char* name, bool requiresAbortCycles = false, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Automation();
 	
 	/*!
@@ -35,20 +35,20 @@ public:
 	 * @param trigger the event that fired
 	 * @return if the task successfully started
 	 */
-	bool StartAutomation(Event *trigger = NULL);
+	bool StartAutomation(Event* trigger = NULL);
 
 	/*!
 	 * @brief Tries to aborts this task.
 	 * @param trigger the event that fired
 	 * @return if the task successfully aborted
 	 */
-	bool AbortAutomation(Event *trigger = NULL);
+	bool AbortAutomation(Event* trigger = NULL);
 
 	/*!
 	 * @brief Sets the task to continue.
 	 * @param trigger the event that fired
 	 */
-	void ContinueAutomation(Event *trigger);
+	void ContinueAutomation(Event* trigger);
 	
 	/*!
 	 * @brief Allocates resources used by this task. Checks if this task is blocked.
@@ -158,14 +158,14 @@ protected:
 private:
 	static std::map<ControlResource::Enum, int> allocated;
 	std::vector<ControlResource::Enum> resources;
-	Event *m_startEvent;
-	Event *m_abortEvent;
-	Event *m_continueEvent;
+	Event* m_startEvent;
+	Event* m_abortEvent;
+	Event* m_continueEvent;
 	bool m_aborting;
 	bool m_restartable;
 	bool m_queueIfBlocked;
 	bool m_requiresAbortCycles;
-	const char *m_name;
+	const char* m_name;
 };
 
 #endif

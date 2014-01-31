@@ -24,7 +24,7 @@ public:
 	}
 	
 private:
-	ConfigRuntime * const m_config;
+	ConfigRuntime* const m_config;
 	std::string m_configSection;
 };
 

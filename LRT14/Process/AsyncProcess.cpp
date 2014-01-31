@@ -1,6 +1,6 @@
 #include "AsyncProcess.h"
 
-AsyncProcess::AsyncProcess(const char * taskName, INT32 priority)
+AsyncProcess::AsyncProcess(const char* taskName, INT32 priority)
 {
 	m_task = new Task(taskName, (FUNCPTR)_TASK_ENTRY, priority);
 	m_isRunning = false;

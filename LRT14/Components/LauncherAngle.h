@@ -22,9 +22,9 @@ public:
 	void Configure();
 	
 private:
-	LauncherAngleData *m_launcherAngleData;
-	LRTTalon *m_talon;
-	AnalogChannel *analogChannel;
+	LauncherAngleData* m_launcherAngleData;
+	LRTTalon* m_talon;
+	AnalogChannel* analogChannel;
 	int m_shortSetpoint, m_longSetpoint;
 	float m_gain;
 	int m_completionErrorThreshold;
