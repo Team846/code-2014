@@ -2,7 +2,7 @@
 
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
-#include "../Actuators/LRTTalon.h"
+#include "../Actuators/Pneumatics.h"
 
 CollectorArm::CollectorArm() : 
 	Component("CollectorArm", DriverStationConfig::DigitalIns::COLLECTOR_ARM),
