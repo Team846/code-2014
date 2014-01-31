@@ -1,6 +1,24 @@
 var NAVTREE =
 [
   [ "LRT14", "index.html", [
+    [ "Namespaces", null, [
+      [ "Namespace List", "namespaces.html", "namespaces" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
+      ] ]
+    ] ],
+    [ "Classes", null, [
+      [ "Class List", "annotated.html", "annotated" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
     [ "Files", null, [
       [ "File List", "files.html", "files" ]
     ] ]
@@ -9,7 +27,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_l_r_t_robot_base_8h_source.html"
+".html",
+"class_collector_arm.html#aa5bba6db6f31f53907f8f9e9b16857d8",
+"class_repeating.html#af9eec8300107c03ed5db1cda4d3f6708"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
