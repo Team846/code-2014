@@ -30,7 +30,7 @@ private:
 	RobotState();
 	~RobotState();
 	
-	static RobotState *m_instance;
+	static RobotState* m_instance;
 	
 	GameState::Enum m_gameMode;
 	GameState::Enum m_lastGameMode;

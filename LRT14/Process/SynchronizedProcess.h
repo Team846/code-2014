@@ -12,8 +12,8 @@
 class SynchronizedProcess : public AsyncProcess
 {
 public:
-	SynchronizedProcess(const char * taskName, INT32 priority=Task::kDefaultPriority);
-	SynchronizedProcess(const char * taskName, SEM_ID syncSem, INT32 priority=Task::kDefaultPriority);
+	SynchronizedProcess(const char* taskName, INT32 priority=Task::kDefaultPriority);
+	SynchronizedProcess(const char* taskName, SEM_ID syncSem, INT32 priority=Task::kDefaultPriority);
 	virtual ~SynchronizedProcess();
 	
 	/*!

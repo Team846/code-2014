@@ -1,6 +1,6 @@
 #include "JoystickHeldEvent.h"
 
-JoystickHeldEvent::JoystickHeldEvent(DebouncedJoystick *joystick, int button, int cycles) :
+JoystickHeldEvent::JoystickHeldEvent(DebouncedJoystick* joystick, int button, int cycles) :
 	DelayedEvent(new JoystickPressedEvent(joystick, button), cycles)
 {
 	m_joystick = joystick;

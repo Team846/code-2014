@@ -51,7 +51,7 @@ protected:
 	}
 
 private:
-	Logger *m_logger;
+	Logger* m_logger;
 	std::string m_name;
 };
 

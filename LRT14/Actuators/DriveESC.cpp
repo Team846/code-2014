@@ -4,7 +4,7 @@
 
 using namespace std;
 
-DriveESC::DriveESC(LRTSpeedController *esc, LRTEncoder* encoder, string name) :
+DriveESC::DriveESC(LRTSpeedController* esc, LRTEncoder* encoder, string name) :
 	Loggable(name),
 	m_encoder(encoder),
 	m_controller1(esc)
@@ -19,7 +19,7 @@ DriveESC::DriveESC(LRTSpeedController *esc, LRTEncoder* encoder, string name) :
 	m_reverseCurrentLimit = 50.0 / 100.0;
 }
 
-DriveESC::DriveESC(LRTSpeedController *esc1, LRTSpeedController *esc2, LRTEncoder* encoder, string name) :
+DriveESC::DriveESC(LRTSpeedController* esc1, LRTSpeedController* esc2, LRTEncoder* encoder, string name) :
 	Loggable(name),
 	m_encoder(encoder),
 	m_controller1(esc1),

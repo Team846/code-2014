@@ -9,7 +9,7 @@ using namespace Rhesus::Toolkit;
 
 vector<Component*> Component::component_vector;
 
-Component::Component(const char *name, int driverStationDigitalIn) :
+Component::Component(const char* name, int driverStationDigitalIn) :
 	m_name(name), m_digitalIn(driverStationDigitalIn)
 {
 	m_lastEnabled = false;

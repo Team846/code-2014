@@ -15,7 +15,7 @@ public:
 	void AllocateResources();
 	
 private:
-	DrivetrainData *m_drivetrain;
+	DrivetrainData* m_drivetrain;
 	
 	double m_angle;
 	double m_maxSpeed;

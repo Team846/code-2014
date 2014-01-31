@@ -27,7 +27,7 @@ public:
 	void Configure();
 	
 private:
-	DrivetrainData *m_drivetrain;
+	DrivetrainData* m_drivetrain;
 
 	double m_distance;
 	double m_angle;
@@ -35,7 +35,7 @@ private:
 	double m_errorThreshold;
 	bool m_continuous;
 	
-	Drive *m_drive;
+	Drive* m_drive;
 	double m_startDistance;
 	double m_startAngle;
 	double m_driveDistance;

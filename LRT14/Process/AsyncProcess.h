@@ -12,7 +12,7 @@
 class AsyncProcess
 {
 public:
-	AsyncProcess(const char * taskName, INT32 priority=Task::kDefaultPriority);
+	AsyncProcess(const char* taskName, INT32 priority=Task::kDefaultPriority);
 	virtual ~AsyncProcess();
 	
 	void Start();

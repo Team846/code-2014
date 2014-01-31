@@ -24,8 +24,8 @@ public:
 	void Configure();
 	
 private:
-	CollectorRollersData *m_rollersData;
-	LRTTalon *m_talon;
+	CollectorRollersData* m_rollersData;
+	LRTTalon* m_talon;
 	float m_forwardSpeed, m_reverseSpeed;
 };
 

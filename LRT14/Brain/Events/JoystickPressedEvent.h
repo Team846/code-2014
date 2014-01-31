@@ -10,7 +10,7 @@
 class JoystickPressedEvent : public Event
 {
 public:
-	JoystickPressedEvent(DebouncedJoystick *joystick, int button = 0);
+	JoystickPressedEvent(DebouncedJoystick* joystick, int button = 0);
 	virtual ~JoystickPressedEvent();
 	
 	virtual bool CheckCondition();
@@ -19,7 +19,7 @@ public:
 	DebouncedJoystick* GetJoystick();
 	
 private:
-	DebouncedJoystick *m_joystick;
+	DebouncedJoystick* m_joystick;
 	int m_button;
 	int m_lastFiredButton;
 };

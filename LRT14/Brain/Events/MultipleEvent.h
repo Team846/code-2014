@@ -16,7 +16,7 @@ public:
 	
 	virtual bool CheckCondition();
 	
-	void AddEvent(Event *event);
+	void AddEvent(Event* event);
 	
 private:
 	std::vector<Event*> m_events;

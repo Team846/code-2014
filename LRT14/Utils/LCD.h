@@ -41,7 +41,7 @@ protected:
 
 private:
 	LCD();
-	static LCD *instance;
+	static LCD* instance;
 	DISALLOW_COPY_AND_ASSIGN(LCD);
 
 	int curLineIndex;
@@ -54,10 +54,10 @@ private:
 	// even on the new DriverStation, still 21 char
 	static const UINT8 kNumLcdPhysicalColumns = 21;
 
-	const char *loadArray;
-	char *textBuffer;
-	char *outputBuffer;
-	semaphore *textBufferSemaphore;
+	const char* loadArray;
+	char* textBuffer;
+	char* outputBuffer;
+	semaphore* textBufferSemaphore;
 
 	RobotState &m_robotState;
 };

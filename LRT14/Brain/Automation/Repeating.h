@@ -19,7 +19,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Repeating(const char *name, Automation *routine, int times = 0, bool queueIfBlocked = false, bool restartable = false);
+	Repeating(const char* name, Automation* routine, int times = 0, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Repeating();
 
 	virtual bool Start();
@@ -41,7 +41,7 @@ protected:
 	virtual bool FinishRepeat();
 	
 private:
-	Automation *m_routine;
+	Automation* m_routine;
 	int m_times;
 	int m_count;
 	bool m_completed;

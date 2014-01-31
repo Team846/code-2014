@@ -1,6 +1,6 @@
 #include "JoystickPressedEvent.h"
 
-JoystickPressedEvent::JoystickPressedEvent(DebouncedJoystick *joystick, int button)
+JoystickPressedEvent::JoystickPressedEvent(DebouncedJoystick* joystick, int button)
 {
 	m_joystick = joystick;
 	m_button = button;

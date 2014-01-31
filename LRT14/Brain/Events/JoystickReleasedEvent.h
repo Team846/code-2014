@@ -19,7 +19,7 @@ public:
 	DebouncedJoystick* GetJoystick();
 	
 private:
-	DebouncedJoystick *m_joystick;
+	DebouncedJoystick* m_joystick;
 	int m_button;
 	int m_lastFiredButton;
 };

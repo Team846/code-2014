@@ -104,7 +104,7 @@ private:
 	 */
 	void Write(void* field, std::size_t size);
 	
-	static Logger *m_instance;
+	static Logger* m_instance;
 
 	static std::vector<Loggable*> loggables;
 	std::vector<Field> fields;
@@ -115,8 +115,8 @@ private:
 #endif
 	bool initialized;
 	std::size_t dataSize;
-	char *curLoc;
-	void *startLoc;
+	char* curLoc;
+	void* startLoc;
 	SEM_ID m_writeSem;
 };
 

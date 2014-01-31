@@ -15,10 +15,10 @@ public:
 	void Update();
 	
 private:
-	DebouncedJoystick *m_driver_stick;
-	DebouncedJoystick *m_driver_wheel;
+	DebouncedJoystick* m_driver_stick;
+	DebouncedJoystick* m_driver_wheel;
 	
-	DrivetrainData *drivetrainData;
+	DrivetrainData* drivetrainData;
 
 	bool lastStop;
 	double stoppedForward;

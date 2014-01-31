@@ -10,7 +10,7 @@
 class JoystickMovedEvent : public Event
 {
 public:
-	JoystickMovedEvent(DebouncedJoystick *joystick, int axis = 0, float sensitivity = 0.02);
+	JoystickMovedEvent(DebouncedJoystick* joystick, int axis = 0, float sensitivity = 0.02);
 	virtual ~JoystickMovedEvent();
 	
 	virtual bool CheckCondition();
@@ -19,7 +19,7 @@ public:
 	DebouncedJoystick* GetJoystick();
 	
 private:
-	DebouncedJoystick *m_joystick;
+	DebouncedJoystick* m_joystick;
 	int m_axis;
 	float m_sensitivity;
 	int m_lastFiredAxis;

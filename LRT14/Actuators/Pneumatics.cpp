@@ -5,7 +5,7 @@
 vector<Pneumatics*> Pneumatics::pneumatic_vector;
 Compressor *Pneumatics::m_compressor;
 
-Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, const char *name) :
+Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, const char* name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
 	Loggable("Pneumatics" + std::string(name)),
@@ -20,7 +20,7 @@ Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, const char *name) :
 	pneumatic_vector.push_back(this);
 }
 
-Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const char *name) :
+Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const char* name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
 	Loggable("Pneumatics" + std::string(name)),
@@ -35,7 +35,7 @@ Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const
 	pneumatic_vector.push_back(this);
 }
 
-Pneumatics::Pneumatics(uint32_t forward, const char *name) :
+Pneumatics::Pneumatics(uint32_t forward, const char* name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
 	Loggable("Pneumatics" + std::string(name)),
@@ -50,7 +50,7 @@ Pneumatics::Pneumatics(uint32_t forward, const char *name) :
 	pneumatic_vector.push_back(this);
 }
 
-Pneumatics::Pneumatics(uint32_t forward, uint8_t module, const char *name) :
+Pneumatics::Pneumatics(uint32_t forward, uint8_t module, const char* name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
 	Loggable("Pneumatics" + std::string(name)),

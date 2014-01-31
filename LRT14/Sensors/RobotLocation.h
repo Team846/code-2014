@@ -63,9 +63,9 @@ public:
 private:
 	RobotLocation();
 	
-	static RobotLocation *m_instance;
+	static RobotLocation* m_instance;
 	
-	DriveEncoders *m_encoders;
+	DriveEncoders* m_encoders;
 	
 	Notifier m_notifier;
 	

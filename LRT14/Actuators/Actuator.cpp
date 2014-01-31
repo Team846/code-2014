@@ -6,7 +6,7 @@ using namespace std;
 
 vector<Actuator*> Actuator::actuator_vector;
 
-Actuator::Actuator(const char *name)
+Actuator::Actuator(const char* name)
 {
 	m_name = name;
 	actuator_vector.push_back(this);

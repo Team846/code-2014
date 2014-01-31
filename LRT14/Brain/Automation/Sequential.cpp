@@ -2,13 +2,13 @@
 
 using namespace std;
 
-Sequential::Sequential(const char *name, bool queueIfBlocked, bool restartable) :
+Sequential::Sequential(const char* name, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 	started = false;
 }
 
-Sequential::Sequential(const char *name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
+Sequential::Sequential(const char* name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 	routines = sequence;

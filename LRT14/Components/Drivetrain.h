@@ -46,9 +46,9 @@ private:
 	const static int POSITION = 0;
 	const static int VELOCITY = 1;
 	PID m_PIDs[2][2];
-	DrivetrainData *m_drivetrainData;
+	DrivetrainData* m_drivetrainData;
 	DriveEncoders* m_driveEncoders;
-	DriveESC *m_escs[4];
+	DriveESC* m_escs[4];
 	double Kv;
 };	
 
