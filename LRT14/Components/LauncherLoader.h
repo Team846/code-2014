@@ -30,7 +30,8 @@ private:
 	LRTTalon* m_talonB;
 	AnalogChannel* m_sensor;
 	bool m_firing;
-	float m_speed;
+	float m_forwardSpeed;
+	float m_reverseSpeed;
 	float setpoint;
 	float m_gain;
 	float m_closed_loop_threshold;

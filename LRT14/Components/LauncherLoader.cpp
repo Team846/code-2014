@@ -33,14 +33,19 @@ void LauncherLoader::OnDisabled()
 
 void LauncherLoader::UpdateEnabled()
 {
-	if(m_loaderData->GetFire() || m_firing)
+	if (m_loaderData->GetFire() || m_firing)
 	{
-		m_talonA->SetDutyCycle(m_speed);
-		m_talonB->SetDutyCycle(m_speed);
+		m_talonA->SetDutyCycle(m_forwardSpeed);
+		m_talonB->SetDutyCycle(m_forwardSpeed);
 		m_firing = true;
 		if(m_sensor->GetAverageValue() > m_closed_loop_threshold)
 			m_firing = false;
 		m_loaderData->SetLoadingComplete(false);
+	}
+	else if (m_loaderData->GetPurge())
+	{
+		m_talonA->SetDutyCycle(m_reverseSpeed);
+		m_talonB->SetDutyCycle(m_reverseSpeed);
 	}
 	else
 	{
@@ -62,7 +67,8 @@ void LauncherLoader::UpdateDisabled()
 
 void LauncherLoader::Configure()
 {
-	m_speed = GetConfig("speed", 1.0);
+	m_forwardSpeed = GetConfig("speed", 1.0);
+	m_reverseSpeed = GetConfig("purge_speed", 1.0);
 	setpoint = GetConfig("setpoint", 1.0);
 	m_gain = GetConfig("gain", 1.0);
 	m_closed_loop_threshold = GetConfig("closed_loop_threshold", 1.0);

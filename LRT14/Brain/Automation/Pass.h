@@ -1,16 +1,17 @@
-#ifndef COLLECT_H_
-#define COLLECT_H_
+#ifndef PASS_H_
+#define PASS_H_
 
 #include "Automation.h"
 #include "../../ComponentData/CollectorArmData.h"
 #include "../../ComponentData/CollectorRollersData.h"
+#include "../../ComponentData/DrivetrainData.h"
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 
-class Collect : public Automation, public Configurable
+class Pass : public Automation, public Configurable
 {
 public:
-	Collect();
+	Pass();
 
 	bool Start();
 	bool Run();
@@ -22,18 +23,11 @@ public:
 private:
 	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_collectorRollers;
+	DrivetrainData* m_drivetrain;
 	GearTooth* m_gearTooth;
-	AnalogChannel* m_redChannel;
-	AnalogChannel* m_greenChannel;
-	AnalogChannel* m_blueChannel;
-	float m_ballCollectionThreshold;
-	int m_redBallRed;
-	int m_redBallBlue;
-	int m_redBallGreen;
-	int m_blueBallRed;
-	int m_blueBallBlue;
-	int m_blueBallGreen;
-	int m_colorRange;
+	float m_ballReleaseDistance;
+	int m_startTicks;
+	float m_driveBackSpeed;
 };
 
 #endif

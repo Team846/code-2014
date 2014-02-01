@@ -32,6 +32,16 @@ bool LauncherLoaderData::GetFire()
 	return m_fire;
 }
 
+void LauncherLoaderData::SetPurge(bool purge)
+{
+	m_purge = purge;
+}
+
+bool LauncherLoaderData::GetPurge()
+{
+	return m_purge;
+}
+
 bool LauncherLoaderData::IsLoadingComplete()
 {
 	return m_complete;
