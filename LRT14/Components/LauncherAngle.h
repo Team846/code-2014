@@ -5,20 +5,23 @@
 #include "../Config/Configurable.h"
 #include "../ComponentData/LauncherAngleData.h"
 #include "../Actuators/LRTTalon.h"
-#include <AnalogChannel.h>
+#include "../Sensors/SensorFactory.h"
 
-class LauncherAngle :  public Component, public Configurable
+/*!
+ * @brief Provides control over the launch angle changing mechanism.
+ */
+class LauncherAngle : public Component, public Configurable
 {
 public:
 	LauncherAngle();
 	~LauncherAngle();
 	
-	void OnEnabled(); 
+	void OnEnabled();
 	void OnDisabled();
-			
+	
 	void UpdateEnabled();
 	void UpdateDisabled();
-			
+	
 	void Configure();
 	
 private:

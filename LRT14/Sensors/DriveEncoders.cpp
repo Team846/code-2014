@@ -1,4 +1,5 @@
 #include "DriveEncoders.h"
+#include "SensorFactory.h"
 #include "../Config/RobotConfig.h"
 #include "../Config/ConfigRuntime.h"
 #include "../Config/ConfigPortMappings.h"
@@ -16,14 +17,11 @@ DriveEncoders::DriveEncoders(UINT32 leftSourceA, UINT32 leftSourceB, UINT32 righ
 	Configurable("DriveEncoders"),
 	Loggable("DriveEncoders")
 {
-	m_encoders[LEFT] = new LRTEncoder("LeftDriveEncoder", leftSourceA, leftSourceB);
-	m_encoders[RIGHT] = new LRTEncoder("RightDriveEncoder", rightSourceA, rightSourceB);
+	m_encoders[LEFT] = SensorFactory::GetLRTEncoder("LeftDriveEncoder", leftSourceA, leftSourceB);
+	m_encoders[RIGHT] = SensorFactory::GetLRTEncoder("RightDriveEncoder", rightSourceA, rightSourceB);
 
 	m_encoders[LEFT]->SetDistancePerPulse(1);
 	m_encoders[RIGHT]->SetDistancePerPulse(1);
-	
-	m_encoders[LEFT]->Start();
-	m_encoders[RIGHT]->Start();
 	
 	if (m_instance == NULL)
 		m_instance = this;
