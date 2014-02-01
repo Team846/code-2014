@@ -32,6 +32,7 @@ Drivetrain::Drivetrain() :
 			new LRTJaguar(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B")),
 			m_driveEncoders->GetEncoder(DriveEncoders::RIGHT), "RightDriveESC");
 	m_drivetrainData = DrivetrainData::Get();
+	
 	Kv = 1;
 }
 

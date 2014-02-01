@@ -9,6 +9,7 @@
 #include "DriverStation/LRTDriverStation.h"
 #include "ComponentData/ComponentData.h"
 #include "Sensors/RobotLocation.h"
+#include "Sensors/SensorFactory.h"
 
 #include "Config/ConfigRuntime.h"
 #include "Config/ConfigPortMappings.h"
@@ -53,6 +54,7 @@ LRTRobot14::~LRTRobot14()
 	Pneumatics::DestroyCompressor();
 #endif
 	Brain::Finalize();
+	SensorFactory::Finalize();
 	LCD::Finalize();
 	AsyncPrinter::Finalize();
 	LRTDriverStation::Finalize();
@@ -101,6 +103,10 @@ void LRTRobot14::RobotInit()
 	Pneumatics::CreateCompressor();
 #endif
 
+	// Initialize SensorFactorhy
+	AsyncPrinter::Println("Initializing Sensor Factory...");
+	SensorFactory::Initialize();
+	
 	// Initialize localization
 	AsyncPrinter::Println("Initializing Robot Localization...");
 	RobotLocation::Initialize();

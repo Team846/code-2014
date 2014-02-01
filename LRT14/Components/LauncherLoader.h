@@ -5,7 +5,7 @@
 #include "../Config/Configurable.h"
 #include "../ComponentData/LauncherLoaderData.h"
 #include "../Actuators/LRTTalon.h"
-#include <AnalogChannel.h>
+#include "../Sensors/SensorFactory.h"
 
 /*!
  * @brief Provides control over launcher loading mechanism.

@@ -10,7 +10,7 @@ LauncherLoader::LauncherLoader() :
 	m_loaderData = LauncherLoaderData::Get();
 	m_talonA = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_A"), "LauncherLoaderA");
 	m_talonB = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
-	m_sensor = new AnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
+	m_sensor = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
 	m_firing = false;
 }
 

@@ -11,7 +11,7 @@ LauncherAngle::LauncherAngle() :
 {
 	m_launcherAngleData = LauncherAngleData::Get();
 	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_ANGLE"), "LauncherAngle");
-	analogChannel = new AnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_ANGLE"));
+	analogChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_ANGLE"));
 }
 
 LauncherAngle::~LauncherAngle()
