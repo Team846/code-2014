@@ -12,6 +12,10 @@
 #include "Automation/Autonomous.h"
 #include "Automation/Drive.h"
 #include "Automation/Turn.h"
+#include "Automation/Collect.h"
+#include "Automation/Pass.h"
+#include "Automation/Fire.h"
+#include "Automation/ChangeLauncherAngle.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
 #include "Automation/Sequential.h"
@@ -57,33 +61,60 @@ Brain::Brain() :
 	m_inputs.push_back(new DrivetrainInputs());
 	
 	// Create automation tasks
-	Automation *auton = new Autonomous();
-	Parallel *positionHold = new Parallel("PositionHold");
+	Automation* auton = new Autonomous();
+	Parallel* positionHold = new Parallel("PositionHold");
 	positionHold->AddAutomation(new Drive(0.0));
 	positionHold->AddAutomation(new Turn(0.0));
 	positionHold->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
+	Automation* collect = new Collect();
+	Automation* pass = new Pass();
+	Automation* fire = new Fire();
+	Automation* longShot = new ChangeLauncherAngle(true);
+	Automation* shortShot = new ChangeLauncherAngle(false);
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
+	m_automation.push_back(collect);
+	m_automation.push_back(fire);
+	m_automation.push_back(longShot);
+	m_automation.push_back(shortShot);
 	
 	// Create events to be used
-	Event *toAuto = new GameModeChangeEvent(GameState::AUTONOMOUS);
-	Event *driverStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetDriverStick());
-	Event *operatorStickMoved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetOperatorStick());
-	Event *driverStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick());
-	Event *operatorStickPressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick());
-	Event *disabledTimeout = new DelayedEvent(new GameModeChangeEvent(GameState::DISABLED), 100);
-	Event *position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
-	Event *position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
+	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
+	Event* driver_stick_moved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetDriverStick());
+	Event* operator_stick_moved = new JoystickMovedEvent(LRTDriverStation::Instance()->GetOperatorStick());
+	Event* driver_stick_pressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick());
+	Event* operator_stick_pressed = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick());
+	Event* disabled_timeout = new DelayedEvent(new GameModeChangeEvent(GameState::DISABLED), 100);
+	Event* position_hold_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
+	Event* position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
+	Event* collect_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
+	Event* collect_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
+	Event* pass_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::PASS);
+	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::PASS);
+	Event* fire_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
+	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
+	Event* long_shot = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LONG_SHOT);
+	Event* short_shot = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::SHORT_SHOT);
 	
 	// Map events to tasks to start/abort/continue
-	toAuto->AddStartListener(auton);
-	driverStickMoved->AddAbortListener(auton);
-	operatorStickMoved->AddAbortListener(auton);
-	driverStickPressed->AddAbortListener(auton);
-	operatorStickPressed->AddAbortListener(auton);
-	disabledTimeout->AddAbortListener(auton);
+	to_auto->AddStartListener(auton);
+	driver_stick_moved->AddAbortListener(auton);
+	operator_stick_moved->AddAbortListener(auton);
+	driver_stick_pressed->AddAbortListener(auton);
+	operator_stick_pressed->AddAbortListener(auton);
+	disabled_timeout->AddAbortListener(auton);
 	position_hold_start->AddStartListener(positionHold);
 	position_hold_abort->AddAbortListener(positionHold);
+	collect_start->AddStartListener(collect);
+	collect_abort->AddAbortListener(collect);
+	pass_start->AddStartListener(pass);
+	pass_abort->AddAbortListener(pass);
+	fire_start->AddStartListener(fire);
+	fire_abort->AddAbortListener(fire);
+	long_shot->AddStartListener(longShot);
+	long_shot->AddAbortListener(shortShot);
+	short_shot->AddStartListener(shortShot);
+	short_shot->AddAbortListener(longShot);
 }
 
 Brain::~Brain()

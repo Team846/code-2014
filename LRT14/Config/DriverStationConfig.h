@@ -23,6 +23,14 @@ namespace JoystickButtons
 {
 // Driver Joystick
 const uint32_t COLLECT = 1;
+// Operator Joystick
+const uint32_t PASS = 1;
+const uint32_t FIRE = 2;
+const uint32_t SHORT_SHOT = 3;
+const uint32_t LONG_SHOT = 4;
+const uint32_t PURGE_LAUNCHER = 6;
+const uint32_t LOAD_LAUNCHER = 7;
+const uint32_t REVERSE_ROLLERS = 10;
 // Driver Wheel
 const uint32_t POSITION_HOLD = 5;
 const uint32_t REVERSE_DRIVE = 6;

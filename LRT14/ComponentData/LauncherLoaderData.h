@@ -11,6 +11,8 @@ public:
 
 	void SetFire(bool shouldFire);
 	bool GetFire();
+	void SetPurge(bool purge);
+	bool GetPurge();
 
 	bool IsLoadingComplete();
 	
@@ -21,6 +23,7 @@ private:
 	void SetLoadingComplete(bool complete);
 	
 	bool m_fire;
+	bool m_purge;
 	bool m_complete;
 	
 	friend class LauncherLoader;
