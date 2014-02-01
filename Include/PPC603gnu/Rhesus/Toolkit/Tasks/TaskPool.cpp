@@ -19,9 +19,16 @@ CountingSemaphore TaskPool::s_taskSignal(0);
 std::vector<Task*> TaskPool::s_tasks;
 std::vector<Task*> TaskPool::s_tempTasks;
 CountingSemaphore TaskPool::s_availableTasks(0);
+bool TaskPool::s_isRunning(false);
+
+bool TaskPool::IsRunning()
+{
+	return s_isRunning;
+}
 
 void TaskPool::Start()
 {
+	//Starts with 5 worker threads by default
 	Start(5);
 }
 
@@ -38,6 +45,8 @@ void TaskPool::Start(INT32 numThreads)
 		
 		s_tasks.push_back(task);
 	}
+	
+	s_isRunning = true;
 }
 
 void TaskPool::EnqueueTask(FUNCPTR ptr, UINT32 arg0, UINT32 arg1, UINT32 arg2, UINT32 arg3, UINT32 arg4,
@@ -81,6 +90,8 @@ void TaskPool::Stop()
 	}
 	
 	s_tempTasks.erase(std::remove_if(s_tempTasks.begin(), s_tempTasks.end(), ContainerCleanup::DeleteVector<Task*>), s_tempTasks.end());
+
+	s_isRunning = false;
 }
 
 INT32 TaskPool::WorkerTemp(taskStructure* t, Task* thisTask)

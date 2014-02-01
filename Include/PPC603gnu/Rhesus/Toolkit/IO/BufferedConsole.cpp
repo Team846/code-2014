@@ -11,6 +11,11 @@ using namespace Rhesus::Toolkit::Tasks;
 
 void BufferedConsole::Printfln(std::string msg, ...)
 {
+//	std::printf("PRINT STARTED...\n");
+	
+	if(!TaskPool::IsRunning())
+		TaskPool::Start();
+	
 	std::stringstream ss;
 	ss << msg << "\n";
 	msg = ss.str();
@@ -26,14 +31,16 @@ void BufferedConsole::Printfln(std::string msg, ...)
 	
 	string n(buffer);
 	
-	PrintParams* params = new PrintParams();
-	params->message = n;
+//	std::printf("ENQUED...");
 	
-	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)params);
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)&n);
 }
 
 void BufferedConsole::Printf(std::string msg, ...)
 {
+	if(!TaskPool::IsRunning())
+			TaskPool::Start();
+	
 	char buffer[msg.length()];
 	msg.copy(buffer, msg.length(), 0);
 
@@ -45,10 +52,7 @@ void BufferedConsole::Printf(std::string msg, ...)
 	
 	string n(buffer);
 	
-	PrintParams* params = new PrintParams();
-	params->message = n;
-	
-	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)params);
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)&n);
 }
 
 
