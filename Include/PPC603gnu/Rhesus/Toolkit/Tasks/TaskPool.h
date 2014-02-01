@@ -12,6 +12,7 @@ namespace Rhesus {
 namespace Toolkit {
 namespace Tasks {
 /*!
+ * DO NOT STOP - CAUSES FATAL CRASH
  * @brief Pool of worker threads used to run functions asynchronously 
  * @author Tony Peng
  * @author Varun Parthasarathy
@@ -26,6 +27,8 @@ public:
 			UINT32 arg6 = 0, UINT32 arg7 = 0, UINT32 arg8 = 0);
 	
 	static void Stop();
+	
+	static bool IsRunning();
 
 private:
 	struct taskStructure {
@@ -51,6 +54,8 @@ private:
 	static std::vector<Task*> s_tasks;
 	static std::vector<Task*> s_tempTasks;
 	static CountingSemaphore s_availableTasks;
+	
+	static bool s_isRunning;
 };
 
 }

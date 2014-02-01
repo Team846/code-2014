@@ -13,28 +13,22 @@ namespace Toolkit
 namespace IO
 {
 	/*!
-	 * @brief Provides a way to print to perform console output asynchronously
+	 * @brief Provides a way to perform console output asynchronously
 	 * @author Varun Parthasarathy
 	 */
 	class BufferedConsole
 	{
 	public:
-		
-		static void Start();
-		
 		static void Printfln(std::string msg, ...);
 		static void Printf(std::string msg, ...);
 		
 	private:
 		
-		struct PrintParams
-		{
-			std::string message;
-		};
+		std::string message;
 		
-		static void InternalPrintWrapper(PrintParams* params)
+		static void InternalPrintWrapper(std::string* params)
 		{
-			std::printf(params->message.c_str());
+			std::printf(params->c_str());
 			DELETE(params);
 		}
 	};

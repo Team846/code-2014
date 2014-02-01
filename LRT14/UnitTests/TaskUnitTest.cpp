@@ -6,12 +6,16 @@
 #include "RUnit/TestApparatus.h"
 #include "../Rhesus/Toolkit/Tasks/TaskPool.h"
 #include "../Rhesus/Toolkit/Tasks/BinarySemaphore.h"
+#include "../Rhesus/Toolkit/IO/BufferedConsole.h"
+#include "../Rhesus/Toolkit/Tasks/Mutex.h"
+#include "../Rhesus/Toolkit/Tasks/lock_on.h"
 
 using namespace RUnit;
 
 using namespace Rhesus;
 using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Tasks;
+using namespace Rhesus::Toolkit::IO;
 
 void TestPrint()
 {
@@ -102,6 +106,37 @@ INT32 TestCountingSemaphore()
 	return 0;
 }
 
+INT32 TestBufferedConsole()
+{
+	TaskPool::Start();
+	BufferedConsole::Printfln("SWAG");
+	BufferedConsole::Printf("More Swag\n");
+	TaskPool::Stop();
+	return 0;
+}
+
+//void printThenUnlock(Mutex* m)
+//{
+//	{
+//		lock_on l(m);
+//		std::printf("Unlocking...\n");
+//	}
+//}
+//
+//INT32 TestMutex()
+//{
+//	TaskPool::Start();
+//	Mutex* m = new Mutex();
+//	TaskPool::EnqueueTask((FUNCPTR)printThenUnlock, m);
+//	
+//	{
+//		lock_on l(m);
+//		std::printf("Unlocked...\n");
+//	}
+//	
+//	TaskPool::Stop();
+//}
+
 extern "C"
 {
 	INT32 FRC_UserProgram_StartupLibraryInit()
@@ -110,10 +145,22 @@ extern "C"
 		
 		app.EnableOption(TestApparatus::OPT_BASIC);
 		
+		//TaskPool: Working
 		//app.RegisterTest((RU_FUNCPTR)TestTaskPool, "Test Task Pool");
+		
+		//TaskPool Overflow: Working
 		//app.RegisterTest((RU_FUNCPTR)TestTaskPoolOverflow, "Test Overflow");
-		app.RegisterTest((RU_FUNCPTR)TestBinarySemaphore, "Test Binary Semaphore");
+		
+		//BinarySemaphore: Working
+		//app.RegisterTest((RU_FUNCPTR)TestBinarySemaphore, "Test Binary Semaphore");
+		
+		//Counting Semaphore: Working
 		//app.RegisterTest((RU_FUNCPTR)TestCountingSemaphore, "Test Counting Semaphore");
+		
+		//BufferedConsole: NOT WORKING
+		//app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
+		
+		//Mutex & lock_on: Not Tested
 		
 		app.Run();
 		
