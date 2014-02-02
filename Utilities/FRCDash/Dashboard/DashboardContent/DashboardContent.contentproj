@@ -50,6 +50,10 @@
       <Name>Purple</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Skins\Simple.skin">
+      <Name>Simple</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ControlsContent\Models\" />
