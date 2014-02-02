@@ -38,6 +38,8 @@ namespace Dashboard
             ExitConfirmation = true;
 
             _contentLibrary = new ContentLibrary();
+
+            PersistenceManager.Start("data");
         }
 
         
@@ -72,8 +74,13 @@ namespace Dashboard
             MenuItem edit_resetLayoutButton = new MenuItem("Reset Layout...");
             edit_resetLayoutButton.Click += new EventHandler(edit_resetLayoutButton_Click);
             editButton.Items.Add(edit_resetLayoutButton);
+            MenuItem debugButton = new MenuItem("Debug");
+            MenuItem debug_flushPersistence = new MenuItem("Flush data buffer...");
+            debug_flushPersistence.Click += new EventHandler(debug_flushPersistence_Click);
+            debugButton.Items.Add(debug_flushPersistence);
             _menuStrip.Items.Add(fileButton);
             _menuStrip.Items.Add(editButton);
+            _menuStrip.Items.Add(debugButton);
 
             Manager.Add(_menuStrip);
 
@@ -112,6 +119,11 @@ namespace Dashboard
             _console.Parent = console;
 
             Manager.Add(_tabControl);
+        }
+
+        void debug_flushPersistence_Click(object sender, EventArgs e)
+        {
+            PersistenceManager.Persistence.Flush("dashboard_" + System.DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss.ffff") + ".sdb");
         }
 
         void file_loadlayoutButton_Click(object sender, EventArgs e)
