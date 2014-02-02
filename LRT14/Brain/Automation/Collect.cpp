@@ -36,12 +36,9 @@ bool Collect::Run()
 		bool wrongBall = false;
 		if (RobotState::Instance().Alliance() == DriverStation::kRed)
 		{
-			if (m_redChannel->GetAverageValue() <= m_blueBallRed + m_colorRange
-					&& m_redChannel->GetAverageValue() >= m_blueBallRed - m_colorRange
-					&& m_blueChannel->GetAverageValue() <= m_blueBallBlue + m_colorRange
-					&& m_blueChannel->GetAverageValue() >= m_blueBallBlue - m_colorRange
-					&& m_greenChannel->GetAverageValue() <= m_blueBallGreen + m_colorRange
-					&& m_greenChannel->GetAverageValue() >= m_blueBallGreen - m_colorRange)
+			if (abs(m_redChannel->GetAverageValue() - m_blueBallRed) <= m_colorRange &&
+					abs(m_blueChannel->GetAverageValue() - m_blueBallBlue) <= m_colorRange &&
+					abs(m_greenChannel->GetAverageValue()- m_blueBallGreen) <= m_colorRange)
 			{
 				m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
 				wrongBall = true;
@@ -49,12 +46,9 @@ bool Collect::Run()
 		}
 		if (RobotState::Instance().Alliance() == DriverStation::kBlue)
 		{
-			if (m_redChannel->GetAverageValue() <= m_redBallRed + m_colorRange
-					&& m_redChannel->GetAverageValue() >= m_redBallRed - m_colorRange
-					&& m_blueChannel->GetAverageValue() <= m_redBallBlue + m_colorRange
-					&& m_blueChannel->GetAverageValue() >= m_redBallBlue - m_colorRange
-					&& m_greenChannel->GetAverageValue() <= m_redBallGreen + m_colorRange
-					&& m_greenChannel->GetAverageValue() >= m_redBallGreen - m_colorRange)
+			if (abs(m_redChannel->GetAverageValue() - m_redBallRed) <= m_colorRange &&
+					abs(m_blueChannel->GetAverageValue() - m_redBallBlue) <= m_colorRange &&
+					abs(m_greenChannel->GetAverageValue()- m_redBallGreen) <= m_colorRange)
 			{
 				m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
 				wrongBall = true;
