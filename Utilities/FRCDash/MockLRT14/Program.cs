@@ -68,6 +68,7 @@ namespace MockLRT14
                 double angle = Math.Atan2(dYdT, dXdT) * 180 / Math.PI;
 
                 buff.Write((byte)MessageType.LOCATOR);
+                buff.Write((float)totalTime);
                 buff.Write((float)x);
                 buff.Write((float)y);
                 buff.Write((float)angle);

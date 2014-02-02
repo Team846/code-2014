@@ -34,7 +34,7 @@ namespace LRT14
             locatorTab.Init();
             locatorTab.Text = "Locator";
 
-            RobotLocationControl locator = new RobotLocationControl(manager, "locator", contentLibrary);
+            RobotLocationControl locator = new RobotLocationControl(manager, "locator", "LRT14.AerialAssist.LOCATION", contentLibrary);
             locator.Top = 2;
             locator.Left = 2;
             locator.Width = locatorTab.ClientWidth - 4;

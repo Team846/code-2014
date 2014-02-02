@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 using Microsoft.Xna.Framework;
@@ -16,8 +17,33 @@ using Dashboard.Library;
 
 namespace LRT14
 {
-    public class RobotLocationControl : NetworkedControl
+    public class RobotLocationControl : DashboardControl
     {
+        private class RobotLocationData : ISerializable
+        {
+            Dictionary<float, Vector3> _data;
+
+            public RobotLocationData()
+            {
+                _data = new Dictionary<float, Vector3>();
+            }
+
+            public void AddData(float t, float x, float y, float theta)
+            {
+                _data.Add(t, new Vector3(x, y, theta));
+            }
+
+            public void ClearData()
+            {
+                _data.Clear();
+            }
+
+            public void GetObjectData(SerializationInfo info, StreamingContext context)
+            {
+                info.AddValue("__data__", _data);
+            }
+        }
+
         public class LocationOptionsDialog : Dialog
         {
             private Label _initPosXLabel;
@@ -99,6 +125,8 @@ namespace LRT14
 
         private Vector2 _initialPos;
         private Vector2 _relativePos;
+
+        private RobotLocationData _data;
 
         private float _theta;
 
@@ -182,8 +210,8 @@ namespace LRT14
             set { _theta = value; }
         }
 
-        public RobotLocationControl(Manager manager, string id, ContentLibrary content)
-            : base(manager, id, content)
+        public RobotLocationControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
+            : base(manager, id, persistenceKey, content)
         {
             MouseOver += new MouseEventHandler(RobotLocationControl_MouseOver);
             MouseOut += new MouseEventHandler(RobotLocationControl_MouseOut);
@@ -193,6 +221,9 @@ namespace LRT14
             _isMousedOver = false;
 
             _zoom = 1.0f;
+
+            _data = new RobotLocationData();
+            PersistenceManager.Persistence.Set(PersistenceKey, _data);
 
             Manager.PreDraws.Add(this);
         }
@@ -209,11 +240,13 @@ namespace LRT14
             _isMousedOver = true;
         }
 
-        private void AddDataPoint(double x, double y, double theta)
+        private void AddDataPoint(float time, double x, double y, double theta)
         {
             _relativePos.X = (float)x;
             _relativePos.Y = (float)y;
             _theta = (float)theta;
+
+            _data.AddData(time, _relativePos.X, _relativePos.Y, _theta);
         }
 
         private int _lastScrollWheelValue;
@@ -268,11 +301,12 @@ namespace LRT14
 
             while ((nb = ReadMessage()) != null)
             {
+                float t = nb.ReadFloat();
                 double x = nb.ReadFloat();
                 double y = nb.ReadFloat();
                 double theta = nb.ReadFloat();
 
-                AddDataPoint(x, y, theta);
+                AddDataPoint(t, x, y, theta);
             }
 
             Invalidate();

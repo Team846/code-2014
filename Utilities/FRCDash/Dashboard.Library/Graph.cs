@@ -12,7 +12,7 @@ using RhesusNet.NET;
 
 namespace Dashboard.Library
 {
-    public class Graph : NetworkedControl
+    public class Graph : DashboardControl
     {
         private Color _backgroundColor;
         private Color _lineColor;
@@ -50,8 +50,8 @@ namespace Dashboard.Library
             }
         }
 
-        public Graph(Manager manager, string id, ContentLibrary content)
-            : base(manager, id, content)
+        public Graph(Manager manager, string id, string persistenceKey, ContentLibrary content)
+            : base(manager, id, persistenceKey, content)
         {
             _backgroundColor = Color.White;
             _lineColor = Color.Blue;
