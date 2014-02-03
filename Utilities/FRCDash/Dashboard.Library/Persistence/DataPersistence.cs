@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
+
+using RhesusNet.NET;
 
 namespace Dashboard.Library.Persistence
 {
-    public class FakeDataPersistence : IDataPersistence
+    public class DataPersistence : IDataPersistence
     {
         private Dictionary<string, IPersistable> _fields;
 
-        public FakeDataPersistence()
+        public DataPersistence()
         {
             _fields = new Dictionary<string, IPersistable>();
         }
@@ -28,12 +30,25 @@ namespace Dashboard.Library.Persistence
         public T Get<T>(string key)
             where T : IPersistable
         {
+            if (!typeof(T).IsSerializable && !(typeof(System.Runtime.Serialization.ISerializable).IsAssignableFrom(typeof(T))))
+                throw new InvalidOperationException("A serializable type is required.");
+
+            if (!_fields.ContainsKey(key))
+                return default(T);
+
             return (T)_fields[key];
         }
 
         public void Flush(string dirname)
         {
-            // null
+            foreach (KeyValuePair<string, IPersistable> kvp in _fields)
+            {
+                FileStream file = File.Create(Path.Combine(dirname, kvp.Key + ".fdb"));
+
+                kvp.Value.Serialize(file);
+
+                file.Close();
+            }
         }
     }
 }

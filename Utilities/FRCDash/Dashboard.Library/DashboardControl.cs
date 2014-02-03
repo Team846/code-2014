@@ -9,6 +9,8 @@ using TomShane.Neoforce.Controls;
 
 using RhesusNet.NET;
 
+using Dashboard.Library.Persistence;
+
 namespace Dashboard.Library
 {
     public abstract class DashboardControl : Control
