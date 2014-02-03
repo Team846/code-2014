@@ -20,7 +20,7 @@ namespace Dashboard
         private bool _clearNextUpdate;
 
         public Dashboard()
-            : base("Simple", false)
+            : base("Default", false)
         {
             Graphics.PreferredBackBufferWidth = 800;
             Graphics.PreferredBackBufferHeight = 600;

@@ -47,10 +47,12 @@
     <Compile Include="FileDialog.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="PersistenceManager.cs" />
+    <Compile Include="Persistence\DataPersistence.cs" />
     <Compile Include="Persistence\IDataPersistence.cs" />
     <Compile Include="Persistence\FakeDataPersistence.cs" />
     <Compile Include="DashboardControl.cs" />
     <Compile Include="NetworkManager.cs" />
+    <Compile Include="Persistence\IPersistable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

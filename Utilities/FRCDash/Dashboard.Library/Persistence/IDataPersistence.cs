@@ -7,11 +7,11 @@ namespace Dashboard.Library.Persistence
 {
     public interface IDataPersistence
     {
-        void Set(string key, object val);
+        void Set(string key, IPersistable val);
 
         T Get<T>(string key)
-            where T : new();
+            where T : IPersistable;
 
-        void Flush(string file);
+        void Flush(string dirname);
     }
 }

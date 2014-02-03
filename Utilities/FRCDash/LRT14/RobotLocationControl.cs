@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 
 using Microsoft.Xna.Framework;
@@ -14,12 +15,13 @@ using STDConsole = System.Console;
 using RhesusNet.NET;
 
 using Dashboard.Library;
+using Dashboard.Library.Persistence;
 
 namespace LRT14
 {
     public class RobotLocationControl : DashboardControl
     {
-        private class RobotLocationData : ISerializable
+        private class RobotLocationData : IPersistable
         {
             Dictionary<float, Vector3> _data;
 
@@ -38,9 +40,52 @@ namespace LRT14
                 _data.Clear();
             }
 
-            public void GetObjectData(SerializationInfo info, StreamingContext context)
+            public void Serialize(Stream stream)
             {
-                info.AddValue("__data__", _data);
+                int initCount = 4 + _data.Count * (4 + 3 * 4);
+                NetBuffer buff = new NetBuffer(initCount); // count + count * (t, x, y, theta)
+
+                buff.Write(_data.Count);
+
+                foreach (KeyValuePair<float, Vector3> kvp in _data)
+                {
+                    buff.Write(kvp.Key);
+                    buff.Write(kvp.Value.X);
+                    buff.Write(kvp.Value.Y);
+                    buff.Write(kvp.Value.Z);
+                }
+
+                Contract.Assert(buff.GetBufferLength() == initCount);
+
+                stream.Write(buff.GetBuffer(), 0, buff.GetBufferLength());
+            }
+
+            public void Deserialize(Stream stream)
+            {
+                byte[] header = new byte[4];
+
+                stream.Read(header, 0, 4);
+
+                NetBuffer buff = new NetBuffer(header, header.Length);
+
+                int length = buff.ReadInt32();
+
+                int bufferLen = length * (4 + 3 * 4);
+
+                byte[] byteBuff = new byte[bufferLen];
+                stream.Read(byteBuff, 0, bufferLen);
+
+                buff = new NetBuffer(byteBuff, bufferLen);
+
+                for (int i = 0; i < length; i++)
+                {
+                    float t = buff.ReadFloat();
+                    float x = buff.ReadFloat();
+                    float y = buff.ReadFloat();
+                    float theta = buff.ReadFloat();
+
+                    _data.Add(t, new Vector3(x, y, theta));
+                }
             }
         }
 
