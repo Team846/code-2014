@@ -23,14 +23,7 @@ namespace IO
 		static void Printf(std::string msg, ...);
 		
 	private:
-		
-		std::string message;
-		
-		static void InternalPrintWrapper(std::string* params)
-		{
-			std::printf(params->c_str());
-			DELETE(params);
-		}
+		static void InternalPrintWrapper(std::string* params);
 	};
 }
 }
