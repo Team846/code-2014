@@ -109,33 +109,37 @@ INT32 TestCountingSemaphore()
 INT32 TestBufferedConsole()
 {
 	TaskPool::Start();
-	BufferedConsole::Printfln("SWAG");
+	//BufferedConsole::Printfln("SWAG");
 	BufferedConsole::Printf("More Swag\n");
+	//BufferedConsole::Printfln("THWA%c", 'G');
 	TaskPool::Stop();
 	return 0;
 }
 
-//void printThenUnlock(Mutex* m)
-//{
-//	{
-//		lock_on l(m);
-//		std::printf("Unlocking...\n");
-//	}
-//}
-//
-//INT32 TestMutex()
-//{
-//	TaskPool::Start();
-//	Mutex* m = new Mutex();
-//	TaskPool::EnqueueTask((FUNCPTR)printThenUnlock, m);
-//	
-//	{
-//		lock_on l(m);
-//		std::printf("Unlocked...\n");
-//	}
-//	
-//	TaskPool::Stop();
-//}
+void printThenUnlock(Mutex* m)
+{
+	{
+		lock_on l(*m);
+		std::printf("Unlocking...\n");
+	}
+}
+
+INT32 TestMutex()
+{
+	TaskPool::Start();
+	Mutex* m = new Mutex();
+	
+	TaskPool::EnqueueTask((FUNCPTR)printThenUnlock, (UINT32)m);
+	
+	taskDelay(sysClkRateGet());
+
+	{
+		lock_on l(*m);
+		std::printf("Unlocked...\n");
+	}
+	
+	TaskPool::Stop();
+}
 
 extern "C"
 {
@@ -158,9 +162,10 @@ extern "C"
 		//app.RegisterTest((RU_FUNCPTR)TestCountingSemaphore, "Test Counting Semaphore");
 		
 		//BufferedConsole: NOT WORKING
-		//app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
+		app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
 		
-		//Mutex & lock_on: Not Tested
+		//Mutex & lock_on: Working
+		//app.RegisterTest((RU_FUNCPTR)TestMutex, "Test Mutex");
 		
 		app.Run();
 		

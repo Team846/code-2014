@@ -52,6 +52,8 @@ void LiveNetworkSender::Run()
 template void LiveNetworkSender::Send<int>(int value, string key, string table);
 template void LiveNetworkSender::Send<float>(float value, string key, string table);
 template void LiveNetworkSender::Send<double>(double value, string key, string table);
+template void LiveNetworkSender::Send<unsigned long>(unsigned long value, string key, string table);
+template void LiveNetworkSender::Send<long>(long value, string key, string table);
 template<> void LiveNetworkSender::Send<bool>(bool value, string key, string table)
 {
 	if (tables.find(table) == tables.end())
