@@ -2,22 +2,19 @@
 
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
-#include "../Actuators/LRTTalon.h"
-#include "../Utils/Util.h"
+#include "../Actuators/Pneumatics.h"
 
 LauncherAngle::LauncherAngle() :
 	Component("LauncherAngle", DriverStationConfig::DigitalIns::LAUNCHER_ANGLE),
 	Configurable("LauncherAngle")
 {
 	m_launcherAngleData = LauncherAngleData::Get();
-	m_talon = new LRTTalon(ConfigPortMappings::Get("PWM/LAUNCHER_ANGLE"), "LauncherAngle");
-	analogChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_ANGLE"));
+	m_pneumatics = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_ANGLE"), "LauncherAngle");
 }
 
 LauncherAngle::~LauncherAngle()
 {
-	delete m_talon;
-	m_talon = NULL;
+
 }
 
 void LauncherAngle::OnEnabled()
@@ -31,29 +28,24 @@ void LauncherAngle::OnDisabled()
 		
 void LauncherAngle::UpdateEnabled()
 {
-	int setpoint;
-	if (m_launcherAngleData->GetAngle() == LauncherAngleData::LONG)
-		setpoint = m_longSetpoint;
-	else if (m_launcherAngleData->GetAngle() == LauncherAngleData::SHORT)
-		setpoint = m_shortSetpoint;
-	
-	int error = setpoint - analogChannel->GetAverageValue();
-	m_talon->SetDutyCycle(error * m_gain);
-	
-	if (fabs(error) <= m_completionErrorThreshold)
-		m_launcherAngleData->SetCompleteState(true);
-	else
-		m_launcherAngleData->SetCompleteState(false);
+	switch(m_launcherAngleData->GetAngle())
+	{
+	case LauncherAngleData::SHORT:
+		m_pneumatics->Set(Pneumatics::FORWARD);
+		break;
+	case LauncherAngleData::LONG:
+		m_pneumatics->Set(Pneumatics::OFF);
+		break;
+	default:
+		m_pneumatics->Set(Pneumatics::OFF);
+	}
 }
 
 void LauncherAngle::UpdateDisabled()
 {
-	m_talon->SetDutyCycle(0.0);
+	m_pneumatics->Set(Pneumatics::OFF);	
 }
 void LauncherAngle::Configure()
 {
-	m_shortSetpoint = GetConfig("short_setpoint", 0);
-	m_longSetpoint = GetConfig("long_setpoint", 0);
-	m_gain = GetConfig("gain", 1.0);
-	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5);
+	
 }

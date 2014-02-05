@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "../Config/Configurable.h"
 #include "../ComponentData/LauncherAngleData.h"
-#include "../Actuators/LRTTalon.h"
+#include "../Actuators/Pneumatics.h"
 #include "../Sensors/SensorFactory.h"
 
 /*!
@@ -26,11 +26,7 @@ public:
 	
 private:
 	LauncherAngleData* m_launcherAngleData;
-	LRTTalon* m_talon;
-	AnalogChannel* analogChannel;
-	int m_shortSetpoint, m_longSetpoint;
-	float m_gain;
-	int m_completionErrorThreshold;
+	Pneumatics* m_pneumatics;
 };
 
 #endif
