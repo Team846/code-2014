@@ -15,14 +15,14 @@ public:
 	
 	virtual bool CheckCondition();
 	
-	int GetAxis();
+	uint32_t GetAxis();
 	DebouncedJoystick* GetJoystick();
 	
 private:
 	DebouncedJoystick* m_joystick;
-	int m_axis;
+	uint32_t m_axis;
 	float m_sensitivity;
-	int m_lastFiredAxis;
+	uint32_t m_lastFiredAxis;
 };
 
 #endif

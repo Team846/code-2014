@@ -30,7 +30,7 @@ bool JoystickPressedEvent::CheckCondition()
 	return false;
 }
 
-int JoystickPressedEvent::GetButton()
+uint32_t JoystickPressedEvent::GetButton()
 {
 	return m_lastFiredButton;
 }

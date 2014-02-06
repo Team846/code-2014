@@ -7,7 +7,7 @@
 #include <string>
 
 /*!
- * @brief Performs autonomous routine.
+ * @brief Performs the autonomous routine.
  */
 class Autonomous : public Sequential
 {

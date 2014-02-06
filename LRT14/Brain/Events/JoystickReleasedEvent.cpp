@@ -30,7 +30,7 @@ bool JoystickReleasedEvent::CheckCondition()
 	return false;
 }
 
-int JoystickReleasedEvent::GetButton()
+uint32_t JoystickReleasedEvent::GetButton()
 {
 	return m_lastFiredButton;
 }

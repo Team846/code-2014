@@ -5,7 +5,7 @@
 #include "../../ComponentData/DrivetrainData.h"
 
 /*!
- * @brief Process joystick information for controlling the drivetrain.
+ * @brief Processes joystick information for controlling the drivetrain.
  */
 class DrivetrainInputs : public InputProcessor
 {

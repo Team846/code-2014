@@ -6,6 +6,9 @@
 #include "../../Control/TrapezoidProfile.h"
 #include "../../Config/Configurable.h"
 
+/*!
+ * @brief Drives forward or backward a set distance.
+ */
 class Drive : public Automation, public Configurable
 {
 public:

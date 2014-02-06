@@ -32,7 +32,7 @@ bool JoystickMovedEvent::CheckCondition()
 	return false;
 }
 
-int JoystickMovedEvent::GetAxis()
+uint32_t JoystickMovedEvent::GetAxis()
 {
 	return m_lastFiredAxis;
 }

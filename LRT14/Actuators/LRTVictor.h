@@ -1,21 +1,21 @@
-#ifndef LRT_TALON_H_
-#define LRT_TALON_H_
+#ifndef LRT_VICTOR_H_
+#define LRT_VICTOR_H_
 
-#include <Talon.h>
+#include <Victor.h>
 #include "LRTSpeedController.h"
 
 #include "DigitalOutput.h"
 #include <vector>
 
 /*!
- * @brief Wrapper for Talon speed controller.
+ * @brief Wrapper for Victor speed controller.
  */
-class LRTTalon : public Talon, public LRTSpeedController
+class LRTVictor : public Victor, public LRTSpeedController
 {
 public:
-	LRTTalon(UINT32 channel, const char* name, UINT32 jumperChannel = 0);
-	LRTTalon(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel = 0);
-	virtual ~LRTTalon();
+	LRTVictor(UINT32 channel, const char* name, UINT32 jumperChannel = 0);
+	LRTVictor(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel = 0);
+	virtual ~LRTVictor();
 	virtual void SetDutyCycle(float speed);
 	virtual float GetDutyCycle();
 	virtual float GetHardwareValue();
@@ -28,11 +28,11 @@ public:
 	virtual NeutralMode GetNeutralMode();
 	
 	/*!
-	 * @brief Writes the values to the Talon.
+	 * @brief Writes the values to the Victor.
 	 */
 	void Output();
 	
-	static std::vector<LRTTalon*> talon_vector;
+	static std::vector<LRTVictor*> victor_vector;
 	
 private:
 	float m_pwm;

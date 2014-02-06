@@ -7,6 +7,9 @@
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 
+/*!
+ * @brief Collects the ball onto the bumper and rejects wrong color balls.
+ */
 class Collect : public Automation, public Configurable
 {
 public:
@@ -34,6 +37,7 @@ private:
 	int m_blueBallBlue;
 	int m_blueBallGreen;
 	int m_colorRange;
+	bool m_hasBall;
 };
 
 #endif
