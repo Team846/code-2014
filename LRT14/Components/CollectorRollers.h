@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "../Config/Configurable.h"
 #include "../ComponentData/CollectorRollersData.h"
-#include "../Actuators/LRTTalon.h"
+#include "../Actuators/LRTVictor.h"
 
 /*!
  * @brief Provides control over the collector rollers.
@@ -25,7 +25,7 @@ public:
 	
 private:
 	CollectorRollersData* m_rollersData;
-	LRTTalon* m_talon;
+	LRTVictor* m_victor;
 	float m_forwardSpeed, m_reverseSpeed;
 };
 

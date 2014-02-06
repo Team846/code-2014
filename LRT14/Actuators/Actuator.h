@@ -17,8 +17,9 @@ public:
 	
 	static void UpdateAll();
 	
-private:
 	static std::vector<Actuator*> actuator_vector;
+	
+private:
 	const char* m_name;
 };
 

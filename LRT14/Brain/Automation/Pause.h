@@ -4,6 +4,9 @@
 #include "Automation.h"
 #include "Timer.h"
 
+/*!
+ * @brief Does nothing for a certain time or number of cycles.
+ */
 class Pause : public Automation
 {
 public:

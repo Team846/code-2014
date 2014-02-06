@@ -5,6 +5,9 @@
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../ComponentData/LauncherAngleData.h"
 
+/*!
+ * @brief Changes the launch angle of the launcher.
+ */
 class ChangeLauncherAngle : public Automation
 {
 public:

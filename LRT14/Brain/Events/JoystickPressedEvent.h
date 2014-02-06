@@ -15,13 +15,13 @@ public:
 	
 	virtual bool CheckCondition();
 
-	int GetButton();
+	uint32_t GetButton();
 	DebouncedJoystick* GetJoystick();
 	
 private:
 	DebouncedJoystick* m_joystick;
-	int m_button;
-	int m_lastFiredButton;
+	uint32_t m_button;
+	uint32_t m_lastFiredButton;
 };
 
 #endif

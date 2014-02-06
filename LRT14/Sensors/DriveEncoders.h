@@ -140,12 +140,11 @@ private:
 	LRTEncoder* m_encoders[2];
 
 	static double PULSES_PER_REVOLUTION; // Encoder pulses per wheel revolution
-
 	static double MAX_ENCODER_RATE;
 	static double MAX_TURNING_RATE;
-
 	static double TICKS_PER_FULL_TURN;
 	static double WHEEL_DIAMETER; // Inches
+	static double GEAR_RATIO;
 };
 
 #endif

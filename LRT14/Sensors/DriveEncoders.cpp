@@ -10,6 +10,7 @@ double DriveEncoders::MAX_TURNING_RATE = 1;
 double DriveEncoders::PULSES_PER_REVOLUTION = 1;
 double DriveEncoders::TICKS_PER_FULL_TURN = 1;
 double DriveEncoders::WHEEL_DIAMETER = 1;
+double DriveEncoders::GEAR_RATIO = 1;
 
 DriveEncoders *DriveEncoders::m_instance = NULL;
 
@@ -84,7 +85,7 @@ double DriveEncoders::GetWheelDist(Side side)
 {
 	LRTEncoder * e = m_encoders[side];
 	double dist = (double) ((e->Get() * 1.0) / PULSES_PER_REVOLUTION
-			* WHEEL_DIAMETER * PI); // pulses / ( pulses / revolution ) * distance / revolution = inch distance
+			* GEAR_RATIO * WHEEL_DIAMETER * PI); // pulses / ( pulses / encoder revolution ) * encoder to wheel gear ratio * distance / wheel revolution = inch distance
 	return dist;
 }
 
@@ -106,7 +107,7 @@ double DriveEncoders::GetMaxEncoderRate()
 
 double DriveEncoders::GetMaxSpeed()
 {
-	return MAX_ENCODER_RATE / PULSES_PER_REVOLUTION * WHEEL_DIAMETER * PI;
+	return MAX_ENCODER_RATE / PULSES_PER_REVOLUTION * GEAR_RATIO * WHEEL_DIAMETER * PI;
 }
 
 double DriveEncoders::GetMaxTurnRate()
@@ -139,7 +140,8 @@ void DriveEncoders::Configure()
 	MAX_ENCODER_RATE = GetConfig("max_encoder_rate", 2214.762);
 	MAX_TURNING_RATE = GetConfig("max_turning_rate", 3782);
 	WHEEL_DIAMETER = GetConfig("wheel_diameter", 6.0); // Inches
-	TICKS_PER_FULL_TURN = GetConfig("ticks_per_full_turn", 2.0 * 26.1 * PI / (WHEEL_DIAMETER * PI) * PULSES_PER_REVOLUTION);
+	GEAR_RATIO = GetConfig("gear_ratio", 1.0);
+	TICKS_PER_FULL_TURN = GetConfig("ticks_per_full_turn", 2.0 * 26.1 * PI / (GEAR_RATIO * WHEEL_DIAMETER * PI) * PULSES_PER_REVOLUTION);
 }
 
 void DriveEncoders::Log()

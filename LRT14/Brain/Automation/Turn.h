@@ -4,6 +4,9 @@
 #include "Automation.h"
 #include "../../ComponentData/DrivetrainData.h"
 
+/*!
+ * @brief Turns a set angle.
+ */
 class Turn : public Automation
 {
 public:

@@ -1,6 +1,8 @@
 #include "Collect.h"
 #include "../../Config/ConfigPortMappings.h"
+#include "../../Config/DriverStationConfig.h"
 #include "../../RobotState.h"
+#include "../Events/JoystickReleasedEvent.h"
 
 Collect::Collect() :
 	Automation("Collect", true),
@@ -12,6 +14,7 @@ Collect::Collect() :
 	m_redChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_RED"));
 	m_greenChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_GREEN"));
 	m_blueChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_BLUE"));
+	m_hasBall = false;
 }
 
 void Collect::AllocateResources()
@@ -22,6 +25,7 @@ void Collect::AllocateResources()
 
 bool Collect::Start()
 {
+	m_hasBall = false;
 	return true;
 }
 
@@ -58,7 +62,7 @@ bool Collect::Run()
 		if (1 / m_gearTooth->GetPeriod() < m_ballCollectionThreshold && !wrongBall)
 		{
 			m_collectorRollers->SetRunning(false);
-			return true;
+			m_hasBall = true;
 		}
 		return false;
 	}
@@ -72,6 +76,10 @@ bool Collect::Run()
 
 bool Collect::Abort()
 {
+	if (m_hasBall && ((JoystickReleasedEvent*)GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT)
+	{
+		return false;
+	}
 	return true;
 }
 

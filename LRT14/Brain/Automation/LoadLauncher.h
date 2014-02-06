@@ -1,20 +1,20 @@
-#ifndef PASS_H_
-#define PASS_H_
+#ifndef LOAD_LAUNCHER_H_
+#define LOAD_LAUNCHER_H_
 
 #include "Automation.h"
 #include "../../ComponentData/CollectorArmData.h"
 #include "../../ComponentData/CollectorRollersData.h"
-#include "../../ComponentData/DrivetrainData.h"
+#include "../../ComponentData/LauncherLoaderData.h"
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 
 /*!
- * @brief Passes the ball by releasing from the bumper.
+ * @brief Loads the ball from the bumper into the launcher.
  */
-class Pass : public Automation, public Configurable
+class LoadLauncher : public Automation, public Configurable
 {
 public:
-	Pass();
+	LoadLauncher();
 
 	bool Start();
 	bool Run();
@@ -26,11 +26,7 @@ public:
 private:
 	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_collectorRollers;
-	DrivetrainData* m_drivetrain;
-	GearTooth* m_gearTooth;
-	float m_ballReleaseDistance;
-	int m_startTicks;
-	float m_driveBackSpeed;
+	LauncherLoaderData* m_loaderData;
 };
 
 #endif

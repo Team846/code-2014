@@ -10,6 +10,7 @@
 #include "ComponentData/ComponentData.h"
 #include "Sensors/RobotLocation.h"
 #include "Sensors/SensorFactory.h"
+#include "Maintenance.h"
 
 #include "Config/ConfigRuntime.h"
 #include "Config/ConfigPortMappings.h"
@@ -23,6 +24,8 @@
 
 #include "Rhesus/Toolkit/GameState.h"
 #include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
+
+bool LRTRobot14::maintenance = false;
 
 LRTRobot14::LRTRobot14()
 {
@@ -103,7 +106,7 @@ void LRTRobot14::RobotInit()
 	Pneumatics::CreateCompressor();
 #endif
 
-	// Initialize SensorFactorhy
+	// Initialize SensorFactory
 	AsyncPrinter::Println("Initializing Sensor Factory...");
 	SensorFactory::Initialize();
 	
@@ -160,11 +163,19 @@ void LRTRobot14::Tick()
 	// Update the Driver Station
 	LRTDriverStation::Update();
 
-	// Update the Brain
-	Brain::Instance()->Update();
-	
-	// Update all components
-	Component::UpdateAll();
+	if (maintenance)
+	{
+		// Update the Brain
+		Brain::Instance()->Update();
+		
+		// Update all components
+		Component::UpdateAll();
+	}
+	else
+	{
+		// Run maintenance mode
+		Maintenance::Update();
+	}
 	
 	// Flush outputs to all actuators
 	Actuator::UpdateAll();
@@ -197,5 +208,27 @@ void LRTRobot14::Tick()
 	ComponentData::ResetAllCommands();
 	
 	wdCancel(_watchdog);
+}
+
+void maintenance()
+{
+	if(RobotState::Instance().GameMode() == GameState::DISABLED)
+	{
+		LRTRobot14::maintenance = true;
+		AsyncPrinter::Println("Maintenance mode entered");
+	}
+	else
+		AsyncPrinter::Println("Please disable to enter maintenance mode");
+}
+
+void operation()
+{
+	if(RobotState::Instance().GameMode() == GameState::DISABLED)
+	{
+		LRTRobot14::maintenance = false;
+		AsyncPrinter::Println("Maintenance mode exited");
+	}
+	else
+		AsyncPrinter::Println("Please disable to leave maintenance mode");
 }
 

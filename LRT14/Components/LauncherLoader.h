@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "../Config/Configurable.h"
 #include "../ComponentData/LauncherLoaderData.h"
-#include "../Actuators/LRTTalon.h"
+#include "../Actuators/LRTVictor.h"
 #include "../Sensors/SensorFactory.h"
 
 /*!
@@ -26,8 +26,8 @@ public:
 	
 private:
 	LauncherLoaderData* m_loaderData;
-	LRTTalon* m_talonA;
-	LRTTalon* m_talonB;
+	LRTVictor* m_victorA;
+	LRTVictor* m_victorB;
 	AnalogChannel* m_sensor;
 	bool m_firing;
 	float m_forwardSpeed;

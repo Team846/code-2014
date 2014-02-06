@@ -20,6 +20,8 @@ class LRTRobot14 : public LRTRobotBase
 	
 		void Tick();
 		
+		static bool maintenance;
+		
 	private:
 		Timer timer;
 		

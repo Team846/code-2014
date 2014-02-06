@@ -4,7 +4,11 @@
 #include "Automation.h"
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../ComponentData/LauncherAngleData.h"
+#include "../../ComponentData/CollectorArmData.h"
 
+/*!
+ * @brief Fires the ball.
+ */
 class Fire : public Automation
 {
 public:
@@ -18,6 +22,7 @@ public:
 private:
 	LauncherLoaderData* m_loaderData;
 	LauncherAngleData* m_angleData;
+	CollectorArmData* m_collectorArmData;
 };
 
 #endif
