@@ -8,6 +8,8 @@
 #include "../Config/DriverStationConfig.h"
 
 #include "InputProcessor/DrivetrainInputs.h"
+#include "InputProcessor/CollectorRollersInputs.h"
+#include "InputProcessor/LauncherLoaderInputs.h"
 
 #include "Automation/Autonomous.h"
 #include "Automation/Drive.h"
@@ -59,6 +61,8 @@ Brain::Brain() :
 {
 	// Create joystick input processors
 	m_inputs.push_back(new DrivetrainInputs());
+	m_inputs.push_back(new CollectorRollersInputs());
+	m_inputs.push_back(new LauncherLoaderInputs());
 	
 	// Create automation tasks
 	Automation* auton = new Autonomous();

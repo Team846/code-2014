@@ -1,5 +1,5 @@
-#ifndef LAUNCHER_LOADER_INPUTS_H_
-#define LAUNCHER_LOADER_INPUTS_H_
+#ifndef COLLECTOR_ROLLERS_INPUTS_H_
+#define COLLECTOR_ROLLERS_INPUTS_H_
 
 #include "InputProcessor.h"
 #include "../../ComponentData/CollectorRollersData.h"

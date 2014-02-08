@@ -40,12 +40,9 @@ LiveNetworkSender::~LiveNetworkSender()
 
 void LiveNetworkSender::Run()
 {
-	if (RobotState::Instance().GameMode() != GameState::DISABLED)
+	for (vector<LiveNetworkSendable*>::iterator it = liveNetworkSendables.begin(); it < liveNetworkSendables.end(); it++)
 	{
-		for (vector<LiveNetworkSendable*>::iterator it = liveNetworkSendables.begin(); it < liveNetworkSendables.end(); it++)
-		{
-			(*it)->Send();
-		}
+		(*it)->Send();
 	}
 }
 

@@ -11,7 +11,7 @@
 namespace RobotConfig
 {
 const uint32_t LOOP_RATE = 50; //hertz
-const double ROBOT_WIDTH = 26.1;
+const double ROBOT_WIDTH = 26.574;
 const std::string CONFIG_FILE_PATH = "/LRT14.conf";
 const std::string PORT_MAPPINGS_FILE_PATH = "/PortMappings.conf";
 const std::string ROUTINE_FILE_PATH = "/Autonomous.routine";

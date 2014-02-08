@@ -85,8 +85,8 @@ void LRTTalon::Output()
 	if (m_brake_jumper != NULL)
 	{
 		if(m_neutral == LRTSpeedController::kNeutralMode_Coast)
-			m_brake_jumper->Set((UINT32)0);
+			m_brake_jumper->Set((uint32_t)0);
 		if(m_neutral == LRTSpeedController::kNeutralMode_Brake)
-			m_brake_jumper->Set((UINT32)1);
+			m_brake_jumper->Set((uint32_t)1);
 	}
 }

@@ -17,7 +17,7 @@ const char* Actuator::GetName()
 	return m_name;
 }
 
-void Actuator::UpdateAll()
+void Actuator::OutputAll()
 {
 	for (vector<Actuator*>::iterator it = Actuator::actuator_vector.begin(); it < Actuator::actuator_vector.end(); it++)
 	{
