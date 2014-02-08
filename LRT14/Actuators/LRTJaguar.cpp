@@ -82,7 +82,7 @@ LRTJaguar::NeutralMode LRTJaguar::GetNeutralMode()
 	return m_neutral;
 }
 
-void LRTJaguar::Output()
+void LRTJaguar::Update()
 {
 	Jaguar::Set(m_pwm);
 	if (m_brake_jumper != NULL)

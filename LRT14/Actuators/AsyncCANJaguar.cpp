@@ -30,7 +30,7 @@ AsyncCANJaguar::~AsyncCANJaguar()
 {
 }
 
-void AsyncCANJaguar::Output()
+void AsyncCANJaguar::Update()
 {
 	RunOneCycle();
 }

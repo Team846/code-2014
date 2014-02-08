@@ -15,7 +15,7 @@ LRTSpeedController::~LRTSpeedController()
 {
 }
 
-void LRTSpeedController::Update()
+void LRTSpeedController::Output()
 {
 	if (m_encoder != NULL)
 	{
@@ -31,7 +31,7 @@ void LRTSpeedController::Update()
 			m_timer.Reset();
 		}
 	}
-	Output();
+	Update();
 }
 
 void LRTSpeedController::RegisterSafety(CounterBase *encoder, double timeoutSeconds, float threshold)

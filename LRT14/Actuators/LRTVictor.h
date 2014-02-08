@@ -30,7 +30,7 @@ public:
 	/*!
 	 * @brief Writes the values to the Victor.
 	 */
-	void Output();
+	void Update();
 	
 	static std::vector<LRTVictor*> victor_vector;
 	

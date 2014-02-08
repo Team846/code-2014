@@ -79,7 +79,7 @@ LRTVictor::NeutralMode LRTVictor::GetNeutralMode()
 	return m_neutral;
 }
 
-void LRTVictor::Output()
+void LRTVictor::Update()
 {
 	Victor::Set(m_pwm);
 	if (m_brake_jumper != NULL)

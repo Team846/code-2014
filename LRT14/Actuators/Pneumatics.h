@@ -36,7 +36,7 @@ public:
 	Pneumatics(uint32_t forward, const char* name);
 	virtual ~Pneumatics();
 	
-	void Update();
+	void Output();
 	
 	static void CreateCompressor();
 	static void DestroyCompressor();

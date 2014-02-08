@@ -19,7 +19,7 @@ public:
     LRTServo(UINT32 channel, const char* name);
     ~LRTServo();
 
-    void Update();
+    void Output();
     
     void SetEnabled(bool enabled);
     bool IsEnabled();
