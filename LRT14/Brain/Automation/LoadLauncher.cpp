@@ -40,6 +40,7 @@ bool LoadLauncher::Run()
 		m_collectorRollers->SetRunning(false);
 		return true;
 	}
+	return false;
 }
 
 bool LoadLauncher::Abort()
