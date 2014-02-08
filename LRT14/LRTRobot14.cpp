@@ -165,16 +165,16 @@ void LRTRobot14::Tick()
 
 	if (maintenance)
 	{
+		// Run maintenance mode
+		Maintenance::Update();		
+	}
+	else
+	{
 		// Update the Brain
 		Brain::Instance()->Update();
 		
 		// Update all components
-		Component::UpdateAll();
-	}
-	else
-	{
-		// Run maintenance mode
-		Maintenance::Update();
+		Component::UpdateAll();	
 	}
 	
 	// Flush outputs to all actuators
