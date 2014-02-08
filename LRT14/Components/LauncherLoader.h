@@ -6,11 +6,12 @@
 #include "../ComponentData/LauncherLoaderData.h"
 #include "../Actuators/LRTVictor.h"
 #include "../Sensors/SensorFactory.h"
+#include "../Communication/LiveNetworkSendable.h"
 
 /*!
  * @brief Provides control over launcher loading mechanism.
  */
-class LauncherLoader : public Component, public Configurable
+class LauncherLoader : public Component, public Configurable, public LiveNetworkSendable
 {
 public:
 	LauncherLoader();
@@ -23,19 +24,26 @@ public:
 	void UpdateDisabled();
 	
 	void Configure();
+	void Send();
 	
 private:
 	LauncherLoaderData* m_loaderData;
 	LRTVictor* m_victorA;
 	LRTVictor* m_victorB;
 	AnalogChannel* m_sensor;
-	bool m_firing;
-	float m_forwardSpeed;
-	float m_reverseSpeed;
-	float setpoint;
+	int m_unloadSetpoint;
+	int m_intermediateSetpoint;
+	int m_loadSetpoint;
 	float m_gain;
-	float m_closed_loop_threshold;
+	int m_wrapThreshold;
+	int m_maxSensorValue;
 	int m_completionErrorThreshold;
+	
+	int m_currentRotation;
+	int m_currentSensorValue;
+	int m_lastRawSensorValue;
+	int m_currentSetpoint;
+	bool m_loaded;
 };
 
 #endif

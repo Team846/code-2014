@@ -112,7 +112,7 @@ public:
 	 * @brief Access the LRTEncoder.
 	 * @return the LRTEncoder
 	 */
-	LRTEncoder *GetEncoder(Side side);
+	LRTEncoder* GetEncoder(Side side);
 	
 	/*!
 	 * @brief Gets the fastest attainable encoder rate.

@@ -19,7 +19,10 @@ void LauncherLoaderData::ResetCommands()
 void LauncherLoaderData::Log()
 {
 	LogToFile(&m_fire, "Fire");
+	LogToFile(&m_purge, "Purge");
+	LogToFile(&m_load, "Load");
 	LogToFile(&m_complete, "Complete");
+	LogToFile(&m_value, "SensorValue");
 }
 
 void LauncherLoaderData::SetFire(bool shouldFire)
@@ -42,6 +45,16 @@ bool LauncherLoaderData::GetPurge()
 	return m_purge;
 }
 
+void LauncherLoaderData::SetLoad(bool load)
+{
+	m_load = load;
+}
+
+bool LauncherLoaderData::GetLoad()
+{
+	return m_load;
+}
+
 bool LauncherLoaderData::IsLoadingComplete()
 {
 	return m_complete;
@@ -50,4 +63,14 @@ bool LauncherLoaderData::IsLoadingComplete()
 void LauncherLoaderData::SetLoadingComplete(bool complete)
 {
 	m_complete = complete;
+}
+
+int LauncherLoaderData::GetSensorValue()
+{
+	return m_value;
+}
+
+void LauncherLoaderData::SetSensorValue(int value)
+{
+	m_value = value;
 }

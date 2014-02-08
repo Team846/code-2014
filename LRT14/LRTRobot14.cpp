@@ -178,7 +178,7 @@ void LRTRobot14::Tick()
 	}
 	
 	// Flush outputs to all actuators
-	Actuator::UpdateAll();
+	Actuator::OutputAll();
 
 #if PNEUMATICS
 	// Toggle compressor based on Driver Station switches
@@ -212,23 +212,27 @@ void LRTRobot14::Tick()
 
 void maintenance()
 {
-	if(RobotState::Instance().GameMode() == GameState::DISABLED)
+	if (RobotState::Instance().GameMode() == GameState::DISABLED && !LRTRobot14::maintenance)
 	{
 		LRTRobot14::maintenance = true;
 		AsyncPrinter::Println("Maintenance mode entered");
 	}
+	else if (LRTRobot14::maintenance)
+		AsyncPrinter::Println("Already in maintenance mode");
 	else
 		AsyncPrinter::Println("Please disable to enter maintenance mode");
 }
 
-void operation()
+void exit()
 {
-	if(RobotState::Instance().GameMode() == GameState::DISABLED)
+	if(RobotState::Instance().GameMode() == GameState::DISABLED && LRTRobot14::maintenance)
 	{
 		LRTRobot14::maintenance = false;
 		AsyncPrinter::Println("Maintenance mode exited");
 	}
+	else if (!LRTRobot14::maintenance)
+		AsyncPrinter::Println("Not in maintenance mode");
 	else
-		AsyncPrinter::Println("Please disable to leave maintenance mode");
+		AsyncPrinter::Println("Please disable to exit maintenance mode");
 }
 

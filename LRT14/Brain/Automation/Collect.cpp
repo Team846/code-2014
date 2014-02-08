@@ -76,7 +76,8 @@ bool Collect::Run()
 
 bool Collect::Abort()
 {
-	if (m_hasBall && ((JoystickReleasedEvent*)GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT)
+	if (m_hasBall && dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())
+			&& ((JoystickReleasedEvent*)GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT)
 	{
 		return false;
 	}

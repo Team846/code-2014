@@ -11,7 +11,11 @@ LauncherLoader::LauncherLoader() :
 	m_victorA = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_A"), "LauncherLoaderA");
 	m_victorB = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
 	m_sensor = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
-	m_firing = false;
+	m_currentRotation = 0;
+	m_currentSensorValue = m_sensor->GetAverageValue();
+	m_lastRawSensorValue = m_sensor->GetAverageValue();
+	m_currentSetpoint = m_sensor->GetAverageValue();
+	m_loaded = false;
 }
 
 LauncherLoader::~LauncherLoader()
@@ -33,29 +37,33 @@ void LauncherLoader::OnDisabled()
 
 void LauncherLoader::UpdateEnabled()
 {
-	if (m_loaderData->GetFire() || m_firing)
+	int currentValue = m_sensor->GetAverageValue();
+	if (currentValue < m_wrapThreshold && m_lastRawSensorValue > m_maxSensorValue - m_wrapThreshold)
 	{
-		m_victorA->SetDutyCycle(m_forwardSpeed);
-		m_victorB->SetDutyCycle(m_forwardSpeed);
-		m_firing = true;
-		if(m_sensor->GetAverageValue() > m_closed_loop_threshold)
-			m_firing = false;
-		m_loaderData->SetLoadingComplete(false);
+		m_currentRotation++;
 	}
-	else if (m_loaderData->GetPurge())
+	else if (currentValue > m_maxSensorValue - m_wrapThreshold && m_lastRawSensorValue < m_wrapThreshold)
 	{
-		m_victorA->SetDutyCycle(m_reverseSpeed);
-		m_victorB->SetDutyCycle(m_reverseSpeed);
+		m_currentRotation--;
+	}
+	m_lastRawSensorValue = currentValue;
+	m_currentSensorValue = m_currentRotation * m_maxSensorValue + currentValue;
+	m_loaderData->SetSensorValue(m_currentSensorValue);
+	if (m_loaderData->GetFire())
+	{
+		m_currentSetpoint = (m_currentRotation + 1) * m_maxSensorValue + m_intermediateSetpoint;
+	}
+	else if (m_loaderData->GetLoad())
+	{
+		m_currentSetpoint = m_currentRotation * m_maxSensorValue + m_loadSetpoint;
+	}
+	if (m_loaderData->GetPurge())
+	{
+		// ???
 	}
 	else
 	{
-		float error = setpoint - m_sensor->GetAverageValue();
-		m_victorA->SetDutyCycle(error * m_gain);
-		m_victorB->SetDutyCycle(error * m_gain);
-		if (fabs(error) <= m_completionErrorThreshold)
-			m_loaderData->SetLoadingComplete(true);
-		else
-			m_loaderData->SetLoadingComplete(false);
+		
 	}
 }
 
@@ -67,10 +75,16 @@ void LauncherLoader::UpdateDisabled()
 
 void LauncherLoader::Configure()
 {
-	m_forwardSpeed = GetConfig("speed", 1.0);
-	m_reverseSpeed = GetConfig("purge_speed", -1.0);
-	setpoint = GetConfig("setpoint", 1.0);
+	m_unloadSetpoint = GetConfig("unload_setpoint", 0);
+	m_intermediateSetpoint = GetConfig("intermediate_setpoint", 800);
+	m_loadSetpoint = GetConfig("load_setpoint", 1000);
 	m_gain = GetConfig("gain", 1.0);
-	m_closed_loop_threshold = GetConfig("closed_loop_threshold", 1.0);
+	m_wrapThreshold = GetConfig("wrap_threshold", 10);
+	m_maxSensorValue = GetConfig("max_value", 1400);
 	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5);
+}
+
+void LauncherLoader::Send()
+{
+	SendToNetwork(m_currentSensorValue, "SensorValue", "RobotData");
 }

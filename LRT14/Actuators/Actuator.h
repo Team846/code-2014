@@ -15,7 +15,7 @@ public:
 	virtual const char* GetName();
 	virtual void Update() = 0;
 	
-	static void UpdateAll();
+	static void OutputAll();
 	
 	static std::vector<Actuator*> actuator_vector;
 	

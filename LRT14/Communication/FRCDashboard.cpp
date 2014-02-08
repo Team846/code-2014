@@ -41,12 +41,12 @@ FRCDashboard::~FRCDashboard()
 
 void FRCDashboard::Tick()
 {
-	instance()->Tick;
+	instance()->tick();
 }
 
 void FRCDashboard::Flush()
 {
-	instance()->Flush();
+	instance()->flush();
 }
 
 void FRCDashboard::EnqueueMessage(NetBuffer& buff, NetChannel::Enum method, int channel)
