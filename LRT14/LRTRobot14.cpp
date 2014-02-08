@@ -25,7 +25,7 @@
 #include "Rhesus/Toolkit/GameState.h"
 #include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 
-bool LRTRobot14::maintenance = false;
+bool maintenanceMode = false;
 
 LRTRobot14::LRTRobot14()
 {
@@ -163,7 +163,7 @@ void LRTRobot14::Tick()
 	// Update the Driver Station
 	LRTDriverStation::Update();
 
-	if (maintenance)
+	if (maintenanceMode)
 	{
 		// Run maintenance mode
 		Maintenance::Update();		
@@ -212,12 +212,12 @@ void LRTRobot14::Tick()
 
 void maintenance()
 {
-	if (RobotState::Instance().GameMode() == GameState::DISABLED && !LRTRobot14::maintenance)
+	if (RobotState::Instance().GameMode() == GameState::DISABLED && !maintenanceMode)
 	{
-		LRTRobot14::maintenance = true;
+		maintenanceMode = true;
 		AsyncPrinter::Println("Maintenance mode entered");
 	}
-	else if (LRTRobot14::maintenance)
+	else if (maintenanceMode)
 		AsyncPrinter::Println("Already in maintenance mode");
 	else
 		AsyncPrinter::Println("Please disable to enter maintenance mode");
@@ -225,12 +225,12 @@ void maintenance()
 
 void exit()
 {
-	if(RobotState::Instance().GameMode() == GameState::DISABLED && LRTRobot14::maintenance)
+	if(RobotState::Instance().GameMode() == GameState::DISABLED && maintenanceMode)
 	{
-		LRTRobot14::maintenance = false;
+		maintenanceMode = false;
 		AsyncPrinter::Println("Maintenance mode exited");
 	}
-	else if (!LRTRobot14::maintenance)
+	else if (!maintenanceMode)
 		AsyncPrinter::Println("Not in maintenance mode");
 	else
 		AsyncPrinter::Println("Please disable to exit maintenance mode");
