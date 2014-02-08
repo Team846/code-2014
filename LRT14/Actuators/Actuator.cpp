@@ -28,7 +28,7 @@ void Actuator::OutputAll()
 				AsyncPrinter::Printf("[ERROR] Fatal error in %s: %s\n", (*it)->GetName(), dynamic_cast<ErrorBase*>(*it)->GetError().GetMessage());
 			}
 		}
-		(*it)->Update();
+		(*it)->Output();
 	}
 }
 

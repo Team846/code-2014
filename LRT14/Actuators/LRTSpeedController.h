@@ -23,7 +23,7 @@ public:
 	/*!
 	 * @brief Checks safety and sends the saved values to the speed controllers.
 	 */
-	void Update();
+	void Output();
 	
 	/*!
 	 * @brief Registers an encoder with this speed controller for stall safety.
@@ -59,7 +59,7 @@ public:
 	/*!
 	 * @brief Sends the saved values to the speed controllers.
 	 */
-	virtual void Output() = 0;
+	virtual void Update() = 0;
 	
 	/*!
 	 * @brief Sets the neutral mode (brake or coast).

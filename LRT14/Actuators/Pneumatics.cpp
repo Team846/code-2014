@@ -70,7 +70,7 @@ Pneumatics::~Pneumatics()
 	DELETE(solenoid);
 }
 
-void Pneumatics::Update()
+void Pneumatics::Output()
 {
 	if (pulsed && dynamic_cast<DoubleSolenoid*>(solenoid))
 	{

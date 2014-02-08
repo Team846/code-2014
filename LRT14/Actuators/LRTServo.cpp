@@ -18,7 +18,7 @@ LRTServo::~LRTServo()
 {
 }
 
-void LRTServo::Update()
+void LRTServo::Output()
 {
 	if (enabled)
 	{

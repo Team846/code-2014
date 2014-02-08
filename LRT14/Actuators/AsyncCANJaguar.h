@@ -41,7 +41,7 @@ public:
 	 */
 	static std::vector<AsyncCANJaguar*> jaguar_vector;
 
-	void Output();
+	void Update();
 	
 	int GetChannel();
 	

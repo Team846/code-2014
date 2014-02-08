@@ -13,7 +13,7 @@ public:
 	explicit Actuator(const char* name);
 	
 	virtual const char* GetName();
-	virtual void Update() = 0;
+	virtual void Output() = 0;
 	
 	static void OutputAll();
 	
