@@ -26,7 +26,7 @@ bool Fire::Run()
 		return false;
 	
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
-	if (m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete())
+	if (m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
 	{
 		m_loaderData->SetFire(true);
 		return true;
@@ -40,4 +40,3 @@ bool Fire::Abort()
 	m_loaderData->SetFire(false);
 	return true;
 }
-

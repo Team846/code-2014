@@ -31,7 +31,7 @@ private:
 	LauncherLoaderData* m_loaderData;
 	LRTSpeedController* m_motorA;
 	LRTSpeedController* m_motorB;
-	Pneumatics* m_pneumatics;
+	Pneumatics* m_safety;
 	AnalogChannel* m_sensor;
 	DigitalInput* m_proximity;
 	int m_unloadSetpoint;
