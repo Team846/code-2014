@@ -4,7 +4,10 @@
 #include "PID.h"
 #include "MotionProfile.h"
 #include "Timer.h"
- 
+
+/*!
+ * @brief PID class with motion profiling.
+ */
 class ProfiledPID : public PID
 {
 public:

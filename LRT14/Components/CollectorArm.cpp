@@ -3,6 +3,7 @@
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/Pneumatics.h"
+#include "../Sensors/SensorFactory.h"
 
 CollectorArm::CollectorArm() : 
 	Component("CollectorArm", DriverStationConfig::DigitalIns::COLLECTOR_ARM),
@@ -42,6 +43,7 @@ void CollectorArm::UpdateEnabled()
 		m_pneumatics->Set(Pneumatics::FORWARD);
 		break;
 	}
+	
 	if (m_switch->Get())
 	{
 		m_armData->SetCurrentPosition(CollectorArmData::COLLECT);

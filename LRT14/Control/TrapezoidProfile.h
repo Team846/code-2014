@@ -3,6 +3,9 @@
 
 #include "MotionProfile.h"
 
+/*!
+ * @brief Models a trapezoidal velocity motion profile.
+ */
 class TrapezoidProfile : public MotionProfile
 {
 public:
