@@ -15,14 +15,19 @@ public:
 	CollectorArmData();
 	static CollectorArmData* Get();
 	
-	void SetPosition(Position position);
-	Position GetPosition();
+	void SetDesiredPosition(Position position);
+	Position GetDesiredPosition();
+	
+	Position GetCurrentPosition();
 	
 	void ResetCommands();
 	void Log();
 	
 private:
+	void SetCurrentPosition(Position position);
+	
 	Position m_position;
+	Position m_currentPosition;
 	
 	friend class CollectorArm;
 };

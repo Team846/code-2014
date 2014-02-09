@@ -21,12 +21,23 @@ void CollectorArmData::Log()
 	LogToFile(&m_position, "Position");
 }
 
-void CollectorArmData::SetPosition(Position position)
+void CollectorArmData::SetDesiredPosition(Position position)
 {
 	m_position = position;
 }
 
-CollectorArmData::Position CollectorArmData::GetPosition()
+CollectorArmData::Position CollectorArmData::GetDesiredPosition()
 {
 	return m_position;
+}
+
+
+void CollectorArmData::SetCurrentPosition(Position position)
+{
+	m_currentPosition = position;
+}
+
+CollectorArmData::Position CollectorArmData::GetCurrentPosition()
+{
+	return m_currentPosition;
 }

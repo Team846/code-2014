@@ -9,7 +9,8 @@ CollectorArm::CollectorArm() :
 	Configurable("CollectorArm")
 {
 	m_armData = CollectorArmData::Get();
-	m_pneumatics = new Pneumatics(ConfigPortMappings::Get("Solenoid/COLLECTOR_ARM"), "CollectorArm");
+	m_pneumatics = new Pneumatics(ConfigPortMappings::Get("Solenoid/COLLECTOR_ARM_A"), ConfigPortMappings::Get("Solenoid/COLLECTOR_ARM_B"), "CollectorArm");
+	m_switch = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/COLLECTOR_SWITCH"));
 }
 
 CollectorArm::~CollectorArm()
@@ -29,22 +30,30 @@ void CollectorArm::OnDisabled()
 
 void CollectorArm::UpdateEnabled()
 {
-	switch(m_armData->GetPosition())
+	switch(m_armData->GetDesiredPosition())
 	{
 	case CollectorArmData::COLLECT:
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		m_pneumatics->Set(Pneumatics::REVERSE);
 		break;
 	case CollectorArmData::STOWED:
-		m_pneumatics->Set(Pneumatics::OFF);
+		m_pneumatics->Set(Pneumatics::FORWARD);
 		break;
 	default:
-		m_pneumatics->Set(Pneumatics::OFF);
+		m_pneumatics->Set(Pneumatics::FORWARD);
+		break;
+	}
+	if (m_switch->Get())
+	{
+		m_armData->SetCurrentPosition(CollectorArmData::COLLECT);
+	}
+	else
+	{
+		m_armData->SetCurrentPosition(CollectorArmData::STOWED);
 	}
 }
 
 void CollectorArm::UpdateDisabled()
 {
-	m_pneumatics->Set(Pneumatics::OFF);	
 }
 
 void CollectorArm::Configure()

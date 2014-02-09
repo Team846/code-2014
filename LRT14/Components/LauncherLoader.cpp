@@ -12,7 +12,7 @@ LauncherLoader::LauncherLoader() :
 	m_motorB = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
 	m_pneumatics = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_SAFETY"), "LauncherSafety");
 	m_sensor = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
-	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_PROXIMITY"));
+	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
 	m_currentSensorValue = m_sensor->GetAverageValue();
 	m_lastRawSensorValue = m_sensor->GetAverageValue();
@@ -24,7 +24,6 @@ LauncherLoader::~LauncherLoader()
 {
 	DELETE(m_motorA);
 	DELETE(m_motorB);
-	DELETE(m_sensor);
 }
 
 void LauncherLoader::OnEnabled()
