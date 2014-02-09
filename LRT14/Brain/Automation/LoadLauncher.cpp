@@ -28,7 +28,7 @@ bool LoadLauncher::Run()
 {
 	if (!Aborting())
 	{
-		// m_loaderData->
+		m_loaderData->SetLoad(true);
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);

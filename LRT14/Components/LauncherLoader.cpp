@@ -10,7 +10,7 @@ LauncherLoader::LauncherLoader() :
 	m_loaderData = LauncherLoaderData::Get();
 	m_motorA = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_A"), "LauncherLoaderA");
 	m_motorB = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
-	m_pneumatics = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_SAFETY"), "LauncherSafety");
+	m_safety = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_SAFETY"), "LauncherSafety");
 	m_sensor = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
@@ -50,7 +50,7 @@ void LauncherLoader::UpdateEnabled()
 	m_lastRawSensorValue = currentValue;
 	m_currentSensorValue = m_currentRotation * m_maxSensorValue + currentValue;
 	m_loaderData->SetSensorValue(m_currentSensorValue);
-	if (m_loaderData->GetFire())
+	if (m_loaderData->GetFire() && m_proximity->Get() == 0)
 	{
 		m_currentSetpoint = (m_currentRotation + 1) * m_maxSensorValue + m_intermediateSetpoint;
 	}
@@ -60,23 +60,26 @@ void LauncherLoader::UpdateEnabled()
 	}
 	if (m_loaderData->GetPurge())
 	{
-		// ???
+		m_currentSetpoint = m_currentRotation * m_maxSensorValue + m_unloadSetpoint;
 	}
 	else
 	{
 		
 	}
+	int error = m_currentSetpoint - currentValue;
+	m_motorA->SetDutyCycle(m_gain * error);
+	m_motorB->SetDutyCycle(m_gain * error);
 	
 	if (m_proximity->Get() == 1)
 	{
 		m_loaderData->SetBallDetected(false);
-		m_pneumatics->Set(Pneumatics::OFF);
+		m_safety->Set(Pneumatics::OFF);
 	}
 	else
 	{
 		m_loaderData->SetBallDetected(true);
 		if (m_loaderData->GetFire())
-			m_pneumatics->Set(Pneumatics::FORWARD);
+			m_safety->Set(Pneumatics::FORWARD);
 	}
 }
 
@@ -84,7 +87,7 @@ void LauncherLoader::UpdateDisabled()
 {
 	m_motorA->SetDutyCycle(0.0);
 	m_motorB->SetDutyCycle(0.0);
-	m_pneumatics->Set(Pneumatics::OFF);
+	m_safety->Set(Pneumatics::OFF);
 }
 
 void LauncherLoader::Configure()
