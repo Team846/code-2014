@@ -10,6 +10,9 @@
 #include "LRTEncoder.h"
 #include "../Communication/LiveNetworkSendable.h"
 
+/*!
+ * @brief Contains factory methods for accessing sensors.
+ */
 class SensorFactory : public LiveNetworkSendable
 {
 public:

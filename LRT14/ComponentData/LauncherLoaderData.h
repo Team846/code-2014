@@ -3,6 +3,9 @@
 
 #include "ComponentData.h"
 
+/*!
+ * @brief Contains commands and states for the launcher loader component.
+ */
 class LauncherLoaderData : public ComponentData
 {
 public:

@@ -100,5 +100,5 @@ void LauncherLoader::Configure()
 
 void LauncherLoader::Send()
 {
-	SendToNetwork(m_currentSensorValue, "SensorValue", "RobotData");
+	SendToNetwork(m_currentSensorValue, "LoaderSensorValue", "RobotData");
 }

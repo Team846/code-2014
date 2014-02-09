@@ -3,6 +3,9 @@
 
 #include "ComponentData.h"
 
+/*!
+ * @brief Contains commands and states for the drivetrain component.
+ */
 class DrivetrainData : public ComponentData
 {
 public:

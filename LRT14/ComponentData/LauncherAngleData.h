@@ -3,6 +3,9 @@
 
 #include "ComponentData.h"
 
+/*!
+ * @brief Contains commands and states for the launcher angle component.
+ */
 class LauncherAngleData : public ComponentData
 {
 public:

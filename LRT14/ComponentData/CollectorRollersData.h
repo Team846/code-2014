@@ -3,6 +3,9 @@
 
 #include "ComponentData.h"
 
+/*!
+ * @brief Contains commands and states for the collector rollers component.
+ */
 class CollectorRollersData : public ComponentData
 {
 public:

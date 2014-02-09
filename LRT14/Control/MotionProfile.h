@@ -1,6 +1,9 @@
 #ifndef MOTION_PROFILE_H_
 #define MOTION_PROFILE_H_
 
+/*!
+ * @brief Interface for modeling a velocity profile from a position setpoint.
+ */
 class MotionProfile
 {
 public:
