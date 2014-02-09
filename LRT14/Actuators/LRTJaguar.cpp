@@ -4,28 +4,28 @@ using namespace std;
 
 vector<LRTJaguar*> LRTJaguar::jaguar_vector;
 
-LRTJaguar::LRTJaguar(UINT32 channel, const char* name, UINT32 jumperChannel) :
+LRTJaguar::LRTJaguar(uint32_t channel, std::string name, uint32_t jumperChannel) :
 	Jaguar(channel),
-	LRTSpeedController(("LRTJaguar" + std::string(name)).c_str()),
+	LRTSpeedController("LRTJaguar" + name),
 	m_brake_jumper(jumperChannel != 0 ? new DigitalOutput(jumperChannel) : NULL)
 {
 	m_pwm = 0.0;
 	m_neutral = kNeutralMode_Coast;
 	jaguar_vector.push_back(this);
 	
-	printf("Constructed LRTJaguar %s on channel %2d\n", name, channel);
+	printf("Constructed LRTJaguar %s on channel %2u\n", name.c_str(), (unsigned int)channel);
 }
 
-LRTJaguar::LRTJaguar(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel) :
+LRTJaguar::LRTJaguar(uint8_t moduleNumber, uint32_t channel, std::string name, uint32_t jumperChannel) :
 	Jaguar(moduleNumber, channel),
-	LRTSpeedController(("LRTJaguar" + std::string(name)).c_str()),
+	LRTSpeedController("LRTJaguar" + name),
 	m_brake_jumper(jumperChannel != 0 ? new DigitalOutput(jumperChannel) : NULL)
 {
 	m_pwm = 0.0;
 	m_neutral = kNeutralMode_Coast;
 	jaguar_vector.push_back(this);
 
-	printf("Constructed LRTJaguar %s on channel %2d\n", name, channel);
+	printf("Constructed LRTJaguar %s on channel %2u\n", name.c_str(), (unsigned int)channel);
 }
 
 LRTJaguar::~LRTJaguar()
@@ -53,7 +53,7 @@ float LRTJaguar::GetHardwareValue()
 
 void LRTJaguar::Set(float speed)
 {
-	printf("[WARNING] Calling Set() in LRTTalon: %s, use SetDutyCycle() instead.\n;", GetName());
+	printf("[WARNING] Calling Set() in LRTTalon: %s, use SetDutyCycle() instead.\n;", GetName().c_str());
 	SetDutyCycle(speed);
 }
 

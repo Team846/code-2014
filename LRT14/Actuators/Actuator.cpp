@@ -6,13 +6,13 @@ using namespace std;
 
 vector<Actuator*> Actuator::actuator_vector;
 
-Actuator::Actuator(const char* name)
+Actuator::Actuator(std::string name)
 {
 	m_name = name;
 	actuator_vector.push_back(this);
 }
 
-const char* Actuator::GetName()
+std::string Actuator::GetName()
 {
 	return m_name;
 }
@@ -25,7 +25,7 @@ void Actuator::OutputAll()
 		{
 			if (dynamic_cast<ErrorBase*>(*it)->StatusIsFatal())
 			{
-				AsyncPrinter::Printf("[ERROR] Fatal error in %s: %s\n", (*it)->GetName(), dynamic_cast<ErrorBase*>(*it)->GetError().GetMessage());
+				AsyncPrinter::Printf("[ERROR] Fatal error in %s: %s\n", (*it)->GetName().c_str(), dynamic_cast<ErrorBase*>(*it)->GetError().GetMessage());
 			}
 		}
 		(*it)->Output();

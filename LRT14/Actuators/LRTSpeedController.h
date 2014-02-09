@@ -17,7 +17,7 @@ public:
 		kNeutralMode_Jumper = 0, kNeutralMode_Brake = 1, kNeutralMode_Coast = 2
 	} NeutralMode;
 
-	explicit LRTSpeedController(const char* name);
+	explicit LRTSpeedController(std::string name);
 	virtual ~LRTSpeedController();
 	
 	/*!

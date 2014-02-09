@@ -19,7 +19,7 @@ public:
 		RIGHT = 1
 	};
 	
-	DriveEncoders(UINT32 leftSourceA, UINT32 leftSourceB, UINT32 rightSourceA, UINT32 rightSourceB);
+	DriveEncoders(uint32_t leftSourceA, uint32_t leftSourceB, uint32_t rightSourceA, uint32_t rightSourceB);
 	
 	/*!
 	 * @brief Destructor

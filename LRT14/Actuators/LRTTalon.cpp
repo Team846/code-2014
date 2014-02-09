@@ -4,28 +4,28 @@ using namespace std;
 
 vector<LRTTalon*> LRTTalon::talon_vector;
 
-LRTTalon::LRTTalon(UINT32 channel, const char* name, UINT32 jumperChannel) :
+LRTTalon::LRTTalon(uint32_t channel, std::string name, uint32_t jumperChannel) :
 	Talon(channel),
-	LRTSpeedController(("LRTTalon" + std::string(name)).c_str()),
+	LRTSpeedController("LRTTalon" + name),
 	m_brake_jumper(jumperChannel != 0 ? new DigitalOutput(jumperChannel) : NULL)
 {
 	m_pwm = 0.0;
 	m_neutral = kNeutralMode_Coast;
 	talon_vector.push_back(this);
 	
-	printf("Constructed LRTTalon %s on channel %2d\n", name, channel);
+	printf("Constructed LRTTalon %s on channel %2u\n", name.c_str(), (unsigned int)channel);
 }
 
-LRTTalon::LRTTalon(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel) :
+LRTTalon::LRTTalon(uint8_t moduleNumber, uint32_t channel, std::string name, uint32_t jumperChannel) :
 	Talon(moduleNumber, channel),
-	LRTSpeedController(("LRTTalon" + std::string(name)).c_str()),
+	LRTSpeedController("LRTTalon" + name),
 	m_brake_jumper(jumperChannel != 0 ? new DigitalOutput(jumperChannel) : NULL)
 {
 	m_pwm = 0.0;
 	m_neutral = kNeutralMode_Coast;
 	talon_vector.push_back(this);
 	
-	printf("Constructed LRTTalon %s on channel %2d\n", name, channel);
+	printf("Constructed LRTTalon %s on channel %2u\n", name.c_str(), (unsigned int)channel);
 }
 
 LRTTalon::~LRTTalon()
@@ -50,7 +50,7 @@ float LRTTalon::GetHardwareValue()
 
 void LRTTalon::Set(float speed)
 {
-	printf("[WARNING] Calling Set() in LRTTalon: %s, use SetDutyCycle() instead.\n;", GetName());
+	printf("[WARNING] Calling Set() in LRTTalon: %s, use SetDutyCycle() instead.\n;", GetName().c_str());
 	SetDutyCycle(speed);
 }
 
@@ -85,8 +85,8 @@ void LRTTalon::Update()
 	if (m_brake_jumper != NULL)
 	{
 		if(m_neutral == LRTSpeedController::kNeutralMode_Coast)
-			m_brake_jumper->Set((uint32_t)0);
-		if(m_neutral == LRTSpeedController::kNeutralMode_Brake)
 			m_brake_jumper->Set((uint32_t)1);
+		if(m_neutral == LRTSpeedController::kNeutralMode_Brake)
+			m_brake_jumper->Set((uint32_t)0);
 	}
 }

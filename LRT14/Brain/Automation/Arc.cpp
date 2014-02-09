@@ -74,5 +74,5 @@ bool Arc::Abort()
 
 void Arc::Configure()
 {
-	m_arcGain = GetConfig("ArcGain", 1.0);
+	m_arcGain = GetConfig("arc_gain", 1.0);
 }

@@ -53,6 +53,7 @@ LRTRobot14::~LRTRobot14()
 	ConfigRuntime::Finalize();
 	Logger::Finalize();
 	LiveNetworkSender::Finalize();
+	OffboardCommunication::Finalize();
 #if PNEUMATICS
 	Pneumatics::DestroyCompressor();
 #endif
@@ -172,7 +173,7 @@ void LRTRobot14::Tick()
 	{
 		// Update the Brain
 		Brain::Instance()->Update();
-		
+
 		// Update all components
 		Component::UpdateAll();	
 	}

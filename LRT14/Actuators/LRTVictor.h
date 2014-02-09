@@ -13,8 +13,8 @@
 class LRTVictor : public Victor, public LRTSpeedController
 {
 public:
-	LRTVictor(UINT32 channel, const char* name, UINT32 jumperChannel = 0);
-	LRTVictor(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel = 0);
+	LRTVictor(uint32_t channel, std::string name, uint32_t jumperChannel = 0);
+	LRTVictor(uint8_t moduleNumber, uint32_t channel, std::string name, uint32_t jumperChannel = 0);
 	virtual ~LRTVictor();
 	virtual void SetDutyCycle(float speed);
 	virtual float GetDutyCycle();

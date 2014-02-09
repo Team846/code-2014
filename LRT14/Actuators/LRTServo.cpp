@@ -2,16 +2,16 @@
 #include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
 
-LRTServo::LRTServo(UINT32 channel, const char* name)
+LRTServo::LRTServo(UINT32 channel, std::string name)
     : Servo(channel)
 	, Actuator(name)
-	, Loggable("Servo" + std::string(name))
+	, Loggable("Servo" + name)
     , m_controlMode(kValue)
 	, m_value(0.0)
     , enabled(false)
     , previous_value(999.0)
 {
-    printf("Created LRTServo %s on channel %d\n", name, channel);
+    printf("Created LRTServo %s on channel %d\n", name.c_str(), channel);
 }
 
 LRTServo::~LRTServo()

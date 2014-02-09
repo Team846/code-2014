@@ -304,7 +304,7 @@ void AsyncCANJaguar::Tick()
 	}
 	else
 	{
-		AsyncPrinter::Printf("[ERROR] AsyncCANJaguar: %s on channel 0.\n", GetName());
+		AsyncPrinter::Printf("[ERROR] AsyncCANJaguar: %s on channel 0.\n", GetName().c_str());
 	}
 }
 
@@ -333,7 +333,7 @@ void AsyncCANJaguar::SetVelocity(float velocity)
 
 void AsyncCANJaguar::Set(float setpoint, UINT8 syncGroup)
 {
-	printf("[WARNING] Calling Set() in AsyncCANJaguar: %s, use SetDutyCycle() instead.\n;", GetName());
+	printf("[WARNING] Calling Set() in AsyncCANJaguar: %s, use SetDutyCycle() instead.\n;", GetName().c_str());
 	m_setpoint.setValue(setpoint);
 }
 
