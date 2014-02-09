@@ -18,6 +18,7 @@ public:
 
 	bool IsLoadingComplete();
 	int GetSensorValue();
+	bool IsBallDetected();
 	
 	void ResetCommands();
 	void Log();
@@ -25,12 +26,14 @@ public:
 private:
 	void SetLoadingComplete(bool complete);
 	void SetSensorValue(int value);
+	void SetBallDetected(bool detected);
 	
 	bool m_fire;
 	bool m_purge;
 	bool m_load;
 	bool m_complete;
 	int m_value;
+	bool m_ballDetected;
 	
 	friend class LauncherLoader;
 };

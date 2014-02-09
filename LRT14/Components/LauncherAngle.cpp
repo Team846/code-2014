@@ -45,6 +45,7 @@ void LauncherAngle::UpdateDisabled()
 {
 	m_pneumatics->Set(Pneumatics::OFF);	
 }
+
 void LauncherAngle::Configure()
 {
 	

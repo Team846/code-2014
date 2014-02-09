@@ -37,6 +37,7 @@ const uint32_t REVERSE_DRIVE = 6;
 }
 namespace DigitalIns
 {
+const int32_t NO_DS_DI = -1;
 const uint32_t DRIVETRAIN = 1;
 const uint32_t COLLECTOR_ROLLERS = 2;
 const uint32_t COLLECTOR_ARM = 3;

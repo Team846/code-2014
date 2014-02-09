@@ -4,6 +4,9 @@ LauncherLoaderData::LauncherLoaderData() :
 	ComponentData("LauncherLoaderData")
 {
 	ResetCommands();
+	m_complete = false;
+	m_value = 0;
+	m_ballDetected = false;
 }
 
 LauncherLoaderData* LauncherLoaderData::Get()
@@ -14,6 +17,8 @@ LauncherLoaderData* LauncherLoaderData::Get()
 void LauncherLoaderData::ResetCommands()
 {
 	m_fire = false;
+	m_purge = false;
+	m_load = false;
 }
 
 void LauncherLoaderData::Log()
@@ -23,6 +28,7 @@ void LauncherLoaderData::Log()
 	LogToFile(&m_load, "Load");
 	LogToFile(&m_complete, "Complete");
 	LogToFile(&m_value, "SensorValue");
+	LogToFile(&m_ballDetected, "BallDetected");
 }
 
 void LauncherLoaderData::SetFire(bool shouldFire)
@@ -73,4 +79,14 @@ int LauncherLoaderData::GetSensorValue()
 void LauncherLoaderData::SetSensorValue(int value)
 {
 	m_value = value;
+}
+
+bool LauncherLoaderData::IsBallDetected()
+{
+	return m_ballDetected;
+}
+
+void LauncherLoaderData::SetBallDetected(bool detected)
+{
+	m_ballDetected = detected;
 }

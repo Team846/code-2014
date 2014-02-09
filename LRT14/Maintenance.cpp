@@ -32,7 +32,7 @@ void Maintenance::Update()
             float val;
             val = stick->IsButtonDown(button) ? stick->GetAxis(Joystick::kYAxis) : 0.0;
             	dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->SetDutyCycle(val);
-            line += Util::ToString(val);
+            line += Util::ToString(dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->GetDutyCycle());
         }
         else if (dynamic_cast<Pneumatics*>(Actuator::actuator_vector[i]))
         {
@@ -53,7 +53,7 @@ void Maintenance::Update()
         {
             if (stick->IsButtonDown(button))
             	dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Set(fabs(stick->GetAxis(Joystick::kYAxis)));
-            line += Util::ToString(fabs(stick->GetAxis(Joystick::kYAxis)));
+            line += Util::ToString(dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Get());
         }
         line += "\n";
         AsyncPrinter::Printf(line.c_str());
