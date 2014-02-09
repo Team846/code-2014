@@ -22,8 +22,11 @@ bool Fire::Start()
 
 bool Fire::Run()
 {
-	m_collectorArmData->SetPosition(CollectorArmData::COLLECT);
-	if (m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_loaderData->IsBallDetected())
+	if (!m_loaderData->IsBallDetected())
+		return false;
+	
+	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
+	if (m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete())
 	{
 		m_loaderData->SetFire(true);
 		return true;

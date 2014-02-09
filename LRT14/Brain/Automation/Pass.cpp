@@ -31,13 +31,13 @@ bool Pass::Run()
 	{
 		if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 		{
-			m_collectorArm->SetPosition(CollectorArmData::STOWED);
+			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 			m_collectorRollers->SetRunning(false);
 			return true;
 		}
 		else
 		{
-			m_collectorArm->SetPosition(CollectorArmData::COLLECT);
+			m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 			m_collectorRollers->SetRunning(true);
 			m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
 			m_collectorRollers->SetSpeed(1.0);
@@ -50,7 +50,7 @@ bool Pass::Run()
 	}
 	else
 	{
-		m_collectorArm->SetPosition(CollectorArmData::STOWED);
+		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_collectorRollers->SetRunning(false);
 		return true;
 	}

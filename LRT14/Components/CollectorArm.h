@@ -6,6 +6,7 @@
 #include "../ComponentData/CollectorArmData.h"
 #include <AnalogChannel.h>
 #include "../Actuators/Pneumatics.h"
+#include <DigitalInput.h>
 
 /*!
  * @brief Provides control over the collector arm component.
@@ -27,7 +28,7 @@ public:
 private:
 	CollectorArmData* m_armData;
 	Pneumatics* m_pneumatics;
-	
+	DigitalInput* m_switch;
 };
 
 #endif

@@ -29,14 +29,14 @@ bool LoadLauncher::Run()
 	if (!Aborting())
 	{
 		// m_loaderData->
-		m_collectorArm->SetPosition(CollectorArmData::COLLECT);
+		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 		m_collectorRollers->SetSpeed(1.0);
 	}
 	else
 	{
-		m_collectorArm->SetPosition(CollectorArmData::STOWED);
+		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_collectorRollers->SetRunning(false);
 		return true;
 	}
