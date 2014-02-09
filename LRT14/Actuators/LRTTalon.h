@@ -13,8 +13,8 @@
 class LRTTalon : public Talon, public LRTSpeedController
 {
 public:
-	LRTTalon(UINT32 channel, const char* name, UINT32 jumperChannel = 0);
-	LRTTalon(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel = 0);
+	LRTTalon(uint32_t channel, std::string name, uint32_t jumperChannel = 0);
+	LRTTalon(uint8_t moduleNumber, uint32_t channel, std::string name, uint32_t jumperChannel = 0);
 	virtual ~LRTTalon();
 	virtual void SetDutyCycle(float speed);
 	virtual float GetDutyCycle();

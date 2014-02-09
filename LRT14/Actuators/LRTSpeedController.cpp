@@ -3,7 +3,7 @@
 #include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
 
-LRTSpeedController::LRTSpeedController(const char* name) :
+LRTSpeedController::LRTSpeedController(std::string name) :
 	Actuator(name),
 	Loggable(name)
 {
@@ -43,7 +43,7 @@ void LRTSpeedController::RegisterSafety(CounterBase *encoder, double timeoutSeco
 
 void LRTSpeedController::SafetyCallback()
 {
-	AsyncPrinter::Printf("[ERROR] Safety failed in LRTSpeedController: %s\n", GetName());
+	AsyncPrinter::Printf("[ERROR] Safety failed in LRTSpeedController: %s\n", GetName().c_str());
 	SetDutyCycle(0.0);
 }
 

@@ -26,7 +26,7 @@ void Maintenance::Update()
             stick = LRTDriverStation::Instance()->GetOperatorStick();
             line = "O";
         }
-        line += Util::ToString(button) + "\t" + std::string(Actuator::actuator_vector[i]->GetName()) + "\t";
+        line += Util::ToString(button) + "\t" + Actuator::actuator_vector[i]->GetName() + "\t";
         if (dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i]))
         {
             float val;

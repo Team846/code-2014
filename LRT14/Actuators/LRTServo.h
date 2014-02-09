@@ -16,7 +16,7 @@ public:
 		kValue, kMicroseconds, kAngle
 	} ControlMode;
 	
-    LRTServo(UINT32 channel, const char* name);
+    LRTServo(UINT32 channel, std::string name);
     ~LRTServo();
 
     void Output();

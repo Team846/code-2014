@@ -4,28 +4,28 @@ using namespace std;
 
 vector<LRTVictor*> LRTVictor::victor_vector;
 
-LRTVictor::LRTVictor(UINT32 channel, const char* name, UINT32 jumperChannel) :
+LRTVictor::LRTVictor(uint32_t channel, std::string name, uint32_t jumperChannel) :
 	Victor(channel),
-	LRTSpeedController(("LRTVictor" + std::string(name)).c_str()),
+	LRTSpeedController("LRTVictor" + name),
 	m_brake_jumper(jumperChannel != 0 ? new DigitalOutput(jumperChannel) : NULL)
 {
 	m_pwm = 0.0;
 	m_neutral = kNeutralMode_Coast;
 	victor_vector.push_back(this);
 	
-	printf("Constructed LRTVictor %s on channel %2d\n", name, channel);
+	printf("Constructed LRTVictor %s on channel %2u\n", name.c_str(), (unsigned int)channel);
 }
 
-LRTVictor::LRTVictor(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel) :
+LRTVictor::LRTVictor(uint8_t moduleNumber, uint32_t channel, std::string name, uint32_t jumperChannel) :
 	Victor(moduleNumber, channel),
-	LRTSpeedController(("LRTVictor" + std::string(name)).c_str()),
+	LRTSpeedController("LRTVictor" + name),
 	m_brake_jumper(jumperChannel != 0 ? new DigitalOutput(jumperChannel) : NULL)
 {
 	m_pwm = 0.0;
 	m_neutral = kNeutralMode_Coast;
 	victor_vector.push_back(this);
 	
-	printf("Constructed LRTVictor %s on channel %2d\n", name, channel);
+	printf("Constructed LRTVictor %s on channel %2u\n", name.c_str(), (unsigned int)channel);
 }
 
 LRTVictor::~LRTVictor()
@@ -50,7 +50,7 @@ float LRTVictor::GetHardwareValue()
 
 void LRTVictor::Set(float speed)
 {
-	printf("[WARNING] Calling Set() in LRTVictor: %s, use SetDutyCycle() instead.\n;", GetName());
+	printf("[WARNING] Calling Set() in LRTVictor: %s, use SetDutyCycle() instead.\n;", GetName().c_str());
 	SetDutyCycle(speed);
 }
 

@@ -71,6 +71,6 @@ bool Drive::Abort()
 
 void Drive::Configure()
 {
-	m_maxVelocity = GetConfig("MaxSpeed", 16.0);
-	m_timeToMax = GetConfig("TimeToMax", 1.0);
+	m_maxVelocity = GetConfig("max_speed", 16.0);
+	m_timeToMax = GetConfig("time_to_max", 1.0);
 }

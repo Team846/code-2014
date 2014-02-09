@@ -14,7 +14,7 @@ double DriveEncoders::GEAR_RATIO = 1;
 
 DriveEncoders *DriveEncoders::m_instance = NULL;
 
-DriveEncoders::DriveEncoders(UINT32 leftSourceA, UINT32 leftSourceB, UINT32 rightSourceA, UINT32 rightSourceB) :
+DriveEncoders::DriveEncoders(uint32_t leftSourceA, uint32_t leftSourceB, uint32_t rightSourceA, uint32_t rightSourceB) :
 	Configurable("DriveEncoders"),
 	Loggable("DriveEncoders")
 {

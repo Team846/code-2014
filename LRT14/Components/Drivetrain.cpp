@@ -7,7 +7,6 @@
 #include "../Actuators/DriveESC.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/AsyncCANJaguar.h"
-#include "../Actuators/LRTJaguar.h"
 
 #include "../Communication/Dashboard2.h"
 
@@ -19,17 +18,13 @@ Drivetrain::Drivetrain() :
 			ConfigPortMappings::Get("Digital/LEFT_DRIVE_ENCODER_B"),
 			ConfigPortMappings::Get("Digital/RIGHT_DRIVE_ENCODER_A"),
 			ConfigPortMappings::Get("Digital/RIGHT_DRIVE_ENCODER_B"));
-//	m_escs[LEFT] = new DriveESC(new AsyncCANJaguar(ConfigPortMappings::Get("CAN/LEFT_DRIVE_A"), "LeftDriveA"),
-//			new AsyncCANJaguar(ConfigPortMappings::Get("CAN/LEFT_DRIVE_B"), "LeftDriveB"),
-//			m_driveEncoders->GetEncoder(DriveEncoders::LEFT), "LeftDriveESC");
-//	m_escs[RIGHT] = new DriveESC(new AsyncCANJaguar(ConfigPortMappings::Get("CAN/RIGHT_DRIVE_A"), "RightDriveA"),
-//			new AsyncCANJaguar(ConfigPortMappings::Get("CAN/RIGHT_DRIVE_B"), "RightDriveB"),
-//			m_driveEncoders->GetEncoder(DriveEncoders::RIGHT), "RightDriveESC");
-	m_escs[LEFT] = new DriveESC(new LRTJaguar(ConfigPortMappings::Get("PWM/LEFT_DRIVE_A"), "LeftDriveA", ConfigPortMappings::Get("Digital/LEFT_BRAKE_A")),
-			new LRTJaguar(ConfigPortMappings::Get("PWM/LEFT_DRIVE_B"), "LeftDriveB", ConfigPortMappings::Get("Digital/LEFT_BRAKE_B")),
+	m_talonLeftA = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_A"), "LeftDriveA", ConfigPortMappings::Get("Digital/LEFT_BRAKE_A"));
+	m_talonLeftB = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_B"), "LeftDriveB", ConfigPortMappings::Get("Digital/LEFT_BRAKE_B"));
+	m_talonRightA = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_A"), "RightDriveA", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_A"));
+	m_talonRightB = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B"));
+	m_escs[LEFT] = new DriveESC(m_talonLeftA, m_talonLeftB,
 			m_driveEncoders->GetEncoder(DriveEncoders::LEFT), "LeftDriveESC");
-	m_escs[RIGHT] = new DriveESC(new LRTJaguar(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_A"), "RightDriveA", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_A")),
-			new LRTJaguar(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B")),
+	m_escs[RIGHT] = new DriveESC(m_talonRightA, m_talonRightB,
 			m_driveEncoders->GetEncoder(DriveEncoders::RIGHT), "RightDriveESC");
 	m_drivetrainData = DrivetrainData::Get();
 	
@@ -117,6 +112,10 @@ void Drivetrain::UpdateDisabled()
 {
 	m_escs[LEFT]->SetDutyCycle(0.0);
 	m_escs[RIGHT]->SetDutyCycle(0.0);
+	m_talonLeftA->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
+	m_talonLeftB->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
+	m_talonRightA->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
+	m_talonRightB->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
 }
 
 void Drivetrain::OnEnabled()
@@ -145,8 +144,9 @@ void Drivetrain::Configure()
 
 void Drivetrain::Send()
 {
-	Dashboard2::EnqueueDrivetrainTicksMessage(m_driveEncoders->GetTurnTicks());
-	SendToNetwork(m_driveEncoders->GetTurnTicks(), "TurnTicks", "RobotData");
+//	Dashboard2::EnqueueDrivetrainTicksMessage(m_driveEncoders->GetTurnTicks());
+	SendToNetwork(m_driveEncoders->GetRawTurningSpeed(), "TurnTicks", "RobotData");
+	SendToNetwork(m_driveEncoders->GetRawForwardSpeed(), "Rate", "RobotData");
 }
 
 void Drivetrain::ConfigurePIDObject(PID *pid, std::string objName, bool feedForward)

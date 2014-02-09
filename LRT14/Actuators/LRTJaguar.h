@@ -13,8 +13,8 @@
 class LRTJaguar : public Jaguar, public LRTSpeedController
 {
 public:
-	LRTJaguar(UINT32 channel, const char* name, UINT32 jumperChannel = 0);
-	LRTJaguar(UINT8 moduleNumber, UINT32 channel, const char* name, UINT32 jumperChannel = 0);
+	LRTJaguar(uint32_t channel, std::string name, uint32_t jumperChannel = 0);
+	LRTJaguar(uint8_t moduleNumber, uint32_t channel, std::string name, uint32_t jumperChannel = 0);
 	virtual ~LRTJaguar();
 	virtual void SetDutyCycle(float value);
 	virtual float GetDutyCycle();

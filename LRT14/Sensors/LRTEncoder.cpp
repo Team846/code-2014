@@ -1,6 +1,6 @@
 #include "LRTEncoder.h"
 
-LRTEncoder::LRTEncoder(const char* name, UINT32 sourceA, UINT32 sourceB, double trim) :
+LRTEncoder::LRTEncoder(const char* name, uint32_t sourceA, uint32_t sourceB, double trim) :
 	Encoder(sourceA, sourceB, false, CounterBase::k4X),
 	Loggable(name),
 	trim(trim)
@@ -30,7 +30,7 @@ double LRTEncoder::GetRate()
 
 int32_t LRTEncoder::Get()
 {
-	return (INT32) (Encoder::Get() * trim);
+	return (int32_t) (Encoder::Get() * trim);
 }
 
 void LRTEncoder::Log()

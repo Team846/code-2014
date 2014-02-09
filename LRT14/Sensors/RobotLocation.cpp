@@ -94,7 +94,7 @@ void RobotLocation::Log()
 
 void RobotLocation::Send()
 {
-	Dashboard2::EnqueueLocatorMessage(x, y, theta);
+//	Dashboard2::EnqueueLocatorMessage(x, y, theta);
 	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta), "Data", "Location");
 }
 
