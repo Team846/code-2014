@@ -5,11 +5,12 @@
 #include "../Config/Configurable.h"
 #include "../ComponentData/LauncherLoaderData.h"
 #include "../Actuators/LRTVictor.h"
+#include "../Actuators/Pneumatics.h"
 #include "../Sensors/SensorFactory.h"
 #include "../Communication/LiveNetworkSendable.h"
 
 /*!
- * @brief Provides control over launcher loading mechanism.
+ * @brief Provides control over launcher loading mechanism, including the safety mechanism.
  */
 class LauncherLoader : public Component, public Configurable, public LiveNetworkSendable
 {
@@ -28,9 +29,11 @@ public:
 	
 private:
 	LauncherLoaderData* m_loaderData;
-	LRTVictor* m_victorA;
-	LRTVictor* m_victorB;
+	LRTSpeedController* m_motorA;
+	LRTSpeedController* m_motorB;
+	Pneumatics* m_pneumatics;
 	AnalogChannel* m_sensor;
+	DigitalInput* m_proximity;
 	int m_unloadSetpoint;
 	int m_intermediateSetpoint;
 	int m_loadSetpoint;

@@ -9,12 +9,12 @@ CollectorRollers::CollectorRollers() :
 	Configurable("CollectorRollers")
 {
 	m_rollersData = CollectorRollersData::Get();
-	m_victor = new LRTVictor(ConfigPortMappings::Get("PWM/COLLECTOR_ROLLERS"), "CollectorRollers");
+	m_motor = new LRTTalon(ConfigPortMappings::Get("PWM/COLLECTOR_ROLLERS"), "CollectorRollers");
 }
 
 CollectorRollers::~CollectorRollers()
 {
-	DELETE(m_victor);
+	DELETE(m_motor);
 }
 
 void CollectorRollers::OnEnabled()
@@ -32,17 +32,17 @@ void CollectorRollers::UpdateEnabled()
 	if (m_rollersData->IsRunning())
 	{
 		if (m_rollersData->GetDirection() == CollectorRollersData::FORWARD)
-			m_victor->SetDutyCycle(m_rollersData->GetSpeed() * m_forwardSpeed);
+			m_motor->SetDutyCycle(m_rollersData->GetSpeed() * m_forwardSpeed);
 		if (m_rollersData->GetDirection() == CollectorRollersData::REVERSE)
-			m_victor->SetDutyCycle(m_rollersData->GetSpeed() * m_reverseSpeed);
+			m_motor->SetDutyCycle(m_rollersData->GetSpeed() * m_reverseSpeed);
 	}
 	else
-		m_victor->SetDutyCycle(0.0);
+		m_motor->SetDutyCycle(0.0);
 }
 
 void CollectorRollers::UpdateDisabled()
 {
-	m_victor->SetDutyCycle(0.0);
+	m_motor->SetDutyCycle(0.0);
 }
 
 void CollectorRollers::Configure()

@@ -550,5 +550,5 @@ float AsyncCANJaguar::GetExpiration()
 
 void AsyncCANJaguar::Println(const char* str)
 {
-	AsyncPrinter::Printf("%s: %s", GetName(), str);
+	AsyncPrinter::Printf("%s: %s", GetName().c_str(), str);
 }
