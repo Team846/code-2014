@@ -25,6 +25,10 @@ namespace Tasks
 		explicit BinarySemaphore(UINT32 state);
 		~BinarySemaphore();
 		
+		BinarySemaphore(int options, UINT32 state);
+		
+		explicit BinarySemaphore(SEM_ID s);
+		
 		/*!
 		 * Gives the semaphore
 		 */
