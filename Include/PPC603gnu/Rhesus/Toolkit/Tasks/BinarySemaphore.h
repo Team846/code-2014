@@ -27,7 +27,9 @@ namespace Tasks
 		
 		BinarySemaphore(int options, UINT32 state);
 		
+#ifdef __VXWORKS__
 		explicit BinarySemaphore(SEM_ID s);
+#endif
 		
 		/*!
 		 * Gives the semaphore

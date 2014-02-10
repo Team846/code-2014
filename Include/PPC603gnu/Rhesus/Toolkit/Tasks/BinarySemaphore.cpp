@@ -15,12 +15,12 @@ BinarySemaphore::BinarySemaphore(UINT32 state)
 #endif	
 }
 
+#ifdef __VXWORKS__
 BinarySemaphore::BinarySemaphore(SEM_ID s)
 {
-#ifdef __VXWORKS__
 	m_sem = s; 
-#endif	
 }
+#endif
 
 BinarySemaphore::BinarySemaphore(int options, UINT32 state)
 {
