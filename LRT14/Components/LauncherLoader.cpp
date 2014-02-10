@@ -14,10 +14,11 @@ LauncherLoader::LauncherLoader() :
 	m_sensor = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
+	m_desiredRotation = 0;
 	m_currentSensorValue = m_sensor->GetAverageValue();
 	m_lastRawSensorValue = m_sensor->GetAverageValue();
 	m_currentSetpoint = m_sensor->GetAverageValue();
-	m_loaded = false;
+	m_load = false;
 }
 
 LauncherLoader::~LauncherLoader()
@@ -38,7 +39,7 @@ void LauncherLoader::OnDisabled()
 
 void LauncherLoader::UpdateEnabled()
 {
-	int currentValue = m_sensor->GetAverageValue();
+	int currentValue = m_sensor->GetAverageValue() - m_desiredZero;
 	if (currentValue < m_wrapThreshold && m_lastRawSensorValue > m_maxSensorValue - m_wrapThreshold)
 	{
 		m_currentRotation++;
@@ -52,19 +53,28 @@ void LauncherLoader::UpdateEnabled()
 	m_loaderData->SetSensorValue(m_currentSensorValue);
 	if (m_loaderData->GetFire() && m_proximity->Get() == 0)
 	{
-		m_currentSetpoint = (m_currentRotation + 1) * m_maxSensorValue + m_intermediateSetpoint;
-	}
+		m_desiredRotation = m_currentRotation + 1;
+		m_load = false;
+	} 
 	else if (m_loaderData->GetLoad())
 	{
-		m_currentSetpoint = m_currentRotation * m_maxSensorValue + m_loadSetpoint;
+		m_load = true;
 	}
+		
 	if (m_loaderData->GetPurge())
 	{
-		m_currentSetpoint = m_currentRotation * m_maxSensorValue + m_unloadSetpoint;
+		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * m_maxSensorValue;
 	}
 	else
 	{
-		
+		if (m_load)
+		{
+			m_currentSetpoint = m_loadSetpoint + m_desiredRotation * m_maxSensorValue;
+		}
+		else
+		{
+			m_currentSetpoint = m_intermediateSetpoint + m_desiredRotation * m_maxSensorValue;
+		}
 	}
 	int error = m_currentSetpoint - currentValue;
 	m_motorA->SetDutyCycle(m_gain * error);
@@ -99,6 +109,7 @@ void LauncherLoader::Configure()
 	m_wrapThreshold = GetConfig("wrap_threshold", 10);
 	m_maxSensorValue = GetConfig("max_value", 1400);
 	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5);
+	m_desiredZero = GetConfig("sensor_zero", 0);
 }
 
 void LauncherLoader::Send()
