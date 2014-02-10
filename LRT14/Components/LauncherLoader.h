@@ -41,12 +41,14 @@ private:
 	int m_wrapThreshold;
 	int m_maxSensorValue;
 	int m_completionErrorThreshold;
+	int m_desiredZero;
 	
 	int m_currentRotation;
 	int m_currentSensorValue;
 	int m_lastRawSensorValue;
 	int m_currentSetpoint;
-	bool m_loaded;
+	bool m_load;
+	int m_desiredRotation;
 };
 
 #endif
