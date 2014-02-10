@@ -15,6 +15,20 @@ BinarySemaphore::BinarySemaphore(UINT32 state)
 #endif	
 }
 
+BinarySemaphore::BinarySemaphore(SEM_ID s)
+{
+#ifdef __VXWORKS__
+	m_sem = s; 
+#endif	
+}
+
+BinarySemaphore::BinarySemaphore(int options, UINT32 state)
+{
+#ifdef __VXWORKS__
+	m_sem = semBCreate(options, (SEM_B_STATE)state);
+#endif
+}
+
 BinarySemaphore::~BinarySemaphore()
 {
 #ifdef __VXWORKS__

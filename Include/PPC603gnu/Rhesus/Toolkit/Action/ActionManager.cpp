@@ -6,7 +6,7 @@
 using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Action;
 
-BinarySemaphore ActionManager::s_sem(0);
+BinarySemaphore ActionManager::s_sem((UINT32)0);
 std::queue<IRobotAction*> ActionManager::s_actionQueue;
 Mutex ActionManager::s_so;
 Task* ActionManager::s_task = new Task("ActionManager", (FUNCPTR)RunAll);
