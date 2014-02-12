@@ -30,7 +30,7 @@ LRTVictor::LRTVictor(uint8_t moduleNumber, uint32_t channel, std::string name, u
 
 LRTVictor::~LRTVictor()
 {
-	DELETE(m_brake_jumper);
+	R_DELETE(m_brake_jumper);
 }
 
 void LRTVictor::SetDutyCycle(float speed)

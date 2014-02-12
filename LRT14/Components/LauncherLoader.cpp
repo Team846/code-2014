@@ -23,8 +23,8 @@ LauncherLoader::LauncherLoader() :
 
 LauncherLoader::~LauncherLoader()
 {
-	DELETE(m_motorA);
-	DELETE(m_motorB);
+	R_DELETE(m_motorA);
+	R_DELETE(m_motorB);
 }
 
 void LauncherLoader::OnEnabled()

@@ -32,7 +32,7 @@ LRTJaguar::~LRTJaguar()
 {
 	if (m_brake_jumper != NULL)
 	{
-		DELETE(m_brake_jumper);
+		R_DELETE(m_brake_jumper);
 	}
 }
 

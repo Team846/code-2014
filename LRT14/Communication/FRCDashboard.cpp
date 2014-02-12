@@ -22,7 +22,7 @@ void FRCDashboard::Close()
 		return;
 	}
 	
-	DELETE(m_instance);
+	R_DELETE(m_instance);
 }
 
 FRCDashboard::FRCDashboard()
@@ -36,7 +36,7 @@ FRCDashboard::FRCDashboard()
 FRCDashboard::~FRCDashboard()
 {
 	m_server->Close();
-	DELETE(m_server);
+	R_DELETE(m_server);
 }
 
 void FRCDashboard::Tick()
@@ -74,7 +74,7 @@ void FRCDashboard::flush()
 			
 			m_server->SendToAll(nb.nb, nb.method, nb.channel);
 			
-			DELETE(nb.nb);
+			R_DELETE(nb.nb);
 		}
 	} // m_queueSem
 }

@@ -67,7 +67,7 @@ Pneumatics::Pneumatics(uint32_t forward, uint8_t module, const char* name) :
 
 Pneumatics::~Pneumatics()
 {
-	DELETE(solenoid);
+	R_DELETE(solenoid);
 }
 
 void Pneumatics::Output()

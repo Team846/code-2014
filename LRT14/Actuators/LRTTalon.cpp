@@ -30,7 +30,7 @@ LRTTalon::LRTTalon(uint8_t moduleNumber, uint32_t channel, std::string name, uin
 
 LRTTalon::~LRTTalon()
 {
-	DELETE(m_brake_jumper);
+	R_DELETE(m_brake_jumper);
 }
 
 void LRTTalon::SetDutyCycle(float speed)

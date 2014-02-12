@@ -20,10 +20,10 @@ DebouncedJoystick::DebouncedJoystick(UINT32 port, int nBtns, int nAxes) :
 
 DebouncedJoystick::~DebouncedJoystick()
 {
-	DELETE(wasPressed);
-	DELETE(isPressed);
-	DELETE(axisPrevValue);
-	DELETE(axisValue);
+	R_DELETE(wasPressed);
+	R_DELETE(isPressed);
+	R_DELETE(axisPrevValue);
+	R_DELETE(axisValue);
 }
 
 bool DebouncedJoystick::ButtonInBounds(int button)

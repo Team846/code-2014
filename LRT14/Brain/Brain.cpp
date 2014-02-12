@@ -53,7 +53,7 @@ void Brain::Initialize()
 
 void Brain::Finalize()
 {
-	DELETE(m_instance);
+	R_DELETE(m_instance);
 }
 
 Brain::Brain() :

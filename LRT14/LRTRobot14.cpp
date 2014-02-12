@@ -201,7 +201,7 @@ void LRTRobot14::Tick()
 	
 	// Utilities
 	LCD::Instance()->RunOneCycle();
-	Logger::Instance()->Run();
+//	Logger::Instance()->Run();
 	LiveNetworkSender::Instance()->Run();
 	Dashboard2::Tick();
 	
