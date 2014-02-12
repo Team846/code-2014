@@ -20,7 +20,7 @@ void OffboardCommunication::Initialize()
 
 void OffboardCommunication::Finalize()
 {
-	DELETE(m_instance);
+	R_DELETE(m_instance);
 }
 
 OffboardCommunication::OffboardCommunication() :

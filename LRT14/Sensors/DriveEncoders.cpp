@@ -30,7 +30,7 @@ DriveEncoders::DriveEncoders(uint32_t leftSourceA, uint32_t leftSourceB, uint32_
 
 DriveEncoders::~DriveEncoders()
 {	
-	DELETE(m_instance);
+	R_DELETE(m_instance);
 }
 
 DriveEncoders* DriveEncoders::Get()

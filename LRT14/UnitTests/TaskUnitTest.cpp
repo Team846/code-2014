@@ -108,10 +108,14 @@ INT32 TestCountingSemaphore()
 
 INT32 TestBufferedConsole()
 {
+	std::printf("1: Starting TaskPool\n");
 	TaskPool::Start();
-	//BufferedConsole::Printfln("SWAG");
+	BufferedConsole::Printfln("SWAG");
+	std::printf("2: Enqueing Print job\n");
 	BufferedConsole::Printf("More Swag\n");
-	//BufferedConsole::Printfln("THWA%c", 'G');
+	BufferedConsole::Printfln("THWA%c", 'G');
+	std::printf("3: Stopping TaskPool\n");
+	taskDelay(sysClkRateGet() * 10);
 	TaskPool::Stop();
 	return 0;
 }
@@ -139,12 +143,16 @@ INT32 TestMutex()
 	}
 	
 	TaskPool::Stop();
+	
+	return 0;
 }
 
 extern "C"
 {
 	INT32 FRC_UserProgram_StartupLibraryInit()
 	{      
+		std::printf("Starting tests...\n\n");
+		
 		TestApparatus app;
 		
 		app.EnableOption(TestApparatus::OPT_BASIC);
@@ -162,7 +170,7 @@ extern "C"
 		//app.RegisterTest((RU_FUNCPTR)TestCountingSemaphore, "Test Counting Semaphore");
 		
 		//BufferedConsole: NOT WORKING
-		//app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
+		app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
 		
 		//Mutex & lock_on: Working
 		//app.RegisterTest((RU_FUNCPTR)TestMutex, "Test Mutex");

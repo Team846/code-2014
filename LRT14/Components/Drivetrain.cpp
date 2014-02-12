@@ -144,7 +144,7 @@ void Drivetrain::Configure()
 
 void Drivetrain::Send()
 {
-//	Dashboard2::EnqueueDrivetrainTicksMessage(m_driveEncoders->GetTurnTicks());
+	Dashboard2::EnqueueDrivetrainTicksMessage(m_driveEncoders->GetTurnTicks());
 	SendToNetwork(m_driveEncoders->GetRawTurningSpeed(), "TurnTicks", "RobotData");
 	SendToNetwork(m_driveEncoders->GetRawForwardSpeed(), "Rate", "RobotData");
 }

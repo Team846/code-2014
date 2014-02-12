@@ -19,7 +19,7 @@ void AsyncPrinter::Finalize()
 {
 	_instance->Abort(0, 1.0 / 50);
 	
-	DELETE(_instance);
+	R_DELETE(_instance);
 }
 
 AsyncPrinter::AsyncPrinter()

@@ -14,7 +14,7 @@ CollectorRollers::CollectorRollers() :
 
 CollectorRollers::~CollectorRollers()
 {
-	DELETE(m_motor);
+	R_DELETE(m_motor);
 }
 
 void CollectorRollers::OnEnabled()

@@ -270,7 +270,7 @@ public:
 		if(x.second == NULL)
 			return true;
 		
-		DELETE(x.second);
+		R_DELETE(x.second);
 		
 		return true;
 	}

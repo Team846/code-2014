@@ -3,10 +3,10 @@
 
 #include <vxWorks.h>
 
-#define DELETE(p) delete p; \
+#define RU_DELETE(p) delete p; \
 	p = NULL;
 
-#define DELETE_ARR(p) delete[] p \
+#define RU_DELETE_ARR(p) delete[] p \
 	p = NULL;
 
 typedef INT32 (*RU_FUNCPTR)(...);

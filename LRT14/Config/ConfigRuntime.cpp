@@ -22,7 +22,7 @@ ConfigRuntime* ConfigRuntime::Instance()
 
 void ConfigRuntime::Finalize()
 {
-	DELETE(m_instance);
+	R_DELETE(m_instance);
 }
 
 ConfigRuntime::ConfigRuntime()
@@ -37,13 +37,13 @@ ConfigRuntime::ConfigRuntime()
 ConfigRuntime::~ConfigRuntime()
 {
 	if (fileData != NULL)
-		DELETE(fileData);
+		R_DELETE(fileData);
 
 	if (configData != NULL)
-		DELETE(fileData);
+		R_DELETE(fileData);
 
 	if (sectionMap != NULL)
-		DELETE(sectionMap);
+		R_DELETE(sectionMap);
 }
 
 void ConfigRuntime::Load()
@@ -177,17 +177,17 @@ void ConfigRuntime::LoadConfig(string path)
 	// Clear previous data
 	if (fileData != NULL)
 	{
-		DELETE(fileData);
+		R_DELETE(fileData);
 	}
 	fileData = new list<string>();
 	if (configData != NULL)
 	{
-		DELETE(configData);
+		R_DELETE(configData);
 	}
 	configData = new config();
 	if (sectionMap != NULL)
 	{
-		DELETE(sectionMap);
+		R_DELETE(sectionMap);
 	}
 	sectionMap = new map<string, list<string>::iterator>();
 

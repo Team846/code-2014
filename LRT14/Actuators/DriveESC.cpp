@@ -38,8 +38,8 @@ DriveESC::DriveESC(LRTSpeedController* esc1, LRTSpeedController* esc2, LRTEncode
 
 DriveESC::~DriveESC()
 {
-	DELETE(m_controller1);
-	DELETE(m_controller2);
+	R_DELETE(m_controller1);
+	R_DELETE(m_controller2);
 }
 
 DriveESC::BrakeAndDutyCycle DriveESC::CalculateBrakeAndDutyCycle(float desired_speed, float current_speed)

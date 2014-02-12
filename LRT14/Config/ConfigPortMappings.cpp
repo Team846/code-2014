@@ -20,7 +20,7 @@ ConfigPortMappings* ConfigPortMappings::Instance()
 
 void ConfigPortMappings::Finalize()
 {
-	DELETE(m_instance);
+	R_DELETE(m_instance);
 }
 
 ConfigPortMappings::ConfigPortMappings()
