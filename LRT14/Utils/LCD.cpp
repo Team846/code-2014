@@ -1,9 +1,12 @@
 #include "LCD.h"
 #include "../Utils/Util.h"
-#include "../Utils/AsyncPrinter.h"
 #include "NetworkCommunication/FRCComm.h"
 #include <cstdio>
 #include <Synchronized.h>
+
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 LCD* LCD::instance = NULL;
 
@@ -45,7 +48,7 @@ void LCD::Print(UINT8 line, UINT8 index, bool clear, const char* format, ...)
 {
 	if (line > kNumBufferLines)
 	{
-		AsyncPrinter::Printf("LCD: out of bounds %d\n", line);
+		BufferedConsole::Printf("LCD: out of bounds %d\n", line);
 		return;
 	}
 
@@ -99,7 +102,7 @@ void LCD::ScrollLCD(int x, int y)
 	curColumnIndex = Util::Clamp<int>(curColumnIndex + x, 0,
 			kNumBufferColumns - kNumLcdPhysicalColumns);
 
-	AsyncPrinter::Printf("DS LCD Scroll %d %d => %d,%d\n", x, y, curLineIndex,
+	BufferedConsole::Printf("DS LCD Scroll %d %d => %d,%d\n", x, y, curLineIndex,
 			curColumnIndex);
 }
 

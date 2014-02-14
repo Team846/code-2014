@@ -1,5 +1,4 @@
 #include "Brain.h"
-#include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
 #include <fstream>
 #include <sstream>
@@ -32,7 +31,9 @@
 #include "Events/DelayedEvent.h"
 
 #include <Rhesus/Toolkit/GameState.h>
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
+using namespace Rhesus::Toolkit::IO;
 using namespace std;
 using namespace Rhesus::Toolkit;
 

@@ -7,7 +7,6 @@
 
 #include "LRTSpeedController.h"
 #include "../Sensors/LRTEncoder.h"
-#include "../Utils/AsyncPrinter.h"
 #include "../Logging/Loggable.h"
 
 /*!

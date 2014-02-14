@@ -22,12 +22,9 @@ void TestPrint()
 	printf("It Worked!\n");
 }
 
-void TestPrintForever(int d)
+void TestPrintWithNum(int d)
 {
-	while(true)
-	{
-		printf("Print Task %d\n", d);
-	}
+	printf("Print Task %d\n", d);
 }
 
 INT32 TestTaskPool()
@@ -50,13 +47,21 @@ INT32 TestTaskPoolOverflow()
 	std::printf("Starting overflow test.\n");
 	TaskPool::Start(3);
 	
-	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever, 1);
-	std::printf("1 Worked\n");
-	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever, 2);
-	std::printf("2 Worked\n");
-	TaskPool::EnqueueTask((FUNCPTR)TestPrintForever, 3);
-	std::printf("3 Worked\n");
-	TaskPool::EnqueueTask((FUNCPTR)TestPrint);
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 1);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 2);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 3);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 4);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 5);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 6);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 7);
+	taskDelay(sysClkRateGet());
+	TaskPool::EnqueueTask((FUNCPTR)TestPrintWithNum, 8);
 	
 	sleep(5);
 	
@@ -76,10 +81,10 @@ void printThenGive(BinarySemaphore* b)
 
 INT32 TestBinarySemaphore()
 {
-	BinarySemaphore b = BinarySemaphore(SEM_EMPTY);
+	BinarySemaphore bin(0);
 	TaskPool::Start();
-	TaskPool::EnqueueTask((FUNCPTR)printThenGive, (UINT32)&b);
-	b.Take();
+	TaskPool::EnqueueTask((FUNCPTR)printThenGive, (UINT32)&bin);
+	bin.Take();
 	std::printf("WORLD CHAMPS HERE WE COME!!!\n");
 	TaskPool::Stop();
 	return 0;
@@ -94,7 +99,7 @@ void printThenGiveCounting(CountingSemaphore* c, UINT32 time)
 
 INT32 TestCountingSemaphore()
 {
-	CountingSemaphore c = CountingSemaphore(0);
+	CountingSemaphore c(0);
 	TaskPool::Start();
 	TaskPool::EnqueueTask((FUNCPTR)printThenGiveCounting, (UINT32)&c, 5);
 	TaskPool::EnqueueTask((FUNCPTR)printThenGiveCounting, (UINT32)&c, 10);
@@ -114,8 +119,8 @@ INT32 TestBufferedConsole()
 	std::printf("2: Enqueing Print job\n");
 	BufferedConsole::Printf("More Swag\n");
 	BufferedConsole::Printfln("THWA%c", 'G');
-	std::printf("3: Stopping TaskPool\n");
 	taskDelay(sysClkRateGet() * 10);
+	std::printf("3: Stopping TaskPool\n");
 	TaskPool::Stop();
 	return 0;
 }
@@ -147,6 +152,15 @@ INT32 TestMutex()
 	return 0;
 }
 
+INT32 TestSemCIsEmpty()
+{
+	CountingSemaphore csem(3);
+	
+	RU_ASSERT(!csem.IsEmpty());
+	
+	return 0;
+}
+
 extern "C"
 {
 	INT32 FRC_UserProgram_StartupLibraryInit()
@@ -169,11 +183,14 @@ extern "C"
 		//Counting Semaphore: Working
 		//app.RegisterTest((RU_FUNCPTR)TestCountingSemaphore, "Test Counting Semaphore");
 		
-		//BufferedConsole: NOT WORKING
+		//BufferedConsole: WORKING
 		app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
 		
 		//Mutex & lock_on: Working
 		//app.RegisterTest((RU_FUNCPTR)TestMutex, "Test Mutex");
+		
+		//Semaphore Empty : Working
+		//app.RegisterTest((RU_FUNCPTR)TestSemCIsEmpty, "Test Semaphore Empty");
 		
 		app.Run();
 		

@@ -27,8 +27,6 @@ void FRCDashboard::Close()
 
 FRCDashboard::FRCDashboard()
 {
-	m_queueMutex = Mutex();
-	
 	m_server = new NetServer(1140);
 	m_server->Open();
 }

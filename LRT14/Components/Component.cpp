@@ -1,7 +1,9 @@
 #include "Component.h"
 #include "Drivetrain.h"
 #include "../RobotState.h"
-#include "../Utils/AsyncPrinter.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 #include <Rhesus/Toolkit/GameState.h>
 
@@ -15,7 +17,7 @@ Component::Component(const char* name, int driverStationDigitalIn) :
 {
 	m_lastEnabled = false;
 	
-	AsyncPrinter::Printf("Created component: %s\n", name);
+	BufferedConsole::Printf("Created component: %s\n", name);
 }
 
 Component::~Component()

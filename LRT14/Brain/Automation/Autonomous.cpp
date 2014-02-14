@@ -1,9 +1,11 @@
 #include "Autonomous.h"
 #include "../../Config/RobotConfig.h"
 #include "../../Config/DriverStationConfig.h"
-#include "../../Utils/AsyncPrinter.h"
 #include "../../Utils/Util.h"
 #include <algorithm>
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 #include "Drive.h"
 #include "Turn.h"
@@ -25,7 +27,7 @@ Autonomous::~Autonomous()
 bool Autonomous::Start()
 {
 	int autonRoutine = (int)(DriverStation::GetInstance()->GetAnalogIn(DriverStationConfig::AnalogIns::AUTONOMOUS_SELECT) + 0.5) + 1;
-	AsyncPrinter::Printf("Starting autonomous routine %d\n", autonRoutine);
+	BufferedConsole::Printf("Starting autonomous routine %d\n", autonRoutine);
 	m_autonomousStartTime = Timer::GetFPGATimestamp();
 	
 	ClearSequence();
@@ -57,7 +59,7 @@ void Autonomous::LoadRoutine(std::string path)
 	ifstream fin(path.c_str());
 	if (!fin.is_open())
 	{
-		AsyncPrinter::Printf("Cannot open autonomous routine file: %s\n", path.c_str());
+		BufferedConsole::Printf("Cannot open autonomous routine file: %s\n", path.c_str());
 		return;
 	}
 
@@ -167,14 +169,14 @@ void Autonomous::LoadRoutine(std::string path)
 			}
 			else
 			{
-				AsyncPrinter::Printf(
+				BufferedConsole::Printf(
 						"[WARNING] Unknown routine: %s on line %d, ignoring.\n",
 						command.c_str(), lineNumber);
 				continue;
 			}
 			if (failed)
 			{
-				AsyncPrinter::Printf(
+				BufferedConsole::Printf(
 						"[WARNING] Incorrect number of arguments for routine: %s on line %d, ignoring.\n",
 						command.c_str(), lineNumber);
 				continue;
@@ -191,7 +193,7 @@ void Autonomous::LoadRoutine(std::string path)
 		}
 		lineNumber++;
 	}
-	AsyncPrinter::Printf("Done loading autonomous routine file: %s\n", path.c_str());
+	BufferedConsole::Printf("Done loading autonomous routine file: %s\n", path.c_str());
 	fin.close();
 }
 

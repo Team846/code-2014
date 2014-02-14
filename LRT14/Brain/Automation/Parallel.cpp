@@ -1,6 +1,7 @@
 #include "Parallel.h"
-#include "../../Utils/AsyncPrinter.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
+using namespace Rhesus::Toolkit::IO;
 using namespace std;
 
 Parallel::Parallel(const char* name, bool queueIfBlocked, bool restartable) :

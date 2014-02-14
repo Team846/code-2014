@@ -1,7 +1,9 @@
 #include "LRTSpeedController.h"
 #include <math.h>
-#include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 LRTSpeedController::LRTSpeedController(std::string name) :
 	Actuator(name),
@@ -43,7 +45,7 @@ void LRTSpeedController::RegisterSafety(CounterBase *encoder, double timeoutSeco
 
 void LRTSpeedController::SafetyCallback()
 {
-	AsyncPrinter::Printf("[ERROR] Safety failed in LRTSpeedController: %s\n", GetName().c_str());
+	BufferedConsole::Printf("[ERROR] Safety failed in LRTSpeedController: %s\n", GetName().c_str());
 	SetDutyCycle(0.0);
 }
 

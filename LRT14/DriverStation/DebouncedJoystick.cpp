@@ -1,7 +1,10 @@
 #include "DebouncedJoystick.h"
 #include <cstdio>
-#include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
+
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 DebouncedJoystick::DebouncedJoystick(UINT32 port, int nBtns, int nAxes) :
 	Joystick(port),
@@ -30,7 +33,7 @@ bool DebouncedJoystick::ButtonInBounds(int button)
 {
 	if (button <= 0 || button > m_num_buttons)
 	{
-		AsyncPrinter::Printf("[!]DebouncedJoystick: Button %d out of bounds!\n", button);
+		BufferedConsole::Printf("[!]DebouncedJoystick: Button %d out of bounds!\n", button);
 		return false;
 	}
 	return true;
@@ -40,7 +43,7 @@ bool DebouncedJoystick::AxisInBounds(int axis)
 {
 	if (axis <= 0 || axis > m_num_axes)
 	{
-		AsyncPrinter::Printf("[!]DebouncedJoystick: Axis %d out of bounds!\n", axis);
+		BufferedConsole::Printf("[!]DebouncedJoystick: Axis %d out of bounds!\n", axis);
 		return false;
 	}
 	return true;

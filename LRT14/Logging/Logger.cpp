@@ -2,12 +2,13 @@
 #include "Loggable.h"
 #include "../Config/RobotConfig.h"
 #include "../RobotState.h"
-#include "../Utils/AsyncPrinter.h"
 
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
 #include <Rhesus/Toolkit/GameState.h>
 
 using namespace std;
 using namespace Rhesus::Toolkit;
+using namespace Rhesus::Toolkit::IO;
 
 Logger *Logger::m_instance = NULL;
 vector<Loggable*> Logger::loggables;
@@ -67,7 +68,7 @@ void Logger::Run()
 {
 	if (!initialized)
 	{
-		AsyncPrinter::Printf("[ERROR] Logger is not initialized\n");
+		BufferedConsole::Printf("[ERROR] Logger is not initialized\n");
 		return;
 	}
 	if (RobotState::Instance().GameMode() == GameState::DISABLED)
@@ -110,7 +111,7 @@ void Logger::Tick()
 	double end = Timer::GetFPGATimestamp();
 	if (end - start > 0.005)
 	{
-		AsyncPrinter::Printf("Logging time overflow: %f\n", 1000 * (end - start));
+		BufferedConsole::Printf("Logging time overflow: %f\n", 1000 * (end - start));
 	}
 }
 
@@ -128,5 +129,5 @@ void Logger::RegisterLoggable(Loggable *loggable)
 	if (m_instance == NULL || !m_instance->initialized)
 		loggables.push_back(loggable);
 	else
-		AsyncPrinter::Printf("[ERROR] Logger initialized before all Loggable objects were created\n");
+		BufferedConsole::Printf("[ERROR] Logger initialized before all Loggable objects were created\n");
 }

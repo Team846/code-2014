@@ -13,7 +13,6 @@
 #include "../Config/Configurable.h"
 #include "../Logging/Loggable.h"
 #include "../Config/ConfigRuntime.h"
-#include "../Utils/AsyncPrinter.h"
 
 /*!
  * @brief Container for single solenoids and double solenoids.

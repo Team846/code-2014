@@ -1,7 +1,8 @@
 #include "Actuator.h"
 #include <ErrorBase.h>
-#include "../Utils/AsyncPrinter.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
+using namespace Rhesus::Toolkit::IO;
 using namespace std;
 
 vector<Actuator*> Actuator::actuator_vector;
@@ -25,7 +26,7 @@ void Actuator::OutputAll()
 		{
 			if (dynamic_cast<ErrorBase*>(*it)->StatusIsFatal())
 			{
-				AsyncPrinter::Printf("[ERROR] Fatal error in %s: %s\n", (*it)->GetName().c_str(), dynamic_cast<ErrorBase*>(*it)->GetError().GetMessage());
+				BufferedConsole::Printf("[ERROR] Fatal error in %s: %s\n", (*it)->GetName().c_str(), dynamic_cast<ErrorBase*>(*it)->GetError().GetMessage());
 			}
 		}
 		(*it)->Output();
