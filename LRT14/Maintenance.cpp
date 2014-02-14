@@ -2,15 +2,18 @@
 #include "Actuators/Actuator.h"
 #include "Actuators/LRTSpeedController.h"
 #include "DriverStation/LRTDriverStation.h"
-#include "Utils/AsyncPrinter.h"
 #include "Utils/Util.h"
 #include "Actuators/Pneumatics.h"
 #include "Actuators/LRTServo.h"
 #include <string>
 
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
+
 void Maintenance::Update()
 {
-    AsyncPrinter::Printf("----------Maintenance Mode----------\n");
+    BufferedConsole::Printf("----------Maintenance Mode----------\n");
     for (unsigned int i = 0; i < Actuator::actuator_vector.size(); i++)
     {
         std::string line;
@@ -56,7 +59,7 @@ void Maintenance::Update()
             line += Util::ToString(dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Get());
         }
         line += "\n";
-        AsyncPrinter::Printf(line.c_str());
+        BufferedConsole::Printf(line.c_str());
     }
-    AsyncPrinter::Printf("------------------------------------\n");
+    BufferedConsole::Printf("------------------------------------\n");
 }

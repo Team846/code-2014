@@ -2,7 +2,9 @@
 #include "LiveNetworkSendable.h"
 #include "../Config/RobotConfig.h"
 #include "../RobotState.h"
-#include "../Utils/AsyncPrinter.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 #include <Rhesus/Toolkit/GameState.h>
 

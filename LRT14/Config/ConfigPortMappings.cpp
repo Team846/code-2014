@@ -1,10 +1,11 @@
 #include "ConfigPortMappings.h"
 #include "RobotConfig.h"
-#include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
 #include <fstream>
 #include <sstream>
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
+using namespace Rhesus::Toolkit::IO;
 using namespace std;
 
 ConfigPortMappings* ConfigPortMappings::m_instance = NULL;

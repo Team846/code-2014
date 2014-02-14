@@ -1,6 +1,9 @@
 #include "LRTServo.h"
-#include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
+
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 LRTServo::LRTServo(UINT32 channel, std::string name)
     : Servo(channel)

@@ -25,6 +25,11 @@
 #include "Rhesus/Toolkit/GameState.h"
 #include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 
+#include <Rhesus/Toolkit/IO/IOUtils.h>
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
+
 bool maintenanceMode = false;
 
 LRTRobot14::LRTRobot14()
@@ -60,7 +65,6 @@ LRTRobot14::~LRTRobot14()
 	Brain::Finalize();
 	SensorFactory::Finalize();
 	LCD::Finalize();
-	AsyncPrinter::Finalize();
 	LRTDriverStation::Finalize();
 	RobotState::Finalize();
 }
@@ -71,31 +75,30 @@ void LRTRobot14::RobotInit()
 	RobotState::Initialize();
 	
 	// Initialize Utilities
-	AsyncPrinter::Initialize();
 	LCD::Instance()->Start();
 
 	// Create the Driver Station
-	AsyncPrinter::Println("Initializing Driver Station...");
+	BufferedConsole::Printfln("Initializing Driver Station...");
 	LRTDriverStation::Initialize();
 	
 	// Read port mappings
-	AsyncPrinter::Println("Loading Port Mappings...");
+	BufferedConsole::Printfln("Loading Port Mappings...");
 	ConfigPortMappings::Instance()->Load();
 	
 	// Create ComponentData
-	AsyncPrinter::Println("Creating ComponentData...");
+	BufferedConsole::Printfln("Creating ComponentData...");
 	ComponentData::Initialize();
 	
 	// Create all components
-	AsyncPrinter::Println("Creating Components...");
+	BufferedConsole::Printfln("Creating Components...");
 	Component::CreateComponents();
 	
 	// Initialize the Brain
-	AsyncPrinter::Println("Initializing Brain...");
+	BufferedConsole::Printfln("Initializing Brain...");
 	Brain::Initialize();
 	
 	// Start AsyncCANJaguar tasks
-	AsyncPrinter::Println("Starting AsyncCANJaguar Tasks...");
+	BufferedConsole::Printfln("Starting AsyncCANJaguar Tasks...");
 	for (vector<AsyncCANJaguar*>::iterator it = AsyncCANJaguar::jaguar_vector.begin(); it < AsyncCANJaguar::jaguar_vector.end(); it++)
 	{
 		(*it)->Start();
@@ -103,28 +106,28 @@ void LRTRobot14::RobotInit()
 
 #if PNEUMATICS
 	// Create and start compressor
-	AsyncPrinter::Println("Creating Pneumatics Compressor...");
+	BufferedConsole::Printfln("Creating Pneumatics Compressor...");
 	Pneumatics::CreateCompressor();
 #endif
 
 	// Initialize SensorFactory
-	AsyncPrinter::Println("Initializing Sensor Factory...");
+	BufferedConsole::Printfln("Initializing Sensor Factory...");
 	SensorFactory::Initialize();
 	
 	// Initialize localization
-	AsyncPrinter::Println("Initializing Robot Localization...");
+	BufferedConsole::Printfln("Initializing Robot Localization...");
 	RobotLocation::Initialize();
 	
 	// Initialize offboard communication
-	AsyncPrinter::Println("Initializing Offboard Communication...");
+	BufferedConsole::Printfln("Initializing Offboard Communication...");
 	OffboardCommunication::Initialize();
 
 	// Initialize the Logger
-	AsyncPrinter::Println("Initializing Logger...");
+	BufferedConsole::Printfln("Initializing Logger...");
 	Logger::Instance()->Initialize();
 	
 	// Initialize the LiveNetworkSender
-	AsyncPrinter::Println("Initializing LiveNetworkSender...");
+	BufferedConsole::Printfln("Initializing LiveNetworkSender...");
 	LiveNetworkSender::Initialize();
 	
 	// Apply runtime configuration
@@ -148,11 +151,12 @@ void LRTRobot14::Tick()
 	// Redirect all prints to a file when console is blocked during matches
 	if (RobotState::Instance().FMSAttached() && RobotState::Instance().GameMode() != GameState::DISABLED)
 	{
-		AsyncPrinter::RedirectToFile(RobotConfig::PRINT_FILE_PATH.c_str());
+//		BufferedConsole::RedirectToFile(RobotConfig::PRINT_FILE_PATH.c_str());
+		IOUtils::RedirectOutputToFile(RobotConfig::PRINT_FILE_PATH.c_str());
 	}
 	else
 	{
-		AsyncPrinter::RestoreToConsole();
+		IOUtils::RedirectOutputToConsole();
 	}
 	
 	// Zero robot location if enabled
@@ -216,12 +220,12 @@ void maintenance()
 	if (RobotState::Instance().GameMode() == GameState::DISABLED && !maintenanceMode)
 	{
 		maintenanceMode = true;
-		AsyncPrinter::Println("Maintenance mode entered");
+		BufferedConsole::Printfln("Maintenance mode entered");
 	}
 	else if (maintenanceMode)
-		AsyncPrinter::Println("Already in maintenance mode");
+		BufferedConsole::Printfln("Already in maintenance mode");
 	else
-		AsyncPrinter::Println("Please disable to enter maintenance mode");
+		BufferedConsole::Printfln("Please disable to enter maintenance mode");
 }
 
 void exit()
@@ -229,11 +233,11 @@ void exit()
 	if(RobotState::Instance().GameMode() == GameState::DISABLED && maintenanceMode)
 	{
 		maintenanceMode = false;
-		AsyncPrinter::Println("Maintenance mode exited");
+		BufferedConsole::Printfln("Maintenance mode exited");
 	}
 	else if (!maintenanceMode)
-		AsyncPrinter::Println("Not in maintenance mode");
+		BufferedConsole::Printfln("Not in maintenance mode");
 	else
-		AsyncPrinter::Println("Please disable to exit maintenance mode");
+		BufferedConsole::Printfln("Please disable to exit maintenance mode");
 }
 

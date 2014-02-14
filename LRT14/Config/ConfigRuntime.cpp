@@ -1,11 +1,13 @@
 #include "ConfigRuntime.h"
 #include "Configurable.h"
 #include "RobotConfig.h"
-#include "../Utils/AsyncPrinter.h"
 #include "../Utils/Util.h"
 #include <fstream>
 #include <sstream>
 
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 using namespace std;
 
 vector<Configurable*> ConfigRuntime::configurables; // note: static vectors must be declared in the CPP file -TP
@@ -49,7 +51,7 @@ ConfigRuntime::~ConfigRuntime()
 void ConfigRuntime::Load()
 {
 	LoadConfig(CONFIG_FILE_PATH);
-	AsyncPrinter::Printf("ConfigRuntime: Done loading %s\n", CONFIG_FILE_PATH.c_str());
+	BufferedConsole::Printf("ConfigRuntime: Done loading %s\n", CONFIG_FILE_PATH.c_str());
 	ConfigureAll();
 }
 
@@ -164,7 +166,7 @@ void ConfigRuntime::Register(Configurable* configurable)
 
 void ConfigRuntime::ConfigureAll()
 {
-	AsyncPrinter::Printf("Applying configuration to all configurables\n");
+	BufferedConsole::Printf("Applying configuration to all configurables\n");
 	for (vector<Configurable*>::iterator it = configurables.begin(); it
 			!= configurables.end(); it++)
 	{
@@ -195,7 +197,7 @@ void ConfigRuntime::LoadConfig(string path)
 
 	if (!fin.is_open())
 	{
-		AsyncPrinter::Printf("ConfigManager: Could not open %s for reading\n",
+		BufferedConsole::Printf("ConfigManager: Could not open %s for reading\n",
 				path.c_str());
 		return;
 	}
@@ -244,7 +246,7 @@ void ConfigRuntime::SaveConfig(string path)
 	ofstream fout(path.c_str());
 	if (!fout.is_open())
 	{
-		AsyncPrinter::Printf("ConfigManager: could not open %s for writing\n",
+		BufferedConsole::Printf("ConfigManager: could not open %s for writing\n",
 				path.c_str());
 	}
 
@@ -255,6 +257,6 @@ void ConfigRuntime::SaveConfig(string path)
 	
 	fout.close();
 	
-	AsyncPrinter::Printf("Done saving %s\n", path.c_str());
+	BufferedConsole::Printf("Done saving %s\n", path.c_str());
 }
 

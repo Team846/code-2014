@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "sysLib.h"
 #include "AsyncCANJaguar.h"
-#include "../Utils/AsyncPrinter.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 #define DISABLE_SETPOINT_CACHING 0
 
@@ -304,7 +306,7 @@ void AsyncCANJaguar::Tick()
 	}
 	else
 	{
-		AsyncPrinter::Printf("[ERROR] AsyncCANJaguar: %s on channel 0.\n", GetName().c_str());
+		BufferedConsole::Printf("[ERROR] AsyncCANJaguar: %s on channel 0.\n", GetName().c_str());
 	}
 }
 
@@ -550,5 +552,5 @@ float AsyncCANJaguar::GetExpiration()
 
 void AsyncCANJaguar::Println(const char* str)
 {
-	AsyncPrinter::Printf("%s: %s", GetName().c_str(), str);
+	BufferedConsole::Printf("%s: %s", GetName().c_str(), str);
 }

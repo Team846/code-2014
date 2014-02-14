@@ -24,7 +24,7 @@ void LRTRobotBase::StartCompetition()
 	m_loopSynchronizer.StartPeriodic(1.0 / 50.0);
 
 	// Start the task pool
-	TaskPool::Start();
+	TaskPool::Start(10);
 	
 	RobotInit();
 	Main();

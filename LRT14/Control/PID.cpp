@@ -1,5 +1,8 @@
 #include "PID.h"
-#include "../Utils/AsyncPrinter.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
+
 #define IIR_DECAY(FREQ) (2 * 3.14159 * (FREQ) / 50)
 
 PID::PID(double p_gain, double i_gain, double d_gain, double ff_gain,
