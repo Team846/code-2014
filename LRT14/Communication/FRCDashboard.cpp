@@ -49,7 +49,7 @@ void FRCDashboard::Flush()
 
 void FRCDashboard::EnqueueMessage(NetBuffer& buff, NetChannel::Enum method, int channel)
 {
-	instance()->EnqueueMessage(buff, method, channel);
+	instance()->enqueueMessage(buff, method, channel);
 }
 
 void FRCDashboard::tick()
