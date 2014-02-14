@@ -18,6 +18,7 @@ namespace LRT14
         private enum MessageType : byte
         {
             LOCATOR = 0x0,
+            TELEMETRY = 0x01
         }
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)
@@ -26,6 +27,7 @@ namespace LRT14
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
             setupLocator(manager, contentLibrary, tabControl);
+            setupTelemetry(manager, contentLibrary, tabControl);
         }
 
         private void setupLocator(Manager manager, ContentLibrary contentLibrary, TabControl root)
@@ -53,5 +55,29 @@ namespace LRT14
             locator.SubscribeToPacket((byte)MessageType.LOCATOR);
             locator.Parent = locatorTab;
         }
+
+        private void setupTelemetry(Manager manager, ContentLibrary contentLibrary, TabControl root)
+        {
+
+            TelemetryControl telemetry = new TelemetryControl(manager, "telemetry", "LRT14.AerialAssist.LOCATION", contentLibrary);
+            telemetry.Init();
+            telemetry.SubscribeToPacket((byte)MessageType.TELEMETRY);
+
+            TabPage telemetryTab = root.AddPageBeforeEnd();
+
+            telemetryTab.Init();
+            telemetry.Parent = telemetryTab;
+            telemetryTab.Text = "Telemetry";
+
+            telemetry.display();
+
+            Label label = new Label(manager);
+            label.Text = "dummy";
+            label.Left = 200;
+            label.Top = 200;
+            label.Init();
+            label.Parent = telemetry;
+        }
     }
 }
+ 
