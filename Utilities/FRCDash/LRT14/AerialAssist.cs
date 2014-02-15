@@ -59,24 +59,27 @@ namespace LRT14
         private void setupTelemetry(Manager manager, ContentLibrary contentLibrary, TabControl root)
         {
 
-            TelemetryControl telemetry = new TelemetryControl(manager, "telemetry", "LRT14.AerialAssist.LOCATION", contentLibrary);
+            TabPage telemetryTab = root.AddPageBeforeEnd();
+            telemetryTab.Text = "Telemetry";
+            telemetryTab.Init();
+            
+
+            TelemetryControl telemetry = new TelemetryControl(manager, "telemetry", "LRT14.AerialAssist.TELEMETRY", contentLibrary);
+
+            telemetry.topPaddingMod = 10;
+            telemetry.leftPaddingMod = 10;
+            telemetry.topMarginMod = 10;
+            telemetry.sideMarginMod = 10;
+            telemetry.textBoxHeightMod = 10;
+            telemetry.textBoxWidthMod = 20;
+            telemetry.labelInfoDistanceMod = 30;
+            telemetry.labelsMod = new String[] {"label1", "label2", "label3", "label4", "label5"};
+
             telemetry.Init();
             telemetry.SubscribeToPacket((byte)MessageType.TELEMETRY);
-
-            TabPage telemetryTab = root.AddPageBeforeEnd();
-
-            telemetryTab.Init();
             telemetry.Parent = telemetryTab;
-            telemetryTab.Text = "Telemetry";
-
             telemetry.display();
-
-            Label label = new Label(manager);
-            label.Text = "dummy";
-            label.Left = 200;
-            label.Top = 200;
-            label.Init();
-            label.Parent = telemetry;
+    
         }
     }
 }
