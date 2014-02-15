@@ -45,7 +45,11 @@ void CountingSemaphore::Take(INT32 timeout)
 bool CountingSemaphore::IsEmpty()
 {
 #ifdef __VXWORKS__
-	return (semTake(m_sem, NO_WAIT) == ERROR);
+	bool empty = (semTake(m_sem, WAIT_FOREVER) == ERROR);
+	
+	if(!empty) semGive(m_sem);
+	
+	return empty;
 #endif
 }
 

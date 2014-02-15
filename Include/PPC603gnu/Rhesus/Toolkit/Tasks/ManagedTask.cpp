@@ -19,7 +19,7 @@ void ManagedTask::Finalize()
 	{
 		if(s_managedTasks[i] != NULL)
 		{
-			DELETE(s_managedTasks[i]);
+			R_DELETE(s_managedTasks[i]);
 		}
 	}
 }
@@ -40,7 +40,7 @@ ManagedTask::~ManagedTask()
 	
 	releaseTask(this);
 	
-	DELETE(m_task);
+	R_DELETE(m_task);
 	
 	m_func = NULL;
 }

@@ -5,6 +5,8 @@
 #include "taskLib.h"
 #include "sysLib.h"
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit
@@ -55,6 +57,7 @@ namespace Tasks
 		SEM_ID m_sem;
 #endif
 		
+		R_DISALLOW_COPY_AND_ASSIGN(CountingSemaphore);
 	};
 
 }

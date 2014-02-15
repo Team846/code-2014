@@ -46,7 +46,7 @@ INT32 NetPeer:: InternalPlatformUpdateTaskWrapper(UINT32 instance)
 {
 	// vxworks specific code
 
-	printf("Update task started. \n");
+	//printf("Update task started. \n");
 	
 	NetPeer* conn = (NetPeer*)instance;
 	
@@ -63,7 +63,7 @@ INT32 NetPeer::InternalPlatformMessageVerificationTaskWrapper(UINT32 instance)
 {
 	// vxworks specific code
 	
-	printf("Message check task started. \n");
+	//printf("Message check task started. \n");
 
 	NetPeer* conn = (NetPeer*)instance;
 	

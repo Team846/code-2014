@@ -42,7 +42,7 @@ namespace Tasks
 			if (t->cptr != NULL)
 				(t->cptr)(retCode);
 
-			DELETE(t);
+			R_DELETE(t);
 
 			return 0;
 		}
@@ -70,6 +70,8 @@ namespace Tasks
 			t->arg7 = arg7;
 			return t;
 		}
+		
+		R_DISALLOW_COPY_AND_ASSIGN(do_async_static);
 		
 //		RhesusTask& m_asyncTask;
 //		

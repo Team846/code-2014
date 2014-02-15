@@ -8,6 +8,8 @@
 
 #include "Mutex.h"
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit

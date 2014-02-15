@@ -36,7 +36,7 @@ ManagedTalon::ManagedTalon(std::string name, UINT8 moduleNumber, UINT32 port, UI
 
 ManagedTalon::~ManagedTalon()
 {
-	DELETE(m_jumper);
+	R_DELETE(m_jumper);
 }
 
 void ManagedTalon::Update()

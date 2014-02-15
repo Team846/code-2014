@@ -24,7 +24,7 @@ void Profiler::Clear()
 		
 		for(std::hash_map<string, Stopwatch*>::iterator it = s_profilers.begin(); it != s_profilers.end(); ++it)
 		{
-			DELETE(it->second);
+			R_DELETE(it->second);
 		}
 			
 		s_profilers.clear();
@@ -77,7 +77,7 @@ double Profiler::End(string taskName)
 		
 		elapsedMilliseconds = sw->TotalElapsedMilliseconds();
 		
-		DELETE(sw);
+		R_DELETE(sw);
 		
 		if(s_averageTimes.find(taskName) == s_averageTimes.end())
 		{

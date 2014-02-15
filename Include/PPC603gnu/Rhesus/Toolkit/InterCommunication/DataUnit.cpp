@@ -11,6 +11,11 @@ DataUnit::DataUnit()
 {
 }
 
+DataUnit::~DataUnit()
+{
+	R_DELETE(m_syncObject);
+}
+
 template<typename T>
 void DataUnit::Set(string key, T value)
 {
@@ -26,7 +31,7 @@ template<typename T>
 T DataUnit::Get(string key)
 {
 	{
-		lock_on l(m_syncObject);
+		lock_on l(*m_syncObject);
 		
 		if(m_dataMap.find(key) != m_dataMap.end())
 			return m_dataMap[key];
@@ -43,7 +48,7 @@ T DataUnit::Get(string key)
 void DataUnit::Clear()
 {
 	{
-		lock_on l(m_syncObject);
+		lock_on l(*m_syncObject);
 		
 		m_dataMap.clear();
 	}

@@ -35,7 +35,7 @@ void ActionManager::RunAll()
 
 				act->Run();
 
-				DELETE(act); 
+				R_DELETE(act); 
 			}
 
 		}

@@ -22,7 +22,7 @@ namespace Utilities
 			if(x == NULL)
 				return true;
 			
-			DELETE(x);
+			R_DELETE(x);
 			
 			return true;
 		}
