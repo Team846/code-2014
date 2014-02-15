@@ -67,7 +67,7 @@ namespace Utilities
 		
 		~Generic()
 		{
-			DELETE(m_storedValue);
+			R_DELETE(m_storedValue);
 		}
 		
 		/*!

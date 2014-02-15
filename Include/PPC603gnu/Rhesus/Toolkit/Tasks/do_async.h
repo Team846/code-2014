@@ -3,6 +3,8 @@
 
 #include "TaskPool.h"
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit
@@ -104,6 +106,8 @@ namespace Tasks
 			t->arg7 = arg7;
 			return t;
 		}
+		
+		R_DISALLOW_COPY_AND_ASSIGN(do_async);
 	
 		//		INT32 do_func(UINT32 p0, UINT32 p1, UINT32 p2, UINT32 p3, UINT32 p4, UINT32 p5,
 		//											UINT32 p6, UINT32 p7)

@@ -5,6 +5,8 @@
 #include "taskLib.h"
 #include "sysLib.h"
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit
@@ -26,10 +28,6 @@ namespace Tasks
 		~BinarySemaphore();
 		
 		BinarySemaphore(int options, UINT32 state);
-		
-#ifdef __VXWORKS__
-		explicit BinarySemaphore(SEM_ID s);
-#endif
 		
 		/*!
 		 * Gives the semaphore
@@ -57,6 +55,7 @@ namespace Tasks
 		SEM_ID m_sem;
 #endif
 		
+		R_DISALLOW_COPY_AND_ASSIGN(BinarySemaphore);
 	};
 
 }

@@ -5,6 +5,8 @@
 
 #include <WPILib.h>
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit
@@ -41,7 +43,7 @@ namespace Tasks
 		T* m_lockObj;
 		Mutex& m_mutex;
 		
-		DISALLOW_COPY_AND_ASSIGN(lock_ptr);
+		R_DISALLOW_COPY_AND_ASSIGN(lock_ptr);
 	};
 }
 }

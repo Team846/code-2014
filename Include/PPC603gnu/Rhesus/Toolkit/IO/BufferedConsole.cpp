@@ -29,11 +29,11 @@ void BufferedConsole::Printfln(std::string msg, ...)
 	vsprintf(buffer, msg.c_str(), args);
 	va_end(args);
 	
-	string n(buffer);
+	string* n = new string(buffer);
 	
 //	std::printf("ENQUED...");
 	
-	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)&n);
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)n);
 }
 
 void BufferedConsole::Printf(std::string msg, ...)
@@ -59,17 +59,17 @@ void BufferedConsole::Printf(std::string msg, ...)
 	vsprintf(buffer, msg.c_str(), args);
 	va_end(args);
 	
-	string n(buffer);
+	string* n = new string(buffer);
 	
 //	std::printf("3: %s\n", n.c_str());
 	
-	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)&n);
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)n);
 }
 
 void BufferedConsole::InternalPrintWrapper(std::string* params)
 {
-	std::printf("F: %s", params->c_str());
-	DELETE(params);
+	std::printf("%s", params->c_str());
+	R_DELETE(params);
 }
 
 

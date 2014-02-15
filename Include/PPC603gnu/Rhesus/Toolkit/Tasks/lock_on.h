@@ -3,6 +3,8 @@
 
 #include "Mutex.h"
 
+#include "../Defines.h"
+
 namespace Rhesus
 {
 namespace Toolkit
@@ -25,6 +27,8 @@ namespace Tasks
 		
 	private:
 		Mutex& m_syncObj;
+		
+		R_DISALLOW_COPY_AND_ASSIGN(lock_on);
 	};
 }
 }

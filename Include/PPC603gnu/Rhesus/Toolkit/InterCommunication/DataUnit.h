@@ -1,6 +1,8 @@
 #ifndef RHESUS_COMPONENTDATA_H_
 #define RHESUS_COMPONENTDATA_H_
 
+#include "../Defines.h"
+
 #include <string>
 #include <hash_map>
 
@@ -23,6 +25,7 @@ namespace InterCommunication
 	{
 	public:
 		DataUnit();
+		~DataUnit();
 		
 		/*!
 		 * Sets a specified value at a specified key
@@ -49,7 +52,7 @@ namespace InterCommunication
 
 		DataMap m_dataMap;
 		
-		Rhesus::Toolkit::Tasks::Mutex m_syncObject;
+		Rhesus::Toolkit::Tasks::Mutex* m_syncObject;
 	};
 
 }
