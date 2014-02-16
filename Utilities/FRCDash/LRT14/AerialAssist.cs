@@ -65,7 +65,8 @@ namespace LRT14
             
 
             TelemetryControl telemetry = new TelemetryControl(manager, "telemetry", "LRT14.AerialAssist.TELEMETRY", contentLibrary);
-
+            telemetry.Width = telemetryTab.ClientWidth - 4;
+            telemetry.Height = telemetryTab.ClientHeight - 4;
             telemetry.topPaddingMod = 10;
             telemetry.leftPaddingMod = 10;
             telemetry.topMarginMod = 10;
@@ -74,11 +75,20 @@ namespace LRT14
             telemetry.textBoxWidthMod = 20;
             telemetry.labelInfoDistanceMod = 30;
             telemetry.labelsMod = new String[] {"label1", "label2", "label3", "label4", "label5"};
-
             telemetry.Init();
             telemetry.SubscribeToPacket((byte)MessageType.TELEMETRY);
             telemetry.Parent = telemetryTab;
             telemetry.display();
+
+            /*
+            Label label = new Label(manager);
+            label.Init();
+            label.Text = "testing";
+            label.Top = 100;
+            label.Left = 100;
+            label.Parent = telemetryTab;
+            */
+
     
         }
     }
