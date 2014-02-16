@@ -141,6 +141,11 @@ namespace RhesusNet.NET
 	        return InternalReadByte(8);
         }
 
+        public sbyte ReadSByte()
+        {
+            return (sbyte)InternalReadByte(8);
+        }
+        
         public byte[] ReadBytes()
         {
 	        ushort len = (ushort)InternalReadInteger(sizeof(ushort) * 8);
@@ -165,7 +170,7 @@ namespace RhesusNet.NET
             return (long)InternalReadInteger(sizeof(long) * 8);
         }
 
-        public uint Readuint()
+        public uint ReadUInt32()
         {
             return (uint)InternalReadInteger(sizeof(uint) * 8);
         }
@@ -173,6 +178,11 @@ namespace RhesusNet.NET
         public int ReadInt32()
         {
 	        return (int)InternalReadInteger(sizeof(int) * 8);
+        }
+
+        public short ReadUInt16()
+        {
+            return (ushort)InternalReadInteger(sizeof(ushort) * 8);
         }
 
         public short ReadInt16()
@@ -189,7 +199,7 @@ namespace RhesusNet.NET
 
         public float ReadFloat()
         {
-            uint packed = Readuint();
+            uint packed = ReadUInt32();
 
             return NetUtil.UnpackFloat(packed);
         }
