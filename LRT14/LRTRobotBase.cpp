@@ -1,14 +1,12 @@
 #include "LRTRobotBase.h"
 #include <sysLib.h>
-#include <Rhesus/Toolkit/Tasks/TaskPool.h>
 
 using namespace Rhesus::Toolkit::Tasks;
 
 LRTRobotBase::LRTRobotBase()
-: m_loopSynchronizer((TimerEventHandler) LRTRobotBase::ReleaseLoop, this)
+: m_loopSynchronizer((TimerEventHandler) LRTRobotBase::ReleaseLoop, this),
+  m_loopSynchSem(0)
 {
-	m_loopSynchSem = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
-	semTake(m_loopSynchSem, WAIT_FOREVER);
 }
 
 LRTRobotBase::~LRTRobotBase()
@@ -37,7 +35,7 @@ void LRTRobotBase::Main()
 {
 	while(true)
 	{
-		semTake(m_loopSynchSem, WAIT_FOREVER);
+		m_loopSynchSem.Take(SyncObject::TIMEOUT_WAIT_FOREVER);
 		Tick();
 	}
 }
@@ -50,5 +48,5 @@ void LRTRobotBase::Tick()
 void LRTRobotBase::ReleaseLoop(void *param)
 {
 	LRTRobotBase *robot = (LRTRobotBase *) param;
-	semGive(robot->m_loopSynchSem);
+	robot->m_loopSynchSem.Give();
 }

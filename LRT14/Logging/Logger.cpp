@@ -9,6 +9,7 @@
 using namespace std;
 using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Tasks;
 
 Logger *Logger::m_instance = NULL;
 vector<Loggable*> Logger::loggables;
@@ -60,7 +61,6 @@ void Logger::Initialize()
 	fclose(header);
 	fields.clear();
 	initialized = true;
-	m_writeSem = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
 	Start();
 }
 
@@ -89,29 +89,34 @@ void Logger::Run()
 			file = fopen(RobotConfig::LOG_FILE_PATH.c_str(), "wb");
 #endif
 		curLoc = (char*)startLoc;
-		Synchronized s(m_writeSem);
-		for (vector<Loggable*>::iterator it = loggables.begin(); it < loggables.end(); it++)
+		
+		lock_on l(m_syncRoot);
 		{
-			(*it)->Log();
+			for (vector<Loggable*>::iterator it = loggables.begin(); it < loggables.end(); it++)
+			{
+				(*it)->Log();
+			}
+			RunOneCycle();
 		}
-		RunOneCycle();
 	}
 }
 
 void Logger::Tick()
 {
-	Synchronized s(m_writeSem);
-	double start = Timer::GetFPGATimestamp();
-#ifdef USE_IOLIB
-	write(file, (char*)startLoc, dataSize);
-#else
-	fwrite(startLoc, dataSize, 1, file);
-	fflush(file);
-#endif
-	double end = Timer::GetFPGATimestamp();
-	if (end - start > 0.005)
+	lock_on l(m_syncRoot);
 	{
-		BufferedConsole::Printf("Logging time overflow: %f\n", 1000 * (end - start));
+		double start = Timer::GetFPGATimestamp();
+	#ifdef USE_IOLIB
+		write(file, (char*)startLoc, dataSize);
+	#else
+		fwrite(startLoc, dataSize, 1, file);
+		fflush(file);
+	#endif
+		double end = Timer::GetFPGATimestamp();
+		if (end - start > 0.005)
+		{
+			BufferedConsole::Printf("Logging time overflow: %f\n", 1000 * (end - start));
+		}
 	}
 }
 

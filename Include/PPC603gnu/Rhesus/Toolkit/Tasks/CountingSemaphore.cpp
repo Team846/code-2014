@@ -1,5 +1,7 @@
 #include "CountingSemaphore.h"
 
+#include "SyncObject.h"
+
 #ifdef __VXWORKS__
 #include <semLib.h>
 #include <taskLib.h>
@@ -31,8 +33,7 @@ void CountingSemaphore::Give()
 
 void CountingSemaphore::Take()
 {
-	// TODO -1 may not be forever on all platforms
-	Take(-1);
+	Take(SyncObject::TIMEOUT_WAIT_FOREVER);
 }
 
 void CountingSemaphore::Take(INT32 timeout)
@@ -45,7 +46,7 @@ void CountingSemaphore::Take(INT32 timeout)
 bool CountingSemaphore::IsEmpty()
 {
 #ifdef __VXWORKS__
-	bool empty = (semTake(m_sem, WAIT_FOREVER) == ERROR);
+	bool empty = (semTake(m_sem, SyncObject::TIMEOUT_NO_WAIT) == ERROR);
 	
 	if(!empty) semGive(m_sem);
 	

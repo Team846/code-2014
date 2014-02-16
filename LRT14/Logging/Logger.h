@@ -1,7 +1,6 @@
 #ifndef LOGGER_H_
 #define LOGGER_H_
 
-#define USE_IOLIB
 #ifdef USE_IOLIB
 #include <ioLib.h>
 #endif
@@ -9,6 +8,7 @@
 #include <vector>
 #include <typeinfo>
 #include <sstream>
+#include <Rhesus.Toolkit.Tasks.h>
 #include "../Utils/Util.h"
 #include "../Process/SynchronizedProcess.h"
 
@@ -117,7 +117,7 @@ private:
 	std::size_t dataSize;
 	char* curLoc;
 	void* startLoc;
-	SEM_ID m_writeSem;
+	Rhesus::Toolkit::Tasks::Mutex m_syncRoot;
 };
 
 #endif /* LOGGER_H_ */

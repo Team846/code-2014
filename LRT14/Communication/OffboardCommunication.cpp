@@ -1,6 +1,7 @@
 #include "OffboardCommunication.h"
 
 using namespace std;
+using namespace Rhesus::Toolkit::Tasks;
 
 OffboardCommunication *OffboardCommunication::m_instance = NULL;
 
@@ -31,9 +32,6 @@ OffboardCommunication::OffboardCommunication() :
 	buffers[GAME_PIECE_TRACKING].reserve(16);
 	buffers[LIDAR].reserve(4324); // Three sets of 360 ints and one float
 	buffer.reserve(4324);
-	sem[AUTO_AIM] = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
-	sem[GAME_PIECE_TRACKING] = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
-	sem[LIDAR] = semBCreate(SEM_Q_PRIORITY, SEM_FULL);
 	currentStream = UNSET;
 	currentState = WAIT_HEADER;
 }
@@ -70,10 +68,13 @@ void OffboardCommunication::Tick()
 			{
 				if (FlagToStream((Flag)byte) == currentStream)
 				{
-					semTake(sem[currentStream], WAIT_FOREVER);
-					buffers[currentStream].clear();
-					buffers[currentStream].insert(buffers[currentStream].begin(), buffer.begin(), buffer.end());
-					semGive(sem[currentStream]);
+					{
+						lock_on l(m_syncRoot[currentStream]);
+						{
+							buffers[currentStream].clear();
+							buffers[currentStream].insert(buffers[currentStream].begin(), buffer.begin(), buffer.end());
+						}
+					}
 					currentStream = UNSET;
 					currentState = WAIT_HEADER;
 					break;
@@ -90,7 +91,9 @@ void OffboardCommunication::Tick()
 
 void OffboardCommunication::Read(OffboardCommunication::Stream stream, vector<char> &buffer)
 {
-	Synchronized s(sem[stream]);
-	buffer.clear();
-	buffer.insert(buffer.begin(), buffers[stream].begin(), buffers[stream].end());
+	lock_on l(m_syncRoot[stream]);
+	{
+		buffer.clear();
+		buffer.insert(buffer.begin(), buffers[stream].begin(), buffers[stream].end());
+	}
 }

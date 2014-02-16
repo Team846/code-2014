@@ -1,5 +1,7 @@
 #include "BinarySemaphore.h"
 
+#include "SyncObject.h"
+
 #ifdef __VXWORKS__
 #include <semLib.h>
 #include <taskLib.h>
@@ -38,8 +40,7 @@ void BinarySemaphore::Give()
 
 void BinarySemaphore::Take()
 {
-	// TODO -1 may not be forever on all platforms
-	Take(-1);
+	Take(SyncObject::TIMEOUT_WAIT_FOREVER);
 }
 
 void BinarySemaphore::Take(int timeout)
