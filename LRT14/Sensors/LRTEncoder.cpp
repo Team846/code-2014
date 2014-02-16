@@ -1,6 +1,6 @@
 #include "LRTEncoder.h"
 
-LRTEncoder::LRTEncoder(const char* name, uint32_t sourceA, uint32_t sourceB, double trim) :
+LRTEncoder::LRTEncoder(std::string name, uint32_t sourceA, uint32_t sourceB, double trim) :
 	Encoder(sourceA, sourceB, false, CounterBase::k4X),
 	Loggable(name),
 	trim(trim)

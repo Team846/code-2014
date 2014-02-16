@@ -348,7 +348,7 @@ public:
 	 * @brief Kills the current process with an exit message
 	 * @param message
 	 */
-	static void Die(const char* message);
+	static void Die(std::string message);
 	
 	/*!
 	 * @brief Prints the message if the test fails
@@ -356,7 +356,7 @@ public:
 	 * @param message the message to be printed
 	 * @return whether or not the test was passed
 	 */
-	static bool Assert(bool test, const char* message);
+	static bool Assert(bool test, std::string message);
 };
 
 #endif

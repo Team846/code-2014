@@ -5,7 +5,7 @@ using namespace std;
 map<ControlResource::Enum, int> Automation::allocated;
 vector<Automation*> Automation::automation_vector;
 
-Automation::Automation(const char* name, bool requiresAbortCycles, bool queueIfBlocked, bool restartable)
+Automation::Automation(std::string name, bool requiresAbortCycles, bool queueIfBlocked, bool restartable)
 {
 	m_startEvent = NULL;
 	m_abortEvent = NULL;
@@ -166,7 +166,7 @@ bool Automation::RequiresAbortCycles()
 	return m_requiresAbortCycles;
 }
 
-const char* Automation::GetName()
+std::string Automation::GetName()
 {
 	return m_name;
 }

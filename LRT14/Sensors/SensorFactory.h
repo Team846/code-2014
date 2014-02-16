@@ -21,7 +21,7 @@ public:
 	
 	static AnalogChannel* GetAnalogChannel(uint32_t port);
 	static DigitalInput* GetDigitalInput(uint32_t port);
-	static LRTEncoder* GetLRTEncoder(const char *name, uint32_t portA, uint32_t portB);
+	static LRTEncoder* GetLRTEncoder(std::string name, uint32_t portA, uint32_t portB);
 	static Counter* GetCounter(uint32_t port);
 	static GearTooth* GetGearTooth(uint32_t port);
 	

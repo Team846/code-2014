@@ -17,7 +17,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Sequential(const char* name, bool queueIfBlocked = false, bool restartable = false);
+	Sequential(std::string name, bool queueIfBlocked = false, bool restartable = false);
 	
 	/*!
 	 * @brief Creates a sequential routine initialized with a sequence of routines.
@@ -26,7 +26,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Sequential(const char* name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
+	Sequential(std::string name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Sequential();
 
 	virtual bool Start();

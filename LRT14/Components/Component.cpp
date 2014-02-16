@@ -16,7 +16,7 @@ using namespace Rhesus::Toolkit;
 
 vector<Component*> Component::component_vector;
 
-Component::Component(const char* name, int driverStationDigitalIn) :
+Component::Component(std::string name, int driverStationDigitalIn) :
 	m_name(name), m_digitalIn(driverStationDigitalIn)
 {
 	m_lastEnabled = false;
@@ -83,7 +83,7 @@ void Component::Update()
 	}
 }
 
-const char* Component::GetName()
+std::string Component::GetName()
 {
 	return m_name;
 }

@@ -74,7 +74,7 @@ Counter* SensorFactory::GetCounter(uint32_t port)
 	return m_counters[port];
 }
 
-LRTEncoder* SensorFactory::GetLRTEncoder(const char *name, uint32_t portA, uint32_t portB)
+LRTEncoder* SensorFactory::GetLRTEncoder(std::string name, uint32_t portA, uint32_t portB)
 {
 	if (m_encoders.find(pair<uint32_t, uint32_t>(portA, portB)) == m_encoders.end())
 	{
