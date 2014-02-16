@@ -12,7 +12,8 @@ namespace RhesusNet.NET
         byte[] m_internalBuffer;
 		uint m_internalBufferSize;
 		int m_internalBitPos;
-		
+        int m_bufferInitSize;
+
 		bool m_isReadOnly;
 		bool m_sent;
 
@@ -51,6 +52,7 @@ namespace RhesusNet.NET
             }
 
 	        m_internalBufferSize = Convert.ToUInt32(size);
+            m_bufferInitSize = buff != null ? size : -1;
 	
 	        m_isReadOnly = buff != null;
 	        m_sent = false;

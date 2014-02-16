@@ -5,6 +5,9 @@
 
 #include "../Communication/Dashboard2.h"
 
+#include <Rhesus.Toolkit.IO.h>
+
+using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Tasks;
 
 RobotLocation *RobotLocation::m_instance = NULL;
@@ -105,7 +108,13 @@ void RobotLocation::Log()
 
 void RobotLocation::Send()
 {
-	Dashboard2::EnqueueLocatorMessage(x, y, theta);
+	double totTime = RobotState::Instance().TotalTime();
+	double xTx = x;
+	double yTx = y;
+	double thetaTx = theta;
+	
+	Dashboard2::EnqueueLocatorMessage(totTime, xTx, yTx, thetaTx);
+	
 	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta), "Data", "Location");
 }
 

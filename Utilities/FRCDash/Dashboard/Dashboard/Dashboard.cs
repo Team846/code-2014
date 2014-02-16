@@ -113,7 +113,7 @@ namespace Dashboard
                 _ncp = new NetConsoleProvider(_console, "10.8.46.2");
                 _ncp.Start();
 
-                NetworkManager.Start("127.0.0.1", 846);
+                NetworkManager.Start("10.8.46.2", 1140);
             }
 
             _console.Parent = console;

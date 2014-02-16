@@ -3,6 +3,10 @@
 #include "../../Config/DriverStationConfig.h"
 #include "../../RobotState.h"
 #include "../Events/JoystickReleasedEvent.h"
+#include "../../DriverStation/LRTDriverStation.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 Collect::Collect() :
 	Automation("Collect", true),
@@ -10,7 +14,7 @@ Collect::Collect() :
 {
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
-	m_gearTooth = SensorFactory::GetGearTooth(ConfigPortMappings::Get("Digital/COLLECTOR_GEAR_TOOTH"));
+	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_redChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_RED"));
 	m_greenChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_GREEN"));
 	m_blueChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_BLUE"));
@@ -58,8 +62,8 @@ bool Collect::Run()
 				wrongBall = true;
 			}
 		}
-		
-		if (1 / m_gearTooth->GetPeriod() < m_ballCollectionThreshold && !wrongBall)
+
+		if (m_proximity->Get() == 0)
 		{
 			m_collectorRollers->SetRunning(false);
 			m_hasBall = true;
@@ -77,7 +81,8 @@ bool Collect::Run()
 bool Collect::Abort()
 {
 	if (m_hasBall && dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())
-			&& ((JoystickReleasedEvent*)GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT)
+			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT
+			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetJoystick() == LRTDriverStation::Instance()->GetDriverStick())
 	{
 		return false;
 	}
@@ -86,7 +91,6 @@ bool Collect::Abort()
 
 void Collect::Configure()
 {
-	m_ballCollectionThreshold = GetConfig("ball_collection_threshold", 0);
 	m_redBallRed = GetConfig("red_ball_red", 0);
 	m_redBallBlue = GetConfig("red_ball_blue", 0);
 	m_redBallGreen = GetConfig("red_ball_green", 0);
