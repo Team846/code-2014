@@ -4,8 +4,8 @@
 using namespace Rhesus::Toolkit::Tasks;
 
 LRTRobotBase::LRTRobotBase()
-: m_loopSynchronizer((TimerEventHandler) LRTRobotBase::ReleaseLoop, this),
-  m_loopSynchSem(0)
+	: m_loopSynchronizer((TimerEventHandler) LRTRobotBase::ReleaseLoop, this),
+	  m_loopSynchSem(0)
 {
 }
 
@@ -16,7 +16,7 @@ LRTRobotBase::~LRTRobotBase()
 
 void LRTRobotBase::StartCompetition()
 {
-	printf("vxWorks task: %s\n", m_task->GetName()); //Maybe this line was crashing it...
+	printf("vxWorks task: %s\n", m_task->GetName());
 
 	GetWatchdog().SetEnabled(false);
 	m_loopSynchronizer.StartPeriodic(1.0 / 50.0);

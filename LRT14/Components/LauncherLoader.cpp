@@ -15,6 +15,7 @@ LauncherLoader::LauncherLoader() :
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
 	m_desiredRotation = 0;
+	m_desiredZero = 0;
 	m_currentSensorValue = m_sensor->GetAverageValue();
 	m_lastRawSensorValue = m_sensor->GetAverageValue();
 	m_currentSetpoint = m_sensor->GetAverageValue();
@@ -40,6 +41,9 @@ void LauncherLoader::OnDisabled()
 void LauncherLoader::UpdateEnabled()
 {
 	int currentValue = m_sensor->GetAverageValue() - m_desiredZero;
+	if (currentValue < 0)
+		currentValue += m_maxSensorValue;
+	
 	if (currentValue < m_wrapThreshold && m_lastRawSensorValue > m_maxSensorValue - m_wrapThreshold)
 	{
 		m_currentRotation++;
@@ -55,7 +59,7 @@ void LauncherLoader::UpdateEnabled()
 	{
 		m_desiredRotation = m_currentRotation + 1;
 		m_load = false;
-	} 
+	}
 	else if (m_loaderData->GetLoad())
 	{
 		m_load = true;
@@ -64,6 +68,7 @@ void LauncherLoader::UpdateEnabled()
 	if (m_loaderData->GetPurge())
 	{
 		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * m_maxSensorValue;
+		m_load = false;
 	}
 	else
 	{
