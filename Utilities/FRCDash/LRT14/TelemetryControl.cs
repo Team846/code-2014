@@ -19,16 +19,36 @@ using Dashboard.Library.Persistence;
 
 namespace LRT14
 {
-    class TelemetryControl : DashboardControl
+    public class TelemetryControl : DashboardControl
     {
-        private int topPadding;
-        private int leftPadding;
-        private int topMargin;
-        private int sideMargin;
-        private int textBoxHeight;
-        private int textBoxWidth;
-        private int labelInfoDistance;
-        private String[] labels;
+        private enum FieldDatatype : byte
+        {
+            INT8 = 0x00,
+            INT16 = 0x01,
+            INT32 = 0x02,
+            INT64 = 0x03,
+            UINT8 = 0x04,
+            UINT16 = 0x05,
+            UINT32 = 0x06,
+            UINT64 = 0x07,
+            FLOAT = 0x08,
+            DOUBLE = 0x09,
+            STRING = 0x0A,
+
+        }
+
+        private int _topPadding;
+        private int _leftPadding;
+        private int _topMargin;
+        private int _sideMargin;
+        private int _textBoxHeight;
+        private int _textBoxWidth;
+        private int _labelInfoDistance;
+        //private String[] _labels;
+        //private short[] _idInfos;
+        private Dictionary<short, FieldDatatype> _idDatatype; 
+        private Dictionary<short, string> _idLabel;
+        private Dictionary<short, string> _idData;
 
         private string id;
         private string persistenceKey;
@@ -41,104 +61,197 @@ namespace LRT14
             this.persistenceKey = persistenceKey;
             this.content = content;
 
-            Color = Color.Transparent;
-            BackColor = Color.Aqua;
+            Color = new Color(30, 30, 30);
         }
 
         public void display()
         {
-
-
-            for (int i = 0; i < labels.Length; i++)
+            int i = 0;
+            foreach(KeyValuePair<short, string> kvp in _idLabel)
             {
                 Label label = new Label(Manager);
-                //label.Text = labels[i];
-                label.Text = "hi";
-                label.Left = leftPadding;
-                label.Top = topPadding + topMargin * i + textBoxHeight * i;
-                //label.Color = Color.Red;
-                label.Parent = this;
                 label.Init();
+                label.Text = kvp.Value;
+                label.Left = _leftPadding;
+                label.Top = _topPadding + _topMargin * i + _textBoxHeight * i;
+                label.Parent = this;
 
 
-                Label info = new Label(Manager);
-                info.Text = "data";
-                info.Left = label.Left + labelInfoDistance;
+                TextBox info = new TextBox(Manager);
+                info.Init();
+                //info.Text = IdInfos[i].ToString();
+                if (IdData.ContainsKey(kvp.Key))
+                {
+                    info.Text = IdData[kvp.Key];
+                }
+                else
+                {
+                    info.Text = "<???>";
+                }
+
+
+                info.Left = label.Left + _labelInfoDistance;
                 info.Top = label.Top;
                 info.Parent = this;
-                info.Init();
+
+                i++;
 
                 
-            }
-            
-            
+            }  
         }
 
-        public int topPaddingMod
+        public int TopPadding
         {
-            get { return topPadding; }
-            set { topPadding = value; }
+            get { return _topPadding; }
+            set { _topPadding = value; }
         }
 
-        public int leftPaddingMod
+        public int LeftPadding
         {
-            get { return leftPadding;}
-            set { leftPadding = value;}
+            get { return _leftPadding;}
+            set { _leftPadding = value;}
         }
 
-        public int topMarginMod
+        public int TopMargin
         {
-            get { return topMargin; }
-            set { topMargin = value; }
+            get { return _topMargin; }
+            set { _topMargin = value; }
         }
 
-        public int sideMarginMod
+        public int SideMargin
         {
-            get { return sideMargin; }
-            set { sideMargin = value; }
+            get { return _sideMargin; }
+            set { _sideMargin = value; }
         }
 
-        public int textBoxHeightMod
+        public int TextBoxHeight
         {
-            get { return textBoxHeight; }
-            set { textBoxHeight = value; }
+            get { return _textBoxHeight; }
+            set { _textBoxHeight = value; }
         }
 
-        public int textBoxWidthMod
+        public int TextBoxWidth
         {
-            get { return textBoxHeight; }
-            set { textBoxHeight = value; }
+            get { return _textBoxHeight; }
+            set { _textBoxHeight = value; }
         }
 
-        public String[] labelsMod
+        public int LabelInfoDistance
         {
-            get { return labels; }
-            set{labels = value;}
+            get{return _labelInfoDistance;}
+            set{_labelInfoDistance = value;}
         }
 
-        public int labelInfoDistanceMod
+        /*
+        public String[] Labels
         {
-            get{return labelInfoDistance;}
-            set{labelInfoDistance = value;}
+            get { return _labels; }
+            set { _labels = value; }
         }
-
-
-
-    }
-
-
-    class teleData
-    {
-
-        public string getData(string id)
-        {
-
-
-            return null;
-
-        }
+        */
 
         
-    }
+        public Dictionary<short, FieldDatatype> IdDatatype
+        {
+            get {return _idDatatype;}
+            set {_idDatatype = value;}
+        }
+         
 
+        public Dictionary<short, String> IdLabel
+        {
+            get { return _idLabel; }
+            set { _idLabel = value; }
+        }
+
+        public Dictionary<short, String> IdData
+        {
+            get { return _idData; }
+            set{_idData = value;}
+        }
+
+
+
+        public void telem_init()
+        {
+            NetBuffer nb;
+
+            while ((nb = ReadMessage()) != null)
+            {
+
+                short field = nb.ReadInt16();
+
+                for (int i = 0; i < field; i++)
+                {
+                    string label = nb.ReadString();
+                    short id = nb.ReadInt16();
+                    byte datatype = nb.ReadByte();
+
+                    IdData.Add(id, null);
+                    IdDatatype.Add(id, (FieldDatatype)datatype);
+                    IdLabel.Add(id, label);
+                }
+            }
+        }
+
+        public void telem_update()
+        {
+            NetBuffer nb;
+
+            while ((nb = ReadMessage()) != null)
+            {
+                short field = nb.ReadInt16();
+
+                for (int i = 0; i < field; i++)
+                {
+                    short id = nb.ReadInt16();
+                    string data = "???";
+
+                    if (IdDatatype.ContainsKey(id))
+                    {
+                        switch (IdDatatype[id])
+                        {
+                            case FieldDatatype.INT8:
+                                data = nb.ReadSByte().ToString();
+                                break;
+                            case FieldDatatype.INT16:
+                                data = nb.ReadInt16().ToString();
+                                break;
+                            case FieldDatatype.INT32:
+                                data = nb.ReadInt32().ToString();
+                                break;
+                            case FieldDatatype.INT64:
+                                data = nb.ReadInt64().ToString();
+                                break;
+                            case FieldDatatype.UINT8:
+                                data= nb.ReadByte().ToString();
+                                break;
+                            case FieldDatatype.UINT16:
+                                data = nb.ReadUInt16().ToString();
+                                break;
+                            case FieldDatatype.UINT32:
+                                data = nb.ReadUInt32().ToString();
+                                break;
+                            case FieldDatatype.UINT64:
+                                data = nb.ReadUInt64().ToString();
+                                break;
+                            case FieldDatatype.FLOAT:
+                                data = nb.ReadFloat().ToString();
+                                break;
+                            case FieldDatatype.DOUBLE:
+                                data = nb.ReadDouble().ToString();
+                                break;
+                            case FieldDatatype.STRING:
+                                data = nb.ReadString();
+                                break;
+
+                        }
+                    }
+
+                    IdData[id] = data;
+ 
+                }
+            }            
+        }
+    }
 }

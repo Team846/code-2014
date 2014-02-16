@@ -69,17 +69,19 @@ namespace LRT14
             telemetry.Left = 2;
             telemetry.Width = telemetryTab.ClientWidth - 4;
             telemetry.Height = telemetryTab.ClientHeight - 4;
-            telemetry.topPaddingMod = 10;
-            telemetry.leftPaddingMod = 10;
-            telemetry.topMarginMod = 10;
-            telemetry.sideMarginMod = 10;
-            telemetry.textBoxHeightMod = 10;
-            telemetry.textBoxWidthMod = 20;
-            telemetry.labelInfoDistanceMod = 30;
-            telemetry.labelsMod = new String[] {"label1", "label2", "label3", "label4", "label5"};
+            telemetry.TopPadding = 10;
+            telemetry.LeftPadding = 10;
+            telemetry.TopMargin = 10;
+            telemetry.SideMargin = 10;
+            telemetry.TextBoxHeight = 10;
+            telemetry.TextBoxWidth = 20;
+            telemetry.LabelInfoDistance = 50;
+            //telemetry.Labels = new String[] {"label1", "label2", "label3", "label4", "label5"};
             telemetry.Init();
             telemetry.SubscribeToPacket((byte)MessageType.TELEMETRY);
             telemetry.Parent = telemetryTab;
+            telemetry.telem_init();
+            telemetry.telem_update();
             telemetry.display();
 
             /*
