@@ -142,13 +142,9 @@ static int TimeoutCallback(...)
 
 void LRTRobot14::Tick()
 {
-	static int e = 0;
-	
 	wdStart(_watchdog, sysClkRateGet() / RobotConfig::LOOP_RATE,
 			TimeoutCallback, 0);
 	
-	if((e++) % (RobotConfig::LOOP_RATE * 10) == 0) BufferedConsole::Printfln("Tick: %d\n", (e - 1));
-
 	// Update global robot state object
 	RobotState::Instance().Update();
 	
