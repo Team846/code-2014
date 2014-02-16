@@ -19,7 +19,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
 	 */
-	Repeating(const char* name, Automation* routine, int times = 0, bool queueIfBlocked = false, bool restartable = false);
+	Repeating(std::string name, Automation* routine, int times = 0, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Repeating();
 
 	virtual bool Start();

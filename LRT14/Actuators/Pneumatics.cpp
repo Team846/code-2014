@@ -5,13 +5,13 @@
 vector<Pneumatics*> Pneumatics::pneumatic_vector;
 Compressor *Pneumatics::m_compressor;
 
-Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, const char* name) :
+Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, string name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
-	Loggable("Pneumatics" + std::string(name)),
+	Loggable("Pneumatics" + name),
 	m_configSection("Pneumatics")
 {
-	printf("Created DoubleSolenoid %s\n", name);
+	printf("Created DoubleSolenoid %s\n", name.c_str());
 	solenoid = new DoubleSolenoid(forward, reverse);
 	counter = 0;
 	pulsed = true;
@@ -20,13 +20,13 @@ Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, const char* name) :
 	pneumatic_vector.push_back(this);
 }
 
-Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const char* name) :
+Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, string name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
-	Loggable("Pneumatics" + std::string(name)),
+	Loggable("Pneumatics" + name),
 	m_configSection("Pneumatics")
 {
-	printf("Created DoubleSolenoid %s\n", name);
+	printf("Created DoubleSolenoid %s\n", name.c_str());
 	solenoid = new DoubleSolenoid(module, forward, reverse);
 	counter = 0;
 	pulsed = true;
@@ -35,13 +35,13 @@ Pneumatics::Pneumatics(uint32_t forward, uint32_t reverse, uint8_t module, const
 	pneumatic_vector.push_back(this);
 }
 
-Pneumatics::Pneumatics(uint32_t forward, const char* name) :
+Pneumatics::Pneumatics(uint32_t forward, string name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
-	Loggable("Pneumatics" + std::string(name)),
+	Loggable("Pneumatics" + name),
 	m_configSection("Pneumatics")
 {
-	printf("Created Solenoid %s\n", name);
+	printf("Created Solenoid %s\n", name.c_str());
 	solenoid = new Solenoid(forward);
 	counter = 0;
 	pulsed = false;
@@ -50,13 +50,13 @@ Pneumatics::Pneumatics(uint32_t forward, const char* name) :
 	pneumatic_vector.push_back(this);
 }
 
-Pneumatics::Pneumatics(uint32_t forward, uint8_t module, const char* name) :
+Pneumatics::Pneumatics(uint32_t forward, uint8_t module, string name) :
 	Actuator(name),
 	Configurable("Pneumatics"),
-	Loggable("Pneumatics" + std::string(name)),
+	Loggable("Pneumatics" + name),
 	m_configSection("Pneumatics")
 {
-	printf("Created Solenoid %s\n", name);
+	printf("Created Solenoid %s\n", name.c_str());
 	solenoid = new Solenoid(module, forward);
 	counter = 0;
 	pulsed = false;

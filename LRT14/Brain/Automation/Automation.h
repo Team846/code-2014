@@ -21,7 +21,7 @@ public:
      * @param queueIfBlocked whether the routine should be queued if blocked
      * @param restartable whether the routine can be restarted
      */
-	Automation(const char* name, bool requiresAbortCycles = false, bool queueIfBlocked = false, bool restartable = false);
+	Automation(std::string name, bool requiresAbortCycles = false, bool queueIfBlocked = false, bool restartable = false);
 	virtual ~Automation();
 	
 	/*!
@@ -95,7 +95,7 @@ public:
 	 * @brief Gets the name of the automation routine.
 	 * @return the name of the routine
 	 */
-	const char* GetName();
+	std::string GetName();
 	
 	static std::vector<Automation*> automation_vector;
 	
@@ -165,7 +165,7 @@ private:
 	bool m_restartable;
 	bool m_queueIfBlocked;
 	bool m_requiresAbortCycles;
-	const char* m_name;
+	std::string m_name;
 };
 
 #endif

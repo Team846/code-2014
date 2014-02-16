@@ -4,12 +4,12 @@
 using namespace Rhesus::Toolkit::IO;
 using namespace std;
 
-Parallel::Parallel(const char* name, bool queueIfBlocked, bool restartable) :
+Parallel::Parallel(std::string name, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 }
 
-Parallel::Parallel(const char* name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
+Parallel::Parallel(std::string name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 	routines = sequence;

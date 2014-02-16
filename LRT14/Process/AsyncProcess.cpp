@@ -2,10 +2,10 @@
 
 using namespace Rhesus::Toolkit::Tasks;
 
-AsyncProcess::AsyncProcess(const char* taskName, INT32 priority)
+AsyncProcess::AsyncProcess(std::string taskName, INT32 priority)
 	: m_quittingSignal(SyncObject::STATE_EMPTY)
 {
-	m_task = new Task(taskName, (FUNCPTR)_TASK_ENTRY, priority);
+	m_task = new Task(taskName.c_str(), (FUNCPTR)_TASK_ENTRY, priority);
 	m_isRunning = false;
 }
 

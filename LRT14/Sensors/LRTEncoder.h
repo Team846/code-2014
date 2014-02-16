@@ -17,7 +17,7 @@ public:
 	 * @param sourceB channel B
 	 * @param trim scaling factor for the encoder
 	 */
-	LRTEncoder(const char* name, uint32_t sourceA, uint32_t sourceB, double trim = 1.0);
+	LRTEncoder(std::string name, uint32_t sourceA, uint32_t sourceB, double trim = 1.0);
 
 	/*!
 	 * @brief Destroys this LRTEncoder
