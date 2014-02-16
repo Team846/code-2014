@@ -9,6 +9,7 @@
 #include "lock_ptr.h"
 #include "ManagedTask.h"
 #include "Mutex.h"
+#include "SyncObject.h"
 #include "TaskPool.h"
 
 #endif

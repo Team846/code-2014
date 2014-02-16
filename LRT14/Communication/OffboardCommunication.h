@@ -4,7 +4,7 @@
 #include "../Process/AsyncProcess.h"
 #include <SerialPort.h>
 #include <vector>
-#include <semLib.h>
+#include <Rhesus.Toolkit.Tasks.h>
 
 /*!
  * @brief Intermediate interface for serial communications between cRIO and offboard computer. Assumes that the stream has been properly escaped by the offboard computer.
@@ -73,7 +73,7 @@ private:
 	Stream currentStream;
 	ReadState currentState;
 	
-	SEM_ID sem[3];
+	Rhesus::Toolkit::Tasks::Mutex m_syncRoot[3];
 };
 
 #endif /* OFFBOARD_COMMUNICATION_H_ */

@@ -1,11 +1,12 @@
 #include "AsyncProcess.h"
 
+using namespace Rhesus::Toolkit::Tasks;
+
 AsyncProcess::AsyncProcess(const char* taskName, INT32 priority)
+	: m_quittingSignal(SyncObject::STATE_EMPTY)
 {
 	m_task = new Task(taskName, (FUNCPTR)_TASK_ENTRY, priority);
 	m_isRunning = false;
-	
-	m_quittingSem = semBCreate(SEM_Q_PRIORITY, SEM_EMPTY);
 }
 
 AsyncProcess::~AsyncProcess()
@@ -13,8 +14,6 @@ AsyncProcess::~AsyncProcess()
 	Abort(0);
 
 	R_DELETE(m_task);
-	
-	semDelete(m_quittingSem);
 }
 
 void AsyncProcess::Start()
@@ -32,7 +31,7 @@ void AsyncProcess::Abort(int code, double waitSeconds)
 	m_isRunning = false;
 	
 	// wait for task to end
-	semTake(m_quittingSem, (int)(sysClkRateGet() * waitSeconds));
+	m_quittingSignal.Take((int)(sysClkRateGet() * waitSeconds));
 	
 	if(m_task != NULL)
 		m_task->Stop();
@@ -58,5 +57,5 @@ void AsyncProcess::_TASK_ENTRY(void* asyncProcessInstance)
 	}
 
 	//_instance->m_isRunning = false;
-	semGive(_instance->m_quittingSem);
+	_instance->m_quittingSignal.Give();
 }

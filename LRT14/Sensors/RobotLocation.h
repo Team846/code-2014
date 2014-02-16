@@ -1,11 +1,12 @@
 #ifndef ROBOT_LOCATION_H_
 #define ROBOT_LOCATION_H_
 
-#include "WPILib.h"
+#include <WPILib.h>
 #include "DriveEncoders.h"
 #include "../Logging/Loggable.h"
-#include "semLib.h"
 #include "../Communication/LiveNetworkSendable.h"
+
+#include <Rhesus.Toolkit.Tasks.h>
 
 /*!
  * @brief Localizes the robot's location relative to its start position using changes in encoder values. Uses arcs to approximate path.
@@ -69,7 +70,7 @@ private:
 	
 	Notifier m_notifier;
 	
-	SEM_ID sem;
+	Rhesus::Toolkit::Tasks::Mutex m_syncRoot;
 	
 	double x, y;
 	double x_last, y_last;

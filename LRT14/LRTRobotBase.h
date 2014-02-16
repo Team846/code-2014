@@ -2,7 +2,7 @@
 #define LRT_ROBOT_BASE_
 
 #include <WPILib.h>
-#include <semLib.h>
+#include <Rhesus.Toolkit.Tasks.h>
 
 class LRTRobotBase : public RobotBase
 {
@@ -26,7 +26,7 @@ private:
 
 	static void ReleaseLoop(void * param);
 	
-	SEM_ID m_loopSynchSem;
+	Rhesus::Toolkit::Tasks::BinarySemaphore m_loopSynchSem;
 	bool m_robotMainOverridden;
 };
 

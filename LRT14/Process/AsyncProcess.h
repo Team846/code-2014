@@ -5,6 +5,7 @@
 #include <sysLib.h>
 
 #include <Rhesus/Toolkit/Defines.h>
+#include <Rhesus.Toolkit.Tasks.h>
 
 /*!
  * @brief Base class for asynchronous processes. Asynchronous processes run in a free loop.
@@ -28,7 +29,7 @@ private:
 
 	Task* m_task;
 	
-	SEM_ID m_quittingSem;
+	Rhesus::Toolkit::Tasks::BinarySemaphore m_quittingSignal;
 };
 
 #endif
