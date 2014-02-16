@@ -9,6 +9,7 @@
 #include "../Rhesus/Toolkit/IO/BufferedConsole.h"
 #include "../Rhesus/Toolkit/Tasks/Mutex.h"
 #include "../Rhesus/Toolkit/Tasks/lock_on.h"
+#include "../Rhesus/Toolkit/Tasks/do_async.h"
 
 using namespace RUnit;
 
@@ -161,6 +162,30 @@ INT32 TestSemCIsEmpty()
 	return 0;
 }
 
+class Foo
+{
+public:
+	void Bar()
+	{
+		printf("It Worked!\n");
+	}
+};
+
+INT32 TestDoAsync()
+{
+	TaskPool::Start();
+	
+	{
+		do_async<Foo*, INT32(Foo::*)(...)> d(new Foo(), (INT32(Foo::*)(...))&Foo::Bar);
+	}
+	
+	taskDelay(sysClkRateGet());
+	
+	TaskPool::Stop();
+	
+	return 0;
+}
+
 extern "C"
 {
 	INT32 FRC_UserProgram_StartupLibraryInit()
@@ -184,13 +209,16 @@ extern "C"
 		//app.RegisterTest((RU_FUNCPTR)TestCountingSemaphore, "Test Counting Semaphore");
 		
 		//BufferedConsole: WORKING
-		app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
+//		app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
 		
 		//Mutex & lock_on: Working
 		//app.RegisterTest((RU_FUNCPTR)TestMutex, "Test Mutex");
 		
 		//Semaphore Empty : Working
 		//app.RegisterTest((RU_FUNCPTR)TestSemCIsEmpty, "Test Semaphore Empty");
+		
+		//do_async : NOT TESTED
+		app.RegisterTest((RU_FUNCPTR)TestDoAsync, "Test do_async");
 		
 		app.Run();
 		
