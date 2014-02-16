@@ -26,7 +26,7 @@ public:
 	static void EnqueueRawMessage(Rhesus::Messenger::NetBuffer& buff, 
 			Rhesus::Messenger::NetChannel::Enum method, int channel);
 	
-	static void EnqueueLocatorMessage(double x, double y, double theta);
+	static void EnqueueLocatorMessage(double time, double x, double y, double theta);
 	static void EnqueueDrivetrainTicksMessage(int ticks);
 };
 

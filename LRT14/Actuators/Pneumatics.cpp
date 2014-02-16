@@ -123,7 +123,7 @@ void Pneumatics::Output()
 void Pneumatics::CreateCompressor()
 {
 	m_compressor = new Compressor(
-			ConfigPortMappings::Get("Digital/COMPRESSOR_PRESSURE_SENSOR_PIN"),
+			ConfigPortMappings::Get("Digital/COMPRESSOR_PRESSURE_SENSOR"),
 			ConfigPortMappings::Get("Relay/COMPRESSOR_RELAY"));
 	m_compressor->Start();
 }

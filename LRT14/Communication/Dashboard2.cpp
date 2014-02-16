@@ -25,13 +25,14 @@ void Dashboard2::EnqueueRawMessage(NetBuffer& buff, NetChannel::Enum method, int
 	FRCDashboard::EnqueueMessage(buff, method, channel);
 }
 
-void Dashboard2::EnqueueLocatorMessage(double x, double y, double theta)
+void Dashboard2::EnqueueLocatorMessage(double time, double x, double y, double theta)
 {
 	NetBuffer buff;
 	buff.Write((UINT8)HEADER_LOCATOR);
-	buff.Write(x);
-	buff.Write(y);
-	buff.Write(theta);
+	buff.Write((float)time);
+	buff.Write((float)x);
+	buff.Write((float)y);
+	buff.Write((float)theta);
 	
 	EnqueueRawMessage(buff, NetChannel::NET_UNRELIABLE_SEQUENCED, NetChannelDefinition::UNRELIABLE_SEQUENCED::LOCATOR);
 }

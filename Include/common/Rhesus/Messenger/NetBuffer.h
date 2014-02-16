@@ -168,6 +168,7 @@ namespace Messenger
 		UINT8 * m_internalBuffer;
 		UINT32 m_internalBufferSize;
 		int m_internalBitPos;
+		int m_bufferInitSize;
 		
 		bool m_isReadOnly;
 	};

@@ -94,8 +94,8 @@ Brain::Brain() :
 	Event* position_hold_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverWheel(), DriverStationConfig::JoystickButtons::POSITION_HOLD);
 	Event* collect_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
 	Event* collect_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
-	Event* pass_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::PASS);
-	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::PASS);
+	Event* pass_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
+	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
 	Event* fire_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
 	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
 	Event* long_shot = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LONG_SHOT);

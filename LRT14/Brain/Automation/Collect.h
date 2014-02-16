@@ -25,11 +25,10 @@ public:
 private:
 	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_collectorRollers;
-	GearTooth* m_gearTooth;
+	DigitalInput* m_proximity;
 	AnalogChannel* m_redChannel;
 	AnalogChannel* m_greenChannel;
 	AnalogChannel* m_blueChannel;
-	float m_ballCollectionThreshold;
 	int m_redBallRed;
 	int m_redBallBlue;
 	int m_redBallGreen;

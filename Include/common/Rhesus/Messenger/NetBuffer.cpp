@@ -45,6 +45,7 @@ void NetBuffer::construct(const UINT8* buff, int size)
 	}
 
 	m_internalBufferSize = size;
+	m_bufferInitSize = buff != NULL ? size : -1;
 	
 	m_isReadOnly = buff != NULL;
 	m_sent = false;
@@ -368,7 +369,7 @@ UINT64 NetBuffer::InternalReadInteger(int bits)
 
 int NetBuffer::GetBufferLength()
 {
-	return ((m_internalBitPos + 7) / 8);
+	return m_bufferInitSize < 0 ? ((m_internalBitPos + 7) / 8) : m_bufferInitSize;
 }
 
 int NetBuffer::GetBytePos()
