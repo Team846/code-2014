@@ -42,6 +42,7 @@ namespace LRT14
             this.content = content;
 
             Color = Color.Transparent;
+            BackColor = Color.Aqua;
         }
 
         public void display()
@@ -51,17 +52,21 @@ namespace LRT14
             for (int i = 0; i < labels.Length; i++)
             {
                 Label label = new Label(Manager);
-                label.Text = labels[i];
+                //label.Text = labels[i];
+                label.Text = "hi";
                 label.Left = leftPadding;
                 label.Top = topPadding + topMargin * i + textBoxHeight * i;
+                //label.Color = Color.Red;
                 label.Parent = this;
                 label.Init();
 
 
-                TextBox info = new TextBox(Manager);
+                Label info = new Label(Manager);
                 info.Text = "data";
-                info.Left = label.Left + 30;
-                info.Height = label.Height;
+                info.Left = label.Left + labelInfoDistance;
+                info.Top = label.Top;
+                info.Parent = this;
+                info.Init();
 
                 
             }
