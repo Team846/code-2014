@@ -11,7 +11,6 @@ namespace Toolkit
 {
 namespace Tasks
 {
-
 	template<typename AsyncMethodClassPtr, typename AsyncMethodFuncPtr,
 			typename AsyncCallbackClassPtr = AsyncMethodClassPtr,
 			typename AsyncCallbackFuncPtr = AsyncMethodFuncPtr>
@@ -59,7 +58,7 @@ namespace Tasks
 			if (t->ccptr != NULL &&t->cptr != NULL)
 				t->callCallback(retCode);
 			
-			DELETE(t);
+			R_DELETE(t);
 			
 			return 0;
 		}
