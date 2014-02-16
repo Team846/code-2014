@@ -28,7 +28,7 @@ public:
 			UINT32 arg2 = 0, UINT32 arg3 = 0, UINT32 arg4 = 0, UINT32 arg5 = 0,
 			UINT32 arg6 = 0, UINT32 arg7 = 0, UINT32 arg8 = 0);
 	
-	static void Stop() DEPRECATED;
+	static void Stop();
 	
 	static bool IsRunning();
 
