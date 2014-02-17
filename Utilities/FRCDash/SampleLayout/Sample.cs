@@ -51,7 +51,7 @@ namespace SampleLayout
 
             TabPage inGame = tabControl.AddPageBeforeEnd();
             inGame.Init();
-            inGame.Text = "Main Game";
+            inGame.Text =    "Main Game";
 
             //ImageBox shooterOuter = new ImageBox(manager);
             //shooterOuter.Width = shooter.Width;

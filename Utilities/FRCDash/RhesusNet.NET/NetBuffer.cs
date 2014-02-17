@@ -180,9 +180,9 @@ namespace RhesusNet.NET
 	        return (int)InternalReadInteger(sizeof(int) * 8);
         }
 
-        public short ReadUInt16()
+        public ushort ReadUInt16()
         {
-            return (ushort)InternalReadInteger(sizeof(ushort) * 8);
+            return (ushort)InternalReadInteger(sizeof(ushort) *8);
         }
 
         public short ReadInt16()

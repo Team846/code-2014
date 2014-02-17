@@ -80,9 +80,9 @@ namespace LRT14
                 TextBox info = new TextBox(Manager);
                 info.Init();
                 //info.Text = IdInfos[i].ToString();
-                if (IdData.ContainsKey(kvp.Key))
+                if (_idData.ContainsKey(kvp.Key))
                 {
-                    info.Text = IdData[kvp.Key];
+                    info.Text = _idData[kvp.Key];
                 }
                 else
                 {
@@ -142,36 +142,6 @@ namespace LRT14
             set{_labelInfoDistance = value;}
         }
 
-        /*
-        public String[] Labels
-        {
-            get { return _labels; }
-            set { _labels = value; }
-        }
-        */
-
-        
-        public Dictionary<short, FieldDatatype> IdDatatype
-        {
-            get {return _idDatatype;}
-            set {_idDatatype = value;}
-        }
-         
-
-        public Dictionary<short, String> IdLabel
-        {
-            get { return _idLabel; }
-            set { _idLabel = value; }
-        }
-
-        public Dictionary<short, String> IdData
-        {
-            get { return _idData; }
-            set{_idData = value;}
-        }
-
-
-
         public void telem_init()
         {
             NetBuffer nb;
@@ -187,9 +157,9 @@ namespace LRT14
                     short id = nb.ReadInt16();
                     byte datatype = nb.ReadByte();
 
-                    IdData.Add(id, null);
-                    IdDatatype.Add(id, (FieldDatatype)datatype);
-                    IdLabel.Add(id, label);
+                    _idData.Add(id, null);
+                    _idDatatype.Add(id, (FieldDatatype)datatype);
+                    _idLabel.Add(id, label);
                 }
             }
         }
@@ -207,9 +177,9 @@ namespace LRT14
                     short id = nb.ReadInt16();
                     string data = "???";
 
-                    if (IdDatatype.ContainsKey(id))
+                    if (_idDatatype.ContainsKey(id))
                     {
-                        switch (IdDatatype[id])
+                        switch (_idDatatype[id])
                         {
                             case FieldDatatype.INT8:
                                 data = nb.ReadSByte().ToString();
@@ -248,7 +218,7 @@ namespace LRT14
                         }
                     }
 
-                    IdData[id] = data;
+                    _idData[id] = data;
  
                 }
             }            
