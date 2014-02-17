@@ -10,6 +10,7 @@
 #include "../Rhesus/Toolkit/Tasks/Mutex.h"
 #include "../Rhesus/Toolkit/Tasks/lock_on.h"
 #include "../Rhesus/Toolkit/Tasks/do_async.h"
+#include "../Rhesus/Toolkit/Tasks/do_async_static.h"
 
 using namespace RUnit;
 
@@ -177,6 +178,26 @@ INT32 TestDoAsync()
 	
 	{
 		do_async<Foo*, INT32(Foo::*)(...)> d(new Foo(), (INT32(Foo::*)(...))&Foo::Bar);
+	}
+	
+	taskDelay(sysClkRateGet());
+	
+	TaskPool::Stop();
+	
+	return 0;
+}
+
+static void SwagPrint()
+{
+	std::printf("THANK YOU BASEDGOD!");
+}
+
+INT32 TestDoAsyncStatic()
+{
+	TaskPool::Start();
+	
+	{
+		do_async_static((FUNCPTR)SwagPrint);
 	}
 	
 	taskDelay(sysClkRateGet());
