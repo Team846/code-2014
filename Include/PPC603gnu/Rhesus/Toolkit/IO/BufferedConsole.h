@@ -19,7 +19,7 @@ namespace IO
 	class BufferedConsole
 	{
 	public:
-		static void Printfln(std::string msg, ...);
+		static void Println(std::string msg, ...);
 		static void Printf(std::string msg, ...);
 		
 	private:
