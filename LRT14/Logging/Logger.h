@@ -1,6 +1,8 @@
 #ifndef LOGGER_H_
 #define LOGGER_H_
 
+#define NUM_BUFFERS 16
+
 #ifdef USE_IOLIB
 #include <ioLib.h>
 #endif
@@ -116,8 +118,9 @@ private:
 	bool initialized;
 	std::size_t dataSize;
 	char* curLoc;
-	void* startLoc;
-	Rhesus::Toolkit::Tasks::Mutex m_syncRoot;
+	void* startLoc[NUM_BUFFERS];
+	Rhesus::Toolkit::Tasks::Mutex m_syncRoot[NUM_BUFFERS];
+	int curIndex;
 };
 
 #endif /* LOGGER_H_ */

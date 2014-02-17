@@ -5,7 +5,7 @@
 #include <AnalogChannel.h>
 
 /*!
- * @brief For continuous potentiometer with 2-phase output.
+ * @brief Continuous potentiometer with 2-phase output.
  */
 class ContinuousPotentiometer : public Configurable
 {
