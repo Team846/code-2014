@@ -15,7 +15,7 @@ LauncherLoader::LauncherLoader() :
 	m_motorA = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_A"), "LauncherLoaderA");
 	m_motorB = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
 	m_safety = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_SAFETY"), "LauncherSafety");
-	m_sensor = new ContinuousPotentiometer(4,5/*ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_A"), ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_B")*/);
+	m_sensor = new ContinuousPotentiometer(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_A"), ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_B"));
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
 	m_desiredRotation = 0;
@@ -44,7 +44,7 @@ void LauncherLoader::OnDisabled()
 
 void LauncherLoader::UpdateEnabled()
 {
-	float currentAngle = m_sensor->GetAngle() - m_desiredZero;
+	float currentAngle = 360 - m_sensor->GetAngle() - m_desiredZero;
 	if (currentAngle < 0)
 		currentAngle += 360;
 	
@@ -63,7 +63,6 @@ void LauncherLoader::UpdateEnabled()
 	{
 		m_load = true;
 	}
-
 	if (m_loaderData->GetFire() && m_proximity->Get() == 0)
 	{
 		m_desiredRotation = m_currentRotation + 1;
@@ -72,7 +71,8 @@ void LauncherLoader::UpdateEnabled()
 	else if (m_loaderData->GetPurge())
 	{
 		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * 360;
-		m_load = false;
+		if (m_currentSensorAngle < m_intermediateSetpoint + m_desiredRotation * 360)
+			m_load = false;
 	}
 	else
 	{
@@ -107,7 +107,6 @@ void LauncherLoader::UpdateDisabled()
 	m_motorA->SetDutyCycle(0.0);
 	m_motorB->SetDutyCycle(0.0);
 	m_safety->Set(Pneumatics::OFF);
-	BufferedConsole::Printf("%f Channel A: %d Channel B: %d\n", m_sensor->GetAngle(), m_sensor->GetChannelA()->GetVoltage(), m_sensor->GetChannelB()->GetVoltage());
 }
 
 void LauncherLoader::Configure()
@@ -123,5 +122,6 @@ void LauncherLoader::Configure()
 
 void LauncherLoader::Send()
 {
-	SendToNetwork(m_sensor->GetAngle(), "LoaderSensorValue", "RobotData");
+	SendToNetwork(m_sensor->GetAngle(), "LoaderSensorRawAngle", "RobotData");
+	SendToNetwork(m_currentSensorAngle, "LoaderSensorAngle", "RobotData");
 }

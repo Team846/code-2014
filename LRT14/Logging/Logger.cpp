@@ -30,15 +30,19 @@ void Logger::Finalize()
 Logger::Logger() :
 	SynchronizedProcess("Logger")
 {
-	startLoc = curLoc = NULL;
+	curLoc = NULL;
+	for (int i = 0; i < NUM_BUFFERS; i++)
+		startLoc[i] = NULL;
 	dataSize = 0;
+	curIndex = 0;
 	initialized = false;
 }
 
 Logger::~Logger()
 {
 	free(startLoc);
-	startLoc = NULL;
+	for (int i = 0; i < NUM_BUFFERS; i++)
+		startLoc[i] = NULL;
 	curLoc = NULL;
 }
 
@@ -50,8 +54,11 @@ void Logger::Initialize()
 	{
 		(*it)->Log();
 	}
-	free(startLoc);
-	startLoc = malloc(dataSize);
+	for (int i = 0; i < NUM_BUFFERS; i++)
+	{
+		free(startLoc[i]);
+		startLoc[i] = malloc(dataSize);
+	}
 	FILE* header = fopen((RobotConfig::LOG_FILE_PATH + ".header").c_str(), "w");
 	fprintf(header, "%d\n", fields.size());
 	for (vector<Field>::iterator it = fields.begin(); it < fields.end(); it++)
@@ -88,22 +95,20 @@ void Logger::Run()
 #else
 			file = fopen(RobotConfig::LOG_FILE_PATH.c_str(), "wb");
 #endif
-		curLoc = (char*)startLoc;
-		
-		lock_on l(m_syncRoot);
+		curLoc = (char*)startLoc[curIndex];
+		lock_on l(m_syncRoot[curIndex]);
+		for (vector<Loggable*>::iterator it = loggables.begin(); it < loggables.end(); it++)
 		{
-			for (vector<Loggable*>::iterator it = loggables.begin(); it < loggables.end(); it++)
-			{
-				(*it)->Log();
-			}
-			RunOneCycle();
+			(*it)->Log();
 		}
+		curIndex = (curIndex + 1) % NUM_BUFFERS;
+		RunOneCycle();
 	}
 }
 
 void Logger::Tick()
 {
-	lock_on l(m_syncRoot);
+	lock_on l(m_syncRoot[curIndex]);
 	{
 		double start = Timer::GetFPGATimestamp();
 	#ifdef USE_IOLIB

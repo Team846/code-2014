@@ -6,6 +6,7 @@ Fire::Fire() :
 	m_loaderData = LauncherLoaderData::Get();
 	m_angleData = LauncherAngleData::Get();
 	m_collectorArmData = CollectorArmData::Get();
+	m_firing = false;
 }
 
 void Fire::AllocateResources()
@@ -17,6 +18,7 @@ void Fire::AllocateResources()
 
 bool Fire::Start()
 {
+	m_firing = false;
 	return true;
 }
 
@@ -26,17 +28,20 @@ bool Fire::Run()
 		return false;
 	
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
-	if (m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
+	if (m_firing || m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
 	{
 		m_loaderData->SetFire(true);
-		return true;
+		m_firing = true;
+		if (!m_loaderData->IsBallDetected())
+			return true;
 	}
-	else
-		return false;
+	return false;
 }
 
 bool Fire::Abort()
 {
 	m_loaderData->SetFire(false);
+	m_collectorArmData->SetDesiredPosition(CollectorArmData::STOWED);
+	m_firing = false;
 	return true;
 }
