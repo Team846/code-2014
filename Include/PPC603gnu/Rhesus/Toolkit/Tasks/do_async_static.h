@@ -14,15 +14,11 @@ namespace Tasks
 	class do_async_static
 	{
 	private:
-		typedef INT32 (*AsyncMethodFuncPtr)(UINT32 p0, UINT32 p1, UINT32 p2, UINT32 p3, UINT32 p4, UINT32 p5,
-												UINT32 p6, UINT32 p7);
-		
-		typedef void (*AsyncCallbackFuncPtr)(INT32 retCode);
 		
 		struct TaskStruct
 		{
-			AsyncMethodFuncPtr mptr;
-			AsyncCallbackFuncPtr cptr;
+			FUNCPTR mptr;
+			FUNCPTR cptr;
 			UINT32 arg0;
 			UINT32 arg1;
 			UINT32 arg2;
@@ -47,14 +43,14 @@ namespace Tasks
 			return 0;
 		}
 		
-		do_async_static(AsyncMethodFuncPtr asyncFunc, AsyncCallbackFuncPtr callback = NULL, UINT32 p0 = 0, UINT32 p1 = 0, UINT32 p2 = 0, UINT32 p3 = 0, UINT32 p4 = 0, UINT32 p5 = 0,
+		do_async_static(FUNCPTR asyncFunc, FUNCPTR callback = NULL, UINT32 p0 = 0, UINT32 p1 = 0, UINT32 p2 = 0, UINT32 p3 = 0, UINT32 p4 = 0, UINT32 p5 = 0,
 				UINT32 p6 = 0, UINT32 p7 = 0)
 		{
 			TaskPool::EnqueueTask((FUNCPTR)AsyncMethodWrapper, (UINT32)create(asyncFunc, callback, p0, p1, p2, p3, p4, p5, p6, p7));
 		}
 		
 	private:
-		TaskStruct* create(AsyncMethodFuncPtr mptr, AsyncCallbackFuncPtr cptr, UINT32 arg0, UINT32 arg1, UINT32 arg2,
+		TaskStruct* create(FUNCPTR mptr, FUNCPTR cptr, UINT32 arg0, UINT32 arg1, UINT32 arg2,
 				UINT32 arg3, UINT32 arg4, UINT32 arg5, UINT32 arg6, UINT32 arg7) 
 		{
 			TaskStruct* t = new TaskStruct();
