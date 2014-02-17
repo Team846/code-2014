@@ -206,7 +206,7 @@ void LRTRobot14::Tick()
 	LCD::Instance()->RunOneCycle();
 //	Logger::Instance()->Run();
 	LiveNetworkSender::Instance()->Run();
-	Dashboard2::Tick();
+	//Dashboard2::Tick();
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
@@ -239,4 +239,3 @@ void exit()
 	else
 		BufferedConsole::Printfln("Please disable to exit maintenance mode");
 }
-

@@ -238,10 +238,13 @@ extern "C"
 		//Semaphore Empty : Working
 		//app.RegisterTest((RU_FUNCPTR)TestSemCIsEmpty, "Test Semaphore Empty");
 		
-		//do_async : NOT TESTED
-		app.RegisterTest((RU_FUNCPTR)TestDoAsync, "Test do_async");
+		//do_async : Working
+		//app.RegisterTest((RU_FUNCPTR)TestDoAsync, "Test do_async");
 		
-		app.Run();
+		//do_async_static: 
+		//app.RegisterTest((RU_FUNCPTR)TestDoAsyncStatic, "Test do_async_static");
+		
+		//app.Run();
 		
 		return 0;
 	}

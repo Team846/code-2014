@@ -3,6 +3,10 @@
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
+
 LauncherLoader::LauncherLoader() : 
 	Component("LauncherLoader", DriverStationConfig::DigitalIns::LAUNCHER_LOADER),
 	Configurable("LauncherLoader")
@@ -11,14 +15,14 @@ LauncherLoader::LauncherLoader() :
 	m_motorA = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_A"), "LauncherLoaderA");
 	m_motorB = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
 	m_safety = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_SAFETY"), "LauncherSafety");
-	m_sensor = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR"));
+	m_sensor = new ContinuousPotentiometer(4,5/*ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_A"), ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_B")*/);
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
 	m_desiredRotation = 0;
 	m_desiredZero = 0;
-	m_currentSensorValue = m_sensor->GetAverageValue();
-	m_lastRawSensorValue = m_sensor->GetAverageValue();
-	m_currentSetpoint = m_sensor->GetAverageValue();
+	m_currentSensorAngle = m_sensor->GetAngle();
+	m_lastRawSensorAngle = m_sensor->GetAngle();
+	m_currentSetpoint = m_sensor->GetAngle();
 	m_load = false;
 }
 
@@ -40,48 +44,48 @@ void LauncherLoader::OnDisabled()
 
 void LauncherLoader::UpdateEnabled()
 {
-	int currentValue = m_sensor->GetAverageValue() - m_desiredZero;
-	if (currentValue < 0)
-		currentValue += m_maxSensorValue;
+	float currentAngle = m_sensor->GetAngle() - m_desiredZero;
+	if (currentAngle < 0)
+		currentAngle += 360;
 	
-	if (currentValue < m_wrapThreshold && m_lastRawSensorValue > m_maxSensorValue - m_wrapThreshold)
+	if (currentAngle < m_wrapThreshold && m_lastRawSensorAngle > 360 - m_wrapThreshold)
 	{
 		m_currentRotation++;
 	}
-	else if (currentValue > m_maxSensorValue - m_wrapThreshold && m_lastRawSensorValue < m_wrapThreshold)
+	else if (currentAngle > 360 - m_wrapThreshold && m_lastRawSensorAngle < m_wrapThreshold)
 	{
 		m_currentRotation--;
 	}
-	m_lastRawSensorValue = currentValue;
-	m_currentSensorValue = m_currentRotation * m_maxSensorValue + currentValue;
-	m_loaderData->SetSensorValue(m_currentSensorValue);
+	m_lastRawSensorAngle = currentAngle;
+	m_currentSensorAngle = m_currentRotation * 360 + currentAngle;
+	m_loaderData->SetSensorValue(m_currentSensorAngle);
+	if (m_loaderData->GetLoad())
+	{
+		m_load = true;
+	}
+
 	if (m_loaderData->GetFire() && m_proximity->Get() == 0)
 	{
 		m_desiredRotation = m_currentRotation + 1;
 		m_load = false;
 	}
-	else if (m_loaderData->GetLoad())
+	else if (m_loaderData->GetPurge())
 	{
-		m_load = true;
-	}
-		
-	if (m_loaderData->GetPurge())
-	{
-		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * m_maxSensorValue;
+		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * 360;
 		m_load = false;
 	}
 	else
 	{
 		if (m_load)
 		{
-			m_currentSetpoint = m_loadSetpoint + m_desiredRotation * m_maxSensorValue;
+			m_currentSetpoint = m_loadSetpoint + m_desiredRotation * 360;
 		}
 		else
 		{
-			m_currentSetpoint = m_intermediateSetpoint + m_desiredRotation * m_maxSensorValue;
+			m_currentSetpoint = m_intermediateSetpoint + m_desiredRotation * 360;
 		}
 	}
-	int error = m_currentSetpoint - currentValue;
+	float error = m_currentSetpoint - currentAngle;
 	m_motorA->SetDutyCycle(m_gain * error);
 	m_motorB->SetDutyCycle(m_gain * error);
 	
@@ -103,21 +107,21 @@ void LauncherLoader::UpdateDisabled()
 	m_motorA->SetDutyCycle(0.0);
 	m_motorB->SetDutyCycle(0.0);
 	m_safety->Set(Pneumatics::OFF);
+	BufferedConsole::Printf("%f Channel A: %d Channel B: %d\n", m_sensor->GetAngle(), m_sensor->GetChannelA()->GetVoltage(), m_sensor->GetChannelB()->GetVoltage());
 }
 
 void LauncherLoader::Configure()
 {
-	m_unloadSetpoint = GetConfig("unload_setpoint", 0);
-	m_intermediateSetpoint = GetConfig("intermediate_setpoint", 800);
-	m_loadSetpoint = GetConfig("load_setpoint", 1000);
+	m_unloadSetpoint = GetConfig("unload_setpoint", 0.0);
+	m_intermediateSetpoint = GetConfig("intermediate_setpoint", 180.0);
+	m_loadSetpoint = GetConfig("load_setpoint", 340.0);
 	m_gain = GetConfig("gain", 1.0);
-	m_wrapThreshold = GetConfig("wrap_threshold", 10);
-	m_maxSensorValue = GetConfig("max_value", 1400);
-	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5);
-	m_desiredZero = GetConfig("sensor_zero", 0);
+	m_wrapThreshold = GetConfig("wrap_threshold", 20.0);
+	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5.0);
+	m_desiredZero = GetConfig("sensor_zero", 0.0);
 }
 
 void LauncherLoader::Send()
 {
-	SendToNetwork(m_currentSensorValue, "LoaderSensorValue", "RobotData");
+	SendToNetwork(m_sensor->GetAngle(), "LoaderSensorValue", "RobotData");
 }

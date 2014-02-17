@@ -21,7 +21,7 @@ Component::Component(std::string name, int driverStationDigitalIn) :
 {
 	m_lastEnabled = false;
 	
-	BufferedConsole::Printf("Created component: %s\n", name);
+	BufferedConsole::Printf("Created component: %s\n", name.c_str());
 }
 
 Component::~Component()

@@ -6,8 +6,9 @@
 #include "../ComponentData/LauncherLoaderData.h"
 #include "../Actuators/LRTVictor.h"
 #include "../Actuators/Pneumatics.h"
-#include "../Sensors/SensorFactory.h"
+#include "../Sensors/ContinuousPotentiometer.h"
 #include "../Communication/LiveNetworkSendable.h"
+#include "../Sensors/SensorFactory.h"
 
 /*!
  * @brief Provides control over launcher loading mechanism, including the safety mechanism.
@@ -32,21 +33,20 @@ private:
 	LRTSpeedController* m_motorA;
 	LRTSpeedController* m_motorB;
 	Pneumatics* m_safety;
-	AnalogChannel* m_sensor;
+	ContinuousPotentiometer* m_sensor;
 	DigitalInput* m_proximity;
-	int m_unloadSetpoint;
-	int m_intermediateSetpoint;
-	int m_loadSetpoint;
+	float m_unloadSetpoint;
+	float m_intermediateSetpoint;
+	float m_loadSetpoint;
 	float m_gain;
-	int m_wrapThreshold;
-	int m_maxSensorValue;
-	int m_completionErrorThreshold;
-	int m_desiredZero;
+	float m_wrapThreshold;
+	float m_completionErrorThreshold;
+	float m_desiredZero;
 	
 	int m_currentRotation;
-	int m_currentSensorValue;
-	int m_lastRawSensorValue;
-	int m_currentSetpoint;
+	float m_currentSensorAngle;
+	float m_lastRawSensorAngle;
+	float m_currentSetpoint;
 	bool m_load;
 	int m_desiredRotation;
 };

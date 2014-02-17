@@ -71,12 +71,12 @@ void LauncherLoaderData::SetLoadingComplete(bool complete)
 	m_complete = complete;
 }
 
-int LauncherLoaderData::GetSensorValue()
+float LauncherLoaderData::GetSensorValue()
 {
 	return m_value;
 }
 
-void LauncherLoaderData::SetSensorValue(int value)
+void LauncherLoaderData::SetSensorValue(float value)
 {
 	m_value = value;
 }
