@@ -15,13 +15,13 @@ public:
 	enum Stream
 	{
 		UNSET = -1,
-		AUTO_AIM = 0,
+		HOT_GOAL = 0,
 		GAME_PIECE_TRACKING = 1,
 		LIDAR = 2,
 	};
 	enum Flag
 	{
-		AUTO_AIM_FLAG = 0x00,
+		HOT_GOAL_FLAG = 0x00,
 		GAME_PIECE_TRACKING_FLAG = 0x01,
 		LIDAR_FLAG = 0x02,
 		ESCAPE = 0x7D
@@ -46,6 +46,13 @@ public:
 	 */
 	void Read(Stream stream, std::vector<char> &buffer);
 	
+	/*!
+	 * @brief Retrieves the appropriate stream buffer
+	 * @param stream the stream to retrieve
+	 */
+	
+	std::vector<char> GetStreamBuffer(Stream stream);
+	
 protected:
 	void Tick();
 	
@@ -54,8 +61,8 @@ private:
 	
 	inline Stream FlagToStream(Flag flag)
 	{
-		if (flag == AUTO_AIM_FLAG)
-			return AUTO_AIM;
+		if (flag == HOT_GOAL_FLAG)
+			return HOT_GOAL;
 		if (flag == GAME_PIECE_TRACKING_FLAG)
 			return GAME_PIECE_TRACKING;
 		if (flag == LIDAR_FLAG)

@@ -28,7 +28,7 @@ OffboardCommunication::OffboardCommunication() :
 	AsyncProcess("OffboardCommunication")
 {
 	m_serial = new SerialPort(115200);
-	buffers[AUTO_AIM].reserve(4);
+	buffers[HOT_GOAL].reserve(1);
 	buffers[GAME_PIECE_TRACKING].reserve(16);
 	buffers[LIDAR].reserve(4324); // Three sets of 360 ints and one float
 	buffer.reserve(4324);
@@ -51,7 +51,7 @@ void OffboardCommunication::Tick()
 		switch (currentState)
 		{
 		case WAIT_HEADER:
-			if (byte == AUTO_AIM_FLAG || byte == GAME_PIECE_TRACKING_FLAG || byte == LIDAR_FLAG)
+			if (byte == HOT_GOAL_FLAG || byte == GAME_PIECE_TRACKING_FLAG || byte == LIDAR_FLAG)
 			{
 				currentStream = FlagToStream((Flag)byte);
 				currentState = IN_MSG;
@@ -64,7 +64,7 @@ void OffboardCommunication::Tick()
 				currentState = AFTER_ESC;
 				break;
 			}
-			if (byte == AUTO_AIM_FLAG || byte == GAME_PIECE_TRACKING_FLAG || byte == LIDAR_FLAG)
+			if (byte == HOT_GOAL_FLAG || byte == GAME_PIECE_TRACKING_FLAG || byte == LIDAR_FLAG)
 			{
 				if (FlagToStream((Flag)byte) == currentStream)
 				{
@@ -96,4 +96,9 @@ void OffboardCommunication::Read(OffboardCommunication::Stream stream, vector<ch
 		buffer.clear();
 		buffer.insert(buffer.begin(), buffers[stream].begin(), buffers[stream].end());
 	}
+}
+
+std::vector<char> OffboardCommunication::GetStreamBuffer(Stream stream)
+{
+	return buffers[stream];
 }
