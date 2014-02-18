@@ -117,10 +117,10 @@ INT32 TestBufferedConsole()
 {
 	std::printf("1: Starting TaskPool\n");
 	TaskPool::Start();
-	BufferedConsole::Println("SWAG");
+	BufferedConsole::Printfln("SWAG");
 	std::printf("2: Enqueing Print job\n");
 	BufferedConsole::Printf("More Swag\n");
-	BufferedConsole::Println("THWA%c", 'G');
+	BufferedConsole::Printfln("THWA%c", 'G');
 	taskDelay(sysClkRateGet() * 10);
 	std::printf("3: Stopping TaskPool\n");
 	TaskPool::Stop();
