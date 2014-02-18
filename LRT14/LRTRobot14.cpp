@@ -78,27 +78,27 @@ void LRTRobot14::RobotInit()
 	LCD::Instance()->Start();
 
 	// Create the Driver Station
-	BufferedConsole::Println("Initializing Driver Station...");
+	BufferedConsole::Printfln("Initializing Driver Station...");
 	LRTDriverStation::Initialize();
 	
 	// Read port mappings
-	BufferedConsole::Println("Loading Port Mappings...");
+	BufferedConsole::Printfln("Loading Port Mappings...");
 	ConfigPortMappings::Instance()->Load();
 	
 	// Create ComponentData
-	BufferedConsole::Println("Creating ComponentData...");
+	BufferedConsole::Printfln("Creating ComponentData...");
 	ComponentData::Initialize();
 	
 	// Create all components
-	BufferedConsole::Println("Creating Components...");
+	BufferedConsole::Printfln("Creating Components...");
 	Component::CreateComponents();
 	
 	// Initialize the Brain
-	BufferedConsole::Println("Initializing Brain...");
+	BufferedConsole::Printfln("Initializing Brain...");
 	Brain::Initialize();
 	
 	// Start AsyncCANJaguar tasks
-	BufferedConsole::Println("Starting AsyncCANJaguar Tasks...");
+	BufferedConsole::Printfln("Starting AsyncCANJaguar Tasks...");
 	for (vector<AsyncCANJaguar*>::iterator it = AsyncCANJaguar::jaguar_vector.begin(); it < AsyncCANJaguar::jaguar_vector.end(); it++)
 	{
 		(*it)->Start();
@@ -106,28 +106,28 @@ void LRTRobot14::RobotInit()
 
 #if PNEUMATICS
 	// Create and start compressor
-	BufferedConsole::Println("Creating Pneumatics Compressor...");
+	BufferedConsole::Printfln("Creating Pneumatics Compressor...");
 	Pneumatics::CreateCompressor();
 #endif
 
 	// Initialize SensorFactory
-	BufferedConsole::Println("Initializing Sensor Factory...");
+	BufferedConsole::Printfln("Initializing Sensor Factory...");
 	SensorFactory::Initialize();
 	
 	// Initialize localization
-	BufferedConsole::Println("Initializing Robot Localization...");
+	BufferedConsole::Printfln("Initializing Robot Localization...");
 	RobotLocation::Initialize();
 	
 	// Initialize offboard communication
-	BufferedConsole::Println("Initializing Offboard Communication...");
+	BufferedConsole::Printfln("Initializing Offboard Communication...");
 	OffboardCommunication::Initialize();
 
 	// Initialize the Logger
-	BufferedConsole::Println("Initializing Logger...");
+	BufferedConsole::Printfln("Initializing Logger...");
 	Logger::Instance()->Initialize();
 	
 	// Initialize the LiveNetworkSender
-	BufferedConsole::Println("Initializing LiveNetworkSender...");
+	BufferedConsole::Printfln("Initializing LiveNetworkSender...");
 	LiveNetworkSender::Initialize();
 	
 	// Apply runtime configuration
@@ -219,12 +219,12 @@ void maintenance()
 	if (RobotState::Instance().GameMode() == GameState::DISABLED && !maintenanceMode)
 	{
 		maintenanceMode = true;
-		BufferedConsole::Println("Maintenance mode entered");
+		BufferedConsole::Printfln("Maintenance mode entered");
 	}
 	else if (maintenanceMode)
-		BufferedConsole::Println("Already in maintenance mode");
+		BufferedConsole::Printfln("Already in maintenance mode");
 	else
-		BufferedConsole::Println("Please disable to enter maintenance mode");
+		BufferedConsole::Printfln("Please disable to enter maintenance mode");
 }
 
 void exit()
@@ -232,10 +232,10 @@ void exit()
 	if(RobotState::Instance().GameMode() == GameState::DISABLED && maintenanceMode)
 	{
 		maintenanceMode = false;
-		BufferedConsole::Println("Maintenance mode exited");
+		BufferedConsole::Printfln("Maintenance mode exited");
 	}
 	else if (!maintenanceMode)
-		BufferedConsole::Println("Not in maintenance mode");
+		BufferedConsole::Printfln("Not in maintenance mode");
 	else
-		BufferedConsole::Println("Please disable to exit maintenance mode");
+		BufferedConsole::Printfln("Please disable to exit maintenance mode");
 }
