@@ -35,5 +35,10 @@ namespace Dashboard.Library.Persistence
         {
             // null
         }
+
+        public void Read(string dirname)
+        {
+            //null
+        }
     }
 }

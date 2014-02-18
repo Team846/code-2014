@@ -42,6 +42,38 @@ namespace LRT14
             TELEM_UPDATE = 0x01
         }
 
+        private class DataField
+        {
+            string _data;
+            FieldDatatype _dataType;
+            string _label;
+
+            public DataField(string data, FieldDatatype type, string label)
+            {
+                _data = data;
+                _dataType = type;
+                _label = label;
+            }
+
+            public string Data
+            {
+                get { return _data; }
+                set { _data = value; }
+            }
+
+            public string Label
+            {
+                get { return _label; }
+                set { _label = value; }
+            }
+
+            public FieldDatatype DataType
+            {
+                get { return _dataType; }
+                set { _dataType = value; }
+            }
+        }
+
         private int _topPadding;
         private int _leftPadding;
         private int _topMargin;
@@ -51,9 +83,7 @@ namespace LRT14
         private int _labelInfoDistance;
         //private String[] _labels;
         //private short[] _idInfos;
-        private Dictionary<short, FieldDatatype> _idDatatype; 
-        private Dictionary<short, string> _idLabel;
-        private Dictionary<short, string> _idData;
+        private Dictionary<short, DataField> _idData;
         private Dictionary<short, TextBox> _idTextbox;
 
         private string id;
@@ -73,11 +103,11 @@ namespace LRT14
         public void display()
         {
             int i = 0;
-            foreach(KeyValuePair<short, string> kvp in _idLabel)
+            foreach(KeyValuePair<short, DataField> kvp in _idData)
             {
                 Label label = new Label(Manager);
                 label.Init();
-                label.Text = kvp.Value;
+                label.Text = kvp.Value.Label;
                 label.Left = _leftPadding;
                 label.Top = _topPadding + _topMargin * i + _textBoxHeight * i;
                 label.Parent = this;
@@ -87,22 +117,14 @@ namespace LRT14
                 info.ReadOnly = true;
                 info.Init();
                 //info.Text = IdInfos[i].ToString();
-                if (_idData.ContainsKey(kvp.Key))
-                {
-                    info.Text = _idData[kvp.Key];
-                }
-                else
-                {
-                    info.Text = "???";
-                }
+
+                info.Text = kvp.Value.Data != null ? kvp.Value.Data : "<???>";
 
                 info.Left = label.Left + _labelInfoDistance;
                 info.Top = label.Top;
                 info.Parent = this;
 
                 i++;
-
-                
             }  
         }
 
@@ -151,9 +173,7 @@ namespace LRT14
         private void telemInit(NetBuffer nb)
         {
             int field = nb.ReadInt16();
-            _idData = new Dictionary<short, string>();
-            _idDatatype = new Dictionary<short, FieldDatatype>();
-            _idLabel = new Dictionary<short, string>();
+            _idData = new Dictionary<short, DataField>();
             _idTextbox = new Dictionary<short, TextBox>();
 
             for (int i = 0; i < field; i++)
@@ -162,9 +182,7 @@ namespace LRT14
                 short id = nb.ReadInt16();
                 byte datatype = nb.ReadByte();
 
-                _idData.Add(id, "");
-                _idDatatype.Add(id, (FieldDatatype)datatype);
-                _idLabel.Add(id, label);
+                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label));
             }
 
             display();
@@ -179,9 +197,9 @@ namespace LRT14
                 short id = nb.ReadInt16();
                 string data = "???";
 
-                if (_idDatatype.ContainsKey(id))
+                if (_idData.ContainsKey(id))
                 {
-                    switch (_idDatatype[id])
+                    switch (_idData[id].DataType)
                     {
                         case FieldDatatype.INT8:
                             data = nb.ReadSByte().ToString();
@@ -220,7 +238,7 @@ namespace LRT14
                     }
                 }
 
-                _idData[id] = data;
+                _idData[id].Data = data;
                 _idTextbox[id].Text = data;
             }
         }
