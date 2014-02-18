@@ -41,11 +41,42 @@ namespace Dashboard.Library.Persistence
 
         public void Flush(string dirname)
         {
+            FileStream header = File.Create(Path.Combine(dirname, "header.fdbh"));
+            StreamWriter sw = new StreamWriter(header);
+
             foreach (KeyValuePair<string, IPersistable> kvp in _fields)
             {
                 FileStream file = File.Create(Path.Combine(dirname, kvp.Key + ".fdb"));
 
+                sw.WriteLine(kvp.Key + "," + kvp.Value.GetType());    
+
                 kvp.Value.Serialize(file);
+
+                file.Close();
+            }
+
+            sw.Close();
+        }
+
+        public void Read(string dirname)
+        {
+            FileStream header = File.OpenRead(Path.Combine(dirname, "header.fdbh"));
+            StreamReader sr = new StreamReader(header);
+
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] s = line.Split(',');
+                _fields.Add(s[0], (IPersistable)Activator.CreateInstance(null, s[1]));
+            }
+            
+            sr.Close();
+
+            foreach (KeyValuePair<string, IPersistable> kvp in _fields)
+            {
+                FileStream file = File.OpenRead(Path.Combine(dirname, kvp.Key + ".fdb"));
+
+                kvp.Value.Deserialize(file);
 
                 file.Close();
             }
