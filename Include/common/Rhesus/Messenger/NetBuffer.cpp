@@ -56,6 +56,11 @@ void NetBuffer::Write(UINT8 c)
 	InternalWriteByte(c, sizeof(UINT8)*8);
 }
 
+void NetBuffer::Write(INT8 s)
+{
+	InternalWriteByte((UINT8)s, sizeof(UINT8)*8);
+}
+
 void NetBuffer::Write(UINT8* c, UINT16 len)
 {
 	InternalWriteInteger(len, sizeof(UINT16)*8);
@@ -117,6 +122,11 @@ void NetBuffer::Write(INT16 s)
 	InternalWriteInteger(s, sizeof(INT16)*8);
 }
 
+void NetBuffer::Write(UINT16 u)
+{
+	InternalWriteInteger(u, sizeof(INT16)*8);
+}
+
 void NetBuffer::WritePadBits()
 {	
 	if(m_isReadOnly)
@@ -128,7 +138,12 @@ void NetBuffer::WritePadBits()
 	m_internalBitPos += 8 - m_internalBitPos % 8;
 }
 
-UINT8 NetBuffer::ReadChar()
+INT8 NetBuffer::ReadSByte()
+{
+	return (INT8)InternalReadByte(sizeof(INT8)*8);
+}
+
+UINT8 NetBuffer::ReadByte()
 {
 	return InternalReadByte(sizeof(UINT8)*8);
 }
@@ -171,6 +186,11 @@ UINT32 NetBuffer::ReadUInt32()
 INT16 NetBuffer::ReadInt16()
 {
 	return (INT16)InternalReadInteger(sizeof(INT16) * 8);
+}
+
+UINT16 NetBuffer::ReadUInt16()
+{
+	return (UINT16)InternalReadInteger(sizeof(UINT16)*8);
 }
 
 double NetBuffer::ReadDouble()

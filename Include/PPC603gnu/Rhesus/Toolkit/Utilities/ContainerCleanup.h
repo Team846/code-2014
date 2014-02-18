@@ -28,6 +28,53 @@ namespace Utilities
 		}
 		
 		/*!
+		 * @brief Frees the resources pointed to in a map<pointer, object>
+		 */
+		template<class A, class B>
+		static bool DeleteMapFirst(std::pair<A*, B> x)
+		{
+			if(x.first == NULL)
+				return true;
+			
+			DELETE(x.first);
+			
+			return true;
+		}
+		
+		/*!
+		 * @brief Frees the resources pointed to in a map<object, pointer>
+		 */
+		template<class A, class B>
+		static bool DeleteMapSecond(std::pair<A, B*> x)
+		{
+			if(x.second == NULL)
+				return true;
+			
+			R_DELETE(x.second);
+			
+			return true;
+		}
+		
+		/*!
+		 * @brief Frees the resources pointed to in a map<pointer, pointer>
+		 */
+		template<class A, class B>
+		static bool DeleteMapBoth(std::pair<A*, B*> x)
+		{
+			if(x.first != NULL)
+			{
+				DELETE(x.first);
+			}
+			
+			if(x.second != NULL)
+			{
+				DELETE(x.second);
+			}
+			
+			return true;
+		}
+		
+		/*!
 		 * @brief Swaps a queue for an empty queue.
 		 */
 		template<class T>

@@ -1,9 +1,10 @@
 #include "LRTSpeedController.h"
 #include <math.h>
-#include "../Utils/Util.h"
+#include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Utilities;
 
 LRTSpeedController::LRTSpeedController(std::string name) :
 	Actuator(name),
@@ -58,12 +59,12 @@ float LRTSpeedController::CurrentLimit(float dutyCycle, float speed, float forwa
 	// At this point speed >= 0
 	if (dutyCycle > speed) // Current limit accelerating
 	{
-		dutyCycle = Util::Min(dutyCycle, speed + forwardLimit);
+		dutyCycle = MathHelper::Min(dutyCycle, speed + forwardLimit);
 	}
 	else if (dutyCycle < 0) // Current limit reversing direction
 	{
 		float limitedDutyCycle = -reverseLimit / (1.0 + speed); // speed >= 0 so dutyCycle < -currentLimit
-		dutyCycle = Util::Max(dutyCycle, limitedDutyCycle); // Both are negative
+		dutyCycle = MathHelper::Max(dutyCycle, limitedDutyCycle); // Both are negative
 	}
 	return dutyCycle;
 }

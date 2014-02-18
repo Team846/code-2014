@@ -8,5 +8,6 @@
 #include "ManagedArray.h"
 #include "GameState.h"
 #include "TimeSpan.h"
+#include "lexical_cast.h"
 
 #endif

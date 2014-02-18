@@ -1,14 +1,17 @@
 #include "Drivetrain.h"
 
+#include <Rhesus.Toolkit.Utilities.h>
+
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/RobotConfig.h"
 #include "../Sensors/DriveEncoders.h"
-#include "../Utils/Util.h"
 #include "../Actuators/DriveESC.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/AsyncCANJaguar.h"
 
 #include "../Communication/Dashboard2.h"
+
+using namespace Rhesus::Toolkit::Utilities;
 
 Drivetrain::Drivetrain() :
 	Component("Drivetrain", DriverStationConfig::DigitalIns::DRIVETRAIN),
@@ -51,7 +54,7 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 		m_PIDs[POSITION][axis].SetSetpoint(positionSetpoint);
 		velocitySetpoint += m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
 		if (fabs(velocitySetpoint) > m_drivetrainData->GetPositionControlMaxSpeed(axis))
-			velocitySetpoint = Util::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
+			velocitySetpoint = MathHelper::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
 	case DrivetrainData::VELOCITY_CONTROL:
 		if (fabs(velocitySetpoint) < 2.0E-2)
 			m_PIDs[VELOCITY][axis].SetIIREnabled(true);
@@ -83,8 +86,8 @@ void Drivetrain::UpdateEnabled()
 	double leftOutput = fwdOutput - turnOutput;
 	double rightOutput = fwdOutput + turnOutput;
 
-	leftOutput = Util::Clamp<double>(leftOutput, -1.0, 1.0);
-	rightOutput = Util::Clamp<double>(rightOutput, -1.0, 1.0);
+	leftOutput = MathHelper::Clamp<double>(leftOutput, -1.0, 1.0);
+	rightOutput = MathHelper::Clamp<double>(rightOutput, -1.0, 1.0);
 
 	if (m_drivetrainData->ShouldOverrideForwardCurrentLimit())
 	{

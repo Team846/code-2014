@@ -5,9 +5,13 @@
 #include <fstream>
 #include <sstream>
 
+#include <Rhesus.Toolkit.h>
+#include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Utilities;
 using namespace std;
 
 vector<Configurable*> ConfigRuntime::configurables; // note: static vectors must be declared in the CPP file -TP
@@ -99,7 +103,7 @@ template void
 template<typename T> void ConfigRuntime::Set(string section, string key,
 		T value)
 {
-	string newValue = Util::ToString<T>(value);
+	string newValue = lexical_cast<T>(value);
 	// Edit file data to save to file when Save() is called
 	if (KeyExists(section, key))
 	{
@@ -219,7 +223,7 @@ void ConfigRuntime::LoadConfig(string path)
 		if (length == string::npos) // If no comments on this line
 			length = it->length();
 
-		string line = Util::Trim(it->substr(0, length)); // Trim whitespace from non-comment part of this line
+		string line = StringUtil::Trim(it->substr(0, length)); // Trim whitespace from non-comment part of this line
 		if (line.length() == 0) // If this line contains no data
 			continue;
 

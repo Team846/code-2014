@@ -42,6 +42,12 @@ namespace Messenger
 		 * @brief Writes a one-byte value to the buffer.
 		 */
 		void Write(UINT8 c);
+		
+		/*!
+		 * @brief Writes a one-byte signed value to the buffer.
+		 */
+		void Write(INT8 s);
+		
 		/*!
 		 * @brief Writes a length-prefixed byte array to the buffer.
 		 */
@@ -67,7 +73,11 @@ namespace Messenger
 		/*!
 		 * @brief Writes a two-byte value to the buffer.
 		 */
-		void Write(INT16 s);
+		void Write(UINT16 s);
+		/*!
+		 * @brief Writes a two-byte signed value to the buffer.
+		 */
+		void Write(INT16 i);
 		/*!
 		 * @brief Writes a floating point value to the buffer.
 		 */
@@ -88,7 +98,11 @@ namespace Messenger
 		/*!
 		 * @brief Reads a one-byte value from the buffer and advances the internal pointer by 8 bits.
 		 */
-		UINT8 ReadChar();
+		INT8 ReadSByte();
+		/*!
+		 * @brief Reads a one-byte signed value from the buffer and advances the internal pointer by 8 bits.
+		 */
+		UINT8 ReadByte();
 		/*!
 		 * @brief Reads a length-prefixed byte array from the buffer and advances the internal pointer.
 		 */
@@ -111,6 +125,10 @@ namespace Messenger
 		 * @brief Reads a two-byte value from the buffer and advances the internal pointer by 16 bits.
 		 */
 		INT16 ReadInt16();
+		/*!
+		 * @brief Reads a two-byte signed value from the buffer and advances the inernal pointer by 16 bits.
+		 */
+		UINT16 ReadUInt16();
 		/*!
 		 * @brief Reads a floating point value from the buffer and advances the internal pointer.
 		 */

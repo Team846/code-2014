@@ -2,7 +2,9 @@
 #include "sysLib.h"
 #include "AsyncCANJaguar.h"
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
+#include <Rhesus/Toolkit/lexical_cast.h>
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
 
 #define DISABLE_SETPOINT_CACHING 0
@@ -12,11 +14,11 @@ using namespace std;
 vector<AsyncCANJaguar*> AsyncCANJaguar::jaguar_vector;
 
 AsyncCANJaguar::AsyncCANJaguar(UINT8 channel, std::string name) :
-	SynchronizedProcess((std::string("AsyncCANJaguar #") + Util::ToString<int>(channel)).c_str(),Task::kDefaultPriority - 2),
+	SynchronizedProcess((std::string("AsyncCANJaguar #") + lexical_cast<int>(channel)).c_str(),Task::kDefaultPriority - 2),
 	CANJaguar(channel),
 	LRTSpeedController(("AsyncCANJaguar" + name).c_str())
 {
-	m_task_name = "JAG#" + Util::ToString<int>(channel);
+	m_task_name = "JAG#" + lexical_cast<int>(channel);
 	m_channel = channel;
 	m_setpoint.setValue(0.0);
 	m_should_disable_control = false;

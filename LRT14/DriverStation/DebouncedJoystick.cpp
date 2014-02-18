@@ -1,14 +1,15 @@
 #include "DebouncedJoystick.h"
 #include <cstdio>
-#include "../Utils/Util.h"
 
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
+#include <Rhesus.Toolkit.h>
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
 
 DebouncedJoystick::DebouncedJoystick(UINT32 port, int nBtns, int nAxes) :
 	Joystick(port),
-	Loggable("Joystick" + Util::ToString(port))
+	Loggable("Joystick" + lexical_cast<int>(port))
 {
 	m_num_buttons = nBtns;
 	m_num_axes = nAxes;

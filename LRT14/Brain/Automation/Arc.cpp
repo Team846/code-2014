@@ -1,9 +1,13 @@
 #include "Arc.h"
+
+#include <Rhesus.Toolkit.Utilities.h>
+
 #include "../../ComponentData/DrivetrainData.h"
 #include <math.h>
-#include "../../Utils/Util.h"
 #include "../../Sensors/DriveEncoders.h"
 #include "../../Config/RobotConfig.h"
+
+using namespace Rhesus::Toolkit::Utilities;
 
 Arc::Arc(double distance, double angle, double maxSpeed, double errorThreshold, bool continuous) :
 	Automation("Arc"),
@@ -48,9 +52,9 @@ bool Arc::Run()
 	double radius = fabs(m_driveDistance / (m_turnAngle * acos(-1) / 180.0)); // Radius = Arc Length (distance setpoint) / Central Angle (angle setpoint to radians)
 	double velocitySetpoint = m_drivetrain->GetVelocitySetpoint(DrivetrainData::FORWARD)
 			* RobotConfig::ROBOT_WIDTH / (2 * radius); // Match turn rate to forward rate
-	velocitySetpoint *= Util::Sign(m_turnAngle) * Util::Sign(m_driveDistance);
+	velocitySetpoint *= MathHelper::Sign(m_turnAngle) * MathHelper::Sign(m_driveDistance);
 	
-	velocitySetpoint += m_arcGain * -turnForwardCompletionDifference * Util::Sign(m_turnAngle); // Correct for turn vs. forward proportion difference
+	velocitySetpoint += m_arcGain * -turnForwardCompletionDifference * MathHelper::Sign(m_turnAngle); // Correct for turn vs. forward proportion difference
 	if (driveComplete && fabs(DriveEncoders::Get()->GetTurnAngle() - (m_startDistance + m_driveDistance)) < m_errorThreshold)
 	{
 		m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::POSITION_CONTROL);

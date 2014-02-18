@@ -1,12 +1,13 @@
 #include "RobotLocation.h"
 #include "../RobotState.h"
 #include "math.h"
-#include "../Utils/Util.h"
 
 #include "../Communication/Dashboard2.h"
 
+#include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.IO.h>
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Tasks;
 
@@ -115,7 +116,7 @@ void RobotLocation::Send()
 	
 	Dashboard2::EnqueueLocatorMessage(totTime, xTx, yTx, thetaTx);
 	
-	SendToNetwork(Util::ToString(x) + " " + Util::ToString(y) + " " + Util::ToString(theta), "Data", "Location");
+	SendToNetwork(lexical_cast(x) + " " + lexical_cast(y) + " " + lexical_cast(theta), "Data", "Location");
 }
 
 void RobotLocation::Periodic(void *param)

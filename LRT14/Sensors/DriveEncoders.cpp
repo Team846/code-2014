@@ -3,7 +3,6 @@
 #include "../Config/RobotConfig.h"
 #include "../Config/ConfigRuntime.h"
 #include "../Config/ConfigPortMappings.h"
-#include "../Utils/Util.h"
 
 double DriveEncoders::MAX_ENCODER_RATE = 1;
 double DriveEncoders::MAX_TURNING_RATE = 1;
