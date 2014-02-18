@@ -29,6 +29,8 @@ public:
 	void Send();
 	
 private:
+	void UpdateSensorValues();
+	
 	LauncherLoaderData* m_loaderData;
 	LRTSpeedController* m_motorA;
 	LRTSpeedController* m_motorB;
@@ -49,6 +51,8 @@ private:
 	float m_currentSetpoint;
 	bool m_load;
 	int m_desiredRotation;
+	bool m_lastFiring;
+	float m_maxSpeed;
 };
 
 #endif

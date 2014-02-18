@@ -12,5 +12,7 @@ HotGoal::~HotGoal()
 
 HotGoal::Side HotGoal::GetActiveSide()
 {
-	return (HotGoal::Side)m_offboard->GetStreamBuffer(OffboardCommunication::HOT_GOAL).at(0);
+	std::vector<char> buffer;
+	m_offboard->Read(OffboardCommunication::HOT_GOAL, buffer);
+	return (HotGoal::Side)buffer[0];
 }

@@ -9,6 +9,7 @@
 #include "InputProcessor/DrivetrainInputs.h"
 #include "InputProcessor/CollectorRollersInputs.h"
 #include "InputProcessor/LauncherLoaderInputs.h"
+#include "InputProcessor/LauncherAngleInputs.h"
 
 #include "Automation/Autonomous.h"
 #include "Automation/Drive.h"
@@ -16,7 +17,6 @@
 #include "Automation/Collect.h"
 #include "Automation/Pass.h"
 #include "Automation/Fire.h"
-#include "Automation/ChangeLauncherAngle.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
 #include "Automation/Sequential.h"
@@ -64,6 +64,7 @@ Brain::Brain() :
 	m_inputs.push_back(new DrivetrainInputs());
 	m_inputs.push_back(new CollectorRollersInputs());
 	m_inputs.push_back(new LauncherLoaderInputs());
+	m_inputs.push_back(new LauncherAngleInputs());
 	
 	// Create automation tasks
 	Automation* auton = new Autonomous();
@@ -74,14 +75,10 @@ Brain::Brain() :
 	Automation* collect = new Collect();
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
-	Automation* longShot = new ChangeLauncherAngle(true);
-	Automation* shortShot = new ChangeLauncherAngle(false);
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
 	m_automation.push_back(fire);
-	m_automation.push_back(longShot);
-	m_automation.push_back(shortShot);
 	
 	// Create events to be used
 	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
@@ -98,8 +95,6 @@ Brain::Brain() :
 	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
 	Event* fire_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
 	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
-	Event* long_shot = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LONG_SHOT);
-	Event* short_shot = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::SHORT_SHOT);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);
@@ -117,10 +112,6 @@ Brain::Brain() :
 	pass_abort->AddAbortListener(pass);
 	fire_start->AddStartListener(fire);
 	fire_abort->AddAbortListener(fire);
-	long_shot->AddStartListener(longShot);
-	long_shot->AddAbortListener(shortShot);
-	short_shot->AddStartListener(shortShot);
-	short_shot->AddAbortListener(longShot);
 }
 
 Brain::~Brain()
