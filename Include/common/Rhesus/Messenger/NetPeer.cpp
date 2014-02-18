@@ -143,24 +143,24 @@ void NetPeer::Update()
 	{
 		NetBuffer* buff = new NetBuffer((UINT8*)rcv_buffer, received);
 		
-		InternalMessageType c = (InternalMessageType)buff->ReadChar();
+		InternalMessageType c = (InternalMessageType)buff->ReadByte();
 		
 		switch(c)
 		{
 		case LIBRARY_DATA:
 		{
 			// what message?
-			LibraryMessageType::Enum msgType = (LibraryMessageType::Enum)buff->ReadChar();
+			LibraryMessageType::Enum msgType = (LibraryMessageType::Enum)buff->ReadByte();
 			
 			switch(msgType)
 			{
 			case LibraryMessageType::MESSAGE_ACK:
 				{
 					// first byte is the send type
-					NetChannel::Enum chann = (NetChannel::Enum)buff->ReadChar();
+					NetChannel::Enum chann = (NetChannel::Enum)buff->ReadByte();
 				
 					// second byte is the channel
-					int channel = buff->ReadChar();
+					int channel = buff->ReadByte();
 				
 					// 2, 3, 4, 5 (4 bytes) form the packet id
 					int id = buff->ReadInt32();
@@ -223,9 +223,9 @@ void NetPeer::Update()
 			// read in the library header data first
 			
 			// first byte is the send type
-			NetChannel::Enum chann = (NetChannel::Enum)buff->ReadChar();
+			NetChannel::Enum chann = (NetChannel::Enum)buff->ReadByte();
 			// second byte is the channel
-			int channel = buff->ReadChar();
+			int channel = buff->ReadByte();
 			// 2, 3, 4, 5 (4 bytes) form the packet id
 			int id = buff->ReadInt32();
 			

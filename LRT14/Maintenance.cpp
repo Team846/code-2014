@@ -2,7 +2,6 @@
 #include "Actuators/Actuator.h"
 #include "Actuators/LRTSpeedController.h"
 #include "DriverStation/LRTDriverStation.h"
-#include "Utils/Util.h"
 #include "Actuators/Pneumatics.h"
 #include "Actuators/LRTServo.h"
 #include <string>
@@ -29,7 +28,7 @@ void Maintenance::Update()
             stick = LRTDriverStation::Instance()->GetOperatorStick();
             line = "O";
         }
-        line += Util::ToString(button) + "\t" + Actuator::actuator_vector[i]->GetName() + "\t";
+        line += lexical_cast(button) + "\t" + Actuator::actuator_vector[i]->GetName() + "\t";
         if (dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i]))
         {
             float val = 0.0;
@@ -48,7 +47,7 @@ void Maintenance::Update()
            	}
         
             dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->SetDutyCycle(val);
-            line += Util::ToString(dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->GetDutyCycle());
+            line += lexical_cast(dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->GetDutyCycle());
             if (stick->IsButtonDown(button))
             	line += "\t*";
         }
@@ -73,7 +72,7 @@ void Maintenance::Update()
         {
             if (stick->IsButtonDown(button))
             	dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Set(fabs(stick->GetAxis(Joystick::kYAxis)));
-            line += Util::ToString(dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Get());
+            line += lexical_cast(dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Get());
             if (stick->IsButtonDown(button))
             	line += "\t*";
         }

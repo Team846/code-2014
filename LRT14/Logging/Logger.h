@@ -3,16 +3,22 @@
 
 #define NUM_BUFFERS 16
 
-#ifdef USE_IOLIB
-#include <ioLib.h>
-#endif
-#include <WPILib.h>
 #include <vector>
 #include <typeinfo>
 #include <sstream>
+
+#ifdef USE_IOLIB
+#include <ioLib.h>
+#endif
+
+#include <WPILib.h>
+
+#include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.Tasks.h>
-#include "../Utils/Util.h"
+
 #include "../Process/SynchronizedProcess.h"
+
+using namespace Rhesus::Toolkit;
 
 class Loggable;
 
@@ -50,7 +56,7 @@ public:
 		{
 			int count = size / sizeof(*field); // Check for dynamically allocated arrays
 			Field f = {count == 1 ? typeid(*field).name() :
-					"A" + Util::ToString(count) + "_" + typeid(*field).name(), source + "/" + name, size}; // Change type to static array
+					"A" + lexical_cast<int>(count) + "_" + typeid(*field).name(), source + "/" + name, size}; // Change type to static array
 			fields.push_back(f);
 			dataSize += size;
 		}

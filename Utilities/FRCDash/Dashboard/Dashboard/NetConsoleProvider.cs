@@ -106,7 +106,7 @@ namespace Dashboard
                         if (_block) continue;
                     }
 
-                    lock (_rcvQMutex)
+                    lock (_rcvQMutex) 
                     {
                         for(int i = 0; i < lines.Length; i++)
                             _rcvQ.Enqueue(lines[i]);

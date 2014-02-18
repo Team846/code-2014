@@ -1,8 +1,12 @@
+#include <Rhesus.Toolkit.Utilities.h>
+
 #include "DriveESC.h"
 #include "AsyncCANJaguar.h"
 #include "../Sensors/DriveEncoders.h"
 
 using namespace std;
+
+using namespace Rhesus::Toolkit::Utilities;
 
 DriveESC::DriveESC(LRTSpeedController* esc, LRTEncoder* encoder, string name) :
 	Loggable(name),
@@ -89,7 +93,7 @@ void DriveESC::SetDutyCycle(float dutyCycle)
 	double speed = m_encoder->GetRate()
 				/ DriveEncoders::GetMaxEncoderRate();
 	
-	speed = Util::Clamp<double>(speed, -1, 1);
+	speed = MathHelper::Clamp<double>(speed, -1, 1);
 	
 	dutyCycle = DitheredBraking(dutyCycle, speed);
 	dutyCycle = CurrentLimit(dutyCycle, speed);
@@ -102,9 +106,9 @@ void DriveESC::SetDutyCycle(float dutyCycle)
 
 float DriveESC::DitheredBraking(float dutyCycle, float speed)
 {
-	dutyCycle = Util::Clamp<float>(dutyCycle, -1.0, 1.0);
+	dutyCycle = MathHelper::Clamp<float>(dutyCycle, -1.0, 1.0);
 	BrakeAndDutyCycle command = CalculateBrakeAndDutyCycle(dutyCycle, speed);
-	command.dutyCycle = Util::Clamp<float>(command.dutyCycle, -1.0, 1.0);
+	command.dutyCycle = MathHelper::Clamp<float>(command.dutyCycle, -1.0, 1.0);
 
 	// Default to coast
 	m_controller1->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
@@ -158,12 +162,12 @@ float DriveESC::CurrentLimit(float dutyCycle, float speed)
 	// At this point speed >= 0
 	if (dutyCycle > speed) // Current limit accelerating
 	{
-		dutyCycle = Util::Min(dutyCycle, speed + m_forwardCurrentLimit);
+		dutyCycle = MathHelper::Min(dutyCycle, speed + m_forwardCurrentLimit);
 	}
 	else if (dutyCycle < 0) // Current limit reversing direction
 	{
 		float limitedDutyCycle = -m_reverseCurrentLimit / (1.0 + speed); // speed >= 0 so dutyCycle < -currentLimit
-		dutyCycle = Util::Max(dutyCycle, limitedDutyCycle); // Both are negative
+		dutyCycle = MathHelper::Max(dutyCycle, limitedDutyCycle); // Both are negative
 	}
 	
 	return dutyCycle;

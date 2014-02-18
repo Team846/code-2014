@@ -1,5 +1,10 @@
 #include "SensorFactory.h"
-#include "../Utils/Util.h"
+
+#include <Rhesus.Toolkit.h>
+#include <Rhesus.Toolkit.Utilities.h>
+
+using namespace Rhesus::Toolkit;
+using namespace Rhesus::Toolkit::Utilities;
 
 map<uint32_t, AnalogChannel*> SensorFactory::m_analog;
 map<uint32_t, DigitalInput*> SensorFactory::m_digital;
@@ -18,32 +23,32 @@ void SensorFactory::Finalize()
 	{
 	   map<uint32_t, AnalogChannel*>::iterator erase = it;
 	   ++it;
-	   Util::DeleteMapSecond(*erase);
+	   ContainerCleanup::DeleteMapSecond(*erase);
 	   m_analog.erase(erase);
 	}
 	for (map<uint32_t, DigitalInput*>::iterator it = m_digital.begin(); it != m_digital.end(); it++)
 	{
 	   map<uint32_t, DigitalInput*>::iterator erase = it;
 	   ++it;
-	   Util::DeleteMapSecond(*erase);
+	   ContainerCleanup::DeleteMapSecond(*erase);
 	   m_digital.erase(erase);
 	}
 	for (map<uint32_t, Counter*>::iterator it = m_counters.begin(); it != m_counters.end(); it++)
 	{
 	   map<uint32_t, Counter*>::iterator erase = it;
 	   ++it;
-	   Util::DeleteMapSecond(*erase);
+	   ContainerCleanup::DeleteMapSecond(*erase);
 	   m_counters.erase(erase);
 	}
 	for (map<pair<uint32_t, uint32_t>, LRTEncoder*>::iterator it = m_encoders.begin(); it != m_encoders.end(); it++)
 	{
 	   map<pair<uint32_t, uint32_t>, LRTEncoder*>::iterator erase = it;
 	   ++it;
-	   Util::DeleteMapSecond(*erase);
+	   ContainerCleanup::DeleteMapSecond(*erase);
 	   m_encoders.erase(erase);
 	}
-	delete m_instance;
-	m_instance = NULL;
+	
+	R_DELETE(m_instance);
 }
 
 AnalogChannel* SensorFactory::GetAnalogChannel(uint32_t port)
@@ -98,19 +103,19 @@ void SensorFactory::Send()
 {
 	for (map<uint32_t, AnalogChannel*>::iterator it = m_analog.begin(); it != m_analog.end(); it++)
 	{
-		SendToNetwork(it->second->GetAverageValue(), "Analog" + Util::ToString(it->first), "SensorData");
+		SendToNetwork(it->second->GetAverageValue(), "Analog" + lexical_cast(it->first), "SensorData");
 	}
 	for (map<uint32_t, DigitalInput*>::iterator it = m_digital.begin(); it != m_digital.end(); it++)
 	{
-		SendToNetwork(it->second->Get(), "Digital" + Util::ToString(it->first), "SensorData");
+		SendToNetwork(it->second->Get(), "Digital" + lexical_cast(it->first), "SensorData");
 	}
 	for (map<uint32_t, Counter*>::iterator it = m_counters.begin(); it != m_counters.end(); it++)
 	{
-		SendToNetwork(it->second->GetPeriod(), "Counter" + Util::ToString(it->first), "SensorData");
+		SendToNetwork(it->second->GetPeriod(), "Counter" + lexical_cast(it->first), "SensorData");
 	}
 	for (map<pair<uint32_t, uint32_t>, LRTEncoder*>::iterator it = m_encoders.begin(); it != m_encoders.end(); it++)
 	{
-		SendToNetwork(it->second->GetRate(), "EncoderRate" + Util::ToString(it->first.first) + "," + Util::ToString(it->first.second), "SensorData");
-		SendToNetwork(it->second->Get(), "EncoderDistance" + Util::ToString(it->first.first) + "," + Util::ToString(it->first.second), "SensorData");
+		SendToNetwork(it->second->GetRate(), "EncoderRate" + lexical_cast(it->first.first) + "," + lexical_cast(it->first.second), "SensorData");
+		SendToNetwork(it->second->Get(), "EncoderDistance" + lexical_cast(it->first.first) + "," + lexical_cast(it->first.second), "SensorData");
 	}
 }

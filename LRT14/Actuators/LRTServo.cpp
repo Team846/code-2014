@@ -1,9 +1,10 @@
 #include "LRTServo.h"
-#include "../Utils/Util.h"
 
+#include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Utilities;
 
 LRTServo::LRTServo(UINT32 channel, std::string name)
     : Servo(channel)
@@ -62,7 +63,7 @@ void LRTServo::Set(float value)
 void LRTServo::SetMicroseconds(int ms) 
 {
 	m_controlMode = kMicroseconds;
-	m_value = Util::Clamp<int>(ms, MIN_VAL, MAX_VAL);
+	m_value = MathHelper::Clamp<int>(ms, MIN_VAL, MAX_VAL);
 }
 
 void LRTServo::SetAngle(float angle)

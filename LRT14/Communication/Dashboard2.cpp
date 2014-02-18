@@ -39,11 +39,14 @@ void Dashboard2::EnqueueLocatorMessage(double time, double x, double y, double t
 
 void Dashboard2::EnqueueDrivetrainTicksMessage(int ticks)
 {
-	return;
-	
 	NetBuffer buff;
 	buff.Write((UINT8)HEADER_DRIVETRAIN_TICKS);
 	buff.Write(ticks);
 	
 	EnqueueRawMessage(buff, NetChannel::NET_UNRELIABLE_SEQUENCED, NetChannelDefinition::UNRELIABLE_SEQUENCED::DRIVETRAIN_TICKS);
+}
+
+void Dashboard2::AddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType)
+{
+	
 }

@@ -1,12 +1,13 @@
 #include "LCD.h"
-#include "../Utils/Util.h"
 #include "NetworkCommunication/FRCComm.h"
 #include <cstdio>
 #include <Synchronized.h>
 
+#include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Utilities;
 
 LCD* LCD::instance = NULL;
 
@@ -97,9 +98,9 @@ void LCD::LCDUpdate()
 
 void LCD::ScrollLCD(int x, int y)
 {
-	curLineIndex = Util::Clamp<int>(curLineIndex + y, 0,
+	curLineIndex = MathHelper::Clamp<int>(curLineIndex + y, 0,
 			kNumBufferLines - kNumLcdPhysicalLines);
-	curColumnIndex = Util::Clamp<int>(curColumnIndex + x, 0,
+	curColumnIndex = MathHelper::Clamp<int>(curColumnIndex + x, 0,
 			kNumBufferColumns - kNumLcdPhysicalColumns);
 
 	BufferedConsole::Printf("DS LCD Scroll %d %d => %d,%d\n", x, y, curLineIndex,

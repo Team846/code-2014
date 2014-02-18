@@ -10,8 +10,11 @@
 #include "../Utilities/StringUtil.h"
 #include "../Utilities/ContainerCleanup.h"
 
+#include "../lexical_cast.h"
+
 #include "../Defines.h"
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::Utilities;
 
@@ -43,7 +46,7 @@ void TaskPool::Start(INT32 numThreads)
 	
 	for(int i = 0; i < numThreads; i++)
 	{
-		std::string name = "TaskPool Worker Thread #" + StringUtil::ValToString<int>(i + 1);
+		std::string name = "TaskPool Worker Thread #" + lexical_cast<int>(i + 1);
 		
 		Task* task = new Task(name.c_str(), (FUNCPTR)WorkerTask, Task::kDefaultPriority - 1);
 		task->Start();
@@ -65,7 +68,7 @@ void TaskPool::EnqueueTask(FUNCPTR ptr, UINT32 arg0, UINT32 arg1, UINT32 arg2, U
 	{
 		lock_ptr<std::vector<Task*> > tPtr(s_tasks, s_tasksMutex);
 		{
-			std::string name = "TaskPool Worker Thread #" + StringUtil::ValToString<int>(tPtr->size() + 1);
+			std::string name = "TaskPool Worker Thread #" + lexical_cast<int>(tPtr->size() + 1);
 			
 			Task* task = new Task(name.c_str(), (FUNCPTR)WorkerTask, Task::kDefaultPriority - 1);
 			task->Start();

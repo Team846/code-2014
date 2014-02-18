@@ -1,6 +1,8 @@
 #ifndef RHESUS_IOUTILS_H_
 #define RHESUS_IOUTILS_H_
 
+#include <WPILib.h>
+
 namespace Rhesus 
 {
 namespace Toolkit 
@@ -50,10 +52,6 @@ namespace IO
 			return s_file;
 		}
 	};
-
-	bool IOUtils::s_file = false;
-	int IOUtils::fd = 0;
-	fpos_t IOUtils::pos = 0;
 }
 }
 }

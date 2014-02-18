@@ -30,7 +30,7 @@ namespace Diagnostics
 		static double GetLastTime(string taskName);
 		static double GetMaxTime(string taskName);
 		
-		static std::hash_map<string, pair<double, int> > CloneAverageTimes();
+		static std::hash_map<string, double > CloneAverageTimes();
 		static std::hash_map<string, double> CloneLastTimes();
 		static std::hash_map<string, double> CloneMaxTimes();
 		

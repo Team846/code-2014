@@ -22,15 +22,17 @@
 #include "Communication/LiveNetworkSender.h"
 #include "Communication/OffboardCommunication.h"
 
-#include "Rhesus/Toolkit/GameState.h"
-#include "Rhesus/Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
+#include <Rhesus.Toolkit.h>
+#include <Rhesus.Toolkit.Diagnostics.h>
+#include <Rhesus.Toolkit.IO.h>
+#include <Rhesus.Toolkit.Tasks.h>
 
-#include <Rhesus/Toolkit/IO/IOUtils.h>
-#include <Rhesus/Toolkit/IO/BufferedConsole.h>
-
+using namespace Rhesus::Toolkit;
+using namespace Rhesus::Toolkit::Diagnostics;
 using namespace Rhesus::Toolkit::IO;
 
 bool maintenanceMode = false;
+bool showProfiler = false;
 
 LRTRobot14::LRTRobot14()
 {
@@ -137,6 +139,23 @@ void LRTRobot14::RobotInit()
 static int TimeoutCallback(...)
 {
 	printf("Main loop execution time > 20 ms\n");
+	
+	BufferedConsole::Printfln("======================================");
+	BufferedConsole::Printfln("PROFILED TIMES (over 20ms):");
+	BufferedConsole::Printfln("");
+	BufferedConsole::Printfln("Activity\tLast Time (ms)");
+	std::hash_map<std::string, double> times = Profiler::CloneLastTimes();
+	
+	for(std::hash_map<std::string, double>::iterator it = times.begin(); it != times.end(); ++it)
+	{
+		std::string name = it->first;
+		double time = it->second;
+		
+		BufferedConsole::Printfln("%s:\t%lf ms", name.c_str(), time * 1000.0f); // second * 1000ms/second
+	}
+	
+	BufferedConsole::Printfln("======================================");
+	
 	return 0;
 }
 
@@ -144,6 +163,8 @@ void LRTRobot14::Tick()
 {
 	wdStart(_watchdog, sysClkRateGet() / RobotConfig::LOOP_RATE,
 			TimeoutCallback, 0);
+	
+	Profiler::StartActivity("Tick");
 	
 	// Update global robot state object
 	RobotState::Instance().Update();
@@ -211,7 +232,36 @@ void LRTRobot14::Tick()
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
 	
+	Profiler::End("Tick");
+	
 	wdCancel(_watchdog);
+	
+	if(showProfiler)
+	{
+		BufferedConsole::Printfln("======================================");
+		BufferedConsole::Printfln("PROFILED TIMES:");
+		BufferedConsole::Printfln("");
+		BufferedConsole::Printfln("Activity\tLast Time (ms)\tAverage Time (ms)\tGreatest Time (ms)");
+		std::hash_map<std::string, double> times = Profiler::CloneLastTimes();
+		std::hash_map<std::string, double> avgTimes = Profiler::CloneAverageTimes();
+		std::hash_map<std::string, double> maxTimes = Profiler::CloneMaxTimes();
+		
+		for(std::hash_map<std::string, double>::iterator it = times.begin(); it != times.end(); ++it)
+		{
+			std::string name = it->first;
+			double time = it->second;
+			
+			std::hash_map<std::string, double>::iterator avgIt = avgTimes.find(name);
+			double avgTime = (avgIt == times.end()) ? -1.0 : avgIt->second;
+			
+			std::hash_map<std::string, double>::iterator maxIt = maxTimes.find(name);
+			double maxTime = (maxIt == times.end()) ? -1.0 : maxIt->second;
+			
+			BufferedConsole::Printfln("%s:\t%lf ms\t%lf ms\t%lf ms", name.c_str(), time * 1000.0, avgTime * 1000.0, maxTime * 1000.0); // second * 1000ms/second
+		}
+		
+		BufferedConsole::Printfln("======================================");
+	}
 }
 
 void maintenance()
@@ -238,4 +288,11 @@ void exit()
 		BufferedConsole::Printfln("Not in maintenance mode");
 	else
 		BufferedConsole::Printfln("Please disable to exit maintenance mode");
+}
+
+void profiler()
+{
+	showProfiler = !showProfiler;
+	
+	BufferedConsole::Printfln("Display profiler: %s", (showProfiler ? "true" : "false"));
 }

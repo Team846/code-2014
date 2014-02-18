@@ -27,7 +27,7 @@ namespace Utilities
 		/*!
 		 * Trims the string from the beginning
 		 */
-		static std::string ltrim(std::string s)
+		static std::string TrimLeft(std::string s)
 		{
 			s.erase(
 					s.begin(),
@@ -40,7 +40,7 @@ namespace Utilities
 		/*!
 		 * trims the string from the end
 		 */
-		static std::string rtrim(std::string s)
+		static std::string TrimRight(std::string s)
 		{
 			s.erase(
 					std::find_if(s.rbegin(), s.rend(),
@@ -56,7 +56,7 @@ namespace Utilities
 		 */
 		static std::string Trim(std::string s)
 		{
-			return ltrim(rtrim(s));
+			return TrimLeft(TrimRight(s));
 		}
 	
 		/*!
@@ -85,20 +85,6 @@ namespace Utilities
 	
 			}
 			return ret;
-		}
-	
-		/*!
-		 * converts a string to a value of a specified type
-		 * @return T representation of the string value
-		 * @param val the string to convert
-		 */
-		template<class T>
-		static std::string ValToString(T val)
-		{
-			std::stringstream ss;
-			ss << std::boolalpha << val;
-			
-			return ss.str();
 		}
 	};
 

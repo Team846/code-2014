@@ -5,6 +5,10 @@
 #include "../../Sensors/DriveEncoders.h"
 #include <Timer.h>
 
+#include <Rhesus.Toolkit.Utilities.h>
+
+using namespace Rhesus::Toolkit::Utilities;
+
 Drive::Drive(double distance, double maxSpeed, double errorThreshold, bool continuous) :
 	Automation("Drive"),
 	Configurable("DrivePosition")
@@ -37,7 +41,7 @@ bool Drive::Start()
 	else
 	{
 		m_drivetrain->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
-		m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, Util::Sign(m_distance) * m_maxSpeed);
+		m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, MathHelper::Sign(m_distance) * m_maxSpeed);
 		m_drivetrain->SetRelativePositionSetpoint(DrivetrainData::FORWARD, m_distance);
 	}
 	m_drivetrain->SetPositionControlMaxSpeed(DrivetrainData::FORWARD, m_maxSpeed);

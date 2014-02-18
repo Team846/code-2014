@@ -1,12 +1,13 @@
 #include "ConfigPortMappings.h"
 #include "RobotConfig.h"
-#include "../Utils/Util.h"
 #include <fstream>
 #include <sstream>
+
+#include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
 using namespace Rhesus::Toolkit::IO;
-using namespace std;
+using namespace Rhesus::Toolkit::Utilities;
 
 ConfigPortMappings* ConfigPortMappings::m_instance = NULL;
 const string ConfigPortMappings::CONFIG_FILE_PATH = RobotConfig::PORT_MAPPINGS_FILE_PATH;
@@ -50,8 +51,8 @@ uint32_t ConfigPortMappings::Get(string name)
 	string section, key;
 	getline(sstream, section, '/');
 	getline(sstream, key);
-	transform(section.begin(), section.end(), section.begin(), tolower);
-	transform(key.begin(), key.end(), key.begin(), toupper);
+	transform(section.begin(), section.end(), section.begin(), ::tolower);
+	transform(key.begin(), key.end(), key.begin(), ::toupper);
 	if (Instance()->KeyExists(section, key))
 	{
 		return (*Instance()->portData)[section][key];
@@ -94,14 +95,14 @@ void ConfigPortMappings::LoadConfig(string path)
 		if (length == string::npos) // If no comments on this line
 			length = it->length();
 
-		string line = Util::Trim(it->substr(0, length)); // Trim whitespace from non-comment part of this line
+		string line = StringUtil::Trim(it->substr(0, length)); // Trim whitespace from non-comment part of this line
 		if (line.length() == 0) // If this line contains no data
 			continue;
 
 		if (line[0] == '[') // If new section
 		{
 			currentSection = line.substr(1, line.find_last_of("]") - 1); // Set current section name
-			transform(currentSection.begin(), currentSection.end(), currentSection.begin(), tolower);
+			transform(currentSection.begin(), currentSection.end(), currentSection.begin(), ::tolower);
 			continue;
 		}
 
@@ -110,7 +111,7 @@ void ConfigPortMappings::LoadConfig(string path)
 		uint32_t value;
 		getline(sstream, key, '='); // Get key up to =
 		sstream >> value; // Get assigned value after =
-		transform(key.begin(), key.end(), key.begin(), toupper);
+		transform(key.begin(), key.end(), key.begin(), ::toupper);
 		(*portData)[currentSection][key] = value; // Set value for key of current section
 	}
 }

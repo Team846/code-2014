@@ -145,14 +145,17 @@ double Profiler::GetMaxTime(string taskName)
 	}
 }
 
-std::hash_map<string, pair<double, int> > Profiler::CloneAverageTimes()
+std::hash_map<string, double > Profiler::CloneAverageTimes()
 {
-	std::hash_map<string, pair<double, int> > mapCopy;
+	std::hash_map<string, double > mapCopy;
 	
 	{
 		lock_on l(s_syncObj);
 		
-		mapCopy.insert(s_averageTimes.begin(), s_averageTimes.end());
+		for(std::hash_map<string, pair<double, int> >::iterator it = s_averageTimes.begin(); it != s_averageTimes.end(); ++it)
+		{
+			mapCopy.insert(std::make_pair<string, double>(it->first, it->second.first));
+		}
 	}
 	
 	return mapCopy;

@@ -3,8 +3,10 @@
 #include "../../Config/DriverStationConfig.h"
 #include "../../Utils/Util.h"
 #include <algorithm>
+#include <Rhesus.Toolkit.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
+using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
 
 #include "Drive.h"
@@ -39,7 +41,7 @@ bool Autonomous::Start()
 		AddAutomation(new Pause(delay));
 	}
 	
-	LoadRoutine(RobotConfig::ROUTINE_FILE_PATH.substr(0, RobotConfig::ROUTINE_FILE_PATH.find('.')) + Util::lexical_cast(autonRoutine) + RobotConfig::ROUTINE_FILE_PATH.substr(RobotConfig::ROUTINE_FILE_PATH.find('.'), RobotConfig::ROUTINE_FILE_PATH.length() - RobotConfig::ROUTINE_FILE_PATH.find('.')));
+	LoadRoutine(RobotConfig::ROUTINE_FILE_PATH.substr(0, RobotConfig::ROUTINE_FILE_PATH.find('.')) + lexical_cast(autonRoutine) + RobotConfig::ROUTINE_FILE_PATH.substr(RobotConfig::ROUTINE_FILE_PATH.find('.'), RobotConfig::ROUTINE_FILE_PATH.length() - RobotConfig::ROUTINE_FILE_PATH.find('.')));
 
 	return Sequential::Start();
 }
@@ -107,63 +109,63 @@ void Autonomous::LoadRoutine(std::string path)
 			if (command == "drive")
 			{
 				if (arglist.size() == 1)
-					current = new Drive(Util::lexical_cast<double>(arglist[0]));
+					current = new Drive(lexical_cast<double>(arglist[0]));
 				else if (arglist.size() == 2)
-					current = new Drive(Util::lexical_cast<double>(arglist[0]),
-							Util::lexical_cast<double>(arglist[1]));
+					current = new Drive(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]));
 				else if (arglist.size() == 3)
-					current = new Drive(Util::lexical_cast<double>(arglist[0]),
-							Util::lexical_cast<double>(arglist[1]),
-							Util::lexical_cast<double>(arglist[2]));
+					current = new Drive(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]),
+							lexical_cast<double>(arglist[2]));
 				else if (arglist.size() == 4)
-					current = new Drive(Util::lexical_cast<double>(arglist[0]),
-							Util::lexical_cast<double>(arglist[1]),
-							Util::lexical_cast<double>(arglist[2]),
-							Util::lexical_cast<bool>(arglist[3]));
+					current = new Drive(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]),
+							lexical_cast<double>(arglist[2]),
+							lexical_cast<bool>(arglist[3]));
 				else
 					failed = true;
 			}
 			else if (command == "turn")
 			{
 				if (arglist.size() == 1)
-					current = new Turn(Util::lexical_cast<double>(arglist[0]));
+					current = new Turn(lexical_cast<double>(arglist[0]));
 				else if (arglist.size() == 2)
-					current = new Turn(Util::lexical_cast<double>(arglist[0]),
-							Util::lexical_cast<double>(arglist[1]));
+					current = new Turn(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]));
 				else if (arglist.size() == 3)
-					current = new Turn(Util::lexical_cast<double>(arglist[0]),
-							Util::lexical_cast<double>(arglist[1]),
-							Util::lexical_cast<double>(arglist[2]));
+					current = new Turn(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]),
+							lexical_cast<double>(arglist[2]));
 				else
 					failed = true;
 			}
 //			else if (command == "arc")
 //			{
 //				if (arglist.size() == 2)
-//					current = new Arc(Util::lexical_cast<double>(arglist[0]),
-//							Util::lexical_cast<double>(arglist[1]));
+//					current = new Arc(lexical_cast<double>(arglist[0]),
+//							lexical_cast<double>(arglist[1]));
 //				else if (arglist.size() == 3)
-//					current = new Arc(Util::lexical_cast<double>(arglist[0]),
-//							Util::lexical_cast<double>(arglist[1]),
-//							Util::lexical_cast<double>(arglist[2]));
+//					current = new Arc(lexical_cast<double>(arglist[0]),
+//							lexical_cast<double>(arglist[1]),
+//							lexical_cast<double>(arglist[2]));
 //				else if (arglist.size() == 4)
-//					current = new Arc(Util::lexical_cast<double>(arglist[0]),
-//							Util::lexical_cast<double>(arglist[1]),
-//							Util::lexical_cast<double>(arglist[2]),
-//							Util::lexical_cast<double>(arglist[3]));
+//					current = new Arc(lexical_cast<double>(arglist[0]),
+//							lexical_cast<double>(arglist[1]),
+//							lexical_cast<double>(arglist[2]),
+//							lexical_cast<double>(arglist[3]));
 //				else if (arglist.size() == 5)
-//					current = new Arc(Util::lexical_cast<double>(arglist[0]),
-//							Util::lexical_cast<double>(arglist[1]),
-//							Util::lexical_cast<double>(arglist[2]),
-//							Util::lexical_cast<double>(arglist[3]),
-//							Util::lexical_cast<double>(arglist[4]));
+//					current = new Arc(lexical_cast<double>(arglist[0]),
+//							lexical_cast<double>(arglist[1]),
+//							lexical_cast<double>(arglist[2]),
+//							lexical_cast<double>(arglist[3]),
+//							lexical_cast<double>(arglist[4]));
 //				else
 //					failed = true;
 //			}
 			else if (command == "wait")
 			{
 				if (arglist.size() == 1)
-					current = new Pause(Util::lexical_cast<double>(arglist[0]));
+					current = new Pause(lexical_cast<double>(arglist[0]));
 				else
 					failed = true;
 			}
