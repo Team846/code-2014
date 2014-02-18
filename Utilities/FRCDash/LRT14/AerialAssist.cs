@@ -64,12 +64,11 @@ namespace LRT14
             collectorTab.Init();
             collectorTab.Text = "Collector";
 
-            Graph speedGraph = new Graph(manager, "collector_speed", "LRT14.AerialAssist.COLLECTOR_SPEED", contentLibrary);
-            speedGraph.Width = collectorTab.ClientWidth - 4;
-            speedGraph.Height = collectorTab.ClientHeight - 4;
-            speedGraph.Parent = collectorTab;
-            speedGraph.Init();
-            speedGraph.SubscribeToPacket((byte)MessageType.COLLECTOR_SPEED);
+            CollectorControl collector = new CollectorControl(manager, "collector", "LRT14.AerialAssist.COLLECTOR_SPEED", contentLibrary);
+            collector.Parent = collectorTab;
+            collector.Width = 200;
+            collector.Height = 200;
+            collector.SubscribeToPacket((byte)MessageType.COLLECTOR_SPEED);
         }
 
         private void setupTelemetry(Manager manager, ContentLibrary contentLibrary, TabControl root)
