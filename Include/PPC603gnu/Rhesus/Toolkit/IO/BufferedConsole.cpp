@@ -9,7 +9,17 @@ using namespace std;
 using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Tasks;
 
-void BufferedConsole::Println(std::string msg, ...)
+void BufferedConsole::Println(std::string msg)
+{
+	std::stringstream ss;
+	ss << msg << "\n";
+	msg = ss.str();
+	
+	string* n = new string(msg);
+	TaskPool::EnqueueTask((FUNCPTR)InternalPrintWrapper, (UINT32)n);
+}
+
+void BufferedConsole::Printfln(std::string msg, ...)
 {
 //	std::printf("PRINT STARTED...\n");
 	
