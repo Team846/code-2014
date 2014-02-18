@@ -502,7 +502,7 @@ namespace RhesusNet.NET
                     localBuff.Write(0);
                     break;
                 case NetChannel.NET_UNRELIABLE_SEQUENCED:
-                    localBuff.Write(_currentUnreliableSequencedCounter++);
+                    localBuff.Write(++_currentUnreliableSequencedCounter);
                     break;
                 default:
 
@@ -513,7 +513,10 @@ namespace RhesusNet.NET
 	
             buff.Sent = true;
 
-            _socket.SendTo(localBuff.GetBuffer(), 0, localBuff.GetBufferLength(), SocketFlags.None, to.RemoteEndpoint);
+            byte[] sendBuff = localBuff.GetBuffer();
+            int sendBuffLen = localBuff.GetBufferLength();
+
+            _socket.SendTo(sendBuff, 0, sendBuffLen, SocketFlags.None, to.RemoteEndpoint);
         }
 
         protected void SendRaw(NetBuffer nb, NetConnection nc)

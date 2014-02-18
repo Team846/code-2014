@@ -54,6 +54,7 @@ namespace LRT14
         private Dictionary<short, FieldDatatype> _idDatatype; 
         private Dictionary<short, string> _idLabel;
         private Dictionary<short, string> _idData;
+        private Dictionary<short, TextBox> _idTextbox;
 
         private string id;
         private string persistenceKey;
@@ -66,7 +67,7 @@ namespace LRT14
             this.persistenceKey = persistenceKey;
             this.content = content;
 
-            Color = new Color(30, 30, 30);
+            Color = Color.Transparent;
         }
 
         public void display()
@@ -82,6 +83,8 @@ namespace LRT14
                 label.Parent = this;
 
                 TextBox info = new TextBox(Manager);
+                _idTextbox[kvp.Key] = info;
+                info.ReadOnly = true;
                 info.Init();
                 //info.Text = IdInfos[i].ToString();
                 if (_idData.ContainsKey(kvp.Key))
@@ -90,7 +93,7 @@ namespace LRT14
                 }
                 else
                 {
-                    info.Text = "<???>";
+                    info.Text = "???";
                 }
 
                 info.Left = label.Left + _labelInfoDistance;
@@ -147,10 +150,11 @@ namespace LRT14
 
         private void telemInit(NetBuffer nb)
         {
-            int field = nb.ReadInt32();
+            int field = nb.ReadInt16();
             _idData = new Dictionary<short, string>();
             _idDatatype = new Dictionary<short, FieldDatatype>();
             _idLabel = new Dictionary<short, string>();
+            _idTextbox = new Dictionary<short, TextBox>();
 
             for (int i = 0; i < field; i++)
             {
@@ -217,7 +221,7 @@ namespace LRT14
                 }
 
                 _idData[id] = data;
-
+                _idTextbox[id].Text = data;
             }
         }
 
