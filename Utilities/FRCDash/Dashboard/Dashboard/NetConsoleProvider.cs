@@ -98,6 +98,7 @@ namespace Dashboard
                     string str = Encoding.ASCII.GetString(buff).Replace("\0", String.Empty).Trim();
 
                     str = str.Replace("\r", "");
+                    str = str.Replace("\t", "    ");  
                     string[] lines = str.Split('\n');
 
                     lock (_blockMutex)
@@ -127,10 +128,10 @@ namespace Dashboard
         {
             switch (command)
             {
-                case "clear":
+                case "/clear":
                     _console.MessageBuffer.Clear();
                     return false;
-                case "block":
+                case "/block":
                     lock(_blockMutex)
                         _block = !_block;
                     return false;
