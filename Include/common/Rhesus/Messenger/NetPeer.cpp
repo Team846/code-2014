@@ -678,7 +678,7 @@ int NetPeer::Send(NetBuffer* buff, NetConnection* to, NetChannel::Enum method, i
 		localBuff->Write(0);
 		 break;
 	case NetChannel::NET_UNRELIABLE_SEQUENCED:
-		localBuff->Write(m_currentUnreliableSequencedCounter++);
+		localBuff->Write(++m_currentUnreliableSequencedCounter);
 		break;
 	default:
 
