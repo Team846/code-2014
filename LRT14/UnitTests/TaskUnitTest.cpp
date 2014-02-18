@@ -5,6 +5,7 @@
 
 #include "RUnit/TestApparatus.h"
 #include "../Rhesus/Toolkit/Tasks/TaskPool.h"
+#include "../Rhesus/Toolkit/Tasks/ManagedTask.h"
 #include "../Rhesus/Toolkit/Tasks/BinarySemaphore.h"
 #include "../Rhesus/Toolkit/IO/BufferedConsole.h"
 #include "../Rhesus/Toolkit/Tasks/Mutex.h"
@@ -189,7 +190,7 @@ INT32 TestDoAsync()
 
 static void SwagPrint()
 {
-	std::printf("THANK YOU BASEDGOD!");
+	std::printf("THANK YOU BASEDGOD!\n");
 }
 
 INT32 TestDoAsyncStatic()
@@ -203,6 +204,27 @@ INT32 TestDoAsyncStatic()
 	taskDelay(sysClkRateGet());
 	
 	TaskPool::Stop();
+	
+	return 0;
+}
+
+void PrintForever(int i)
+{	
+	while(true)
+	{
+		std::printf("Hi! %d\n", i++);
+	}
+}
+
+INT32 TestManagedTask()
+{
+	ManagedTask m("PrintForever", (FUNCPTR)PrintForever);
+	
+	m.Start(5);
+	
+	taskDelay(sysClkRateGet() * 5);
+	
+	ManagedTask::Finalize(); // should kill the print task.
 	
 	return 0;
 }

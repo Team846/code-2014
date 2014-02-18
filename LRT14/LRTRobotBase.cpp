@@ -29,6 +29,9 @@ void LRTRobotBase::StartCompetition()
 
 	// Stop the task pool
 	TaskPool::Stop();
+	
+	// Kill all managed tasks
+	ManagedTask::Finalize();
 }
 
 void LRTRobotBase::Main()
