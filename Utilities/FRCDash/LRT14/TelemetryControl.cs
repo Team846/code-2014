@@ -34,7 +34,12 @@ namespace LRT14
             FLOAT = 0x08,
             DOUBLE = 0x09,
             STRING = 0x0A,
+        }
 
+        private enum TelemHeader : byte
+        {
+            TELEM_INIT = 0x00,
+            TELEM_UPDATE = 0x01
         }
 
         private int _topPadding;
@@ -76,7 +81,6 @@ namespace LRT14
                 label.Top = _topPadding + _topMargin * i + _textBoxHeight * i;
                 label.Parent = this;
 
-
                 TextBox info = new TextBox(Manager);
                 info.Init();
                 //info.Text = IdInfos[i].ToString();
@@ -88,7 +92,6 @@ namespace LRT14
                 {
                     info.Text = "<???>";
                 }
-
 
                 info.Left = label.Left + _labelInfoDistance;
                 info.Top = label.Top;
@@ -142,86 +145,102 @@ namespace LRT14
             set{_labelInfoDistance = value;}
         }
 
-        public void telem_init()
+        private void telemInit(NetBuffer nb)
         {
-            NetBuffer nb;
+            int field = nb.ReadInt32();
+            _idData = new Dictionary<short, string>();
+            _idDatatype = new Dictionary<short, FieldDatatype>();
+            _idLabel = new Dictionary<short, string>();
 
-            while ((nb = ReadMessage()) != null)
+            for (int i = 0; i < field; i++)
             {
+                string label = nb.ReadString();
+                short id = nb.ReadInt16();
+                byte datatype = nb.ReadByte();
 
-                short field = nb.ReadInt16();
+                _idData.Add(id, "");
+                _idDatatype.Add(id, (FieldDatatype)datatype);
+                _idLabel.Add(id, label);
+            }
 
-                for (int i = 0; i < field; i++)
+            display();
+        }
+
+        private void telemUpdate(NetBuffer nb)
+        {
+            short field = nb.ReadInt16();
+
+            for (int i = 0; i < field; i++)
+            {
+                short id = nb.ReadInt16();
+                string data = "???";
+
+                if (_idDatatype.ContainsKey(id))
                 {
-                    string label = nb.ReadString();
-                    short id = nb.ReadInt16();
-                    byte datatype = nb.ReadByte();
+                    switch (_idDatatype[id])
+                    {
+                        case FieldDatatype.INT8:
+                            data = nb.ReadSByte().ToString();
+                            break;
+                        case FieldDatatype.INT16:
+                            data = nb.ReadInt16().ToString();
+                            break;
+                        case FieldDatatype.INT32:
+                            data = nb.ReadInt32().ToString();
+                            break;
+                        case FieldDatatype.INT64:
+                            data = nb.ReadInt64().ToString();
+                            break;
+                        case FieldDatatype.UINT8:
+                            data = nb.ReadByte().ToString();
+                            break;
+                        case FieldDatatype.UINT16:
+                            data = nb.ReadUInt16().ToString();
+                            break;
+                        case FieldDatatype.UINT32:
+                            data = nb.ReadUInt32().ToString();
+                            break;
+                        case FieldDatatype.UINT64:
+                            data = nb.ReadUInt64().ToString();
+                            break;
+                        case FieldDatatype.FLOAT:
+                            data = nb.ReadFloat().ToString();
+                            break;
+                        case FieldDatatype.DOUBLE:
+                            data = nb.ReadDouble().ToString();
+                            break;
+                        case FieldDatatype.STRING:
+                            data = nb.ReadString();
+                            break;
 
-                    _idData.Add(id, null);
-                    _idDatatype.Add(id, (FieldDatatype)datatype);
-                    _idLabel.Add(id, label);
+                    }
                 }
+
+                _idData[id] = data;
+
             }
         }
 
-        public void telem_update()
+        public override void UpdateControl(GameTime gameTime)
         {
             NetBuffer nb;
 
             while ((nb = ReadMessage()) != null)
             {
-                short field = nb.ReadInt16();
-
-                for (int i = 0; i < field; i++)
+                TelemHeader header = (TelemHeader)nb.ReadByte();
+                
+                switch (header)
                 {
-                    short id = nb.ReadInt16();
-                    string data = "???";
-
-                    if (_idDatatype.ContainsKey(id))
-                    {
-                        switch (_idDatatype[id])
-                        {
-                            case FieldDatatype.INT8:
-                                data = nb.ReadSByte().ToString();
-                                break;
-                            case FieldDatatype.INT16:
-                                data = nb.ReadInt16().ToString();
-                                break;
-                            case FieldDatatype.INT32:
-                                data = nb.ReadInt32().ToString();
-                                break;
-                            case FieldDatatype.INT64:
-                                data = nb.ReadInt64().ToString();
-                                break;
-                            case FieldDatatype.UINT8:
-                                data= nb.ReadByte().ToString();
-                                break;
-                            case FieldDatatype.UINT16:
-                                data = nb.ReadUInt16().ToString();
-                                break;
-                            case FieldDatatype.UINT32:
-                                data = nb.ReadUInt32().ToString();
-                                break;
-                            case FieldDatatype.UINT64:
-                                data = nb.ReadUInt64().ToString();
-                                break;
-                            case FieldDatatype.FLOAT:
-                                data = nb.ReadFloat().ToString();
-                                break;
-                            case FieldDatatype.DOUBLE:
-                                data = nb.ReadDouble().ToString();
-                                break;
-                            case FieldDatatype.STRING:
-                                data = nb.ReadString();
-                                break;
-
-                        }
-                    }
-
-                    _idData[id] = data;
- 
+                    case TelemHeader.TELEM_INIT:
+                        telemInit(nb);
+                        break;
+                    case TelemHeader.TELEM_UPDATE:
+                        telemUpdate(nb);
+                        break;
                 }
-            }            
+            }
+
+            base.UpdateControl(gameTime);
         }
     }
 }
