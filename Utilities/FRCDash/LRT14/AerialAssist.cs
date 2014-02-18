@@ -62,7 +62,6 @@ namespace LRT14
             TabPage telemetryTab = root.AddPageBeforeEnd();
             telemetryTab.Text = "Telemetry";
             telemetryTab.Init();
-            
 
             TelemetryControl telemetry = new TelemetryControl(manager, "telemetry", "LRT14.AerialAssist.TELEMETRY", contentLibrary);
             telemetry.Top = 2;
@@ -80,10 +79,9 @@ namespace LRT14
             telemetry.Init();
             telemetry.SubscribeToPacket((byte)MessageType.TELEMETRY);
             telemetry.Parent = telemetryTab;
-            telemetry.telem_init();
-            telemetry.telem_update();
-            telemetry.display();
 
+            telemetryTab.Add(telemetry);
+            
             /*
             Label label = new Label(manager);
             label.Init();

@@ -230,12 +230,12 @@ extern "C"
 		//app.RegisterTest((RU_FUNCPTR)TestCountingSemaphore, "Test Counting Semaphore");
 		
 		//BufferedConsole: WORKING
-//		app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
+		//app.RegisterTest((RU_FUNCPTR)TestBufferedConsole, "Test Buffered Console");
 		
 		//Mutex & lock_on: Working
 		//app.RegisterTest((RU_FUNCPTR)TestMutex, "Test Mutex");
 		
-		//Semaphore Empty : Working
+		//Semaphore Empty : Workingv
 		//app.RegisterTest((RU_FUNCPTR)TestSemCIsEmpty, "Test Semaphore Empty");
 		
 		//do_async : Working
