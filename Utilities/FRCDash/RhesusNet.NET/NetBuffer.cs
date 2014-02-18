@@ -63,6 +63,11 @@ namespace RhesusNet.NET
 	        InternalWriteByte(c, 8);
         }
 
+        public void Write(sbyte s)
+        {
+            InternalWriteByte((byte)s, 8);
+        }
+
         public void WriteRaw(byte[] b, int length)
         {
             InternalWriteBytes(b, length);
@@ -123,6 +128,11 @@ namespace RhesusNet.NET
         public void Write(short s)
         {
 	        InternalWriteInteger((ulong)s, sizeof(short)*8);
+        }
+
+        public void Write(ushort u)
+        {
+            InternalWriteInteger((ulong)u, sizeof(short) * 8);
         }
 
         void WritePadBits()

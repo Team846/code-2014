@@ -63,7 +63,7 @@ namespace MockLRT14
             NetBuffer telemInit = new NetBuffer();
             telemInit.Write((byte)MessageType.TELEMETRY);
             telemInit.Write((byte)TelemHeader.TELEM_INIT);
-            telemInit.Write(11);
+            telemInit.Write((short)11);
             telemInit.Write("foo");
             telemInit.Write((short)0);
             telemInit.Write((byte)FieldDatatype.INT8);
@@ -98,9 +98,7 @@ namespace MockLRT14
             telemInit.Write((short)10);
             telemInit.Write((byte)FieldDatatype.STRING);
 
-            server.SendToAll(telemInit, NetChannel.NET_UNRELIABLE_SEQUENCED, (int)UnreliableSequencedChannel.LOCATOR);
-
-            return;
+            server.SendToAll(telemInit, NetChannel.NET_UNRELIABLE_SEQUENCED, (int)UnreliableSequencedChannel.TELEM);
 
             while (true)
             {
@@ -146,27 +144,29 @@ namespace MockLRT14
 
                 NetBuffer nb = new NetBuffer();
                 nb.Write((byte)MessageType.TELEMETRY);
-                nb.Write((byte)FieldDatatype.INT8);
-                nb.Write((sbyte)r.Next(256));
-                nb.Write((byte)FieldDatatype.INT16);
-                nb.Write((short)r.Next(short.MaxValue + 1));
-                nb.Write((byte)FieldDatatype.INT32);
-                nb.Write((int)r.Next());
-                nb.Write((byte)FieldDatatype.INT64);
-                nb.Write((long)(r.NextDouble() * long.MaxValue));
-                nb.Write((byte)FieldDatatype.UINT8);
-                nb.Write((byte)r.Next(256));
-                nb.Write((byte)FieldDatatype.UINT16);
-                nb.Write((ushort)r.Next(short.MaxValue + 1));
-                nb.Write((byte)FieldDatatype.UINT32);
-                nb.Write((uint)r.Next());
-                nb.Write((byte)FieldDatatype.UINT64);
-                nb.Write((ulong)(r.NextDouble() * long.MaxValue));
-                nb.Write((byte)FieldDatatype.FLOAT);
-                nb.Write((float)r.NextDouble());
-                nb.Write((byte)FieldDatatype.DOUBLE);
-                nb.Write((double)r.NextDouble());
-                nb.Write((byte)FieldDatatype.STRING);
+                nb.Write((byte)TelemHeader.TELEM_UPDATE);
+                nb.Write((short)11);
+                nb.Write((short)0);
+                nb.Write(sbyte.MinValue);
+                nb.Write((short)1);
+                nb.Write(short.MinValue);
+                nb.Write((short)2);
+                nb.Write(int.MinValue);
+                nb.Write((short)3);
+                nb.Write(long.MinValue);
+                nb.Write((short)4);
+                nb.Write(byte.MaxValue);
+                nb.Write((short)5);
+                nb.Write(ushort.MaxValue);
+                nb.Write((short)6);
+                nb.Write(uint.MaxValue);
+                nb.Write((short)7);
+                nb.Write(ulong.MaxValue);
+                nb.Write((short)8);
+                nb.Write(3.14f);
+                nb.Write((short)9);
+                nb.Write(double.MaxValue);
+                nb.Write((short)10);
                 nb.Write("Thank You BasedGod!");
 
                 server.SendToAll(nb, NetChannel.NET_UNRELIABLE_SEQUENCED, (int)UnreliableSequencedChannel.TELEM);
