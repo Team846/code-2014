@@ -18,6 +18,7 @@ namespace LRT14
         private enum MessageType : byte
         {
             LOCATOR = 0x0,
+            COLLECTOR_SPEED = 0x2,
             TELEMETRY = 0x01
         }
 
@@ -27,6 +28,7 @@ namespace LRT14
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
             setupLocator(manager, contentLibrary, tabControl);
+            setupCollector(manager, contentLibrary, tabControl);
             setupTelemetry(manager, contentLibrary, tabControl);
         }
 
@@ -54,6 +56,20 @@ namespace LRT14
             locator.Init();
             locator.SubscribeToPacket((byte)MessageType.LOCATOR);
             locator.Parent = locatorTab;
+        }
+
+        private void setupCollector(Manager manager, ContentLibrary contentLibrary, TabControl root)
+        {
+            TabPage collectorTab = root.AddPageBeforeEnd();
+            collectorTab.Init();
+            collectorTab.Text = "Collector";
+
+            Graph speedGraph = new Graph(manager, "collector_speed", "LRT14.AerialAssist.COLLECTOR_SPEED", contentLibrary);
+            speedGraph.Width = collectorTab.ClientWidth - 4;
+            speedGraph.Height = collectorTab.ClientHeight - 4;
+            speedGraph.Parent = collectorTab;
+            speedGraph.Init();
+            speedGraph.SubscribeToPacket((byte)MessageType.COLLECTOR_SPEED);
         }
 
         private void setupTelemetry(Manager manager, ContentLibrary contentLibrary, TabControl root)
@@ -91,9 +107,6 @@ namespace LRT14
             label.Left = 0;
             label.Parent = telemetryTab;
             */
-            
-
-    
         }
     }
 }
