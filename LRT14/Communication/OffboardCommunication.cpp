@@ -89,16 +89,11 @@ void OffboardCommunication::Tick()
 	taskDelay(sysClkRateGet() / 1000);
 }
 
-void OffboardCommunication::Read(OffboardCommunication::Stream stream, vector<char> &buffer)
+void OffboardCommunication::Read(Stream stream, vector<char> &buffer)
 {
 	lock_on l(m_syncRoot[stream]);
 	{
 		buffer.clear();
 		buffer.insert(buffer.begin(), buffers[stream].begin(), buffers[stream].end());
 	}
-}
-
-std::vector<char> OffboardCommunication::GetStreamBuffer(Stream stream)
-{
-	return buffers[stream];
 }

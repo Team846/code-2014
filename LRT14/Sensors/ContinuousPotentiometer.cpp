@@ -31,7 +31,7 @@ float ContinuousPotentiometer::GetAngle()
 			voltage_b = voltage_a - range / 2; // Subtract half phase from Channel A to get correct value for Channel B
 		}
 	}
-	else if (voltage_b > m_minVoltage + range - middleRange / 2 && voltage_b < m_maxVoltage - range + middleRange / 2) // Channel A is discontinuous
+	else if (voltage_b > m_minVoltage + range / 2 - middleRange / 2 && voltage_b < m_maxVoltage - range / 2 + middleRange / 2) // Channel A is discontinuous
 	{
 		if (voltage_b < m_minVoltage + range / 2) // Channel A is at maximum
 		{

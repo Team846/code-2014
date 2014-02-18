@@ -46,13 +46,6 @@ public:
 	 */
 	void Read(Stream stream, std::vector<char> &buffer);
 	
-	/*!
-	 * @brief Retrieves the appropriate stream buffer
-	 * @param stream the stream to retrieve
-	 */
-	
-	std::vector<char> GetStreamBuffer(Stream stream);
-	
 protected:
 	void Tick();
 	

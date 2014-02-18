@@ -32,12 +32,25 @@ void Maintenance::Update()
         line += Util::ToString(button) + "\t" + Actuator::actuator_vector[i]->GetName() + "\t";
         if (dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i]))
         {
-            float val;
-            val = stick->IsButtonDown(button) ? stick->GetAxis(Joystick::kYAxis) : 0.0;
+            float val = 0.0;
+           	if (stick->IsButtonDown(button))
+           	{
+           		if (stick->GetAxis(Joystick::kYAxis) > 0.5)
+           			val = 1.0;
+           		else if (stick->GetAxis(Joystick::kYAxis) < -0.5)
+           			val = -1.0;
+           		else
+           			val = 0.0;
+           	}
+           	else
+           	{
+           		val = 0.0;
+           	}
+        
             dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->SetDutyCycle(val);
             line += Util::ToString(dynamic_cast<LRTSpeedController*>(Actuator::actuator_vector[i])->GetDutyCycle());
             if (stick->IsButtonDown(button))
-            	line += " *";
+            	line += "\t*";
         }
         else if (dynamic_cast<Pneumatics*>(Actuator::actuator_vector[i]))
         {
@@ -54,7 +67,7 @@ void Maintenance::Update()
             }
             line += dynamic_cast<Pneumatics*>(Actuator::actuator_vector[i])->Get() == Pneumatics::FORWARD ? "F" : "R";
             if (stick->IsButtonJustPressed(button))
-            	line += " *";
+            	line += "\t*";
         }
         else if (dynamic_cast<LRTServo*>(Actuator::actuator_vector[i]))
         {
@@ -62,7 +75,7 @@ void Maintenance::Update()
             	dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Set(fabs(stick->GetAxis(Joystick::kYAxis)));
             line += Util::ToString(dynamic_cast<LRTServo*>(Actuator::actuator_vector[i])->Get());
             if (stick->IsButtonDown(button))
-            	line += " *";
+            	line += "\t*";
         }
         line += "\n";
         BufferedConsole::Printf(line.c_str());

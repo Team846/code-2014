@@ -1,4 +1,5 @@
 #include "../Communication/OffboardCommunication.h"
+#include <vector>
 
 class HotGoal
 {
