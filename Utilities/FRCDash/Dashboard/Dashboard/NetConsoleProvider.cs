@@ -85,6 +85,23 @@ namespace Dashboard
             _rcvThread.Abort();
         }
 
+        private string parseTabs(string s)
+        {
+            string ret = "";
+            string[] p = s.Split('\t');
+
+            foreach (string t in p)
+            {
+                ret += t;
+                for (int i = 0; i < 4 - (t.Length % 4); i++)
+                {
+                    ret += ' ';
+                }
+            }
+
+            return ret;
+        }
+
         private void ReceiveTask()
         {
             int bytesRead = 0;
@@ -98,7 +115,7 @@ namespace Dashboard
                     string str = Encoding.ASCII.GetString(buff).Replace("\0", String.Empty).Trim();
 
                     str = str.Replace("\r", "");
-                    str = str.Replace("\t", "    ");  
+                    str = parseTabs(str);
                     string[] lines = str.Split('\n');
 
                     lock (_blockMutex)
@@ -140,14 +157,22 @@ namespace Dashboard
             return true;
         }
 
-        void ConsoleCommandSent(object sender, ConsoleMessageEventArgs e)
+        public void ToggleBlock()
         {
-            string message = e.Message.Text;
+            lock (_blockMutex)
+                _block = !_block;
+        }
 
+        public void Clear()
+        {
+            _console.MessageBuffer.Clear();
+        }
+
+        public void Send(string s)
+        {
             try
             {
-                if(ProcessLocalCommand(message))
-                    _socket.SendTo(Encoding.ASCII.GetBytes(e.Message.Text + "\n"), _robotEP);
+                _socket.SendTo(Encoding.ASCII.GetBytes(s + "\n"), _robotEP);
             }
             catch (Exception ex)
             {
@@ -156,6 +181,14 @@ namespace Dashboard
                     _errorQ.Enqueue(ex.Message);
                 }
             }
+        }
+
+        void ConsoleCommandSent(object sender, ConsoleMessageEventArgs e)
+        {
+            string message = e.Message.Text;
+
+            if (ProcessLocalCommand(message))
+                Send(message);
         }
 
         public void Update()

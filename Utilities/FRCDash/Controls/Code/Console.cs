@@ -164,9 +164,9 @@ namespace TomShane.Neoforce.Controls
         #region //// Fields ////////////
 
         ////////////////////////////////////////////////////////////////////////////                 
-        private TextBox txtMain = null;
-        private ComboBox cmbMain;
-        private ScrollBar sbVert;
+        protected TextBox txtMain = null;
+        protected ComboBox cmbMain;
+        protected ScrollBar sbVert;
         private EventedList<ConsoleMessage> buffer = new EventedList<ConsoleMessage>();
         private ChannelList channels = new ChannelList();
         private List<byte> filter = new List<byte>();
@@ -336,8 +336,10 @@ namespace TomShane.Neoforce.Controls
 
         #region //// Methods ///////////
 
+        protected virtual void PositionExtraControls() { }
+
         ////////////////////////////////////////////////////////////////////////////
-        private void PositionControls()
+        protected virtual void PositionControls()
         {
             if (txtMain != null)
             {
@@ -354,6 +356,9 @@ namespace TomShane.Neoforce.Controls
                     ClientMargins = new Margins(Skin.ClientMargins.Left, Skin.ClientMargins.Top + 4, sbVert.Width + 6, 2);
                     sbVert.Height = Height - 4;
                 }
+
+                PositionExtraControls();
+
                 Invalidate();
             }
         }

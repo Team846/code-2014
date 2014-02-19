@@ -47,12 +47,22 @@ namespace LRT14
             string _data;
             FieldDatatype _dataType;
             string _label;
+            bool _graph;
+
+            public DataField(string data, FieldDatatype type, string label, bool graph)
+            {
+                _data = data;
+                _dataType = type;
+                _label = label;
+                _graph = graph;
+            }
 
             public DataField(string data, FieldDatatype type, string label)
             {
                 _data = data;
                 _dataType = type;
                 _label = label;
+                _graph = false;
             }
 
             public string Data
@@ -72,6 +82,12 @@ namespace LRT14
                 get { return _dataType; }
                 set { _dataType = value; }
             }
+
+            public bool IsGraphed
+            {
+                get { return _graph; }
+                set { _graph = value; }
+            }
         }
 
         private int _topPadding;
@@ -89,6 +105,8 @@ namespace LRT14
         private string id;
         private string persistenceKey;
         private ContentLibrary content;
+
+        private bool _initialized;
       
         public TelemetryControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
             : base(manager, id, persistenceKey, content)
@@ -98,6 +116,8 @@ namespace LRT14
             this.content = content;
 
             Color = Color.Transparent;
+
+            _initialized = false;
         }
 
         public void display()
@@ -117,6 +137,8 @@ namespace LRT14
                 info.ReadOnly = true;
                 info.Init();
                 //info.Text = IdInfos[i].ToString();
+
+                //TODO: implement graphing
 
                 info.Text = kvp.Value.Data != null ? kvp.Value.Data : "<???>";
 
@@ -181,15 +203,21 @@ namespace LRT14
                 string label = nb.ReadString();
                 short id = nb.ReadInt16();
                 byte datatype = nb.ReadByte();
+                bool graph = datatype == (byte)FieldDatatype.STRING ? false : nb.ReadBool();
 
-                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label));
+                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label, graph));
             }
+
+            _initialized = true;
 
             display();
         }
 
         private void telemUpdate(NetBuffer nb)
         {
+            if (!_initialized)
+                return;
+
             short field = nb.ReadInt16();
 
             for (int i = 0; i < field; i++)
