@@ -43,19 +43,17 @@ void DrivetrainInputs::Update()
 	}
 	
 
-	//blending routine
-	double absForward = fabs(forward); //to ensure correct arc when switching direction
+	// Blending routine
+	double absForward = fabs(forward); // To ensure correct arc when switching direction
 
-	double blend = pow((1 - absForward), RobotConfig::Drive::BLEND_EXPONENT); //always between 0 and 1, raised to an exponent to adjust transition between in place and arc.
+	double blend = pow((1 - absForward), RobotConfig::Drive::BLEND_EXPONENT); // Always between 0 and 1, raised to an exponent to adjust transition between in place and arc.
 
-	const double turnInPlace = turn; //normal turn
-	const double constRadiusTurn = turn * absForward; //arc turn
+	const double turnInPlace = turn; // Normal turn
+	const double constRadiusTurn = turn * absForward; // Arc turn
 
-	double turnComposite = turnInPlace * (blend) + constRadiusTurn
-			* (1 - blend); //blended function
+	double turnComposite = turnInPlace * (blend) + constRadiusTurn * (1 - blend); // Blended function
 
-	if (m_driver_wheel->IsButtonJustPressed(
-		DriverStationConfig::JoystickButtons::REVERSE_DRIVE))
+	if (m_driver_wheel->IsButtonJustPressed(DriverStationConfig::JoystickButtons::REVERSE_DRIVE))
 	{
 		driveSign = -driveSign;
 	}

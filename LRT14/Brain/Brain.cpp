@@ -16,6 +16,7 @@
 #include "Automation/Collect.h"
 #include "Automation/Pass.h"
 #include "Automation/Fire.h"
+#include "Automation/LoadLauncher.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
 #include "Automation/Sequential.h"
@@ -74,10 +75,12 @@ Brain::Brain() :
 	Automation* collect = new Collect();
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
+	Automation* load = new LoadLauncher();
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
 	m_automation.push_back(fire);
+	m_automation.push_back(load);
 	
 	// Create events to be used
 	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
@@ -94,6 +97,8 @@ Brain::Brain() :
 	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
 	Event* fire_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
 	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
+	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
+	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);
@@ -111,6 +116,8 @@ Brain::Brain() :
 	pass_abort->AddAbortListener(pass);
 	fire_start->AddStartListener(fire);
 	fire_abort->AddAbortListener(fire);
+	load_start->AddStartListener(load);
+	load_abort->AddAbortListener(load);
 }
 
 Brain::~Brain()

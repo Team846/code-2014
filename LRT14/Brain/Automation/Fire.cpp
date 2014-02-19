@@ -12,7 +12,6 @@ Fire::Fire() :
 void Fire::AllocateResources()
 {
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
-	AllocateResource(ControlResource::LAUNCHER_ANGLE);
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 }
 
@@ -24,21 +23,24 @@ bool Fire::Start()
 
 bool Fire::Run()
 {
-	if (!m_loaderData->IsBallDetected())
-	{
-		if (m_loaderData->IsLoadingComplete())
-			m_loaderData->SetPurge(true);
-		return false;
-	}
+//	if (!m_loaderData->IsBallDetected())
+//	{
+//		if (m_loaderData->IsLoadingComplete())
+//			m_loaderData->SetPurge(true);
+//		return false;
+//	}
 	
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
-	if (m_firing || m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
-	{
+	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
 		m_loaderData->SetFire(true);
-		m_firing = true;
-		if (!m_loaderData->IsBallDetected())
-			return true;
-	}
+	
+//	if (m_firing || m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
+//	{
+//		m_loaderData->SetFire(true);
+//		m_firing = true;
+//		if (!m_loaderData->IsBallDetected())
+//			return true;
+//	}
 	return false;
 }
 

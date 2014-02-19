@@ -4,6 +4,7 @@ CollectorArmData::CollectorArmData() :
 	ComponentData("CollectorArmData")
 {
 	ResetCommands();
+	m_position = STOWED;
 }
 
 CollectorArmData* CollectorArmData::Get()
@@ -13,7 +14,6 @@ CollectorArmData* CollectorArmData::Get()
 
 void CollectorArmData::ResetCommands()
 {
-	m_position = STOWED;
 }
 
 void CollectorArmData::Log()

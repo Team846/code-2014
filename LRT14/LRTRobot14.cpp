@@ -33,6 +33,7 @@ using namespace Rhesus::Toolkit::IO;
 
 bool maintenanceMode = false;
 bool showProfiler = false;
+int tickCount = 0;
 
 LRTRobot14::LRTRobot14()
 {
@@ -151,7 +152,7 @@ static int TimeoutCallback(...)
 		std::string name = it->first;
 		double time = it->second;
 		
-		BufferedConsole::Printfln("%s:\t%lf ms", name.c_str(), time * 1000.0f); // second * 1000ms/second
+		BufferedConsole::Printfln("%s:\t\t%lf ms", name.c_str(), time);
 	}
 	
 	BufferedConsole::Printfln("======================================");
@@ -163,6 +164,8 @@ void LRTRobot14::Tick()
 {
 	wdStart(_watchdog, sysClkRateGet() / RobotConfig::LOOP_RATE,
 			TimeoutCallback, 0);
+
+	static int tickCount = 0;
 	
 	Profiler::StartActivity("Tick");
 	
@@ -232,16 +235,20 @@ void LRTRobot14::Tick()
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
 	
+	tickCount++;
+	
 	Profiler::End("Tick");
 	
 	wdCancel(_watchdog);
 	
-	if(showProfiler)
+	if(showProfiler && ((tickCount - 1) % (RobotConfig::LOOP_RATE * 5)) == 0) // -1 because tickCount is incremented before here
 	{
-		BufferedConsole::Printfln("======================================");
-		BufferedConsole::Printfln("PROFILED TIMES:");
+		BufferedConsole::Printfln("===========================================================================");
+		BufferedConsole::Printfln("PROFILER:");
+		BufferedConsole::Printfln("Current Tick: %d", (tickCount - 1));
 		BufferedConsole::Printfln("");
 		BufferedConsole::Printfln("Activity\tLast Time (ms)\tAverage Time (ms)\tGreatest Time (ms)");
+		BufferedConsole::Printfln("---------------------------------------------------------------------------");
 		std::hash_map<std::string, double> times = Profiler::CloneLastTimes();
 		std::hash_map<std::string, double> avgTimes = Profiler::CloneAverageTimes();
 		std::hash_map<std::string, double> maxTimes = Profiler::CloneMaxTimes();
@@ -257,10 +264,10 @@ void LRTRobot14::Tick()
 			std::hash_map<std::string, double>::iterator maxIt = maxTimes.find(name);
 			double maxTime = (maxIt == times.end()) ? -1.0 : maxIt->second;
 			
-			BufferedConsole::Printfln("%s:\t%lf ms\t%lf ms\t%lf ms", name.c_str(), time * 1000.0, avgTime * 1000.0, maxTime * 1000.0); // second * 1000ms/second
+			BufferedConsole::Printfln("%s:\t\t%lf ms\t\t%lf ms\t\t\t%lf ms", name.c_str(), time, avgTime, maxTime);
 		}
 		
-		BufferedConsole::Printfln("======================================");
+		BufferedConsole::Printfln("===========================================================================\n\n");
 	}
 }
 

@@ -5,6 +5,7 @@ LauncherAngleData::LauncherAngleData() :
 {
 	ResetCommands();
 	m_complete = false;
+	m_launcherAngle = LONG;
 }
 
 LauncherAngleData* LauncherAngleData::Get()
@@ -14,7 +15,6 @@ LauncherAngleData* LauncherAngleData::Get()
 
 void LauncherAngleData::ResetCommands()
 {
-	m_launcherAngle = LONG;
 }
 
 void LauncherAngleData::Log()
