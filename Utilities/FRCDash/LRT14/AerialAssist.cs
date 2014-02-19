@@ -19,7 +19,8 @@ namespace LRT14
         {
             LOCATOR = 0x0,
             COLLECTOR_SPEED = 0x2,
-            TELEMETRY = 0x01
+            TELEMETRY = 0x01,
+            COLLECTOR = 0x03
         }
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)
@@ -77,7 +78,7 @@ namespace LRT14
             collector.TextBoxWidth = 20;
             collector.LabelInfoDistance = 50;
             collector.Init();
-            collector.SubscribeToPacket((byte)MessageType.COLLECTOR_SPEED);
+            collector.SubscribeToPacket((byte)MessageType.COLLECTOR);
             collector.Parent = collectorTab;
             collectorTab.Add(collector);
         }

@@ -14,7 +14,9 @@ namespace MockLRT14
         enum MessageType : byte
         {
             LOCATOR = 0x0,
-            TELEMETRY = 0x01
+            TELEMETRY = 0x01,
+            COLLECTOR_SPEED = 0x02,
+            COLLECTOR = 0x03
         }
 
         enum TelemHeader : byte
