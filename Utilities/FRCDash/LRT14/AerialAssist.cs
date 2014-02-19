@@ -64,11 +64,22 @@ namespace LRT14
             collectorTab.Init();
             collectorTab.Text = "Collector";
 
-            CollectorControl collector = new CollectorControl(manager, "collector", "LRT14.AerialAssist.COLLECTOR_SPEED", contentLibrary);
-            collector.Parent = collectorTab;
-            collector.Width = 200;
-            collector.Height = 200;
+            CollectorControl collector = new CollectorControl(manager, "collector", "LRT14.AerialAssist.COLLECTOR_SPEED", contentLibrary);        
+            collector.Top = 2;
+            collector.Left = 2;
+            collector.Width = collectorTab.ClientWidth - 4;
+            collector.Height = collectorTab.ClientHeight - 4;
+            collector.TopPadding = 10;
+            collector.LeftPadding = collectorTab.ClientWidth-100;
+            collector.TopMargin = 10;
+            collector.SideMargin = 10;
+            collector.TextBoxHeight = 10;
+            collector.TextBoxWidth = 20;
+            collector.LabelInfoDistance = 50;
+            collector.Init();
             collector.SubscribeToPacket((byte)MessageType.COLLECTOR_SPEED);
+            collector.Parent = collectorTab;
+            collectorTab.Add(collector);
         }
 
         private void setupTelemetry(Manager manager, ContentLibrary contentLibrary, TabControl root)
