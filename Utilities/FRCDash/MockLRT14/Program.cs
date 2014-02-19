@@ -64,39 +64,61 @@ namespace MockLRT14
             telemInit.Write((byte)MessageType.TELEMETRY);
             telemInit.Write((byte)TelemHeader.TELEM_INIT);
             telemInit.Write((short)11);
+
             telemInit.Write("foo");
             telemInit.Write((short)0);
             telemInit.Write((byte)FieldDatatype.INT8);
+            telemInit.Write(true);
+
             telemInit.Write("bar");
             telemInit.Write((short)1);
             telemInit.Write((byte)FieldDatatype.INT16);
+            telemInit.Write(false);
+
             telemInit.Write("baz");
             telemInit.Write((short)2);
             telemInit.Write((byte)FieldDatatype.INT32);
+            telemInit.Write(false);
+            
             telemInit.Write("qux");
             telemInit.Write((short)3);
             telemInit.Write((byte)FieldDatatype.INT64);
+            telemInit.Write(false);
+            
             telemInit.Write("quux");
             telemInit.Write((short)4);
             telemInit.Write((byte)FieldDatatype.UINT8);
+            telemInit.Write(false);
+            
             telemInit.Write("corge");
             telemInit.Write((short)5);
             telemInit.Write((byte)FieldDatatype.UINT16);
+            telemInit.Write(false);
+            
             telemInit.Write("grault");
             telemInit.Write((short)6);
             telemInit.Write((byte)FieldDatatype.UINT32);
+            telemInit.Write(false);
+            
             telemInit.Write("garply");
             telemInit.Write((short)7);
             telemInit.Write((byte)FieldDatatype.UINT64);
+            telemInit.Write(false);
+            
             telemInit.Write("waldo");
             telemInit.Write((short)8);
             telemInit.Write((byte)FieldDatatype.FLOAT);
+            telemInit.Write(false);
+            
             telemInit.Write("fred");
             telemInit.Write((short)9);
             telemInit.Write((byte)FieldDatatype.DOUBLE);
+            telemInit.Write(false);
+            
             telemInit.Write("plugh");
             telemInit.Write((short)10);
             telemInit.Write((byte)FieldDatatype.STRING);
+            telemInit.Write(false);
 
             server.SendToAll(telemInit, NetChannel.NET_UNRELIABLE_SEQUENCED, (int)UnreliableSequencedChannel.TELEM);
 

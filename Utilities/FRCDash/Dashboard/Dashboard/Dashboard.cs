@@ -13,7 +13,7 @@ namespace Dashboard
         private ContentLibrary _contentLibrary;
         private NetConsoleProvider _ncp;
 
-        private Console _console;
+        private NetConsoleControl _console;
         private TabControl _tabControl;
         private MainMenu _menuStrip;
 
@@ -99,7 +99,7 @@ namespace Dashboard
 
             if (_console == null)
             {
-                _console = new Console(Manager);
+                _console = new NetConsoleControl(Manager);
                 _console.Init();
                 _console.AddToConsoleOnSend = false;
                 _console.Width = console.ClientWidth;
@@ -112,6 +112,8 @@ namespace Dashboard
 
                 _ncp = new NetConsoleProvider(_console, "10.8.46.2");
                 _ncp.Start();
+
+                _console.NetConsoleProvider = _ncp;
 
                 NetworkManager.Start("127.0.0.1", 846);
             }
