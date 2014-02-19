@@ -4,6 +4,9 @@ CollectorRollersData::CollectorRollersData() :
 	ComponentData("CollectorRollerData")
 {
 	ResetCommands();
+	m_running = false;
+	m_direction = FORWARD;
+	m_speed = 0.0;
 }
 
 CollectorRollersData* CollectorRollersData::Get()
@@ -13,9 +16,6 @@ CollectorRollersData* CollectorRollersData::Get()
 
 void CollectorRollersData::ResetCommands()
 {
-	m_running = false;
-	m_direction = FORWARD;
-	m_speed = 0.0;
 }
 
 void CollectorRollersData::Log()

@@ -54,68 +54,122 @@ void LauncherLoader::OnDisabled()
 void LauncherLoader::UpdateEnabled()
 {
 	UpdateSensorValues();
-	if (m_loaderData->GetLoad())
-	{
-		m_load = true;
-	}
-	if (m_proximity->Get() == 0)
-	{
-		if (m_loaderData->GetFire())
-		{
-			m_desiredRotation = m_currentRotation + 1;
-			m_load = false;
-			m_lastFiring = true;
-		}
-		else if (m_lastFiring)
-		{
-			m_desiredRotation = m_currentRotation;
-			m_load = true;
-		}
-	}
-	else
-		m_lastFiring = false;
 	
-	if (m_loaderData->GetPurge())
+	if (m_loaderData->GetFire())
 	{
-		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * 360;
-		if (m_currentSensorAngle < m_intermediateSetpoint + m_desiredRotation * 360)
-			m_load = false;
+		m_safety->Set(Pneumatics::FORWARD);
 	}
 	else
 	{
-		if (m_load)
+		m_safety->Set(Pneumatics::OFF);
+	}
+	if (m_loaderData->GetFire())
+	{
+		if (m_lastRawSensorAngle < m_intermediateSetpoint || m_lastRawSensorAngle > m_intermediateSetpoint + 5)
 		{
-			m_currentSetpoint = m_loadSetpoint + m_desiredRotation * 360;
+			m_motorA->SetDutyCycle(m_maxSpeed);
+			m_motorB->SetDutyCycle(m_maxSpeed);
 		}
 		else
 		{
-			m_currentSetpoint = m_intermediateSetpoint + m_desiredRotation * 360;
+			m_motorA->SetDutyCycle(0.0);
+			m_motorB->SetDutyCycle(0.0);
 		}
 	}
-	float error = m_currentSetpoint - m_currentSensorAngle;
-	float speed;
-	if (error > 0)
+	else if (m_loaderData->GetLoad())
 	{
-		speed = m_maxSpeed;
+		if (m_lastRawSensorAngle < m_loadSetpoint || m_lastRawSensorAngle > m_loadSetpoint + 5)
+		{
+			m_motorA->SetDutyCycle(m_maxSpeed);
+			m_motorB->SetDutyCycle(m_maxSpeed);
+		}
+		else
+		{
+			m_motorA->SetDutyCycle(0.0);
+			m_motorB->SetDutyCycle(0.0);
+		}
+	}
+	else if (m_loaderData->GetPurge())
+	{
+		if (m_lastRawSensorAngle > m_unloadSetpoint || m_lastRawSensorAngle < m_unloadSetpoint - 5)
+		{
+			m_motorA->SetDutyCycle(-m_maxSpeed);
+			m_motorB->SetDutyCycle(-m_maxSpeed);
+		}
+		else
+		{
+			m_motorA->SetDutyCycle(0.0);
+			m_motorB->SetDutyCycle(0.0);
+		}
+	}
+	else if (m_lastRawSensorAngle > 0.0 && m_lastRawSensorAngle < m_intermediateSetpoint)
+	{
+		m_motorA->SetDutyCycle(m_maxSpeed);
+		m_motorB->SetDutyCycle(m_maxSpeed);
 	}
 	else
 	{
-		speed = 0;
+		m_motorA->SetDutyCycle(0.0);
+		m_motorB->SetDutyCycle(0.0);
 	}
-	m_motorA->SetDutyCycle(speed);
-	m_motorB->SetDutyCycle(speed);
-	
-	if (m_proximity->Get() == 1)
-	{
-		m_loaderData->SetBallDetected(false);
-		m_safety->Set(Pneumatics::OFF);
-	}
-	else
-	{
-		m_loaderData->SetBallDetected(true);
-		if (m_loaderData->GetFire())
-			m_safety->Set(Pneumatics::FORWARD);
-	}
+//	if (m_proximity->Get() == 0)
+//	{
+//		if (m_loaderData->GetFire())
+//		{
+//			m_desiredRotation = m_currentRotation + 1;
+//			m_load = false;
+//			m_lastFiring = true;
+//		}
+//		else if (m_lastFiring)
+//		{
+//			m_desiredRotation = m_currentRotation;
+//			m_load = true;
+//		}
+//	}
+//	else
+//		m_lastFiring = false;
+//	
+//	if (m_loaderData->GetPurge())
+//	{
+//		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * 360;
+//		if (m_currentSensorAngle < m_intermediateSetpoint + m_desiredRotation * 360)
+//			m_load = false;
+//	}
+//	else
+//	{
+//		if (m_load)
+//		{
+//			m_currentSetpoint = m_loadSetpoint + m_desiredRotation * 360;
+//		}
+//		else
+//		{
+//			m_currentSetpoint = m_intermediateSetpoint + m_desiredRotation * 360;
+//		}
+//	}
+//	float error = m_currentSetpoint - m_currentSensorAngle;
+//	float speed;
+//	if (error > 0)
+//	{
+//		speed = m_maxSpeed;
+//	}
+//	else
+//	{
+//		speed = 0;
+//	}
+//	m_motorA->SetDutyCycle(speed);
+//	m_motorB->SetDutyCycle(speed);
+//	
+//	if (m_proximity->Get() == 1)
+//	{
+//		m_loaderData->SetBallDetected(false);
+//		m_safety->Set(Pneumatics::OFF);
+//	}
+//	else
+//	{
+//		m_loaderData->SetBallDetected(true);
+//		if (m_loaderData->GetFire())
+//			m_safety->Set(Pneumatics::FORWARD);
+//	}
 }
 
 void LauncherLoader::UpdateDisabled()
@@ -158,6 +212,7 @@ void LauncherLoader::Configure()
 
 void LauncherLoader::Send()
 {
+	UpdateSensorValues();
 	SendToNetwork(m_sensor->GetAngle() / 360, "LoaderSensorRawAngle", "RobotData");
 	SendToNetwork(m_currentSensorAngle / 360, "LoaderSensorAngle", "RobotData");
 	SendToNetwork(m_currentRotation, "LoaderSensorRotation", "RobotData");

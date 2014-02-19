@@ -1,13 +1,14 @@
 #include "Autonomous.h"
 #include "../../Config/RobotConfig.h"
 #include "../../Config/DriverStationConfig.h"
-#include "../../Utils/Util.h"
 #include <algorithm>
 #include <Rhesus.Toolkit.h>
+#include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
 using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Utilities;
 
 #include "Drive.h"
 #include "Turn.h"
@@ -73,7 +74,7 @@ void Autonomous::LoadRoutine(std::string path)
 		getline(fin, line);
 		stringstream nocomments(line);
 		getline(nocomments, line, '#');
-		line.erase(remove_if(line.begin(), line.end(), isspace), line.end()); // Remove spaces
+		line.erase(remove_if(line.begin(), line.end(), ::isspace), line.end()); // Remove spaces
 		if (line.length() == 0)
 			continue;
 		vector<string> routineList;

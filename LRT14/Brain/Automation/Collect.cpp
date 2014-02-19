@@ -41,27 +41,27 @@ bool Collect::Run()
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 		m_collectorRollers->SetSpeed(1.0);
-		bool wrongBall = false;
-		if (RobotState::Instance().Alliance() == DriverStation::kRed)
-		{
-			if (abs((int)m_redChannel->GetAverageValue() - m_blueBallRed) <= m_colorRange &&
-					abs((int)m_blueChannel->GetAverageValue() - m_blueBallBlue) <= m_colorRange &&
-					abs((int)m_greenChannel->GetAverageValue()- m_blueBallGreen) <= m_colorRange)
-			{
-				m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
-				wrongBall = true;
-			}
-		}
-		if (RobotState::Instance().Alliance() == DriverStation::kBlue)
-		{
-			if (abs((int)m_redChannel->GetAverageValue() - m_redBallRed) <= m_colorRange &&
-					abs((int)m_blueChannel->GetAverageValue() - m_redBallBlue) <= m_colorRange &&
-					abs((int)m_greenChannel->GetAverageValue()- m_redBallGreen) <= m_colorRange)
-			{
-				m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
-				wrongBall = true;
-			}
-		}
+//		bool wrongBall = false;
+//		if (RobotState::Instance().Alliance() == DriverStation::kRed)
+//		{
+//			if (abs((int)m_redChannel->GetAverageValue() - m_blueBallRed) <= m_colorRange &&
+//					abs((int)m_blueChannel->GetAverageValue() - m_blueBallBlue) <= m_colorRange &&
+//					abs((int)m_greenChannel->GetAverageValue()- m_blueBallGreen) <= m_colorRange)
+//			{
+//				m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
+//				wrongBall = true;
+//			}
+//		}
+//		if (RobotState::Instance().Alliance() == DriverStation::kBlue)
+//		{
+//			if (abs((int)m_redChannel->GetAverageValue() - m_redBallRed) <= m_colorRange &&
+//					abs((int)m_blueChannel->GetAverageValue() - m_redBallBlue) <= m_colorRange &&
+//					abs((int)m_greenChannel->GetAverageValue()- m_redBallGreen) <= m_colorRange)
+//			{
+//				m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
+//				wrongBall = true;
+//			}
+//		}
 
 		if (m_proximity->Get() == 0)
 		{
@@ -72,7 +72,7 @@ bool Collect::Run()
 	}
 	else
 	{
-		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+//		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_collectorRollers->SetRunning(false);
 		return true;
 	}

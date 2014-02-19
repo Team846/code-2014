@@ -31,10 +31,10 @@ void LauncherAngle::UpdateEnabled()
 	switch(m_launcherAngleData->GetAngle())
 	{
 	case LauncherAngleData::SHORT:
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		m_pneumatics->Set(Pneumatics::OFF);
 		break;
 	case LauncherAngleData::LONG:
-		m_pneumatics->Set(Pneumatics::OFF);
+		m_pneumatics->Set(Pneumatics::FORWARD);
 		break;
 	default:
 		m_pneumatics->Set(Pneumatics::OFF);

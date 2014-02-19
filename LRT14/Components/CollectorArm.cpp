@@ -34,17 +34,17 @@ void CollectorArm::UpdateEnabled()
 	switch(m_armData->GetDesiredPosition())
 	{
 	case CollectorArmData::COLLECT:
-		m_pneumatics->Set(Pneumatics::REVERSE);
+		m_pneumatics->Set(Pneumatics::FORWARD);
 		break;
 	case CollectorArmData::STOWED:
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		m_pneumatics->Set(Pneumatics::REVERSE);
 		break;
 	default:
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		m_pneumatics->Set(Pneumatics::REVERSE);
 		break;
 	}
 	
-	if (m_switch->Get())
+	if (m_switch->Get() == 0)
 	{
 		m_armData->SetCurrentPosition(CollectorArmData::COLLECT);
 	}

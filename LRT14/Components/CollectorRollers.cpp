@@ -33,7 +33,7 @@ void CollectorRollers::UpdateEnabled()
 	{
 		if (m_rollersData->GetDirection() == CollectorRollersData::FORWARD)
 			m_motor->SetDutyCycle(m_rollersData->GetSpeed() * m_forwardSpeed);
-		if (m_rollersData->GetDirection() == CollectorRollersData::REVERSE)
+		else if (m_rollersData->GetDirection() == CollectorRollersData::REVERSE)
 			m_motor->SetDutyCycle(m_rollersData->GetSpeed() * m_reverseSpeed);
 	}
 	else
