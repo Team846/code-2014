@@ -98,9 +98,9 @@ void LCD::LCDUpdate()
 
 void LCD::ScrollLCD(int x, int y)
 {
-	curLineIndex = MathHelper::Clamp<int>(curLineIndex + y, 0,
+	curLineIndex = MathUtils::Clamp<int>(curLineIndex + y, 0,
 			kNumBufferLines - kNumLcdPhysicalLines);
-	curColumnIndex = MathHelper::Clamp<int>(curColumnIndex + x, 0,
+	curColumnIndex = MathUtils::Clamp<int>(curColumnIndex + x, 0,
 			kNumBufferColumns - kNumLcdPhysicalColumns);
 
 	BufferedConsole::Printf("DS LCD Scroll %d %d => %d,%d\n", x, y, curLineIndex,

@@ -88,7 +88,7 @@ namespace Dashboard
         private string parseTabs(string s)
         {
             string ret = "";
-            string[] p = s.Split('\t');
+            string[] p = s.Split(new char[] { '\t' }, StringSplitOptions.None);
 
             foreach (string t in p)
             {
@@ -115,8 +115,7 @@ namespace Dashboard
                     string str = Encoding.ASCII.GetString(buff).Replace("\0", String.Empty).Trim();
 
                     str = str.Replace("\r", "");
-                    str = parseTabs(str);
-                    string[] lines = str.Split('\n');
+                    string[] lines = str.Split(new char[] { '\n' }, StringSplitOptions.None);
 
                     lock (_blockMutex)
                     {
@@ -126,7 +125,7 @@ namespace Dashboard
                     lock (_rcvQMutex) 
                     {
                         for(int i = 0; i < lines.Length; i++)
-                            _rcvQ.Enqueue(lines[i]);
+                            _rcvQ.Enqueue(parseTabs(lines[i]));
                     }
 
                     buff = new byte[1024];

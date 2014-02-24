@@ -7,7 +7,7 @@
 #include "../ComponentData/DrivetrainData.h"
 #include "../Communication/LiveNetworkSendable.h"
 #include "../Control/LinearFilter.h"
-#include "../Actuators/LRTTalon.h"
+#include "../Actuators/LRTSpeedController.h"
 
 class DriveESC;
 
@@ -50,10 +50,10 @@ private:
 	DrivetrainData* m_drivetrainData;
 	DriveEncoders* m_driveEncoders;
 	DriveESC* m_escs[2];
-	LRTTalon* m_talonLeftA;
-	LRTTalon* m_talonLeftB;
-	LRTTalon* m_talonRightA;
-	LRTTalon* m_talonRightB;
+	LRTSpeedController* m_leftA;
+	LRTSpeedController* m_leftB;
+	LRTSpeedController* m_rightA;
+	LRTSpeedController* m_rightB;
 	double Kv;
 };	
 

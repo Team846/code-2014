@@ -922,7 +922,7 @@
             <Focused Index="3"/>
             <Disabled Index="4"/>
           </States>
-          <Text Font="Default" Alignment="TopLeft" OffsetX="0" OffsetY="0">
+          <Text Font="Console" Alignment="TopLeft" OffsetX="0" OffsetY="0">
             <Colors>
               <Enabled Color="32;32;32;255"/>
               <Focused Color="32;32;32;255"/>
@@ -981,7 +981,8 @@
 
   //// Fonts /////////////////////////////////////////////////////////////////
   <Fonts>
-    <Font Name="Default" Asset="Default"></Font>    
+    <Font Name="Default" Asset="Default"></Font>
+    <Font Name="Console" Asset="Console"></Font>
   </Fonts>
   ////////////////////////////////////////////////////////////////////////////
 

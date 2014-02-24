@@ -7,7 +7,8 @@
 #include "../Sensors/DriveEncoders.h"
 #include "../Actuators/DriveESC.h"
 #include "../Config/DriverStationConfig.h"
-#include "../Actuators/AsyncCANJaguar.h"
+#include "../Actuators/LRTJaguar.h"
+#include "../Actuators/LRTTalon.h"
 
 #include "../Communication/Dashboard2.h"
 
@@ -21,13 +22,13 @@ Drivetrain::Drivetrain() :
 			ConfigPortMappings::Get("Digital/LEFT_DRIVE_ENCODER_B"),
 			ConfigPortMappings::Get("Digital/RIGHT_DRIVE_ENCODER_A"),
 			ConfigPortMappings::Get("Digital/RIGHT_DRIVE_ENCODER_B"));
-	m_talonLeftA = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_A"), "LeftDriveA", ConfigPortMappings::Get("Digital/LEFT_BRAKE_A"));
-	m_talonLeftB = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_B"), "LeftDriveB", ConfigPortMappings::Get("Digital/LEFT_BRAKE_B"));
-	m_talonRightA = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_A"), "RightDriveA", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_A"));
-	m_talonRightB = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B"));
-	m_escs[LEFT] = new DriveESC(m_talonLeftA, m_talonLeftB,
+	m_leftA = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_A"), "LeftDriveA", ConfigPortMappings::Get("Digital/LEFT_BRAKE_A"));
+	m_leftB = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_B"), "LeftDriveB", ConfigPortMappings::Get("Digital/LEFT_BRAKE_B"));
+	m_rightA = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_A"), "RightDriveA", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_A"));
+	m_rightB = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B"));
+	m_escs[LEFT] = new DriveESC(m_leftA, m_leftB,
 			m_driveEncoders->GetEncoder(DriveEncoders::LEFT), "LeftDriveESC");
-	m_escs[RIGHT] = new DriveESC(m_talonRightA, m_talonRightB,
+	m_escs[RIGHT] = new DriveESC(m_rightA, m_rightB,
 			m_driveEncoders->GetEncoder(DriveEncoders::RIGHT), "RightDriveESC");
 	m_drivetrainData = DrivetrainData::Get();
 	
@@ -42,9 +43,7 @@ Drivetrain::~Drivetrain()
 double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 {
 	double positionSetpoint = m_drivetrainData->GetPositionSetpoint(axis);
-
 	double velocitySetpoint = m_drivetrainData->GetVelocitySetpoint(axis);
-	
 	double rawOutput = m_drivetrainData->GetOpenLoopOutput(axis);
 
 	switch (m_drivetrainData->GetControlMode(axis))
@@ -54,7 +53,7 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 		m_PIDs[POSITION][axis].SetSetpoint(positionSetpoint);
 		velocitySetpoint += m_PIDs[POSITION][axis].Update(1.0 / RobotConfig::LOOP_RATE);
 		if (fabs(velocitySetpoint) > m_drivetrainData->GetPositionControlMaxSpeed(axis))
-			velocitySetpoint = MathHelper::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
+			velocitySetpoint = MathUtils::Sign(velocitySetpoint) * m_drivetrainData->GetPositionControlMaxSpeed(axis);
 	case DrivetrainData::VELOCITY_CONTROL:
 		if (fabs(velocitySetpoint) < 2.0E-2)
 			m_PIDs[VELOCITY][axis].SetIIREnabled(true);
@@ -86,8 +85,8 @@ void Drivetrain::UpdateEnabled()
 	double leftOutput = fwdOutput - turnOutput;
 	double rightOutput = fwdOutput + turnOutput;
 
-	leftOutput = MathHelper::Clamp<double>(leftOutput, -1.0, 1.0);
-	rightOutput = MathHelper::Clamp<double>(rightOutput, -1.0, 1.0);
+	leftOutput = MathUtils::Clamp<double>(leftOutput, -1.0, 1.0);
+	rightOutput = MathUtils::Clamp<double>(rightOutput, -1.0, 1.0);
 
 	if (m_drivetrainData->ShouldOverrideForwardCurrentLimit())
 	{
@@ -115,10 +114,10 @@ void Drivetrain::UpdateDisabled()
 {
 	m_escs[LEFT]->SetDutyCycle(0.0);
 	m_escs[RIGHT]->SetDutyCycle(0.0);
-	m_talonLeftA->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
-	m_talonLeftB->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
-	m_talonRightA->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
-	m_talonRightB->ConfigNeutralMode(LRTTalon::kNeutralMode_Coast);
+	m_leftA->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
+	m_leftB->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
+	m_rightA->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
+	m_rightB->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
 }
 
 void Drivetrain::OnEnabled()

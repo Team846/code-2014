@@ -18,6 +18,7 @@
 
 #ifdef __VXWORKS__
 #include <Task.h>
+#include <sysLib.h>
 #elif defined(USE_BOOST)
 #include <boost/thread.hpp>
 #include <boost/signals2/mutex.hpp>
@@ -31,9 +32,9 @@
 
 // sleep for X milliseconds
 #ifdef __VXWORKS__
-#define NET_SLEEP(x) Wait (x / 1000.0)
+#define NET_SLEEP(x) taskDelay (x * sysClkRateGet() / 1000)
 #else
-#define NET_SLEEP(x) usleep(x * 1000.0);
+#define NET_SLEEP(x) usleep(x * 1000.0)
 #endif
 
 #define SEND_FAILED_BUFFER_ALREADY_SENT -1000000000

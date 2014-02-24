@@ -4,7 +4,7 @@
 #include "StringUtil.h"
 #include "Generic.h"
 #include "ContainerCleanup.h"
-#include "MathHelper.h"
+#include "MathUtils.h"
 #include "remove_reference.h"
 
 #endif

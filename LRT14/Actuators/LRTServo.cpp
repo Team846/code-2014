@@ -63,7 +63,7 @@ void LRTServo::Set(float value)
 void LRTServo::SetMicroseconds(int ms) 
 {
 	m_controlMode = kMicroseconds;
-	m_value = MathHelper::Clamp<int>(ms, MIN_VAL, MAX_VAL);
+	m_value = MathUtils::Clamp<int>(ms, MIN_VAL, MAX_VAL);
 }
 
 void LRTServo::SetAngle(float angle)

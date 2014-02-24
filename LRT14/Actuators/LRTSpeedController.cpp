@@ -59,12 +59,12 @@ float LRTSpeedController::CurrentLimit(float dutyCycle, float speed, float forwa
 	// At this point speed >= 0
 	if (dutyCycle > speed) // Current limit accelerating
 	{
-		dutyCycle = MathHelper::Min(dutyCycle, speed + forwardLimit);
+		dutyCycle = MathUtils::Min(dutyCycle, speed + forwardLimit);
 	}
 	else if (dutyCycle < 0) // Current limit reversing direction
 	{
 		float limitedDutyCycle = -reverseLimit / (1.0 + speed); // speed >= 0 so dutyCycle < -currentLimit
-		dutyCycle = MathHelper::Max(dutyCycle, limitedDutyCycle); // Both are negative
+		dutyCycle = MathUtils::Max(dutyCycle, limitedDutyCycle); // Both are negative
 	}
 	return dutyCycle;
 }

@@ -51,6 +51,7 @@ void Profiler::StartActivity(string taskName)
 	}
 	
 	Stopwatch* sw = new Stopwatch();
+	sw->Start();
 	
 	{
 		lock_on l(s_syncObj);
@@ -87,7 +88,7 @@ double Profiler::End(string taskName)
 		{
 			std::pair<double, int> avgPair = s_averageTimes[taskName];
 			
-			double newAvg = (avgPair.first + elapsedMilliseconds) / (avgPair.second + 1);
+			double newAvg = (avgPair.first * avgPair.second + elapsedMilliseconds) / (avgPair.second + 1);
 			
 			s_averageTimes[taskName] = std::make_pair(newAvg, avgPair.second + 1);
 		}
