@@ -52,9 +52,9 @@ bool Arc::Run()
 	double radius = fabs(m_driveDistance / (m_turnAngle * acos(-1) / 180.0)); // Radius = Arc Length (distance setpoint) / Central Angle (angle setpoint to radians)
 	double velocitySetpoint = m_drivetrain->GetVelocitySetpoint(DrivetrainData::FORWARD)
 			* RobotConfig::ROBOT_WIDTH / (2 * radius); // Match turn rate to forward rate
-	velocitySetpoint *= MathHelper::Sign(m_turnAngle) * MathHelper::Sign(m_driveDistance);
+	velocitySetpoint *= MathUtils::Sign(m_turnAngle) * MathUtils::Sign(m_driveDistance);
 	
-	velocitySetpoint += m_arcGain * -turnForwardCompletionDifference * MathHelper::Sign(m_turnAngle); // Correct for turn vs. forward proportion difference
+	velocitySetpoint += m_arcGain * -turnForwardCompletionDifference * MathUtils::Sign(m_turnAngle); // Correct for turn vs. forward proportion difference
 	if (driveComplete && fabs(DriveEncoders::Get()->GetTurnAngle() - (m_startDistance + m_driveDistance)) < m_errorThreshold)
 	{
 		m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::POSITION_CONTROL);

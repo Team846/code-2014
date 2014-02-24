@@ -26,8 +26,8 @@ void TrapezoidProfile::UpdateValues(double maxV, double timeToMaxV)
 double TrapezoidProfile::Update(double currentTime)
 {
 	double timeElapsed = currentTime - m_startingTime;
-	double accel = MathHelper::Sign(m_setpoint) * m_accel;
-	double maxV = MathHelper::Sign(m_setpoint) * m_maxV;
+	double accel = MathUtils::Sign(m_setpoint) * m_accel;
+	double maxV = MathUtils::Sign(m_setpoint) * m_maxV;
 	if (timeElapsed < m_timeToMax)
 	{
 		m_velocity = accel * timeElapsed;
@@ -69,13 +69,13 @@ void TrapezoidProfile::SetSetpoint(double setpoint, double time)
 	m_velocity = 0.0;
 	m_startingTime = time;
 	m_lastTime = time;
-	double maxV = MathHelper::Sign(setpoint) * m_maxV;
-	double accel = MathHelper::Sign(setpoint) * m_accel;
+	double maxV = MathUtils::Sign(setpoint) * m_maxV;
+	double accel = MathUtils::Sign(setpoint) * m_accel;
 	m_timeToMax = maxV / accel; // Time spent accelerating
 	double timeAtMax = (setpoint - 2 * (m_timeToMax * maxV - accel * m_timeToMax * m_timeToMax / 2)) / maxV; // Time spent at max velocity
 	if (timeAtMax < 0)
 	{
-		m_timeToMax = MathHelper::Sign(setpoint) * sqrt(2 * accel * m_setpoint / 2) / accel; // t = (sqrt(v^2+2ad)-v)/a
+		m_timeToMax = MathUtils::Sign(setpoint) * sqrt(2 * accel * m_setpoint / 2) / accel; // t = (sqrt(v^2+2ad)-v)/a
 		timeAtMax = 0;
 	}
 	m_timeFromMax = m_timeToMax + timeAtMax; // Time to start decelerating
