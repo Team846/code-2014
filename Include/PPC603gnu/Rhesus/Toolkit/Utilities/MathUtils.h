@@ -1,5 +1,5 @@
-#ifndef RHESUS_MATHHELPER_H_
-#define RHESUS_MATHHELPER_H_
+#ifndef RHESUS_MATHUTILS_H_
+#define RHESUS_MATHUTILS_H_
 
 namespace Rhesus
 {
@@ -7,7 +7,7 @@ namespace Toolkit
 {
 namespace Utilities
 {
-	class MathHelper
+	class MathUtils
 	{
 	public:
 		/*!
@@ -114,9 +114,9 @@ namespace Utilities
 		 */
 		template<typename T> static inline T AddDeadband(T raw, T deadbandSize)
 		{
-			if (MathHelper::Abs<T>(raw) < deadbandSize)
+			if (MathUtils::Abs<T>(raw) < deadbandSize)
 				return 0;
-			return MathHelper::Sign<T>(raw) * MathHelper::Rescale<T>(MathHelper::Abs<T>(raw),
+			return MathUtils::Sign<T>(raw) * MathUtils::Rescale<T>(MathUtils::Abs<T>(raw),
 					deadbandSize, 1, 0, 1);
 		}
 		
@@ -129,7 +129,7 @@ namespace Utilities
 		template<typename T>
 		static inline T ValWithAbsMax(T val1, T val2)
 		{
-			if (MathHelper::Abs<T>(val1) > MathHelper::Abs<T>(val2))
+			if (MathUtils::Abs<T>(val1) > MathUtils::Abs<T>(val2))
 				return val1;
 			return val2;
 		}
