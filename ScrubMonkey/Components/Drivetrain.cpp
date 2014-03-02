@@ -1,5 +1,6 @@
 #include "Drivetrain.h"
 
+#include <Rhesus.Toolkit.IO.h>
 #include <Rhesus.Toolkit.Utilities.h>
 
 #include "../Config/ConfigPortMappings.h"
@@ -12,6 +13,7 @@
 
 #include "../Communication/Dashboard2.h"
 
+using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Utilities;
 
 Drivetrain::Drivetrain() :
@@ -45,7 +47,9 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	double positionSetpoint = m_drivetrainData->GetPositionSetpoint(axis);
 	double velocitySetpoint = m_drivetrainData->GetVelocitySetpoint(axis);
 	double rawOutput = m_drivetrainData->GetOpenLoopOutput(axis);
-
+	
+	BufferedConsole::Printfln("axis: %d\n\trawOutput: %lf", (int)axis, rawOutput);
+	
 	switch (m_drivetrainData->GetControlMode(axis))
 	{
 	case DrivetrainData::POSITION_CONTROL:
@@ -106,6 +110,9 @@ void Drivetrain::UpdateEnabled()
 	{
 		ConfigureReverseCurrentLimit();
 	}
+	
+	BufferedConsole::Printfln("L: %lf R: %lf", leftOutput, rightOutput);
+	
 	m_escs[LEFT]->SetDutyCycle(leftOutput);
 	m_escs[RIGHT]->SetDutyCycle(rightOutput);
 }
