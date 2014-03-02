@@ -25,7 +25,7 @@ public:
 	
 private:
 	CollectorArmData* m_collectorArm;
-	CollectorRollersData* m_collectorRollers;
+	CollectorRollersData* m_loaderData;
 	DrivetrainData* m_drivetrain;
 	GearTooth* m_gearTooth;
 	float m_ballReleaseDistance;

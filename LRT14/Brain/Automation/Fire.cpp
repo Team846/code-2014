@@ -31,7 +31,7 @@ bool Fire::Run()
 //	}
 	
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
-	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
+//	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
 		m_loaderData->SetFire(true);
 	
 //	if (m_firing || m_angleData->IsCompleteState() && m_loaderData->IsLoadingComplete() && m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT)
