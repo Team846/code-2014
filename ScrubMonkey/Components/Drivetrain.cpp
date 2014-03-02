@@ -48,8 +48,6 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	double velocitySetpoint = m_drivetrainData->GetVelocitySetpoint(axis);
 	double rawOutput = m_drivetrainData->GetOpenLoopOutput(axis);
 	
-	BufferedConsole::Printfln("axis: %d\n\trawOutput: %lf", (int)axis, rawOutput);
-	
 	switch (m_drivetrainData->GetControlMode(axis))
 	{
 	case DrivetrainData::POSITION_CONTROL:
@@ -88,7 +86,7 @@ void Drivetrain::UpdateEnabled()
 
 	double leftOutput = fwdOutput - turnOutput;
 	double rightOutput = fwdOutput + turnOutput;
-
+	
 	leftOutput = MathUtils::Clamp<double>(leftOutput, -1.0, 1.0);
 	rightOutput = MathUtils::Clamp<double>(rightOutput, -1.0, 1.0);
 
@@ -110,8 +108,6 @@ void Drivetrain::UpdateEnabled()
 	{
 		ConfigureReverseCurrentLimit();
 	}
-	
-	BufferedConsole::Printfln("L: %lf R: %lf", leftOutput, rightOutput);
 	
 	m_escs[LEFT]->SetDutyCycle(leftOutput);
 	m_escs[RIGHT]->SetDutyCycle(rightOutput);
