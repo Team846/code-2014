@@ -5,7 +5,7 @@
 #include "../../ComponentData/CollectorRollersData.h"
 
 /*!
- * @brief Processes joystick information for controlling the launcher loader.
+ * @brief Processes joystick information for controlling the collector rollers.
  */
 class CollectorRollersInputs : public InputProcessor
 {

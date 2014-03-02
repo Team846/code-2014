@@ -26,7 +26,15 @@ bool UnloadLauncher::Run()
 	if (m_loaderData->IsLoadingComplete())
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
+		m_timer.Reset();
+		m_timer.Start();
+		if (m_timer.Get() > m_waitTime)
+		{
+			m_loaderData->SetPurge(false);
+			return true;
+		}
 	}
+	return false;
 }
 
 bool UnloadLauncher::Abort()
