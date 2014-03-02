@@ -3,8 +3,6 @@
 
 #include <string>
 
-#define PNEUMATICS 1
-
 /*!
  * @brief Contains all constants for robot configuration.
  */
