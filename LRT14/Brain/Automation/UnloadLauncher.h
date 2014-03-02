@@ -1,20 +1,19 @@
-#ifndef LOAD_LAUNCHER_H_
-#define LOAD_LAUNCHER_H_
+#ifndef UNLOAD_LAUNCHER_H_
+#define UNLOAD_LAUNCHER_H_
 
 #include "Automation.h"
 #include "../../ComponentData/CollectorArmData.h"
-#include "../../ComponentData/CollectorRollersData.h"
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 
 /*!
- * @brief Loads the ball from the bumper into the launcher.
+ * @brief Moves the ball from the launcher to the collector.
  */
-class LoadLauncher : public Automation, public Configurable
+class UnloadLauncher : public Automation, public Configurable
 {
 public:
-	LoadLauncher();
+	UnloadLauncher();
 
 	bool Start();
 	bool Run();
@@ -25,9 +24,8 @@ public:
 	
 private:
 	CollectorArmData* m_collectorArm;
-	CollectorRollersData* m_collectorRollers;
 	LauncherLoaderData* m_loaderData;
-	float m_loadSpeed;
+	float m_waitTime;
 };
 
 #endif

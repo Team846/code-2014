@@ -6,7 +6,7 @@ Pass::Pass() :
 	Configurable("Pass")
 {
 	m_collectorArm = CollectorArmData::Get();
-	m_collectorRollers = CollectorRollersData::Get();
+	m_loaderData = CollectorRollersData::Get();
 	m_drivetrain = DrivetrainData::Get();
 	m_gearTooth = SensorFactory::GetGearTooth(ConfigPortMappings::Get("Digital/COLLECTOR_GEAR_TOOTH"));
 }
@@ -32,15 +32,15 @@ bool Pass::Run()
 		if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 		{
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
-			m_collectorRollers->SetRunning(false);
+			m_loaderData->SetRunning(false);
 			return true;
 		}
 		else
 		{
 			m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
-			m_collectorRollers->SetRunning(true);
-			m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
-			m_collectorRollers->SetSpeed(1.0);
+			m_loaderData->SetRunning(true);
+			m_loaderData->SetDirection(CollectorRollersData::REVERSE);
+			m_loaderData->SetSpeed(1.0);
 			m_drivetrain->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
 			m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
 			m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, m_driveBackSpeed);
@@ -51,7 +51,7 @@ bool Pass::Run()
 	else
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
-		m_collectorRollers->SetRunning(false);
+		m_loaderData->SetRunning(false);
 		return true;
 	}
 }

@@ -69,11 +69,13 @@ void LauncherLoader::UpdateEnabled()
 		{
 			m_motorA->SetDutyCycle(m_maxSpeed);
 			m_motorB->SetDutyCycle(m_maxSpeed);
+			m_loaderData->SetLoadingComplete(false);
 		}
 		else
 		{
 			m_motorA->SetDutyCycle(0.0);
 			m_motorB->SetDutyCycle(0.0);
+			m_loaderData->SetLoadingComplete(true);
 		}
 	}
 	else if (m_loaderData->GetLoad())
@@ -82,35 +84,41 @@ void LauncherLoader::UpdateEnabled()
 		{
 			m_motorA->SetDutyCycle(m_maxSpeed);
 			m_motorB->SetDutyCycle(m_maxSpeed);
+			m_loaderData->SetLoadingComplete(false);
 		}
 		else
 		{
 			m_motorA->SetDutyCycle(0.0);
 			m_motorB->SetDutyCycle(0.0);
+			m_loaderData->SetLoadingComplete(true);
 		}
 	}
 	else if (m_loaderData->GetPurge())
 	{
-		if (m_lastRawSensorAngle > m_unloadSetpoint || m_lastRawSensorAngle < m_unloadSetpoint - 5)
+		if (m_lastRawSensorAngle > m_unloadSetpoint)
 		{
 			m_motorA->SetDutyCycle(-m_maxSpeed);
 			m_motorB->SetDutyCycle(-m_maxSpeed);
+			m_loaderData->SetLoadingComplete(false);
 		}
 		else
 		{
 			m_motorA->SetDutyCycle(0.0);
 			m_motorB->SetDutyCycle(0.0);
+			m_loaderData->SetLoadingComplete(true);
 		}
 	}
 	else if (m_lastRawSensorAngle > 0.0 && m_lastRawSensorAngle < m_intermediateSetpoint)
 	{
 		m_motorA->SetDutyCycle(m_maxSpeed);
 		m_motorB->SetDutyCycle(m_maxSpeed);
+		m_loaderData->SetLoadingComplete(false);
 	}
 	else
 	{
 		m_motorA->SetDutyCycle(0.0);
 		m_motorB->SetDutyCycle(0.0);
+		m_loaderData->SetLoadingComplete(true);
 	}
 //	if (m_proximity->Get() == 0)
 //	{
@@ -213,7 +221,7 @@ void LauncherLoader::Configure()
 void LauncherLoader::Send()
 {
 	UpdateSensorValues();
-	SendToNetwork(m_sensor->GetAngle() / 360, "LoaderSensorRawAngle", "RobotData");
+	SendToNetwork(m_lastRawSensorAngle, "LoaderSensorRawAngle", "RobotData");
 	SendToNetwork(m_currentSensorAngle / 360, "LoaderSensorAngle", "RobotData");
 	SendToNetwork(m_currentRotation, "LoaderSensorRotation", "RobotData");
 }
