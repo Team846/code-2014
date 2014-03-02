@@ -28,10 +28,12 @@ Drivetrain::Drivetrain() :
 	m_leftB = new LRTTalon(ConfigPortMappings::Get("PWM/LEFT_DRIVE_B"), "LeftDriveB", ConfigPortMappings::Get("Digital/LEFT_BRAKE_B"));
 	m_rightA = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_A"), "RightDriveA", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_A"));
 	m_rightB = new LRTTalon(ConfigPortMappings::Get("PWM/RIGHT_DRIVE_B"), "RightDriveB", ConfigPortMappings::Get("Digital/RIGHT_BRAKE_B"));
+	
 	m_escs[LEFT] = new DriveESC(m_leftA, m_leftB,
 			m_driveEncoders->GetEncoder(DriveEncoders::LEFT), "LeftDriveESC");
 	m_escs[RIGHT] = new DriveESC(m_rightA, m_rightB,
 			m_driveEncoders->GetEncoder(DriveEncoders::RIGHT), "RightDriveESC");
+	
 	m_drivetrainData = DrivetrainData::Get();
 	
 	Kv = 1;
