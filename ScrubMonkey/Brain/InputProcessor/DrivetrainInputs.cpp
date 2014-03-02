@@ -16,8 +16,8 @@ DrivetrainInputs::DrivetrainInputs()
 
 void DrivetrainInputs::Update()
 {
-	drivetrainData->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
-	drivetrainData->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
+	drivetrainData->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::OPEN_LOOP);
+	drivetrainData->SetControlMode(DrivetrainData::TURN, DrivetrainData::OPEN_LOOP);
 	
 	double turn = 0.0;
 	turn = -m_driver_wheel->GetAxis(Joystick::kXAxis);
