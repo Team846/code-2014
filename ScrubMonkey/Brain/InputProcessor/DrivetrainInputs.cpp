@@ -11,7 +11,7 @@ DrivetrainInputs::DrivetrainInputs()
 	RegisterResource(ControlResource::TURN);
 	
 	lastStop = false;
-	driveSign = -1;
+	driveSign = 1;
 }
 
 void DrivetrainInputs::Update()
@@ -58,6 +58,8 @@ void DrivetrainInputs::Update()
 		driveSign = -driveSign;
 	}
 
-	drivetrainData->SetVelocitySetpoint(DrivetrainData::FORWARD, forward);
-	drivetrainData->SetVelocitySetpoint(DrivetrainData::TURN, turnComposite);
+	drivetrainData->SetOpenLoopOutput(DrivetrainData::FORWARD, forward);
+	drivetrainData->SetOpenLoopOutput(DrivetrainData::TURN, turnComposite);
+	
+	
 }

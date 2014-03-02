@@ -22,6 +22,8 @@ const uint32_t DRIVER_WHEEL_PORT = 3;
 namespace JoystickButtons
 {
 // Driver Joystick
+const uint32_t COLLECT = 1;
+const uint32_t PURGE = 2;
 // Operator Joystick
 // Driver Wheel
 const uint32_t POSITION_HOLD = 5;
@@ -31,6 +33,7 @@ namespace DigitalIns
 {
 const int32_t NO_DS_DI = -1;
 const uint32_t DRIVETRAIN = 1;
+const uint32_t COLLECTOR = 2;
 const uint32_t COMPRESSOR = 8;
 }
 namespace AnalogIns
