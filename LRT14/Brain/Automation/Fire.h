@@ -21,7 +21,6 @@ public:
 
 private:
 	LauncherLoaderData* m_loaderData;
-	LauncherAngleData* m_angleData;
 	CollectorArmData* m_collectorArmData;
 	
 	bool m_firing;

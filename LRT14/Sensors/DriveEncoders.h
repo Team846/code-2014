@@ -39,7 +39,7 @@ public:
 	void Log();
 
 	/*!
-	 * @brief Get non-normalized average forward speed.
+	 * @brief Get non-normalized average forward speed in ticks per second
 	 * @return forward speed
 	 */
 	double GetRawForwardSpeed();
@@ -51,6 +51,12 @@ public:
 	double GetNormalizedForwardSpeed();
 
 	/*!
+	 * @brief Get actual speed of the robot in in/s.
+	 * @return the speed of the robot in in/s
+	 */
+	double GetRobotForwardSpeed();
+	
+	/*!
 	 * @brief Get non-normalized turning speed.
 	 * @return turning speed
 	 */
@@ -61,7 +67,7 @@ public:
 	 * @return turning speed
 	 */
 	double GetNormalizedTurningSpeed();
-
+	
 	/*!
 	 * @brief Get robot traveled distance in engineering units.
 	 * @return distance in inches (if properly calibrated)
@@ -87,7 +93,7 @@ public:
 	double GetTurnAngle();
 
 	/*!
-	 * @brief Get the distance travelled by a wheel.
+	 * @brief Get the distance traveled by a wheel.
 	 * @param side LEFT or RIGHT
 	 * @return the distance of the wheel
 	 */

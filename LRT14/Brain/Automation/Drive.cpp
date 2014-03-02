@@ -19,7 +19,6 @@ Drive::Drive(double distance, double maxSpeed, double errorThreshold, bool conti
 	m_errorThreshold = errorThreshold;
 	m_continuous = continuous;
 	m_drivetrain = DrivetrainData::Get();
-	
 	Configure();
 	m_profile = new TrapezoidProfile(maxSpeed * m_maxVelocity, m_timeToMax);
 }

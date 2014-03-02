@@ -47,6 +47,11 @@ double DriveEncoders::GetNormalizedForwardSpeed()
 	return GetRawForwardSpeed() / MAX_ENCODER_RATE;
 }
 
+double DriveEncoders::GetRobotForwardSpeed()
+{
+	return GetRawForwardSpeed() / PULSES_PER_REVOLUTION * GEAR_RATIO * WHEEL_DIAMETER * PI;
+}
+
 double DriveEncoders::GetRawTurningSpeed()
 {
 	return m_encoders[RIGHT]->GetRate() - m_encoders[LEFT]->GetRate();

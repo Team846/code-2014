@@ -97,3 +97,8 @@ bool Sequential::ContinueNextStep()
 {
 	return true;
 }
+
+Automation* Sequential::GetCurrentAutomation()
+{
+	return queued.front();
+}

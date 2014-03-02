@@ -58,6 +58,12 @@ protected:
 	 */
 	virtual bool ContinueNextStep();
 	
+	/*!
+	 * @brief Gets the currently running routine.
+	 * @return the currently running routine
+	 */
+	Automation* GetCurrentAutomation();
+	
 private:
 	std::vector<Automation*> routines;
 	std::queue<Automation*> queued;
