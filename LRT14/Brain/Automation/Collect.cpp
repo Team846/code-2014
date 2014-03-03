@@ -63,7 +63,7 @@ bool Collect::Run()
 //			}
 //		}
 
-		if (m_proximity->Get() == 0)
+		if (m_proximity->Get() == 1)
 		{
 			m_collectorRollers->SetRunning(false);
 			m_hasBall = true;
@@ -72,7 +72,7 @@ bool Collect::Run()
 	}
 	else
 	{
-//		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_collectorRollers->SetRunning(false);
 		return true;
 	}

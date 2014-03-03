@@ -6,6 +6,7 @@
 #include "../Config/DriverStationConfig.h"
 
 #include "InputProcessor/DrivetrainInputs.h"
+#include "InputProcessor/CollectorArmInputs.h"
 #include "InputProcessor/CollectorRollersInputs.h"
 #include "InputProcessor/LauncherLoaderInputs.h"
 #include "InputProcessor/LauncherAngleInputs.h"
@@ -62,6 +63,7 @@ Brain::Brain() :
 {
 	// Create joystick input processors
 	m_inputs.push_back(new DrivetrainInputs());
+	m_inputs.push_back(new CollectorArmInputs());
 	m_inputs.push_back(new CollectorRollersInputs());
 	m_inputs.push_back(new LauncherLoaderInputs());
 	m_inputs.push_back(new LauncherAngleInputs());
@@ -118,6 +120,7 @@ Brain::Brain() :
 	fire_abort->AddAbortListener(fire);
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
+	load_start->AddAbortListener(collect);
 }
 
 Brain::~Brain()
