@@ -3,13 +3,14 @@
 
 #include "Automation.h"
 #include "../../ComponentData/CollectorArmData.h"
+#include "../../ComponentData/CollectorRollersData.h"
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 #include <Timer.h>
 
 /*!
- * @brief Moves the ball from the launcher to the collector.
+ * @brief Moves the ball from the launcher to the collector using the hoop.
  */
 class UnloadLauncher : public Automation, public Configurable
 {
@@ -25,9 +26,10 @@ public:
 	
 private:
 	CollectorArmData* m_collectorArm;
+	CollectorRollersData* m_collectorRollers;
 	LauncherLoaderData* m_loaderData;
-	float m_waitTime;
-	Timer m_timer;
+	DigitalInput* m_proximity;
+	bool m_hasBall;
 };
 
 #endif

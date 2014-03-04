@@ -67,6 +67,10 @@ bool Collect::Run()
 		m_collectorRollers->SetRunning(false);
 		m_hasBall = true;
 	}
+	else
+	{
+		m_hasBall = false;
+	}
 	return false;
 }
 
