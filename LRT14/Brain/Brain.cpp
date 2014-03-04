@@ -18,6 +18,7 @@
 #include "Automation/Pass.h"
 #include "Automation/Fire.h"
 #include "Automation/LoadLauncher.h"
+#include "Automation/UnloadLauncher.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
 #include "Automation/Sequential.h"
@@ -78,11 +79,13 @@ Brain::Brain() :
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
 	Automation* load = new LoadLauncher();
+	Automation* unload = new UnloadLauncher();
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
 	m_automation.push_back(fire);
 	m_automation.push_back(load);
+	m_automation.push_back(unload);
 	
 	// Create events to be used
 	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
@@ -101,6 +104,8 @@ Brain::Brain() :
 	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
 	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
+	Event* unload_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER);
+	Event* unload_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);
@@ -114,6 +119,7 @@ Brain::Brain() :
 	collect_start->AddStartListener(collect);
 	collect_abort->AddAbortListener(collect);
 	pass_start->AddAbortListener(collect);
+	pass_start->AddAbortListener(unload);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
 	fire_start->AddStartListener(fire);
@@ -121,6 +127,7 @@ Brain::Brain() :
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
+	load_start->AddAbortListener(unload);
 }
 
 Brain::~Brain()

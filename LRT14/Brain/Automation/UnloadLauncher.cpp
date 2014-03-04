@@ -2,21 +2,26 @@
 #include "../../Config/ConfigPortMappings.h"
 
 UnloadLauncher::UnloadLauncher() :
-	Automation("UnloadLauncher", true),
+	Automation("UnloadLauncher"),
 	Configurable("UnloadLauncher")
 {
 	m_collectorArm = CollectorArmData::Get();
+	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
+	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
+	m_hasBall = false;
 }
 
 void UnloadLauncher::AllocateResources()
 {
 	AllocateResource(ControlResource::COLLECTOR_ARM);
+	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
 }
 
 bool UnloadLauncher::Start()
 {
+	m_hasBall = false;
 	return true;
 }
 
@@ -26,12 +31,18 @@ bool UnloadLauncher::Run()
 	if (m_loaderData->IsLoadingComplete())
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
-		m_timer.Reset();
-		m_timer.Start();
-		if (m_timer.Get() > m_waitTime)
+		m_collectorRollers->SetRunning(true);
+		m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
+		m_collectorRollers->SetSpeed(1.0);
+		
+		if (m_proximity->Get() == 1)
 		{
-			m_loaderData->SetPurge(false);
-			return true;
+			m_collectorRollers->SetRunning(false);
+			m_hasBall = true;
+		}
+		else
+		{
+			m_hasBall = false;
 		}
 	}
 	return false;
@@ -39,10 +50,17 @@ bool UnloadLauncher::Run()
 
 bool UnloadLauncher::Abort()
 {
+	if (m_hasBall && dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())
+			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER
+			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetJoystick() == LRTDriverStation::Instance()->GetOperatorStick())
+		return false;
+	
+	m_loaderData->SetPurge(false);
+	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+	m_collectorRollers->SetRunning(false);
 	return true;
 }
 
 void UnloadLauncher::Configure()
 {
-	m_waitTime = GetConfig("collector_down_wait", 1.0);
 }

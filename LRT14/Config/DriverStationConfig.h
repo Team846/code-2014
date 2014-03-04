@@ -30,6 +30,7 @@ const uint32_t SHORT_SHOT = 3;
 const uint32_t LONG_SHOT = 4;
 const uint32_t PURGE_LAUNCHER = 6;
 const uint32_t LOAD_LAUNCHER = 7;
+const uint32_t UNLOAD_LAUNCHER = 8;
 const uint32_t COLLECTOR_DOWN = 9;
 const uint32_t REVERSE_ROLLERS = 10;
 // Driver Wheel
