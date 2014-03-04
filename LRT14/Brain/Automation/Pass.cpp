@@ -2,7 +2,7 @@
 #include "../../Config/ConfigPortMappings.h"
 
 Pass::Pass() :
-	Automation("Pass", true),
+	Automation("Pass"),
 	Configurable("Pass")
 {
 	m_collectorArm = CollectorArmData::Get();
@@ -27,37 +27,30 @@ bool Pass::Start()
 
 bool Pass::Run()
 {
-	if (!Aborting())
-	{
-		if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
-		{
-			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
-			m_loaderData->SetRunning(false);
-			return true;
-		}
-		else
-		{
-			m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
-			m_loaderData->SetRunning(true);
-			m_loaderData->SetDirection(CollectorRollersData::REVERSE);
-			m_loaderData->SetSpeed(1.0);
-			m_drivetrain->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
-			m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
-			m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, m_driveBackSpeed);
-			m_drivetrain->SetVelocitySetpoint(DrivetrainData::TURN, 0.0);
-		}
-		return false;
-	}
-	else
+	if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_loaderData->SetRunning(false);
 		return true;
 	}
+	else
+	{
+		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
+		m_loaderData->SetRunning(true);
+		m_loaderData->SetDirection(CollectorRollersData::REVERSE);
+		m_loaderData->SetSpeed(1.0);
+		m_drivetrain->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
+		m_drivetrain->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
+		m_drivetrain->SetVelocitySetpoint(DrivetrainData::FORWARD, m_driveBackSpeed);
+		m_drivetrain->SetVelocitySetpoint(DrivetrainData::TURN, 0.0);
+	}
+	return false;
 }
 
 bool Pass::Abort()
 {
+	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+	m_loaderData->SetRunning(false);
 	return true;
 }
 
