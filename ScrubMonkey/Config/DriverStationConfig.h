@@ -22,9 +22,9 @@ const uint32_t DRIVER_WHEEL_PORT = 3;
 namespace JoystickButtons
 {
 // Driver Joystick
+// Operator Joystick
 const uint32_t COLLECT = 1;
 const uint32_t PURGE = 2;
-// Operator Joystick
 // Driver Wheel
 const uint32_t POSITION_HOLD = 5;
 const uint32_t REVERSE_DRIVE = 6;
