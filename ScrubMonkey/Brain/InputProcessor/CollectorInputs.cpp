@@ -2,8 +2,7 @@
 
 CollectorInputs::CollectorInputs()
 {
-	m_driver_stick = LRTDriverStation::Instance()->GetDriverStick();
-	m_driver_wheel = LRTDriverStation::Instance()->GetDriverWheel();
+	m_operator_stick = LRTDriverStation::Instance()->GetOperatorStick();
 	
 	collectorData = CollectorData::Get();
 	RegisterResource(ControlResource::COLLECTOR_ROLLERS);
@@ -13,12 +12,12 @@ void CollectorInputs::Update()
 {
 	collectorData->SetEnabled(false);
 	
-	if(m_driver_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECT))
+	if(m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECT))
 	{
 		collectorData->SetEnabled(true);
 		collectorData->SetDirection(CollectorData::COLLECT);
 	}
-	else if(m_driver_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE))
+	else if(m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE))
 	{
 		collectorData->SetEnabled(true);
 		collectorData->SetDirection(CollectorData::PURGE);

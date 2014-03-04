@@ -15,8 +15,7 @@ public:
 	void Update();
 	
 private:
-	DebouncedJoystick* m_driver_stick;
-	DebouncedJoystick* m_driver_wheel;
+	DebouncedJoystick* m_operator_stick;
 	
 	CollectorData* collectorData;
 };

@@ -50,6 +50,8 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	double velocitySetpoint = m_drivetrainData->GetVelocitySetpoint(axis);
 	double rawOutput = m_drivetrainData->GetOpenLoopOutput(axis);
 	
+	
+	
 	switch (m_drivetrainData->GetControlMode(axis))
 	{
 	case DrivetrainData::POSITION_CONTROL:
@@ -78,6 +80,7 @@ double Drivetrain::ComputeOutput(DrivetrainData::Axis axis)
 	case DrivetrainData::OPEN_LOOP:
 		break;
 	}
+	
 	return rawOutput;
 }
 
