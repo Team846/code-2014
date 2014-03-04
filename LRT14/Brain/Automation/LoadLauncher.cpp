@@ -4,7 +4,7 @@
 #include "../../RobotState.h"
 
 LoadLauncher::LoadLauncher() :
-	Automation("LoadLauncher", true),
+	Automation("LoadLauncher"),
 	Configurable("LoadLauncher")
 {
 	m_collectorArm = CollectorArmData::Get();
@@ -28,25 +28,19 @@ bool LoadLauncher::Start()
 
 bool LoadLauncher::Run()
 {
-	if (!Aborting())
-	{
-		m_loaderData->SetLoad(true);
-		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
-		m_collectorRollers->SetRunning(true);
-		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
-		m_collectorRollers->SetSpeed(m_loadSpeed);
-	}
-	else
-	{
-		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
-		m_collectorRollers->SetRunning(false);
-		return true;
-	}
+	m_loaderData->SetLoad(true);
+	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+	m_collectorRollers->SetRunning(true);
+	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
+	m_collectorRollers->SetSpeed(m_loadSpeed);
 	return false;
 }
 
 bool LoadLauncher::Abort()
 {
+	m_loaderData->SetLoad(false);
+	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+	m_collectorRollers->SetRunning(false);
 	return true;
 }
 
