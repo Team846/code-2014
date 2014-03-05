@@ -44,7 +44,7 @@ namespace Dashboard.Library
             base.Update(gameTime);
         }
 
-        public void SubscribeToPacket(byte header)
+        public virtual void SubscribeToPacket(byte header)
         {
             NetworkManager.RegisterComponent(_id, header);
         }

@@ -100,7 +100,7 @@ namespace Dashboard.Library
             lock (_mapMutex)
             {
                 if (!AssertBufferKeyExists(ID))
-                    throw new KeyNotFoundException("Key not found.");
+                    throw new KeyNotFoundException("Key not found: " + ID);
 
                 return _idToBufferList[ID].Count > 0 ? _idToBufferList[ID].Dequeue() : null;
             }

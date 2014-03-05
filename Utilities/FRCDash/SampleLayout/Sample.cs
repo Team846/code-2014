@@ -66,7 +66,7 @@ namespace SampleLayout
             innerShooterLabel.Left = 2;
             innerShooterLabel.Parent = shooter;
 
-            Graph innerShooter = new Graph(manager, "shooter_inner", "SampleLayout.Sample.INNER_SHOOTER", contentLibrary);
+            Graph innerShooter = new NetworkedGraph(manager, "shooter_inner", "SampleLayout.Sample.INNER_SHOOTER", contentLibrary);
             innerShooter.SubscribeToPacket((byte)NetMessageType.BACK_SHOOTER_DATA_SPEED);
             innerShooter.Init();
             innerShooter.Left = 2;
@@ -83,7 +83,7 @@ namespace SampleLayout
             outerShooterLabel.Left = 2;
             outerShooterLabel.Parent = shooter;
 
-            Graph outerShooter = new Graph(manager, "shooter_outer", "SampleLayout.Sample.OUTER_SHOOTER", contentLibrary);
+            Graph outerShooter = new NetworkedGraph(manager, "shooter_outer", "SampleLayout.Sample.OUTER_SHOOTER", contentLibrary);
             outerShooter.Init();
             outerShooter.SubscribeToPacket((byte)NetMessageType.FRONT_SHOOTER_DATA_SPEED);
             outerShooter.Left = 2;

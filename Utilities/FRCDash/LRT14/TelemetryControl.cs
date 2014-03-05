@@ -47,14 +47,16 @@ namespace LRT14
             string _data;
             FieldDatatype _dataType;
             string _label;
-            bool _graph;
+            bool _graphFlag;
+            Graph _graph;
 
-            public DataField(string data, FieldDatatype type, string label, bool graph)
+            public DataField(string data, FieldDatatype type, string label, bool graph, Graph g)
             {
                 _data = data;
                 _dataType = type;
                 _label = label;
-                _graph = graph;
+                _graphFlag = graph;
+                _graph = g;
             }
 
             public DataField(string data, FieldDatatype type, string label)
@@ -62,7 +64,8 @@ namespace LRT14
                 _data = data;
                 _dataType = type;
                 _label = label;
-                _graph = false;
+                _graphFlag = false;
+                _graph = null;
             }
 
             public string Data
@@ -84,6 +87,12 @@ namespace LRT14
             }
 
             public bool IsGraphed
+            {
+                get { return _graphFlag; }
+                set { _graphFlag = value; }
+            }
+
+            public Graph Graph
             {
                 get { return _graph; }
                 set { _graph = value; }
@@ -128,8 +137,9 @@ namespace LRT14
                 Label label = new Label(Manager);
                 label.Init();
                 label.Text = kvp.Value.Label;
-                label.Left = _leftPadding;
+                label.Left = i % 2 == 0 ?_leftPadding : _leftPadding + this.ClientWidth / 2;
                 label.Top = _topPadding + _topMargin * i + _textBoxHeight * i;
+                label.Top -= i % 2 == 0 ? 0 : _textBoxHeight + _topMargin;
                 label.Parent = this;
 
                 TextBox info = new TextBox(Manager);
@@ -138,13 +148,17 @@ namespace LRT14
                 info.Init();
                 //info.Text = IdInfos[i].ToString();
 
-                //TODO: implement graphing
-
                 info.Text = kvp.Value.Data != null ? kvp.Value.Data : "<???>";
 
                 info.Left = label.Left + _labelInfoDistance;
                 info.Top = label.Top;
                 info.Parent = this;
+
+                if (kvp.Value.IsGraphed)
+                {
+                    this.Add(kvp.Value.Graph);
+                    kvp.Value.Graph.SetPosition(300, i * TextBoxHeight);
+                }
 
                 i++;
             }  
@@ -170,8 +184,8 @@ namespace LRT14
 
         public int SideMargin
         {
-            get { return _sideMargin; }
-            set { _sideMargin = value; }
+                get { return _sideMargin; }
+                set { _sideMargin = value; }
         }
 
         public int TextBoxHeight
@@ -205,7 +219,7 @@ namespace LRT14
                 byte datatype = nb.ReadByte();
                 bool graph = datatype == (byte)FieldDatatype.STRING ? false : nb.ReadBool();
 
-                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label, graph));
+                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label, graph, graph ? new Graph(Manager, label, label + id, this.Content) : null));
             }
 
             _initialized = true;
@@ -213,10 +227,12 @@ namespace LRT14
             display();
         }
 
-        private void telemUpdate(NetBuffer nb)
+        private void telemUpdate(NetBuffer nb, GameTime gameTime)
         {
             if (!_initialized)
                 return;
+
+            float totalTime = nb.ReadFloat();
 
             short field = nb.ReadInt16();
 
@@ -224,6 +240,7 @@ namespace LRT14
             {
                 short id = nb.ReadInt16();
                 string data = "???";
+                double l;
 
                 if (_idData.ContainsKey(id))
                 {
@@ -261,8 +278,13 @@ namespace LRT14
                             break;
                         case FieldDatatype.STRING:
                             data = nb.ReadString();
-                            break;
+                            break;  
+                    }
 
+                    if (_idData[id].IsGraphed)
+                    {
+                        l = double.Parse(data); 
+                        _idData[id].Graph.AddDataPoint(new Vector2(totalTime, float.Parse(data)));
                     }
                 }
 
@@ -285,7 +307,7 @@ namespace LRT14
                         telemInit(nb);
                         break;
                     case TelemHeader.TELEM_UPDATE:
-                        telemUpdate(nb);
+                        telemUpdate(nb, gameTime);
                         break;
                 }
             }
