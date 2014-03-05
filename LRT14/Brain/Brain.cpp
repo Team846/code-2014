@@ -128,6 +128,8 @@ Brain::Brain() :
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
 	load_start->AddAbortListener(unload);
+	unload_start->AddStartListener(unload);
+	unload_abort->AddAbortListener(unload);
 }
 
 Brain::~Brain()
