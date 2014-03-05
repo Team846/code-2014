@@ -1,5 +1,7 @@
 #include "UnloadLauncher.h"
 #include "../../Config/ConfigPortMappings.h"
+#include "../Events/JoystickReleasedEvent.h"
+#include "../../DriverStation/LRTDriverStation.h"
 
 UnloadLauncher::UnloadLauncher() :
 	Automation("UnloadLauncher"),
@@ -27,7 +29,15 @@ bool UnloadLauncher::Start()
 
 bool UnloadLauncher::Run()
 {
-	m_loaderData->SetPurge(true);
+	if (!m_hasBall)
+	{
+		m_loaderData->SetPurge(true);
+	}
+	else
+	{
+		m_loaderData->SetPurge(false);
+	}
+	
 	if (m_loaderData->IsLoadingComplete())
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
@@ -39,10 +49,6 @@ bool UnloadLauncher::Run()
 		{
 			m_collectorRollers->SetRunning(false);
 			m_hasBall = true;
-		}
-		else
-		{
-			m_hasBall = false;
 		}
 	}
 	return false;

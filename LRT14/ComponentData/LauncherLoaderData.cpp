@@ -33,6 +33,8 @@ void LauncherLoaderData::Log()
 
 void LauncherLoaderData::SetFire(bool shouldFire)
 {
+	if (!m_fire && shouldFire)
+		m_complete = false;
 	m_fire = shouldFire;
 }
 
@@ -43,6 +45,8 @@ bool LauncherLoaderData::GetFire()
 
 void LauncherLoaderData::SetPurge(bool purge)
 {
+	if (!m_purge && purge)
+		m_complete = false;
 	m_purge = purge;
 }
 
@@ -53,6 +57,8 @@ bool LauncherLoaderData::GetPurge()
 
 void LauncherLoaderData::SetLoad(bool load)
 {
+	if (!m_load && load)
+		m_complete = false;
 	m_load = load;
 }
 
