@@ -70,13 +70,13 @@ namespace Dashboard
             optionsBtn.Top = txtMain.Top;
             optionsBtn.Text = "CMDs";
 
-            cmd_reboot.SetPosition(0, 0);
+            cmd_reboot.SetPosition(0, 2 * optionsWindow.ClientHeight / 3);
             cmd_reboot.Text = "Reboot";
 
             cmd_block.SetPosition(0, optionsWindow.ClientHeight / 3);
             cmd_block.Text = "Block Output";
 
-            cmd_clear.SetPosition(0, 2 * optionsWindow.ClientHeight / 3);
+            cmd_clear.SetPosition(0, 0);
             cmd_clear.Text = "Clear";
         }
 
@@ -100,6 +100,7 @@ namespace Dashboard
         void block_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
         {
             _ncp.ToggleBlock();
+            cmd_block.Text = cmd_block.Text.Equals("Unblock Output") ? "Block Output" : "Unblock Output";
         }
     }
 }

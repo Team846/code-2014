@@ -22,7 +22,10 @@ namespace Dashboard.Library
 
         // TODO change me to properties
         public float PixelsPerTimeTick_x, PixelsPerTimeTick_y;
+
         int graph_baseline;
+
+        private string _id;
 
         public Color BackgroundColor
         {
@@ -61,20 +64,11 @@ namespace Dashboard.Library
 
             PixelsPerTimeTick_x = 120;
             PixelsPerTimeTick_y = 120;
+            _id = id;
         }
 
         public override void UpdateControl(GameTime gameTime)
         {
-            NetBuffer nb;
-
-            while ((nb = ReadMessage()) != null)
-            {
-                float remoteTime = nb.ReadFloat();
-                float value = nb.ReadFloat();
-
-                AddDataPoint(new Vector2(remoteTime, value));
-            }
-
             graph_baseline = Height - 2;
 
             Invalidate();
@@ -82,7 +76,12 @@ namespace Dashboard.Library
             base.UpdateControl(gameTime);
         }
 
-        private void AddDataPoint(Vector2 data)
+        public override void SubscribeToPacket(byte header)
+        {
+            throw new InvalidOperationException();
+        }
+
+        public void AddDataPoint(Vector2 data)
         {
             _dataPoints.Add(data);
         }
@@ -114,7 +113,7 @@ namespace Dashboard.Library
                 //Invert the graph system to compensate for screen space coordinates
                 v20.Y = (-v20.Y) + graph_baseline;
                 v21.Y = (-v21.Y) + graph_baseline;
-
+                
                 v20.X += rect.X;
                 v20.Y += rect.Y;
 

@@ -169,6 +169,7 @@ namespace MockLRT14
                 NetBuffer nb = new NetBuffer();
                 nb.Write((byte)MessageType.TELEMETRY);
                 nb.Write((byte)TelemHeader.TELEM_UPDATE);
+                nb.Write(totalTime);
                 nb.Write((short)11);
                 nb.Write((short)0);
                 nb.Write(sbyte.MinValue);

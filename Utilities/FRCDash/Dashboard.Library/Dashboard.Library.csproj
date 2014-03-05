@@ -46,6 +46,7 @@
     <Compile Include="ContentLibrary.cs" />
     <Compile Include="FileDialog.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="NetworkedGraph.cs" />
     <Compile Include="PersistenceManager.cs" />
     <Compile Include="Persistence\DataPersistence.cs" />
     <Compile Include="Persistence\IDataPersistence.cs" />
