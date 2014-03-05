@@ -43,7 +43,7 @@ bool UnloadLauncher::Run()
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
-		m_collectorRollers->SetSpeed(1.0);
+		m_collectorRollers->SetSpeed(m_rollerSpeed);
 		
 		if (m_proximity->Get() == 1)
 		{
@@ -69,4 +69,5 @@ bool UnloadLauncher::Abort()
 
 void UnloadLauncher::Configure()
 {
+	m_rollerSpeed = GetConfig("roller_speed", 0.5);
 }
