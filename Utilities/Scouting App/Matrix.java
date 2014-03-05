@@ -20,9 +20,9 @@ public class Matrix
     {
         BLUE.setAppId( "frc846:scouting_app:v01" );
         setArrays();
-        //double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
-        //RREF( matrix );
-        //printMatrix( matrix );
+        // double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
+        // RREF( matrix );
+        // printMatrix( matrix );
     }
 
 
@@ -33,43 +33,69 @@ public class Matrix
         BLUE.Events.Event event = BLUE.Events.getEvent( "casj", 2013 );
         BLUE.Teams.Team[] teams = event.getTeams();
         int[] list_teams = new int[NUM_TEAMS];
-        for(int j = 0; j < teams.length; j++)
+
+        for ( int j = 0; j < teams.length; j++ )
         {
             String[] teams_split = teams[j].toString().split( "}" );
             BLUE.Matches.Match[] matches = event.getMatches();
             for ( int i = 0; i < teams_split.length; i++ )
             {
-                for(int k = 0; k < teams_split[i].length() - 2; k++)
+                int[] s = checkString( teams_split[i] );
+                if ( !(s[0] == -1 ))
                 {
-                    if(teams_split[i].substring( k, k+3 ).equals( "USA" ))
+                    int end_num = teams_split[i].indexOf( ",", k + 5 );
+                    String team_number = teams_split[i].substring( k + 5,
+                        end_num );
+                    for ( int count = 0; count < team_number.length(); count++ )
                     {
-                        //System.out.println(teams_split[i].substring( k+5 ));
-                        int end_num = teams_split[i].indexOf( ",", k+5 );
-                        String team_number = teams_split[i].substring(  k+5, end_num );
-                        for(int count = 0; count < team_number.length(); count++)
+                        if ( !Character.isDigit( team_number.charAt( 0 ) ) )
                         {
-                            if(!Character.isDigit(team_number.charAt( 0 )))
-                            {
-                                error = 1;
-                            }
+                            error = 1;
                         }
-                        if(error == 0)
-                        {
-                            //System.out.println(Integer.parseInt( team_number ));
-                            list_teams[count2] = Integer.parseInt( team_number );
-                            count2++;
-                        }
-                        error = 0;
                     }
+                    if ( error == 0 )
+                    {
+                        list_teams[count2] = Integer.parseInt( team_number );
+                        count2++;
+                    }
+                    error = 0;
                 }
 
             }
         }
-        for(int i = 0; i < list_teams.length; i++)
+        for ( int i = 0; i < list_teams.length; i++ )
         {
-            System.out.println(list_teams[i]);
-            System.out.println(i);
+            System.out.println( list_teams[i] );
+            System.out.println( i );
         }
+    }
+
+
+    public static int[] checkString( String s )
+    {
+        int[] stuff = new int[3];
+        stuff[0] = 0;
+        stuff[1] = -1;
+        stuff[2] = -1;
+        for ( int i = 0; i < s.length() - 3; i++ )
+        {
+            if ( s.substring( i, i + 3 ).equals( "USA" ) )
+            {
+                stuff[0] = 1;
+                stuff[1] = i;
+                stuff[2] = 0;
+            }
+        }
+        for ( int j = 0; j < s.length(); j++ )
+        {
+            if ( s.substring( j, j + 6 ).equals( "Mexico" ) )
+            {
+                stuff[0] = 1;
+                stuff[1] = j;
+                stuff[2] = 1;
+            }
+        }
+        return stuff;
     }
 
 
