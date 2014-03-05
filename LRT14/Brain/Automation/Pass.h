@@ -25,12 +25,15 @@ public:
 	
 private:
 	CollectorArmData* m_collectorArm;
-	CollectorRollersData* m_loaderData;
-	DrivetrainData* m_drivetrain;
+	CollectorRollersData* m_rollersData;
 	GearTooth* m_gearTooth;
+	DigitalInput* m_proximity;
 	float m_ballReleaseDistance;
 	int m_startTicks;
-	float m_driveBackSpeed;
+	bool m_ballPassed;
+	bool m_passingToGround;
+	float m_restSpeed;
+	float m_rollerSpeed;
 };
 
 #endif

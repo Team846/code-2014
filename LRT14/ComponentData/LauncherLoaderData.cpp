@@ -7,6 +7,9 @@ LauncherLoaderData::LauncherLoaderData() :
 	m_complete = false;
 	m_value = 0;
 	m_ballDetected = false;
+	m_fire = false;
+	m_purge = false;
+	m_load = false;
 }
 
 LauncherLoaderData* LauncherLoaderData::Get()
@@ -16,9 +19,6 @@ LauncherLoaderData* LauncherLoaderData::Get()
 
 void LauncherLoaderData::ResetCommands()
 {
-	m_fire = false;
-	m_purge = false;
-	m_load = false;
 }
 
 void LauncherLoaderData::Log()

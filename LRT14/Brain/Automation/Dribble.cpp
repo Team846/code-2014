@@ -4,8 +4,8 @@
 using namespace Rhesus::Toolkit::Utilities;
 
 Dribble::Dribble():
-		Automation("Dribble"),
-		Configurable("Dribble")
+	Automation("Dribble"),
+	Configurable("Dribble")
 {
 	m_armData = CollectorArmData::Get();
 	m_rollerData = CollectorRollersData::Get();
