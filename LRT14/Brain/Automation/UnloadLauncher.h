@@ -30,6 +30,7 @@ private:
 	LauncherLoaderData* m_loaderData;
 	DigitalInput* m_proximity;
 	bool m_hasBall;
+	bool m_loadingComplete;
 	float m_rollerSpeed;
 };
 
