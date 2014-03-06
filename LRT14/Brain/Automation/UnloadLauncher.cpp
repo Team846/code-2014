@@ -12,6 +12,7 @@ UnloadLauncher::UnloadLauncher() :
 	m_loaderData = LauncherLoaderData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_hasBall = false;
+	m_loadingComplete = false;
 }
 
 void UnloadLauncher::AllocateResources()
@@ -24,22 +25,20 @@ void UnloadLauncher::AllocateResources()
 bool UnloadLauncher::Start()
 {
 	m_hasBall = false;
+	m_loadingComplete = false;
 	return true;
 }
 
 bool UnloadLauncher::Run()
 {
-	if (!m_hasBall)
-	{
-		m_loaderData->SetPurge(true);
-	}
-	else
-	{
-		m_loaderData->SetPurge(false);
-	}
-	
+	m_loaderData->SetPurge(true);
 	if (m_loaderData->IsLoadingComplete())
 	{
+		m_loadingComplete = true;
+	}
+	if (m_loadingComplete)
+	{
+		m_loaderData->SetPurge(false);
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
