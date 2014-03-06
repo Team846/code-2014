@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import com.tonypeng.api.thebluealliance.BLUE;
 import com.tonypeng.api.thebluealliance.BLUE.BLUEApiException;
 import com.tonypeng.api.thebluealliance.BLUE.Teams.Team;
@@ -19,10 +21,20 @@ public class Matrix
     public static void main( String[] args ) throws BLUEApiException
     {
         BLUE.setAppId( "frc846:scouting_app:v01" );
-        setArrays();
+        makeFirstArray();
+        //setArrays();
         // double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
         // RREF( matrix );
         // printMatrix( matrix );
+    }
+    
+    public static void makeFirstArray() throws BLUEApiException
+    {
+        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
+        for(int i = 0; i < match.length; i++)
+        {
+            System.out.println(match[i]);
+        }
     }
 
 
@@ -73,13 +85,8 @@ public class Matrix
 
             }
         }
-        for ( int i = 0; i < list_teams.length; i++ )
-        {
-            System.out.println( list_teams[i] );
-            System.out.println( i );
-        }
+        Arrays.sort(list_teams);
     }
-
 
     public static int[] checkString( String s )
     {
