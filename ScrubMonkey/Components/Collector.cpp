@@ -1,6 +1,9 @@
 #include "Collector.h"
+#include <Rhesus.Toolkit.IO.h>
 
 #include "../Config/DriverStationConfig.h"
+
+using namespace Rhesus::Toolkit::IO;
 
 Collector::Collector()
 	: Component("Collector", DriverStationConfig::DigitalIns::COLLECTOR),
