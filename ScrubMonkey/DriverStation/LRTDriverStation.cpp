@@ -1,9 +1,11 @@
 #include "LRTDriverStation.h"
 #include "../RobotState.h"
 
+#include <Rhesus.Toolkit.IO.h>
 #include <Rhesus/Toolkit/GameState.h>
 
 using namespace Rhesus::Toolkit;
+using namespace Rhesus::Toolkit::IO;
 
 LRTDriverStation* LRTDriverStation::m_instance = NULL;
 

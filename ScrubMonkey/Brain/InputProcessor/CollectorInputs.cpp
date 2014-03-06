@@ -1,5 +1,9 @@
 #include "CollectorInputs.h"
 
+#include <Rhesus.Toolkit.IO.h>
+
+using namespace Rhesus::Toolkit::IO;
+
 CollectorInputs::CollectorInputs()
 {
 	m_operator_stick = LRTDriverStation::Instance()->GetOperatorStick();
@@ -9,7 +13,7 @@ CollectorInputs::CollectorInputs()
 }
 
 void CollectorInputs::Update()
-{
+{	
 	collectorData->SetEnabled(false);
 	
 	if(m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECT))
