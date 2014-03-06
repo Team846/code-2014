@@ -43,9 +43,19 @@ public class Matrix
                 int[] s = checkString( teams_split[i] );
                 if ( !(s[0] == -1 ))
                 {
-                    int end_num = teams_split[i].indexOf( ",", k + 5 );
-                    String team_number = teams_split[i].substring( k + 5,
-                        end_num );
+                    String team_number = "";
+                    if(s[2] == 0)
+                    {
+                        int end_num = teams_split[i].indexOf( ",", s[1] + 5 );
+                        team_number = teams_split[i].substring( s[1] + 5,
+                            end_num );
+                    }
+                    if(s[2] == 1)
+                    {
+                        int end_num = teams_split[i].indexOf( ",", s[1] + 8 );
+                        team_number = teams_split[i].substring( s[1] + 8,
+                            end_num );
+                    }
                     for ( int count = 0; count < team_number.length(); count++ )
                     {
                         if ( !Character.isDigit( team_number.charAt( 0 ) ) )
@@ -86,7 +96,7 @@ public class Matrix
                 stuff[2] = 0;
             }
         }
-        for ( int j = 0; j < s.length(); j++ )
+        for ( int j = 0; j < s.length() - 6; j++ )
         {
             if ( s.substring( j, j + 6 ).equals( "Mexico" ) )
             {
