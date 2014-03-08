@@ -5,11 +5,13 @@
 #include "../Config/Configurable.h"
 #include "../ComponentData/CollectorRollersData.h"
 #include "../Actuators/LRTTalon.h"
+#include "../Communication/LiveNetworkSendable.h"
+#include "../Sensors/SensorFactory.h"
 
 /*!
  * @brief Provides control over the collector rollers.
  */
-class CollectorRollers : public Component, public Configurable
+class CollectorRollers : public Component, public Configurable, public LiveNetworkSendable
 {
 public:
 	CollectorRollers();
@@ -22,10 +24,12 @@ public:
 	void UpdateDisabled();
 		
 	void Configure();
+	void Send();
 	
 private:
 	CollectorRollersData* m_rollersData;
 	LRTSpeedController* m_motor;
+	GearTooth* m_gearTooth;
 	float m_forwardSpeed, m_reverseSpeed;
 };
 

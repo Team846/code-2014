@@ -3,6 +3,9 @@
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/LRTTalon.h"
+#include <Rhesus/Toolkit/IO/BufferedConsole.h>
+
+using namespace Rhesus::Toolkit::IO;
 
 CollectorRollers::CollectorRollers() : 
 	Component("CollectorRollers", DriverStationConfig::DigitalIns::COLLECTOR_ROLLERS),
@@ -10,6 +13,7 @@ CollectorRollers::CollectorRollers() :
 {
 	m_rollersData = CollectorRollersData::Get();
 	m_motor = new LRTTalon(ConfigPortMappings::Get("PWM/COLLECTOR_ROLLERS"), "CollectorRollers");
+	m_gearTooth = SensorFactory::GetGearTooth(ConfigPortMappings::Get("Digital/COLLECTOR_GEAR_TOOTH"));
 }
 
 CollectorRollers::~CollectorRollers()
@@ -49,4 +53,10 @@ void CollectorRollers::Configure()
 {
 	m_forwardSpeed = GetConfig("forward_speed", 1.0);
 	m_reverseSpeed = GetConfig("reverse_speed", -1.0);
+}
+
+void CollectorRollers::Send()
+{
+	SendToNetwork(m_gearTooth->Get(), "GearToothTicks", "RobotData");
+	SendToNetwork(m_gearTooth->GetDirection() ? 1 : -1, "GearToothDirection", "RobotData");
 }

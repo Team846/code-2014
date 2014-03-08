@@ -19,6 +19,7 @@
 #include "Automation/Fire.h"
 #include "Automation/LoadLauncher.h"
 #include "Automation/UnloadLauncher.h"
+#include "Automation/Dribble.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
 #include "Automation/Sequential.h"
@@ -80,12 +81,14 @@ Brain::Brain() :
 	Automation* fire = new Fire();
 	Automation* load = new LoadLauncher();
 	Automation* unload = new UnloadLauncher();
+	Automation* dribble = new Dribble();
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
 	m_automation.push_back(fire);
 	m_automation.push_back(load);
 	m_automation.push_back(unload);
+	m_automation.push_back(dribble);
 	
 	// Create events to be used
 	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
@@ -106,6 +109,8 @@ Brain::Brain() :
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* unload_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER);
 	Event* unload_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER);
+	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
+	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);
@@ -130,6 +135,8 @@ Brain::Brain() :
 	load_start->AddAbortListener(unload);
 	unload_start->AddStartListener(unload);
 	unload_abort->AddAbortListener(unload);
+	dribble_start->AddStartListener(dribble);
+	dribble_abort->AddAbortListener(dribble);
 }
 
 Brain::~Brain()
