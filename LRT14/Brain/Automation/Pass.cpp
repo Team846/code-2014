@@ -27,6 +27,8 @@ bool Pass::Start()
 {
 	m_ballPassed = false;
 	m_passingToGround = false;
+	m_startTicks = m_gearTooth->Get();
+	m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
 	return true;
 }
 
@@ -35,19 +37,19 @@ bool Pass::Run()
 	m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 	m_rollersData->SetRunning(true);
 	m_rollersData->SetDirection(CollectorRollersData::REVERSE);
-	m_rollersData->SetSpeed(1.0);
-	if (m_proximity->Get() == 1)
-	{
-		m_ballPassed = true;
-	}
-	else if (m_proximity->Get() == 0 && m_ballPassed && !m_passingToGround)
-	{
-		m_passingToGround = true;
-		m_startTicks = m_gearTooth->Get();
-		m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
-	}
-	if (m_passingToGround)
-	{
+	m_rollersData->SetSpeed(m_rollerSpeed);
+//	if (m_proximity->Get() == 1)
+//	{
+//		m_ballPassed = true;
+//	}
+//	else if (m_proximity->Get() == 0 && m_ballPassed && !m_passingToGround)
+//	{
+//		m_passingToGround = true;
+//		m_startTicks = m_gearTooth->Get();
+//		m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
+//	}
+//	if (m_passingToGround)
+//	{
 		if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 		{
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
@@ -58,7 +60,7 @@ bool Pass::Run()
 				return true;
 			}
 		}
-	}
+//	}
 	return false;
 }
 

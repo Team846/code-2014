@@ -42,7 +42,10 @@ bool UnloadLauncher::Run()
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
-		m_collectorRollers->SetSpeed(m_rollerSpeed);
+		if (!m_hasBall)
+			m_collectorRollers->SetSpeed(m_rollerSpeed);
+		else
+			m_collectorRollers->SetSpeed(-m_rollerSpeed);
 		
 		if (m_proximity->Get() == 1)
 		{
