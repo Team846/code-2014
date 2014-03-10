@@ -33,6 +33,10 @@ bool LoadLauncher::Run()
 	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(m_loadSpeed);
+	
+	if (m_loaderData->IsLoadingComplete())
+		return true;
+	
 	return false;
 }
 

@@ -16,7 +16,6 @@ LauncherLoader::LauncherLoader() :
 	m_motorB = new LRTVictor(ConfigPortMappings::Get("PWM/LAUNCHER_LOADER_B"), "LauncherLoaderB");
 	m_safety = new Pneumatics(ConfigPortMappings::Get("Solenoid/LAUNCHER_SAFETY"), "LauncherSafety");
 	m_sensor = new ContinuousPotentiometer(ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_A"), ConfigPortMappings::Get("Analog/LAUNCHER_LOADER_SENSOR_B"));
-	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_currentRotation = 0;
 	m_desiredRotation = 0;
 	m_desiredZero = 0;
@@ -120,64 +119,6 @@ void LauncherLoader::UpdateEnabled()
 		m_motorB->SetDutyCycle(0.0);
 		m_loaderData->SetLoadingComplete(true);
 	}
-//	if (m_proximity->Get() == 0)
-//	{
-//		if (m_loaderData->GetFire())
-//		{
-//			m_desiredRotation = m_currentRotation + 1;
-//			m_load = false;
-//			m_lastFiring = true;
-//		}
-//		else if (m_lastFiring)
-//		{
-//			m_desiredRotation = m_currentRotation;
-//			m_load = true;
-//		}
-//	}
-//	else
-//		m_lastFiring = false;
-//	
-//	if (m_loaderData->GetPurge())
-//	{
-//		m_currentSetpoint = m_unloadSetpoint + m_desiredRotation * 360;
-//		if (m_currentSensorAngle < m_intermediateSetpoint + m_desiredRotation * 360)
-//			m_load = false;
-//	}
-//	else
-//	{
-//		if (m_load)
-//		{
-//			m_currentSetpoint = m_loadSetpoint + m_desiredRotation * 360;
-//		}
-//		else
-//		{
-//			m_currentSetpoint = m_intermediateSetpoint + m_desiredRotation * 360;
-//		}
-//	}
-//	float error = m_currentSetpoint - m_currentSensorAngle;
-//	float speed;
-//	if (error > 0)
-//	{
-//		speed = m_maxSpeed;
-//	}
-//	else
-//	{
-//		speed = 0;
-//	}
-//	m_motorA->SetDutyCycle(speed);
-//	m_motorB->SetDutyCycle(speed);
-//	
-//	if (m_proximity->Get() == 1)
-//	{
-//		m_loaderData->SetBallDetected(false);
-//		m_safety->Set(Pneumatics::OFF);
-//	}
-//	else
-//	{
-//		m_loaderData->SetBallDetected(true);
-//		if (m_loaderData->GetFire())
-//			m_safety->Set(Pneumatics::FORWARD);
-//	}
 }
 
 void LauncherLoader::UpdateDisabled()

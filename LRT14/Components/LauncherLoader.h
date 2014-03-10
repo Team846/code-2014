@@ -36,7 +36,6 @@ private:
 	LRTSpeedController* m_motorB;
 	Pneumatics* m_safety;
 	ContinuousPotentiometer* m_sensor;
-	DigitalInput* m_proximity;
 	float m_unloadSetpoint;
 	float m_intermediateSetpoint;
 	float m_loadSetpoint;

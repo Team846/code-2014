@@ -31,12 +31,13 @@ bool Pass::Start()
 	m_ballPassed = false;
 	m_passingToGround = false;
 	m_startTicks = m_gearTooth->Get();
-	m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
 	return true;
 }
 
 bool Pass::Run()
 {
+	m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
+	// TODO: Add driving speed
 	if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 	{
 		m_rollersData->SetSpeed(m_restSpeed);
