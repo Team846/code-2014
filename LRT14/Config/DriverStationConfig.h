@@ -32,8 +32,10 @@ const uint32_t DRIBBLE = 5;
 const uint32_t PURGE_LAUNCHER = 6;
 const uint32_t LOAD_LAUNCHER = 7;
 const uint32_t UNLOAD_LAUNCHER = 8;
+const uint32_t HUMAN_LOAD = 8;
 const uint32_t COLLECTOR_DOWN = 9;
-const uint32_t REVERSE_ROLLERS = 10;
+const uint32_t RUN_ROLLERS = 10;
+const uint32_t REVERSE_ROLLERS = 11;
 // Driver Wheel
 const uint32_t POSITION_HOLD = 5;
 const uint32_t REVERSE_DRIVE = 6;

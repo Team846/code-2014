@@ -11,7 +11,13 @@ CollectorRollersInputs::CollectorRollersInputs()
 void CollectorRollersInputs::Update()
 {
 	m_rollersData->SetRunning(false);
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::REVERSE_ROLLERS))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::RUN_ROLLERS))
+	{
+		m_rollersData->SetRunning(true);
+		m_rollersData->SetSpeed(1.0);
+		m_rollersData->SetDirection(CollectorRollersData::FORWARD);
+	}
+	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::REVERSE_ROLLERS))
 	{
 		m_rollersData->SetRunning(true);
 		m_rollersData->SetSpeed(1.0);

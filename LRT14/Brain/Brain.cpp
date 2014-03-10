@@ -18,7 +18,6 @@
 #include "Automation/Pass.h"
 #include "Automation/Fire.h"
 #include "Automation/LoadLauncher.h"
-#include "Automation/UnloadLauncher.h"
 #include "Automation/Dribble.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
@@ -80,14 +79,12 @@ Brain::Brain() :
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
 	Automation* load = new LoadLauncher();
-	Automation* unload = new UnloadLauncher();
 	Automation* dribble = new Dribble();
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
 	m_automation.push_back(fire);
 	m_automation.push_back(load);
-	m_automation.push_back(unload);
 	m_automation.push_back(dribble);
 	
 	// Create events to be used
@@ -103,12 +100,13 @@ Brain::Brain() :
 	Event* collect_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
 	Event* pass_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
 	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
-	Event* fire_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE);
-	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE);
+	Event* fire_start_driver = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE);
+	Event* fire_start_operator = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
+	MultipleEvent* fire_abort = new MultipleEvent();
+	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE));
+	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE));
 	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
-	Event* unload_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER);
-	Event* unload_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	
@@ -122,19 +120,17 @@ Brain::Brain() :
 	position_hold_start->AddStartListener(positionHold);
 	position_hold_abort->AddAbortListener(positionHold);
 	collect_start->AddStartListener(collect);
+	collect_start->AddAbortListener(dribble);
 	collect_abort->AddAbortListener(collect);
 	pass_start->AddAbortListener(collect);
-	pass_start->AddAbortListener(unload);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
-	fire_start->AddStartListener(fire);
+	fire_start_driver->AddStartListener(fire);
+	fire_start_operator->AddStartListener(fire);
 	fire_abort->AddAbortListener(fire);
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
-	load_start->AddAbortListener(unload);
-	unload_start->AddStartListener(unload);
-	unload_abort->AddAbortListener(unload);
 	dribble_start->AddStartListener(dribble);
 	dribble_abort->AddAbortListener(dribble);
 }

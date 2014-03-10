@@ -5,6 +5,7 @@
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../ComponentData/LauncherAngleData.h"
 #include "../../ComponentData/CollectorArmData.h"
+#include "../../Sensors/SensorFactory.h"
 
 /*!
  * @brief Fires the ball.
@@ -22,8 +23,7 @@ public:
 private:
 	LauncherLoaderData* m_loaderData;
 	CollectorArmData* m_collectorArmData;
-	
-	bool m_firing;
+	DigitalInput* m_proximity;
 };
 
 #endif
