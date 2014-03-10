@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include "../Config/Configurable.h"
+#include "../Communication/LiveNetworkSendable.h"
 #include "../ComponentData/CollectorArmData.h"
 #include <AnalogChannel.h>
 #include "../Actuators/Pneumatics.h"
@@ -11,7 +12,7 @@
 /*!
  * @brief Provides control over the collector arm component.
  */
-class CollectorArm : public Component, public Configurable
+class CollectorArm : public Component, public Configurable, public LiveNetworkSendable
 {
 public:
 	CollectorArm();
@@ -24,6 +25,7 @@ public:
 	void UpdateDisabled();
 	
 	void Configure();
+	void Send();
 	
 private:
 	CollectorArmData* m_armData;

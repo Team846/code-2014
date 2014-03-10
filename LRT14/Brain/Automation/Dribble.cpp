@@ -46,6 +46,6 @@ bool Dribble::Abort()
 void Dribble::Configure()
 {
 	m_rollerMaxSpeed = GetConfig("max_surface_speed", 13000.0 / 10.0 / 60 * 3.875 * acos(-1));
-	m_ticksToSurface = GetConfig("ticks_to_surface", 1 / 40.0 * 3.875 * acos(-1));
+	m_ticksToSurface = GetConfig("ticks_to_surface", (1 / 40.0) * (3.875 * acos(-1)));
 	m_gain = GetConfig("m_gain", 1.0);
 }

@@ -64,7 +64,8 @@ bool Collect::Run()
 
 	if (m_proximity->Get() == 1)
 	{
-		m_collectorRollers->SetRunning(false);
+		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
+		m_collectorRollers->SetSpeed(m_constantPower);
 		m_hasBall = true;
 	}
 	else
@@ -95,4 +96,5 @@ void Collect::Configure()
 	m_blueBallBlue = GetConfig("blue_ball_blue", 0);
 	m_blueBallGreen = GetConfig("blue_ball_green", 0);
 	m_colorRange = GetConfig("color_range", 5);
+	m_constantPower = GetConfig("constant_power", 0.1);
 }

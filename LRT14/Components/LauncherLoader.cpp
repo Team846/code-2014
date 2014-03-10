@@ -80,7 +80,7 @@ void LauncherLoader::UpdateEnabled()
 	}
 	else if (m_loaderData->GetLoad())
 	{
-		if (m_lastRawSensorAngle < m_loadSetpoint || m_lastRawSensorAngle > m_loadSetpoint + 5)
+		if (m_lastRawSensorAngle < m_loadSetpoint || m_lastRawSensorAngle > m_loadSetpoint + 10)
 		{
 			m_motorA->SetDutyCycle(m_maxSpeed);
 			m_motorB->SetDutyCycle(m_maxSpeed);

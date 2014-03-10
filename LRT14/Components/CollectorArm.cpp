@@ -56,9 +56,22 @@ void CollectorArm::UpdateEnabled()
 
 void CollectorArm::UpdateDisabled()
 {
+	if (m_switch->Get() == 0)
+	{
+		m_armData->SetCurrentPosition(CollectorArmData::COLLECT);
+	}
+	else
+	{
+		m_armData->SetCurrentPosition(CollectorArmData::STOWED);
+	}
 }
 
 void CollectorArm::Configure()
 {
 	
+}
+
+void CollectorArm::Send()
+{
+	SendToNetwork(m_switch->Get(), "CollectorSwitch", "RobotData");
 }

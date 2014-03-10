@@ -34,6 +34,10 @@ private:
 	bool m_passingToGround;
 	float m_restSpeed;
 	float m_rollerSpeed;
+	float m_gain;
+	float m_rollerMaxSpeed;
+	float m_ticksToSurface;
+	float m_threshold;
 };
 
 #endif
