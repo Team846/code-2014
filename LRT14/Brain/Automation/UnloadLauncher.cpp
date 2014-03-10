@@ -38,7 +38,6 @@ bool UnloadLauncher::Run()
 	}
 	if (m_loadingComplete)
 	{
-		m_loaderData->SetPurge(false);
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 		m_collectorRollers->SetRunning(true);
 		m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);

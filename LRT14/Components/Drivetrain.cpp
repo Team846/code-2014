@@ -149,6 +149,8 @@ void Drivetrain::Send()
 	Dashboard2::EnqueueDrivetrainTicksMessage(m_driveEncoders->GetTurnTicks());
 	SendToNetwork(m_driveEncoders->GetRawTurningSpeed(), "TurnTicks", "RobotData");
 	SendToNetwork(m_driveEncoders->GetRawForwardSpeed(), "Rate", "RobotData");
+	SendToNetwork(m_driveEncoders->GetEncoder(DriveEncoders::LEFT)->GetRate(), "LeftTicks", "RobotData");
+	SendToNetwork(m_driveEncoders->GetEncoder(DriveEncoders::RIGHT)->GetRate(), "RightTicks", "RobotData");
 }
 
 void Drivetrain::ConfigurePIDObject(PID *pid, std::string objName, bool feedForward)

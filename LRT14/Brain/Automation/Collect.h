@@ -37,6 +37,7 @@ private:
 	int m_blueBallGreen;
 	int m_colorRange;
 	bool m_hasBall;
+	float m_constantPower;
 };
 
 #endif
