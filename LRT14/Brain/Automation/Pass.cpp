@@ -41,7 +41,7 @@ bool Pass::Run()
 	if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 	{
 		m_rollersData->SetSpeed(m_restSpeed);
-		float speed = (m_gearTooth->GetStopped() ? 0.0 : 1 / m_gearTooth->GetPeriod()) * m_ticksToSurface / m_rollerMaxSpeed;
+		float speed = (m_gearTooth->GetStopped() ? 0.0 : 1 / m_gearTooth->GetPeriod()) / m_rollerMaxSpeed;
 		if (fabs(speed - m_restSpeed) <= m_threshold)
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 //		if (m_collectorArm->GetCurrentPosition() == CollectorArmData::STOWED)
@@ -49,7 +49,7 @@ bool Pass::Run()
 //			m_rollersData->SetRunning(false);
 //			return true;
 //		}
-		BufferedConsole::Printf("%f %f\n", m_restSpeed, speed);
+		BufferedConsole::Printf("%f %f %f\n", m_restSpeed, speed, 1 / m_gearTooth->GetPeriod());
 	}
 	else
 	{
@@ -73,7 +73,6 @@ void Pass::Configure()
 	m_ballReleaseDistance = GetConfig("ball_release_gear_ticks", 0);
 	m_rollerSpeed = GetConfig("roller_speed", 1.0);
 	m_gain = GetConfig("gain", 0.1);
-	m_ticksToSurface = GetConfig("ticks_to_surface", (1 / 40.0) * (3.875 * acos(-1)));
-	m_rollerMaxSpeed = GetConfig("max_surface_speed", 13000.0 / 10.0 / 60 * 3.875 * acos(-1));
+	m_rollerMaxSpeed = GetConfig("max_tick_rate", 40 * 13000.0 / 10.0 / 60);
 	m_threshold = GetConfig("speed_drop_threshold", 0.05);
 }
