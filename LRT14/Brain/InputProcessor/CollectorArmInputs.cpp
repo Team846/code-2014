@@ -10,7 +10,7 @@ CollectorArmInputs::CollectorArmInputs()
 
 void CollectorArmInputs::Update()
 {
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::HUMAN_LOAD))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
 	{
 		m_armData->SetDesiredPosition(CollectorArmData::COLLECT);
 	}

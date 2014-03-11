@@ -11,7 +11,7 @@ LauncherLoaderInputs::LauncherLoaderInputs()
 void LauncherLoaderInputs::Update()
 {
 	m_loaderData->SetFire(false);
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::HUMAN_LOAD))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER))
 	{
 		m_loaderData->SetPurge(true);
 	}

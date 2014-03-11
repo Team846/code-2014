@@ -18,6 +18,7 @@
 #include "Automation/Pass.h"
 #include "Automation/Fire.h"
 #include "Automation/LoadLauncher.h"
+#include "Automation/HumanLoad.h"
 #include "Automation/Dribble.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
@@ -79,6 +80,7 @@ Brain::Brain() :
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
 	Automation* load = new LoadLauncher();
+	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
@@ -100,13 +102,16 @@ Brain::Brain() :
 	Event* collect_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
 	Event* pass_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
 	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
-	Event* fire_start_driver = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE);
+//	Event* fire_start_driver = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE);
 	Event* fire_start_operator = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
-	MultipleEvent* fire_abort = new MultipleEvent();
-	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE));
-	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE));
+	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
+//	MultipleEvent* fire_abort = new MultipleEvent();
+//	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE));
+//	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE));
 	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
+	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
+	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	
@@ -125,12 +130,15 @@ Brain::Brain() :
 	pass_start->AddAbortListener(collect);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
-	fire_start_driver->AddStartListener(fire);
+//	fire_start_driver->AddStartListener(fire);
 	fire_start_operator->AddStartListener(fire);
 	fire_abort->AddAbortListener(fire);
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
+	load_start->AddAbortListener(humanLoad);
+	human_load_start->AddStartListener(humanLoad);
+	human_load_abort->AddAbortListener(humanLoad);
 	dribble_start->AddStartListener(dribble);
 	dribble_abort->AddAbortListener(dribble);
 }
@@ -263,5 +271,15 @@ void Brain::Log()
 	for (vector<Automation*>::iterator it = m_automation.begin(); it < m_automation.end(); it++)
 	{
 		LogToFile(find(m_runningTasks.begin(), m_runningTasks.end(), *it) != m_runningTasks.end(), (*it)->GetName());
+	}
+}
+
+void Brain::PrintRunningAutomation()
+{
+	BufferedConsole::Printf("Running Automation Routines:\n");
+	for (vector<Automation*>::iterator it = m_automation.begin(); it < m_automation.end(); it++)
+	{
+		if (find(m_runningTasks.begin(), m_runningTasks.end(), *it) != m_runningTasks.end())
+			BufferedConsole::Printf("%s\n", (*it)->GetName().c_str());
 	}
 }
