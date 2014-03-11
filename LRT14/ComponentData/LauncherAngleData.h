@@ -21,16 +21,11 @@ public:
 	Angle GetAngle();
 	void SetAngle(Angle angle);
 	
-	bool IsCompleteState();
-	
 	void ResetCommands();
 	void Log();
 	
 private:
-	void SetCompleteState(bool complete);
-	
 	Angle m_launcherAngle;
-	bool m_complete;
 	
 	friend class LauncherAngle;
 };
