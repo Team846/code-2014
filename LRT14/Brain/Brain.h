@@ -24,6 +24,8 @@ public:
 	
 	void Log();
 	
+	void PrintRunningAutomation();
+	
 private:
 	Brain();
 	

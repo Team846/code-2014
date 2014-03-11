@@ -303,3 +303,8 @@ void profiler()
 	
 	BufferedConsole::Printfln("Display profiler: %s", (showProfiler ? "true" : "false"));
 }
+
+void running()
+{
+	Brain::Instance()->PrintRunningAutomation();
+}
