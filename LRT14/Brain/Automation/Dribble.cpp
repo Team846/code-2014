@@ -31,7 +31,7 @@ bool Dribble::Run()
 	float setpoint = m_encoders->GetRobotForwardSpeed() / m_rollerMaxSpeed;
 	float speed = MathUtils::Sign(speed) / (m_gearTooth->GetPeriod());
 	float error = setpoint - speed * m_ticksToSurface / m_rollerMaxSpeed;
-	m_rollerData->SetDirection(error > 0 ? CollectorRollersData::REVERSE : CollectorRollersData::FORWARD);
+	m_rollerData->SetDirection(speed > 0 ? CollectorRollersData::REVERSE : CollectorRollersData::FORWARD);
 	m_rollerData->SetSpeed(MathUtils::Abs<float>(setpoint + error * m_gain));
 	return false;
 }
