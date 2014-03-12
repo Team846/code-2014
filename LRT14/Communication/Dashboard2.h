@@ -59,6 +59,7 @@ public:
 	static void EnqueueDrivetrainTicksMessage(int ticks);
 	
 	static void AddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType);
+	static void SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic val);
 };
 
 #endif

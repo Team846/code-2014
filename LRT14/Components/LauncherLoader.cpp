@@ -1,5 +1,7 @@
 #include "LauncherLoader.h"
 
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 
@@ -53,15 +55,16 @@ void LauncherLoader::OnDisabled()
 void LauncherLoader::UpdateEnabled()
 {
 	UpdateSensorValues();
+	Pneumatics::State state = Pneumatics::OFF;
 	
 	if (m_loaderData->GetFire())
 	{
-		m_safety->Set(Pneumatics::FORWARD);
+		state = Pneumatics::FORWARD;
 	}
-	else
-	{
-		m_safety->Set(Pneumatics::OFF);
-	}
+	
+	m_safety->Set(state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_STATE, (INT8)state);
+	
 	if (m_loaderData->GetFire())
 	{
 		if (m_lastRawSensorAngle < m_intermediateSetpoint || m_lastRawSensorAngle > m_intermediateSetpoint + 5)
@@ -123,10 +126,12 @@ void LauncherLoader::UpdateEnabled()
 
 void LauncherLoader::UpdateDisabled()
 {
+	Pneumatics::State state = Pneumatics::OFF;
 	UpdateSensorValues();
 	m_motorA->SetDutyCycle(0.0);
 	m_motorB->SetDutyCycle(0.0);
-	m_safety->Set(Pneumatics::OFF);
+	m_safety->Set(state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_STATE, (INT8)state);
 }
 
 void LauncherLoader::UpdateSensorValues()

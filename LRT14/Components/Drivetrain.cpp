@@ -2,6 +2,8 @@
 
 #include <Rhesus.Toolkit.Utilities.h>
 
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/RobotConfig.h"
 #include "../Sensors/DriveEncoders.h"
@@ -108,6 +110,8 @@ void Drivetrain::UpdateEnabled()
 	}
 	m_escs[LEFT]->SetDutyCycle(leftOutput);
 	m_escs[RIGHT]->SetDutyCycle(rightOutput);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::DRIVETRAIN_LEFT_OUTPUT, (float)leftOutput);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::DRIVETRAIN_RIGHT_OUTPUT, (float)rightOutput);
 }
 
 void Drivetrain::UpdateDisabled()
@@ -118,6 +122,8 @@ void Drivetrain::UpdateDisabled()
 	m_leftB->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
 	m_rightA->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
 	m_rightB->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::DRIVETRAIN_LEFT_OUTPUT, 0.0f);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::DRIVETRAIN_RIGHT_OUTPUT, 0.0f);
 }
 
 void Drivetrain::OnEnabled()

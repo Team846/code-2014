@@ -1,5 +1,7 @@
 #include "LauncherAngle.h"
 
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/Pneumatics.h"
@@ -28,22 +30,34 @@ void LauncherAngle::OnDisabled()
 		
 void LauncherAngle::UpdateEnabled()
 {
+	Pneumatics::State state = Pneumatics::OFF;
+	LauncherAngleData::Angle angle = LauncherAngleData::SHORT;
+	
 	switch(m_launcherAngleData->GetAngle())
 	{
 	case LauncherAngleData::SHORT:
-		m_pneumatics->Set(Pneumatics::OFF);
+		state = Pneumatics::OFF;
 		break;
 	case LauncherAngleData::LONG:
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		state = Pneumatics::FORWARD;
 		break;
 	default:
 		m_pneumatics->Set(Pneumatics::OFF);
 	}
+	m_pneumatics->Set(state);
+	
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, (INT8)state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE, (INT8)angle);
 }
 
 void LauncherAngle::UpdateDisabled()
 {
-	m_pneumatics->Set(Pneumatics::OFF);	
+	Pneumatics::State state = Pneumatics::OFF;
+	LauncherAngleData::Angle angle = m_launcherAngleData->GetAngle();
+	
+	m_pneumatics->Set(Pneumatics::OFF);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, (INT8)state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE, (INT8)angle);
 }
 
 void LauncherAngle::Configure()

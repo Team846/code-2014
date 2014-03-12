@@ -50,3 +50,7 @@ void Dashboard2::AddTelemetryData(std::string label, INT16 id, DashboardTelemetr
 {
 	
 }
+
+void  Dashboard2::SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic val)
+{
+}
