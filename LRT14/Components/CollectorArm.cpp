@@ -1,5 +1,7 @@
 #include "CollectorArm.h"
 
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/Pneumatics.h"
@@ -31,39 +33,48 @@ void CollectorArm::OnDisabled()
 
 void CollectorArm::UpdateEnabled()
 {
+	Pneumatics::State state = Pneumatics::REVERSE;
+	
 	switch(m_armData->GetDesiredPosition())
 	{
 	case CollectorArmData::COLLECT:
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		state = Pneumatics::FORWARD;
 		break;
 	case CollectorArmData::STOWED:
-		m_pneumatics->Set(Pneumatics::REVERSE);
-		break;
-	default:
-		m_pneumatics->Set(Pneumatics::REVERSE);
+		state = Pneumatics::REVERSE;
 		break;
 	}
 	
+	m_pneumatics->Set(state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, (INT8)state);
+	
+	CollectorArmData::Position pos = CollectorArmData::STOWED;
+
 	if (m_switch->Get() == 0)
 	{
-		m_armData->SetCurrentPosition(CollectorArmData::COLLECT);
+		pos = CollectorArmData::COLLECT;
 	}
-	else
-	{
-		m_armData->SetCurrentPosition(CollectorArmData::STOWED);
-	}
+	
+	m_armData->SetCurrentPosition(pos);
+	
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, (INT8)pos);
 }
 
 void CollectorArm::UpdateDisabled()
 {
+	Pneumatics::State state = Pneumatics::REVERSE;
+	
+	CollectorArmData::Position pos = CollectorArmData::STOWED;
+	
 	if (m_switch->Get() == 0)
 	{
-		m_armData->SetCurrentPosition(CollectorArmData::COLLECT);
+		pos = CollectorArmData::COLLECT;
 	}
-	else
-	{
-		m_armData->SetCurrentPosition(CollectorArmData::STOWED);
-	}
+	
+	m_armData->SetCurrentPosition(pos);
+	
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, (INT8)state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, (INT8)pos);
 }
 
 void CollectorArm::Configure()

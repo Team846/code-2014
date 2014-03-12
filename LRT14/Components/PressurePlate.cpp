@@ -1,5 +1,7 @@
 #include "PressurePlate.h"
 
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/Pneumatics.h"
@@ -28,19 +30,23 @@ void PressurePlate::OnDisabled()
 		
 void PressurePlate::UpdateEnabled()
 {
+	Pneumatics::State state = Pneumatics::OFF;
 	if (m_pressurePlateData->GetPressure())
 	{
-		m_pneumatics->Set(Pneumatics::OFF);
+		state = Pneumatics::OFF;
 	}
 	else
 	{
-		m_pneumatics->Set(Pneumatics::FORWARD);
+		state = Pneumatics::FORWARD;
 	}
+	m_pneumatics->Set(state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::PRESSURE_PLATE_STATE, (INT8)state);
 }
 
 void PressurePlate::UpdateDisabled()
 {
-	m_pneumatics->Set(Pneumatics::OFF);
+	Pneumatics::State state = Pneumatics::OFF;
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::PRESSURE_PLATE_STATE, (INT8)state);
 }
 
 void PressurePlate::Configure()

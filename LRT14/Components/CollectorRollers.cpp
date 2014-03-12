@@ -3,6 +3,8 @@
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/LRTTalon.h"
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
 using namespace Rhesus::Toolkit::IO;
@@ -33,20 +35,28 @@ void CollectorRollers::OnDisabled()
 
 void CollectorRollers::UpdateEnabled()
 {
+	double speed = 0.0;
+	
 	if (m_rollersData->IsRunning())
 	{
 		if (m_rollersData->GetDirection() == CollectorRollersData::FORWARD)
-			m_motor->SetDutyCycle(m_rollersData->GetSpeed());
+			speed = m_rollersData->GetSpeed();
 		else if (m_rollersData->GetDirection() == CollectorRollersData::REVERSE)
-			m_motor->SetDutyCycle(-m_rollersData->GetSpeed());
+			speed = -m_rollersData->GetSpeed();
 	}
 	else
-		m_motor->SetDutyCycle(0.0);
+	{
+		speed = 0;
+	}
+	
+	m_motor->SetDutyCycle(speed);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ROLLERS_SPEED, (float)speed);
 }
 
 void CollectorRollers::UpdateDisabled()
 {
 	m_motor->SetDutyCycle(0.0);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ROLLERS_SPEED, 0.0f);
 }
 
 void CollectorRollers::Configure()
