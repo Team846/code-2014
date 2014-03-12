@@ -12,6 +12,7 @@ LoadLauncher::LoadLauncher() :
 	m_loaderData = LauncherLoaderData::Get();
 	m_pressurePlate = PressurePlateData::Get();
 	m_loadSpeed = 1.0;
+	m_pastIntermediate = false;
 	
 }
 
@@ -25,11 +26,17 @@ void LoadLauncher::AllocateResources()
 
 bool LoadLauncher::Start()
 {
+	m_pastIntermediate = false;
 	return true;
 }
 
 bool LoadLauncher::Run()
 {
+	if (!m_loaderData->IsLoadingComplete() && !m_pastIntermediate)
+	{
+		return false;
+	}
+	m_pastIntermediate = true;
 	m_loaderData->SetLoad(true);
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(true);
