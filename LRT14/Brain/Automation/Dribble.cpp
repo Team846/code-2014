@@ -28,11 +28,9 @@ bool Dribble::Run()
 {
 	m_armData->SetDesiredPosition(CollectorArmData::COLLECT);
 	m_rollerData->SetRunning(true);
-	float setpoint = m_encoders->GetRobotForwardSpeed() / m_rollerMaxSpeed;
-	float speed = MathUtils::Sign(speed) / (m_gearTooth->GetPeriod());
-	float error = setpoint - speed * m_ticksToSurface / m_rollerMaxSpeed;
-	m_rollerData->SetDirection(speed > 0 ? CollectorRollersData::REVERSE : CollectorRollersData::FORWARD);
-	m_rollerData->SetSpeed(MathUtils::Abs<float>(setpoint + error * m_gain));
+	m_rollerData->SetDirection(CollectorRollersData::FORWARD);
+	float setpoint = m_encoders->GetRobotForwardSpeed() / m_rollerMaxSurfaceSpeed * m_extraScale;
+	m_rollerData->SetSpeed(-setpoint + m_offset);
 	return false;
 }
 
@@ -45,7 +43,10 @@ bool Dribble::Abort()
 
 void Dribble::Configure()
 {
-	m_rollerMaxSpeed = GetConfig("max_surface_speed", 13000.0 / 10.0 / 60 * 3.875 * acos(-1));
-	m_ticksToSurface = GetConfig("ticks_to_surface", (1 / 40.0) * (3.875 * acos(-1)));
-	m_gain = GetConfig("m_gain", 1.0);
+	m_rollerMaxSpeed = GetConfig("max_tick_rate", 40 * 13000.0 / 10.0 / 60);
+	m_rollerMaxSurfaceSpeed = m_rollerMaxSpeed / 40 * GetConfig("roller_diameter", 3.875) * acos(-1);
+	m_initialSpeed = GetConfig("initial_speed", 0.5);
+	m_ballSpeedDropThreshold = GetConfig("ball_speed_drop_threshold", 0.2);
+	m_extraScale = GetConfig("extra_speed_scale", 1.05);
+	m_offset = GetConfig("speed_offset", 0.1);
 }

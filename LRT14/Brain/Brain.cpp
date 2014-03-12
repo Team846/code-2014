@@ -128,6 +128,7 @@ Brain::Brain() :
 	collect_start->AddAbortListener(dribble);
 	collect_abort->AddAbortListener(collect);
 	pass_start->AddAbortListener(collect);
+	pass_start->AddAbortListener(humanLoad);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
 //	fire_start_driver->AddStartListener(fire);

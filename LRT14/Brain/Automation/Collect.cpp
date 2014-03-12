@@ -81,6 +81,10 @@ bool Collect::Abort()
 			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT
 			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetJoystick() == LRTDriverStation::Instance()->GetDriverStick())
 		return false;
+	if (!m_hasBall && !(dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())
+			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetButton() == DriverStationConfig::JoystickButtons::COLLECT
+			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetJoystick() == LRTDriverStation::Instance()->GetDriverStick()))
+		return false;
 	
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
