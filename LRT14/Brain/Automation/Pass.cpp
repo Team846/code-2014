@@ -37,7 +37,11 @@ bool Pass::Start()
 bool Pass::Run()
 {
 	m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
-	// TODO: Add driving speed
+	float driveSpeed = DriveEncoders::Get()->GetRobotForwardSpeed() / m_rollerMaxSurfaceSpeed;
+	if (driveSpeed < 0)
+	{
+		m_restSpeed += -driveSpeed;
+	}
 	if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 	{
 		m_rollersData->SetSpeed(m_restSpeed);
@@ -49,7 +53,6 @@ bool Pass::Run()
 //			m_rollersData->SetRunning(false);
 //			return true;
 //		}
-		BufferedConsole::Printf("%f %f %f\n", m_restSpeed, speed, 1 / m_gearTooth->GetPeriod());
 	}
 	else
 	{
@@ -74,5 +77,6 @@ void Pass::Configure()
 	m_rollerSpeed = GetConfig("roller_speed", 1.0);
 	m_gain = GetConfig("gain", 0.1);
 	m_rollerMaxSpeed = GetConfig("max_tick_rate", 40 * 13000.0 / 10.0 / 60);
+	m_rollerMaxSurfaceSpeed = m_rollerMaxSpeed  / 40 * GetConfig("roller_diameter", 3.875) * acos(-1);
 	m_threshold = GetConfig("speed_drop_threshold", 0.05);
 }

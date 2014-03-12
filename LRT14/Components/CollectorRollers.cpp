@@ -36,9 +36,9 @@ void CollectorRollers::UpdateEnabled()
 	if (m_rollersData->IsRunning())
 	{
 		if (m_rollersData->GetDirection() == CollectorRollersData::FORWARD)
-			m_motor->SetDutyCycle(m_rollersData->GetSpeed() * m_forwardSpeed);
+			m_motor->SetDutyCycle(m_rollersData->GetSpeed());
 		else if (m_rollersData->GetDirection() == CollectorRollersData::REVERSE)
-			m_motor->SetDutyCycle(m_rollersData->GetSpeed() * m_reverseSpeed);
+			m_motor->SetDutyCycle(-m_rollersData->GetSpeed());
 	}
 	else
 		m_motor->SetDutyCycle(0.0);
@@ -51,8 +51,6 @@ void CollectorRollers::UpdateDisabled()
 
 void CollectorRollers::Configure()
 {
-	m_forwardSpeed = GetConfig("forward_speed", 1.0);
-	m_reverseSpeed = GetConfig("reverse_speed", -1.0);
 }
 
 void CollectorRollers::Send()

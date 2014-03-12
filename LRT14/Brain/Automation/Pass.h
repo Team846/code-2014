@@ -36,6 +36,7 @@ private:
 	float m_rollerSpeed;
 	float m_gain;
 	float m_rollerMaxSpeed;
+	float m_rollerMaxSurfaceSpeed;
 	float m_ticksToSurface;
 	float m_threshold;
 };

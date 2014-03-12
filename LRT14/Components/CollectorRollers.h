@@ -30,7 +30,6 @@ private:
 	CollectorRollersData* m_rollersData;
 	LRTSpeedController* m_motor;
 	GearTooth* m_gearTooth;
-	float m_forwardSpeed, m_reverseSpeed;
 };
 
 #endif

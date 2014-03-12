@@ -20,9 +20,12 @@ public:
 
 	void Configure();
 private:
+	float m_rollerMaxSurfaceSpeed;
 	float m_rollerMaxSpeed;
-	float m_ticksToSurface;
-	float m_gain;
+	float m_initialSpeed;
+	float m_ballSpeedDropThreshold;
+	float m_extraScale;
+	float m_offset;
 	GearTooth* m_gearTooth;
 	CollectorArmData* m_armData;
 	CollectorRollersData* m_rollerData;

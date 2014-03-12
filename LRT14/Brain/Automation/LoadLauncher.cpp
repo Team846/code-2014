@@ -35,7 +35,11 @@ bool LoadLauncher::Run()
 	m_collectorRollers->SetSpeed(m_loadSpeed);
 	
 	if (m_loaderData->IsLoadingComplete())
+	{
+		m_loaderData->SetLoad(false);
+		m_collectorRollers->SetRunning(false);
 		return true;
+	}
 	
 	return false;
 }

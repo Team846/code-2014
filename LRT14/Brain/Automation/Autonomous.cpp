@@ -12,6 +12,10 @@ using namespace Rhesus::Toolkit::Utilities;
 
 #include "Drive.h"
 #include "Turn.h"
+#include "Arc.h"
+#include "Collect.h"
+#include "LoadLauncher.h"
+#include "Fire.h"
 #include "Pause.h"
 #include "Repeating.h"
 #include "Parallel.h"
@@ -140,29 +144,29 @@ void Autonomous::LoadRoutine(std::string path)
 				else
 					failed = true;
 			}
-//			else if (command == "arc")
-//			{
-//				if (arglist.size() == 2)
-//					current = new Arc(lexical_cast<double>(arglist[0]),
-//							lexical_cast<double>(arglist[1]));
-//				else if (arglist.size() == 3)
-//					current = new Arc(lexical_cast<double>(arglist[0]),
-//							lexical_cast<double>(arglist[1]),
-//							lexical_cast<double>(arglist[2]));
-//				else if (arglist.size() == 4)
-//					current = new Arc(lexical_cast<double>(arglist[0]),
-//							lexical_cast<double>(arglist[1]),
-//							lexical_cast<double>(arglist[2]),
-//							lexical_cast<double>(arglist[3]));
-//				else if (arglist.size() == 5)
-//					current = new Arc(lexical_cast<double>(arglist[0]),
-//							lexical_cast<double>(arglist[1]),
-//							lexical_cast<double>(arglist[2]),
-//							lexical_cast<double>(arglist[3]),
-//							lexical_cast<double>(arglist[4]));
-//				else
-//					failed = true;
-//			}
+			else if (command == "arc")
+			{
+				if (arglist.size() == 2)
+					current = new Arc(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]));
+				else if (arglist.size() == 3)
+					current = new Arc(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]),
+							lexical_cast<double>(arglist[2]));
+				else if (arglist.size() == 4)
+					current = new Arc(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]),
+							lexical_cast<double>(arglist[2]),
+							lexical_cast<double>(arglist[3]));
+				else if (arglist.size() == 5)
+					current = new Arc(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[1]),
+							lexical_cast<double>(arglist[2]),
+							lexical_cast<double>(arglist[3]),
+							lexical_cast<double>(arglist[4]));
+				else
+					failed = true;
+			}
 			else if (command == "wait")
 			{
 				if (arglist.size() == 1)
