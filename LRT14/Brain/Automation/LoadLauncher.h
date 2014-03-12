@@ -30,6 +30,7 @@ private:
 	LauncherLoaderData* m_loaderData;
 	PressurePlateData* m_pressurePlate;
 	float m_loadSpeed;
+	bool m_pastIntermediate;
 };
 
 #endif
