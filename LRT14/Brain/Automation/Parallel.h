@@ -15,8 +15,9 @@ public:
 	 * @param name the name of the routine
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
+	 * @param abortOnFirst whether the routine should abort on the first completed routine
 	 */
-	Parallel(std::string name, bool queueIfBlocked = false, bool restartable = false);
+	Parallel(std::string name, bool queueIfBlocked = false, bool restartable = false, bool abortOnFirst = false);
 	
 	/*!
 	 * @brief Creates a parallel routine initialized with a list of routines.
@@ -24,8 +25,9 @@ public:
 	 * @param sequence the list of routines to initialize the parallel routine with
      * @param queueIfBlocked whether the routine should be queued if blocked
 	 * @param restartable whether the routine can be restarted
+	 * @param abortOnFirst whether the routine should abort on the first completed routine
 	 */
-	Parallel(std::string name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false);
+	Parallel(std::string name, std::vector<Automation*> sequence, bool queueIfBlocked = false, bool restartable = false, bool abortOnFirst = false);
 	virtual ~Parallel();
 
 	virtual bool Start();
@@ -53,6 +55,7 @@ public:
 private:
 	std::vector<Automation*> routines;
 	std::vector<Automation*> running;
+	bool m_abortOnFirst;
 };
 
 #endif

@@ -14,6 +14,7 @@ Pass::Pass() :
 {
 	m_collectorArm = CollectorArmData::Get();
 	m_rollersData = CollectorRollersData::Get();
+	m_pressurePlate = PressurePlateData::Get();
 	m_gearTooth = SensorFactory::GetGearTooth(ConfigPortMappings::Get("Digital/COLLECTOR_GEAR_TOOTH"));
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_ballPassed = false;
@@ -24,6 +25,7 @@ void Pass::AllocateResources()
 {
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
+	AllocateResource(ControlResource::PRESSURE_PLATE);
 }
 
 bool Pass::Start()
@@ -36,6 +38,7 @@ bool Pass::Start()
 
 bool Pass::Run()
 {
+	m_pressurePlate->SetPressure(false);
 	m_restSpeed = MathUtils::Clamp(-LRTDriverStation::Instance()->GetOperatorStick()->GetAxis(Joystick::kYAxis), (float)0.0, (float)1.0);
 	float driveSpeed = DriveEncoders::Get()->GetRobotForwardSpeed() / m_rollerMaxSurfaceSpeed;
 	if (driveSpeed < 0)
@@ -47,7 +50,10 @@ bool Pass::Run()
 		m_rollersData->SetSpeed(m_restSpeed);
 		float speed = (m_gearTooth->GetStopped() ? 0.0 : 1 / m_gearTooth->GetPeriod()) / m_rollerMaxSpeed;
 		if (fabs(speed - m_restSpeed) <= m_threshold)
+		{
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+			m_pressurePlate->SetPressure(true);
+		}
 //		if (m_collectorArm->GetCurrentPosition() == CollectorArmData::STOWED)
 //		{
 //			m_rollersData->SetRunning(false);
@@ -68,6 +74,7 @@ bool Pass::Abort()
 {
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_rollersData->SetRunning(false);
+	m_pressurePlate->SetPressure(true);
 	return true;
 }
 

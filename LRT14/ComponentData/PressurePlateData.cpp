@@ -4,7 +4,7 @@ PressurePlateData::PressurePlateData() :
 	ComponentData("PressurePlateData")
 {
 	ResetCommands();
-	m_applyPressure = false;
+	m_applyPressure = true;
 }
 
 PressurePlateData* PressurePlateData::Get()

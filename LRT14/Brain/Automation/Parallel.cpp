@@ -4,15 +4,17 @@
 using namespace Rhesus::Toolkit::IO;
 using namespace std;
 
-Parallel::Parallel(std::string name, bool queueIfBlocked, bool restartable) :
+Parallel::Parallel(std::string name, bool queueIfBlocked, bool restartable, bool abortOnFirst) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
+	m_abortOnFirst = abortOnFirst;
 }
 
-Parallel::Parallel(std::string name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable) :
+Parallel::Parallel(std::string name, vector<Automation*> sequence, bool queueIfBlocked, bool restartable, bool abortOnFirst) :
 	Automation(name, false, queueIfBlocked, restartable)
 {
 	routines = sequence;
+	m_abortOnFirst = abortOnFirst;
 }
 
 Parallel::~Parallel()
@@ -47,20 +49,25 @@ bool Parallel::Start()
 
 bool Parallel::Run()
 {
-	bool completed = true;
+	bool completed = !m_abortOnFirst;
 	for (vector<Automation*>::iterator it = running.begin(); it < running.end(); it++)
 	{
 		if(!(*it)->Update())
 		{
-			completed = false;
+			if (!m_abortOnFirst)
+				completed = false;
 		}
 		else
 		{
 			running.erase(it++);
 			it--;
 			it--;
+			if (m_abortOnFirst)
+				completed = true;
 		}
 	}
+	if (completed && m_abortOnFirst)
+		Abort();
 	return completed;
 }
 
