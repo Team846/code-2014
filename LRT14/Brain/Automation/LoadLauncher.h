@@ -5,6 +5,7 @@
 #include "../../ComponentData/CollectorArmData.h"
 #include "../../ComponentData/CollectorRollersData.h"
 #include "../../ComponentData/LauncherLoaderData.h"
+#include "../../ComponentData/PressurePlateData.h"
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 
@@ -27,6 +28,7 @@ private:
 	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_collectorRollers;
 	LauncherLoaderData* m_loaderData;
+	PressurePlateData* m_pressurePlate;
 	float m_loadSpeed;
 };
 

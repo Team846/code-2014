@@ -10,6 +10,7 @@
 #include "InputProcessor/CollectorRollersInputs.h"
 #include "InputProcessor/LauncherLoaderInputs.h"
 #include "InputProcessor/LauncherAngleInputs.h"
+#include "InputProcessor/PressurePlateInputs.h"
 
 #include "Automation/Autonomous.h"
 #include "Automation/Drive.h"
@@ -69,6 +70,7 @@ Brain::Brain() :
 	m_inputs.push_back(new CollectorRollersInputs());
 	m_inputs.push_back(new LauncherLoaderInputs());
 	m_inputs.push_back(new LauncherAngleInputs());
+	m_inputs.push_back(new PressurePlateInputs());
 	
 	// Create automation tasks
 	Automation* auton = new Autonomous();
@@ -112,8 +114,8 @@ Brain::Brain() :
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
-	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
-	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
+	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
+	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);

@@ -16,6 +16,7 @@ using namespace Rhesus::Toolkit::Utilities;
 #include "Collect.h"
 #include "LoadLauncher.h"
 #include "Fire.h"
+#include "Dribble.h"
 #include "Pause.h"
 #include "Repeating.h"
 #include "Parallel.h"
@@ -59,6 +60,7 @@ void Autonomous::AllocateResources()
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_ANGLE);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
+	AllocateResource(ControlResource::PRESSURE_PLATE);
 }
 
 void Autonomous::LoadRoutine(std::string path)
@@ -166,6 +168,71 @@ void Autonomous::LoadRoutine(std::string path)
 							lexical_cast<double>(arglist[4]));
 				else
 					failed = true;
+			}
+			else if (command == "fire")
+			{
+				if (arglist.size() == 0)
+					current = new Fire();
+				else
+					failed = true;
+			}
+			else if (command == "collect")
+			{
+				if (arglist.size() == 0)
+					current = new Collect();
+				else
+					failed = true;
+			}
+			else if (command == "load")
+			{
+				if (arglist.size() == 0)
+					current = new LoadLauncher();
+				else
+					failed = true;
+			}
+			else if (command == "dribble")
+			{
+				Automation* drive;
+				double wait = 1.0;
+				if (arglist.size() == 1)
+					drive = new Drive(lexical_cast<double>(arglist[0]));
+				else if (arglist.size() == 2)
+				{
+					drive = new Drive(lexical_cast<double>(arglist[0]));
+					wait = lexical_cast<double>(arglist[1]);
+				}
+				else if (arglist.size() == 3)
+				{
+					drive = new Drive(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[2]));
+					wait = lexical_cast<double>(arglist[1]);
+				}
+				else if (arglist.size() == 4)
+				{
+					drive = new Drive(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[2]),
+							lexical_cast<double>(arglist[3]));
+					wait = lexical_cast<double>(arglist[1]);
+				}
+				else if (arglist.size() == 5)
+				{
+					drive = new Drive(lexical_cast<double>(arglist[0]),
+							lexical_cast<double>(arglist[2]),
+							lexical_cast<double>(arglist[3]),
+							lexical_cast<bool>(arglist[4]));
+					wait = lexical_cast<double>(arglist[1]);
+				}
+				else
+					failed = true;
+				if (!failed)
+				{
+					current = new Parallel("DribbleDrive", false, false, true);
+					Sequential* dribble = new Sequential("DribbleDriveWait");
+					dribble->AddAutomation(new Pause(wait));
+					dribble->AddAutomation(drive);
+					((Parallel*)current)->AddAutomation(dribble);
+					((Parallel*)current)->AddAutomation(new Dribble());
+				}
 			}
 			else if (command == "wait")
 			{

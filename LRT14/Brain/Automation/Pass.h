@@ -4,7 +4,7 @@
 #include "Automation.h"
 #include "../../ComponentData/CollectorArmData.h"
 #include "../../ComponentData/CollectorRollersData.h"
-#include "../../ComponentData/DrivetrainData.h"
+#include "../../ComponentData/PressurePlateData.h"
 #include "../../Config/Configurable.h"
 #include "../../Sensors/SensorFactory.h"
 
@@ -26,6 +26,7 @@ public:
 private:
 	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_rollersData;
+	PressurePlateData* m_pressurePlate;
 	GearTooth* m_gearTooth;
 	DigitalInput* m_proximity;
 	float m_ballReleaseDistance;

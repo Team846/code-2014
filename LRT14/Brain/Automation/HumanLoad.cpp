@@ -10,6 +10,7 @@ HumanLoad::HumanLoad() :
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
+	m_pressurePlate = PressurePlateData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_hasBall = false;
 }
@@ -19,6 +20,7 @@ void HumanLoad::AllocateResources()
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
+	AllocateResource(ControlResource::PRESSURE_PLATE);
 }
 
 bool HumanLoad::Start()
@@ -47,6 +49,7 @@ bool HumanLoad::Run()
 		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 		m_loaderData->SetPurge(false);
 	}
+	m_pressurePlate->SetPressure(false);
 	return false;
 }
 
@@ -60,6 +63,7 @@ bool HumanLoad::Abort()
 	m_loaderData->SetPurge(false);
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
+	m_pressurePlate->SetPressure(true);
 	return true;
 }
 

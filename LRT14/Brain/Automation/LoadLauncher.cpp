@@ -10,6 +10,7 @@ LoadLauncher::LoadLauncher() :
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
+	m_pressurePlate = PressurePlateData::Get();
 	m_loadSpeed = 1.0;
 	
 }
@@ -19,6 +20,7 @@ void LoadLauncher::AllocateResources()
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
+	AllocateResource(ControlResource::PRESSURE_PLATE);
 }
 
 bool LoadLauncher::Start()
@@ -33,11 +35,13 @@ bool LoadLauncher::Run()
 	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(m_loadSpeed);
+	m_pressurePlate->SetPressure(false);
 	
 	if (m_loaderData->IsLoadingComplete())
 	{
 		m_loaderData->SetLoad(false);
 		m_collectorRollers->SetRunning(false);
+		m_pressurePlate->SetPressure(true);
 		return true;
 	}
 	
@@ -49,6 +53,7 @@ bool LoadLauncher::Abort()
 	m_loaderData->SetLoad(false);
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
+	m_pressurePlate->SetPressure(true);
 	return true;
 }
 
