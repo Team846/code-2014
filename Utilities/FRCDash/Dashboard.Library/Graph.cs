@@ -21,7 +21,7 @@ namespace Dashboard.Library
         private List<Vector2> _dataPoints;
 
         // TODO change me to properties
-        public float PixelsPerTimeTick_x, PixelsPerTimeTick_y;
+        public float PixelsPerTimeTick_x, PixelsPerTimeTick_y, MaxValue;
 
         int graph_baseline;
 
@@ -62,8 +62,9 @@ namespace Dashboard.Library
 
             _dataPoints = new List<Vector2>();
 
-            PixelsPerTimeTick_x = 120;
-            PixelsPerTimeTick_y = 120;
+            PixelsPerTimeTick_x = this.Height;
+            PixelsPerTimeTick_y = this.Width;
+            MaxValue = 0;
             _id = id;
         }
 
@@ -83,7 +84,29 @@ namespace Dashboard.Library
 
         public void AddDataPoint(Vector2 data)
         {
+            UpdateMaxValue(data);
             _dataPoints.Add(data);
+ 
+        }
+
+        protected void UpdateMaxValue(Vector2 data)
+        {
+
+            if (data.Y > MaxValue)
+            {
+                MaxValue = data.Y;
+
+                PixelsPerTimeTick_y = MaxValue;
+            }
+
+
+        }
+
+        protected Vector2 ScaledVersion(Vector2 data)
+        {
+
+
+            return new Vector2(data.X, data.Y / MaxValue);
         }
 
         private void DrawAxes(Renderer renderer, Rectangle rect, GameTime gameTime)
@@ -135,5 +158,7 @@ namespace Dashboard.Library
             DrawPoints(renderer, rect, gameTime);
             DrawPoints(renderer, rect, gameTime);
         }
+
+
     }
 }

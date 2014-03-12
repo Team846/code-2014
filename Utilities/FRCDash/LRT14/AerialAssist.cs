@@ -31,6 +31,7 @@ namespace LRT14
             setupLocator(manager, contentLibrary, tabControl);
             setupCollector(manager, contentLibrary, tabControl);
             setupTelemetry(manager, contentLibrary, tabControl);
+            setupGraph(manager, contentLibrary, tabControl);
         }
 
         private void setupLocator(Manager manager, ContentLibrary contentLibrary, TabControl root)
@@ -118,6 +119,27 @@ namespace LRT14
             label.Left = 0;
             label.Parent = telemetryTab;
             */
+        }
+
+        private void setupGraph(Manager manager, ContentLibrary contentLibrary, TabControl root)
+        {
+
+            TabPage graphTab = root.AddPageBeforeEnd();
+            graphTab.Text = "graphTestTab";
+
+            graphTab.Init();
+
+            GraphControl graph = new GraphControl(manager, "telemetry", "LRT14.AerialAssist.TELEMETRY", contentLibrary);
+
+            graph.Width = graphTab.ClientWidth;
+            graph.Height = graphTab.ClientHeight;
+
+            graph.Init();
+            //graph.SubscribeToPacket((byte)MessageType.TELEMETRY);
+            graph.Parent = graphTab;
+
+            graphTab.Add(graph);
+
         }
     }
 }

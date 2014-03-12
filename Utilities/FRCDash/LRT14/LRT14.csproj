@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AerialAssist.cs" />
+    <Compile Include="GraphControl.cs" />
     <Compile Include="CollectorControl.cs" />
     <Compile Include="TelemetryControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
