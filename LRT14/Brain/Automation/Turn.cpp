@@ -12,6 +12,31 @@ Turn::Turn(double angle, double maxSpeed, double errorThreshold) :
 	m_drivetrain = DrivetrainData::Get();
 }
 
+Turn::Turn() :
+	Automation("Turn")
+{
+	m_angle = 0;
+	m_maxSpeed = 0;
+	m_errorThreshold = 0;
+	
+	m_drivetrain = DrivetrainData::Get();
+}
+
+void Turn::setAngle(double angle)
+{
+	m_angle = angle;
+}
+
+void Turn::setMaxSpeed(double speed)
+{
+	m_maxSpeed = speed;
+}
+
+void Turn::setErrorThreshold(double error)
+{
+	m_errorThreshold = error;
+}
+
 void Turn::AllocateResources()
 {
 	AllocateResource(ControlResource::TURN);

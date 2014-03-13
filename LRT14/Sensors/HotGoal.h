@@ -1,6 +1,9 @@
+#ifndef HOTGOAL_H_
+#define HOTGOAL_H_
+
 #include "../Communication/OffboardCommunication.h"
 #include <vector>
-
+ 
 class HotGoal
 {
 public:	
@@ -19,3 +22,5 @@ public:
 private:
 	OffboardCommunication* m_offboard;
 };
+
+#endif

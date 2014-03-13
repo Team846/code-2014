@@ -10,6 +10,7 @@ map<uint32_t, AnalogChannel*> SensorFactory::m_analog;
 map<uint32_t, DigitalInput*> SensorFactory::m_digital;
 map<uint32_t, Counter*> SensorFactory::m_counters;
 map<pair<uint32_t, uint32_t>, LRTEncoder*> SensorFactory::m_encoders;
+HotGoal* SensorFactory::m_hotGoal;
 SensorFactory *SensorFactory::m_instance = NULL;
 
 void SensorFactory::Initialize()
@@ -47,6 +48,8 @@ void SensorFactory::Finalize()
 	   ContainerCleanup::DeleteMapSecond(*erase);
 	   m_encoders.erase(erase);
 	}
+	
+	R_DELETE(m_hotGoal);
 	
 	R_DELETE(m_instance);
 }
@@ -97,6 +100,13 @@ GearTooth* SensorFactory::GetGearTooth(uint32_t port)
 		m_counters[port]->Start();
 	}
 	return (GearTooth*)m_counters[port];
+}
+
+HotGoal* SensorFactory::GetHotGoal()
+{
+	if(m_hotGoal == NULL) m_hotGoal = new HotGoal();
+	
+	return m_hotGoal;
 }
 
 void SensorFactory::Send()
