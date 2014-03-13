@@ -6,10 +6,14 @@
 #include <vector>
 #include <Rhesus.Toolkit.Tasks.h>
 
+#include <Rhesus/Messenger/NetServer.h>
+#include <Rhesus/Messenger/NetBuffer.h>
+#include <Rhesus/Messenger/NetChannel.h>
+
 /*!
  * @brief Intermediate interface for serial communications between cRIO and offboard computer. Assumes that the stream has been properly escaped by the offboard computer.
  */
-class OffboardCommunication : public AsyncProcess
+class OffboardCommunication
 {
 public:
 	enum Stream
@@ -46,11 +50,12 @@ public:
 	 */
 	void Read(Stream stream, std::vector<char> &buffer);
 	
-protected:
-	void Tick();
+	void Update();
 	
 private:
 	OffboardCommunication();
+	
+	void Start();
 	
 	inline Stream FlagToStream(Flag flag)
 	{
@@ -67,11 +72,12 @@ private:
 	
 	SerialPort* m_serial;
 	
-	std::vector<char> buffers[3];
-	std::vector<char> buffer;
+	std::vector<UINT8> buffers[3];
 	
 	Stream currentStream;
 	ReadState currentState;
+	
+	Rhesus::Messenger::NetServer m_server;
 	
 	Rhesus::Toolkit::Tasks::Mutex m_syncRoot[3];
 };
