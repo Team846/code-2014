@@ -17,6 +17,13 @@ public:
 	bool Abort();
 	void AllocateResources();
 	
+protected:
+	Turn();
+	
+	void setAngle(double angle);
+	void setMaxSpeed(double speed);
+	void setErrorThreshold(double errorThreshold);
+	
 private:
 	DrivetrainData* m_drivetrain;
 	

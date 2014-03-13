@@ -8,6 +8,7 @@
 #include <GearTooth.h>
 #include "DriveEncoders.h"
 #include "LRTEncoder.h"
+#include "HotGoal.h"
 #include "../Communication/LiveNetworkSendable.h"
 
 /*!
@@ -24,6 +25,7 @@ public:
 	static LRTEncoder* GetLRTEncoder(std::string name, uint32_t portA, uint32_t portB);
 	static Counter* GetCounter(uint32_t port);
 	static GearTooth* GetGearTooth(uint32_t port);
+	static HotGoal* GetHotGoal();
 	
 	void Send();
 	
@@ -32,6 +34,8 @@ private:
 	static map<uint32_t, DigitalInput*> m_digital;
 	static map<uint32_t, Counter*> m_counters;
 	static map<pair<uint32_t, uint32_t>, LRTEncoder*> m_encoders;
+	
+	static HotGoal* m_hotGoal;
 	
 	static SensorFactory *m_instance;
 };
