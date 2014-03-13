@@ -1,5 +1,7 @@
 #include "HotGoal.h"
 
+using namespace Rhesus::Messenger;
+
 HotGoal::HotGoal()
 {
 	m_offboard = OffboardCommunication::Instance();
@@ -7,7 +9,6 @@ HotGoal::HotGoal()
 
 HotGoal::~HotGoal()
 {
-	
 }
 
 HotGoal::Side HotGoal::GetActiveSide()
