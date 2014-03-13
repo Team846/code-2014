@@ -7,13 +7,13 @@ import com.tonypeng.api.thebluealliance.BLUE.Teams.Team;
 
 public class Matrix
 {
-    final int NUM_MATCHES = 99;
+    static int NUM_MATCHES;
 
-    final static int NUM_TEAMS = 59;
+    static int NUM_TEAMS = 59;
 
     static int[] list_teams = new int[NUM_TEAMS];
 
-    int[][] matches = new int[2 * NUM_MATCHES][NUM_TEAMS];
+    static int[][] matches;
 
     int[][] play_matches = new int[NUM_TEAMS][NUM_TEAMS];
 
@@ -21,35 +21,70 @@ public class Matrix
     public static void main( String[] args ) throws BLUEApiException
     {
         BLUE.setAppId( "frc846:scouting_app:v01" );
+        setArrays();
+        for(int i = 0; i < list_teams.length; i++)
+        {
+            System.out.println(list_teams[i]);
+        }
         makeFirstArray();
-        //setArrays();
+        makeTotalArray();
         // double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
         // RREF( matrix );
         // printMatrix( matrix );
     }
     
+    public static void makeTotalArray() throws BLUEApiException
+    {
+        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
+    }
+    
     public static void makeFirstArray() throws BLUEApiException
     {
         BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
+        NUM_MATCHES = match.length;
+        matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
         for(int i = 0; i < match.length; i++)
         {
-            System.out.println(match[i]);
+            String[] match_split = match[i].toString().split("\\[");
+            String[] match_split2 = match_split[1].split( "," );
+            changeOne(Integer.parseInt( match_split2[0].substring( 3 )), 2 * i );
+            changeOne(Integer.parseInt( match_split2[1].substring( 4 ) ), 2 * i);
+            changeOne(Integer.parseInt(match_split2[2].substring( 4 ).replaceAll("GeoData\\]", "").replaceAll( "[^\\d]", "" )), 2 * i);
+        }
+        for(int i = 0; i < matches.length; i++)
+        {
+            for(int j = 0; j < matches[i].length; j++)
+            {
+                System.out.print(matches[i][j] + " ");
+            }
+            System.out.println();
         }
     }
 
+    public static void changeOne(int a, int b)
+    {
+        for(int i = 0; i < list_teams.length; i++)
+        {
+            if(a == list_teams[i])
+            {
+                matches[b][i] = 1;
+            }
+        }
+    }
 
     public static void setArrays() throws BLUEApiException
     {
+        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
+        NUM_MATCHES = match.length;
+        matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
         int error = 0;
         int count2 = 0;
         BLUE.Events.Event event = BLUE.Events.getEvent( "casj", 2013 );
         BLUE.Teams.Team[] teams = event.getTeams();
-        int[] list_teams = new int[NUM_TEAMS];
 
         for ( int j = 0; j < teams.length; j++ )
         {
             String[] teams_split = teams[j].toString().split( "}" );
-            BLUE.Matches.Match[] matches = event.getMatches();
             for ( int i = 0; i < teams_split.length; i++ )
             {
                 int[] s = checkString( teams_split[i] );
