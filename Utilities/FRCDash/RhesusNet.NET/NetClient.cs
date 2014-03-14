@@ -52,6 +52,8 @@ namespace RhesusNet.NET
             netbuff.Write((byte)LibraryMessageType.DISCONNECT_REQUEST);
 
             SendRaw(netbuff, _server);
+
+            _connected = false;
            
         }
 

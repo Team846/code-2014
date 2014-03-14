@@ -20,8 +20,8 @@ void DrivetrainData::ResetCommands()
 {
 	m_overrideCurrentLimitForward = false;
 	m_overrideCurrentLimitReverse = false;
-	m_currentLimitForward = 0.5;
-	m_currentLimitReverse = 0.5;
+	m_currentLimitForward = 1.0;
+	m_currentLimitReverse = 1.0;
 	
 	memset(m_desiredRates, 0, sizeof(m_desiredRates));
 }

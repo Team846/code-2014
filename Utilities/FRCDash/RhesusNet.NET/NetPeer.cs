@@ -431,6 +431,7 @@ namespace RhesusNet.NET
 	        _isRunning = false;
             #warning this function is potentially bad because we might be killing the thread while it's waiting for a message. -tp
             _updateThread.Abort();
+            _messageCheckThread.Abort();
 
             _socket.Close();
         }

@@ -1,6 +1,9 @@
 #include "OffboardCommunication.h"
 
+#include <Rhesus.Toolkit.IO.h>
+
 using namespace std;
+using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Messenger;
 
@@ -64,6 +67,8 @@ void OffboardCommunication::Update()
 			buffers[HOT_GOAL].clear();
 			
 			buffers[HOT_GOAL].push_back(buff->ReadByte());
+			
+			BufferedConsole::Printfln("Hot Goal: %d", (INT32)buffers[HOT_GOAL][0]);
 			break;
 		case GAME_PIECE_TRACKING:
 			break;

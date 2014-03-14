@@ -26,11 +26,6 @@ namespace FakeHotGoal
         public HotGoalWindow()
         {
             _hotGoal = HotGoal.NONE;
-            _client = new NetClient();
-
-            _updateThread = new Thread(UpdateTask);
-            _updateThread.IsBackground = false;
-            _updateThread.Start();
 
             InitializeComponent();
         }
@@ -44,10 +39,14 @@ namespace FakeHotGoal
                 if (_client.Connected && !lastVal)
                 {
                     statusStrip1.Invoke((MethodInvoker)(() => statusLabel.Text = "Connected."));
+                    menuStrip1.Invoke((MethodInvoker)(() => connectToolStripMenuItem.Enabled = false));
+                    menuStrip1.Invoke((MethodInvoker)(() => disconnectToolStripMenuItem.Enabled = true));
                 }
                 else if (!_client.Connected && lastVal)
                 {
                     statusStrip1.Invoke((MethodInvoker)(() => statusLabel.Text = "Disconnected."));
+                    menuStrip1.Invoke((MethodInvoker)(() => connectToolStripMenuItem.Enabled = true));
+                    menuStrip1.Invoke((MethodInvoker)(() => disconnectToolStripMenuItem.Enabled = false));
                 }
 
                 lastVal = _client.Connected;
@@ -117,20 +116,28 @@ namespace FakeHotGoal
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_client.Connected) return;
+            if (_client != null && _client.Connected) return;
+
+            _client = new NetClient();
+
+            _updateThread = new Thread(UpdateTask);
+            _updateThread.IsBackground = false;
+            _updateThread.Start();
 
             _client.Open();
-            _client.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 846));
+            _client.Connect(new IPEndPoint(IPAddress.Parse("10.8.46.2"), 846));
 
             statusLabel.Text = "Connecting...";
         }
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!_client.Connected) return;
+            if (_client != null && !_client.Connected) return;
 
-            _client.Close();
+            _updateThread.Abort();
+
             _client.Disconnect();
+            _client.Close();
 
             statusLabel.Text = "Disconnected.";
 
