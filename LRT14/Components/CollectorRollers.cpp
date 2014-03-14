@@ -36,7 +36,6 @@ void CollectorRollers::OnDisabled()
 void CollectorRollers::UpdateEnabled()
 {
 	double speed = 0.0;
-	
 	if (m_rollersData->IsRunning())
 	{
 		if (m_rollersData->GetDirection() == CollectorRollersData::FORWARD)
@@ -66,5 +65,4 @@ void CollectorRollers::Configure()
 void CollectorRollers::Send()
 {
 	SendToNetwork(m_gearTooth->Get(), "GearToothTicks", "RobotData");
-	SendToNetwork(m_gearTooth->GetDirection() ? 1 : -1, "GearToothDirection", "RobotData");
 }

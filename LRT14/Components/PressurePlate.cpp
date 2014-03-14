@@ -7,7 +7,7 @@
 #include "../Actuators/Pneumatics.h"
 
 PressurePlate::PressurePlate() :
-	Component("PressurePlate", DriverStationConfig::DigitalIns::LAUNCHER_ANGLE),
+	Component("PressurePlate", DriverStationConfig::DigitalIns::PRESSURE_PLATE),
 	Configurable("PressurePlate")
 {
 	m_pressurePlateData = PressurePlateData::Get();

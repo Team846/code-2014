@@ -37,7 +37,7 @@ bool Pause::Run()
 {
 	if (timingCycles)
 		m_currentCycles++;
-	return timingCycles ? m_timer.Get() > m_time : m_currentCycles >= m_cycles;
+	return timingCycles ? m_currentCycles >= m_cycles : m_timer.Get() > m_time;
 }
 
 bool Pause::Abort()

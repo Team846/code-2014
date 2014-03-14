@@ -1,7 +1,7 @@
 #include "CollectorRollersData.h"
 
 CollectorRollersData::CollectorRollersData() :
-	ComponentData("CollectorRollerData")
+	ComponentData("CollectorRollersData")
 {
 	ResetCommands();
 	m_running = false;
