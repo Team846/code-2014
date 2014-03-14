@@ -1,5 +1,5 @@
-#ifndef LAUNCHER_ANGLE_H_
-#define LAUNCHER_ANGLE_H_
+#ifndef PRESSURE_PLATE_H_
+#define PRESSURE_PLATE_H_
 
 #include "Component.h"
 #include "../Config/Configurable.h"

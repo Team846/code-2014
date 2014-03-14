@@ -48,7 +48,8 @@ bool Autonomous::Start()
 	}
 	
 	LoadRoutine(RobotConfig::ROUTINE_FILE_PATH.substr(0, RobotConfig::ROUTINE_FILE_PATH.find('.')) + lexical_cast(autonRoutine) + RobotConfig::ROUTINE_FILE_PATH.substr(RobotConfig::ROUTINE_FILE_PATH.find('.'), RobotConfig::ROUTINE_FILE_PATH.length() - RobotConfig::ROUTINE_FILE_PATH.find('.')));
-
+	ConfigRuntime::ConfigureAll();
+	
 	return Sequential::Start();
 }
 

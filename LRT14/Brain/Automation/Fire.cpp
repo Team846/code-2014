@@ -24,7 +24,7 @@ bool Fire::Start()
 
 bool Fire::Run()
 {
-	if (m_proximity == 0)
+	if (m_proximity->Get() == 0)
 	{
 		m_loaderData->SetFire(false);
 		m_pressurePlate->SetPressure(true);
