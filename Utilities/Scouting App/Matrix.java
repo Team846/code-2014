@@ -19,6 +19,7 @@ public class Matrix
 
     int[][] play_matches = new int[NUM_TEAMS][NUM_TEAMS];
 
+    int[][] firstArrayFinal;
 
     public static void main( String[] args ) throws BLUEApiException
     {
@@ -26,12 +27,31 @@ public class Matrix
         setArrays();
         makeFirstArray();
         makeTotalArray();
+        combineArrays();
         // double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
         // RREF( matrix );
         // printMatrix( matrix );
     }
 
-
+    public static void combineArrays()
+    {
+        int[][] firstArrayFinal = new int[matches.length][matches[0].length];
+        for(int i = 0; i < firstArrayFinal.length; i++)
+        {
+            for(int j = 0; j < firstArrayFinal[0].length; j++)
+            {
+                if(j == firstArrayFinal[0].length - 1)
+                {
+                    firstArrayFinal[i][j] = scores[i];
+                }
+                else
+                {
+                    firstArrayFinal[i][j] = matches[i][j];
+                }
+            }
+        }
+    }
+    
     public static void makeTotalArray() throws BLUEApiException
     {
         BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
@@ -52,7 +72,7 @@ public class Matrix
         BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
             .getMatches();
         NUM_MATCHES = match.length;
-        matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
+        matches = new int[2 * NUM_MATCHES][NUM_TEAMS];
         for ( int i = 0; i < match.length; i++ )
         {
             String[] match_split = match[i].toString().split( "\\[" );
@@ -65,6 +85,13 @@ public class Matrix
                 .replaceAll( "GeoData\\]", "" )
                 .replaceAll( "[^\\d]", "" ) ),
                 2 * i );
+            match_split2 = match_split[2].split( "," );
+            changeOne(Integer.parseInt( match_split2[0].substring( 3 ) ), 2 * i + 1);
+            changeOne(Integer.parseInt( match_split2[1].substring( 4 ) ), 2 * i + 1);
+            changeOne( Integer.parseInt( match_split2[2].substring( 4 )
+                .replaceAll( "GeoData\\]", "" )
+                .replaceAll( "[^\\d]", "" ) ),
+                2 * i + 1);
         }
     }
 
@@ -86,7 +113,7 @@ public class Matrix
         BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
             .getMatches();
         NUM_MATCHES = match.length;
-        matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
+        matches = new int[2 * NUM_MATCHES][NUM_TEAMS];
         scores = new int[2 * NUM_MATCHES];
         int error = 0;
         int count2 = 0;
