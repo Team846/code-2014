@@ -41,6 +41,9 @@ namespace Dashboard.Library.Persistence
 
         public void Flush(string dirname)
         {
+            if (!Directory.Exists(dirname))
+                Directory.CreateDirectory(dirname);
+
             FileStream header = File.Create(Path.Combine(dirname, "header.fdbh"));
             StreamWriter sw = new StreamWriter(header);
 

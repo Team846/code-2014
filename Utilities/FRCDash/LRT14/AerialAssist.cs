@@ -10,6 +10,7 @@ using TomShane.Neoforce.Controls;
 using LayoutContract;
 
 using Dashboard.Library;
+using Dashboard.Library.Persistence;
 
 namespace LRT14
 {
@@ -25,6 +26,8 @@ namespace LRT14
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)
         {
+            PersistenceManager.Persistence = new DataPersistence();
+
             // Get our root control
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
