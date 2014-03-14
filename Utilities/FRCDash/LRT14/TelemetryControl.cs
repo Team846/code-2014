@@ -19,8 +19,10 @@ using Dashboard.Library.Persistence;
 
 namespace LRT14
 {
-    public class TelemetryControl : DashboardControl
+    public class TelemetryControl : DashboardControl, IPersistable
     {
+        private int _bitCount;
+
         private enum FieldDatatype : byte
         {
             INT8 = 0x00,
@@ -127,6 +129,8 @@ namespace LRT14
             Color = Color.Transparent;
 
             _initialized = false;
+
+            PersistenceManager.Persistence.Set("TelemetryControl", this);
         }
 
         public void display()
@@ -314,5 +318,56 @@ namespace LRT14
 
             base.UpdateControl(gameTime);
         }
+
+        public void Serialize(Stream stream)
+            {
+                int initCount = _bitCount + 32;
+                foreach (KeyValuePair<short, DataField> kvp in _idData)
+                {
+                        initCount += kvp.Value.Data.Length * 8 + kvp.Value.Label.Length * 8;
+
+                }
+                NetBuffer buff = new NetBuffer(initCount);
+
+                buff.Write(_idData.Count);
+
+                foreach (KeyValuePair<short, DataField> kvp in _idData)
+                {
+                    buff.Write(kvp.Value.Label);
+                    buff.Write(kvp.Value.Data);
+                }
+
+                stream.Write(buff.GetBuffer(), 0, buff.GetBufferLength());
+            }
+
+            public void Deserialize(Stream stream)
+            {
+                //byte[] header = new byte[4];
+
+                //stream.Read(header, 0, 4);
+
+                //NetBuffer buff = new NetBuffer(header, header.Length);
+
+                //int length = buff.ReadInt32();
+
+                //int bufferLen = length * (4 + 3 * 4);
+
+                //byte[] byteBuff = new byte[bufferLen];
+                //stream.Read(byteBuff, 0, bufferLen);
+
+                //buff = new NetBuffer(byteBuff, bufferLen);
+
+                //for (int i = 0; i < length; i++)
+                //{
+                //    float t = buff.ReadFloat();
+                //    float x = buff.ReadFloat();
+                //    float y = buff.ReadFloat();
+                //    float theta = buff.ReadFloat();
+
+                //    _data.Add(t, new Vector3(x, y, theta));
+                //}
+            //}
+        }
+
     }
 }
