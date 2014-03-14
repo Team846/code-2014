@@ -13,6 +13,8 @@ public class Matrix
 
     static int[] list_teams = new int[NUM_TEAMS];
 
+    static int[] scores;
+
     static int[][] matches;
 
     int[][] play_matches = new int[NUM_TEAMS][NUM_TEAMS];
@@ -22,61 +24,70 @@ public class Matrix
     {
         BLUE.setAppId( "frc846:scouting_app:v01" );
         setArrays();
-        for(int i = 0; i < list_teams.length; i++)
-        {
-            System.out.println(list_teams[i]);
-        }
         makeFirstArray();
         makeTotalArray();
         // double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
         // RREF( matrix );
         // printMatrix( matrix );
     }
-    
+
+
     public static void makeTotalArray() throws BLUEApiException
     {
-        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
-    }
-    
-    public static void makeFirstArray() throws BLUEApiException
-    {
-        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
-        NUM_MATCHES = match.length;
-        matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
-        for(int i = 0; i < match.length; i++)
+        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
+            .getMatches();
+        for ( int i = 0; i < match.length; i++ )
         {
-            String[] match_split = match[i].toString().split("\\[");
+            String[] match_split = match[i].toString().split( "\\}" );
             String[] match_split2 = match_split[1].split( "," );
-            changeOne(Integer.parseInt( match_split2[0].substring( 3 )), 2 * i );
-            changeOne(Integer.parseInt( match_split2[1].substring( 4 ) ), 2 * i);
-            changeOne(Integer.parseInt(match_split2[2].substring( 4 ).replaceAll("GeoData\\]", "").replaceAll( "[^\\d]", "" )), 2 * i);
-        }
-        for(int i = 0; i < matches.length; i++)
-        {
-            for(int j = 0; j < matches[i].length; j++)
-            {
-                System.out.print(matches[i][j] + " ");
-            }
-            System.out.println();
+            scores[2 * i] = Integer.parseInt( match_split2[1].trim() );
+            match_split2 = match_split[2].split( "," );
+            scores[2 * i + 1] = Integer.parseInt( match_split2[1].trim() );
         }
     }
 
-    public static void changeOne(int a, int b)
+
+    public static void makeFirstArray() throws BLUEApiException
     {
-        for(int i = 0; i < list_teams.length; i++)
+        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
+            .getMatches();
+        NUM_MATCHES = match.length;
+        matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
+        for ( int i = 0; i < match.length; i++ )
         {
-            if(a == list_teams[i])
+            String[] match_split = match[i].toString().split( "\\[" );
+            String[] match_split2 = match_split[1].split( "," );
+            changeOne( Integer.parseInt( match_split2[0].substring( 3 ) ),
+                2 * i );
+            changeOne( Integer.parseInt( match_split2[1].substring( 4 ) ),
+                2 * i );
+            changeOne( Integer.parseInt( match_split2[2].substring( 4 )
+                .replaceAll( "GeoData\\]", "" )
+                .replaceAll( "[^\\d]", "" ) ),
+                2 * i );
+        }
+    }
+
+
+    public static void changeOne( int a, int b )
+    {
+        for ( int i = 0; i < list_teams.length; i++ )
+        {
+            if ( a == list_teams[i] )
             {
                 matches[b][i] = 1;
             }
         }
     }
 
+
     public static void setArrays() throws BLUEApiException
     {
-        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 ).getMatches();
+        BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
+            .getMatches();
         NUM_MATCHES = match.length;
         matches = new int[2 * NUM_MATCHES - 1][NUM_TEAMS];
+        scores = new int[2 * NUM_MATCHES];
         int error = 0;
         int count2 = 0;
         BLUE.Events.Event event = BLUE.Events.getEvent( "casj", 2013 );
@@ -88,16 +99,16 @@ public class Matrix
             for ( int i = 0; i < teams_split.length; i++ )
             {
                 int[] s = checkString( teams_split[i] );
-                if ( !(s[0] == -1 ))
+                if ( !( s[0] == -1 ) )
                 {
                     String team_number = "";
-                    if(s[2] == 0)
+                    if ( s[2] == 0 )
                     {
                         int end_num = teams_split[i].indexOf( ",", s[1] + 5 );
                         team_number = teams_split[i].substring( s[1] + 5,
                             end_num );
                     }
-                    if(s[2] == 1)
+                    if ( s[2] == 1 )
                     {
                         int end_num = teams_split[i].indexOf( ",", s[1] + 8 );
                         team_number = teams_split[i].substring( s[1] + 8,
@@ -120,8 +131,9 @@ public class Matrix
 
             }
         }
-        Arrays.sort(list_teams);
+        Arrays.sort( list_teams );
     }
+
 
     public static int[] checkString( String s )
     {
