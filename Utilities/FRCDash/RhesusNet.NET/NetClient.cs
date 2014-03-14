@@ -39,7 +39,7 @@ namespace RhesusNet.NET
             SendRaw(netBuffer, _server);
         }
 
-        public void Disconnect(EndPoint ep)
+        public void Disconnect()
         {
             if (!(_connected))
             {
@@ -53,6 +53,11 @@ namespace RhesusNet.NET
 
             SendRaw(netbuff, _server);
            
+        }
+
+        public void Send(NetBuffer buff, NetChannel method, int channel)
+        {
+            Send(buff, _server, method, channel);
         }
     }
 }
