@@ -19,7 +19,7 @@ void DrivetrainInputs::Update()
 	drivetrainData->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
 	drivetrainData->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
 	
-	double turn = 0.0;
+  	double turn = 0.0;
 	turn = -m_driver_wheel->GetAxis(Joystick::kXAxis);
 	
 	int sign = turn > 0 ? 1 : -1;

@@ -93,6 +93,7 @@ void Drivetrain::UpdateEnabled()
 	leftOutput = MathUtils::Clamp<double>(leftOutput, -1.0, 1.0);
 	rightOutput = MathUtils::Clamp<double>(rightOutput, -1.0, 1.0);
 
+	/*
 	if (m_drivetrainData->ShouldOverrideForwardCurrentLimit())
 	{
 		m_escs[LEFT]->SetForwardCurrentLimit(m_drivetrainData->GetForwardCurrentLimit());
@@ -110,7 +111,11 @@ void Drivetrain::UpdateEnabled()
 	else
 	{
 		ConfigureReverseCurrentLimit();
-	}
+	}*/
+	m_escs[LEFT]->SetForwardCurrentLimit(1.0f);
+	m_escs[RIGHT]->SetForwardCurrentLimit(1.0f);
+	m_escs[LEFT]->SetReverseCurrentLimit(1.0f);
+	m_escs[RIGHT]->SetReverseCurrentLimit(1.0f);
 	
 	m_escs[LEFT]->SetForwardCurrentLimit(1.0f);
 	m_escs[RIGHT]->SetForwardCurrentLimit(1.0f);

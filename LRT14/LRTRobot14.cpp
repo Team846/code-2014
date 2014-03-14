@@ -191,6 +191,9 @@ void LRTRobot14::Tick()
 	// Update the Driver Station
 	LRTDriverStation::Update();
 
+	// Update offboard
+	OffboardCommunication::Instance()->Update();
+	
 	if (maintenanceMode)
 	{
 		// Run maintenance mode

@@ -55,6 +55,8 @@ namespace Dashboard
                 optionsWindow.Add(cmd_clear);
                 optionsWindow.Add(cmd_reboot);
 
+                optionsWindow.IconVisible = false;
+
                 cmd_reboot.Height = cmd_clear.Height = cmd_block.Height = optionsWindow.ClientHeight / 3;
                 cmd_reboot.Width = cmd_clear.Width = cmd_block.Width = optionsWindow.ClientWidth;
 

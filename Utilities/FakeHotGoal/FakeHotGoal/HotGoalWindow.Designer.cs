@@ -46,6 +46,8 @@
             this.hotgoalLeft.BackColor = System.Drawing.Color.White;
             this.hotgoalLeft.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.hotgoalLeft.FlatAppearance.BorderSize = 5;
+            this.hotgoalLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.hotgoalLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.hotgoalLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.hotgoalLeft.Location = new System.Drawing.Point(12, 44);
             this.hotgoalLeft.Name = "hotgoalLeft";
@@ -60,6 +62,8 @@
             this.hotgoalRight.BackColor = System.Drawing.Color.White;
             this.hotgoalRight.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.hotgoalRight.FlatAppearance.BorderSize = 5;
+            this.hotgoalRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.hotgoalRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.hotgoalRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.hotgoalRight.Location = new System.Drawing.Point(277, 44);
             this.hotgoalRight.Name = "hotgoalRight";
@@ -91,7 +95,7 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
@@ -99,7 +103,7 @@
             // 
             this.disconnectToolStripMenuItem.Enabled = false;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 

@@ -19,8 +19,8 @@ NetPeer::NetPeer(char * ip, int port, NetConnectionType::Enum connType)
 //		m_reliableOrdered[i] = new MessageAwaitingACK[MAX_MESSAGE_TRACK];
 //	}
 	
-	this->m_lastUnreliableSequenced = new int[MAX_MESSAGE_TRACK];
-	this->m_lastReliableSequenced 	= new int[MAX_MESSAGE_TRACK];
+	this->m_lastUnreliableSequenced = new int[MSG_CHANNELS];
+	this->m_lastReliableSequenced 	= new int[MSG_CHANNELS];
 	
 	this->m_currentReliableUnorderedCounter = 0;
 	this->m_currentReliableSequencedCounter = 0;

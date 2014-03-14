@@ -107,6 +107,8 @@ void DriveESC::SetDutyCycle(float dutyCycle)
 	if(m_controller2 != NULL)
 		m_controller2->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Brake);
 	
+	BufferedConsole::Printfln(":: %lf", m_dutyCycle);
+	
 	m_controller1->SetDutyCycle(m_dutyCycle);
 	if (m_controller2 != NULL)
 		m_controller2->SetDutyCycle(m_dutyCycle);

@@ -334,6 +334,7 @@ namespace LRT14
 
             KeyboardState kstate = Keyboard.GetState();
 
+            /*
             if (!_optionsOpen && kstate.IsKeyDown(Keys.O))
             {
                 LocationOptionsDialog lod = new LocationOptionsDialog(Manager);
@@ -342,7 +343,7 @@ namespace LRT14
                 lod.ShowModal();
                 Manager.Add(lod);
                 _optionsOpen = true;
-            }
+            }*/
 
             while ((nb = ReadMessage()) != null)
             {
