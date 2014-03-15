@@ -77,7 +77,7 @@ namespace FakeHotGoal
 
                     int secondsLeft = (millisLeft + 500) / 1000;
 
-                    if (secondsLeft < 5 && !autonLastWasMoreThanFiveSeconds)
+                    if (secondsLeft <= 5 && !autonLastWasMoreThanFiveSeconds)
                     {
                         if (_hotGoal == HotGoal.LEFT) _hotGoal = HotGoal.RIGHT;
                         else if (_hotGoal == HotGoal.RIGHT) _hotGoal = HotGoal.LEFT;
@@ -94,7 +94,7 @@ namespace FakeHotGoal
                         menuStrip1.Invoke((MethodInvoker)(() => autonomousToolStripMenuItem.Enabled = true ));
                     }
 
-                    autonLastWasMoreThanFiveSeconds = secondsLeft < 5;
+                    autonLastWasMoreThanFiveSeconds = secondsLeft <= 5;
 
                     countdown.Invoke((MethodInvoker)(() => countdown.SetCounter(secondsLeft)));
                 }
