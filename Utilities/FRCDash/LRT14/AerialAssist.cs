@@ -21,7 +21,8 @@ namespace LRT14
             LOCATOR = 0x0,
             COLLECTOR_SPEED = 0x2,
             TELEMETRY = 0x01,
-            COLLECTOR = 0x03
+            COLLECTOR = 0x03,
+            EVENT_NOTIFICATION = 0x04,
         }
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)
@@ -31,10 +32,27 @@ namespace LRT14
             // Get our root control
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
+            setupIngame(manager, contentLibrary, tabControl);
             setupLocator(manager, contentLibrary, tabControl);
             setupCollector(manager, contentLibrary, tabControl);
             setupTelemetry(manager, contentLibrary, tabControl);
             setupGraph(manager, contentLibrary, tabControl);
+        }
+
+        private void setupIngame(Manager manager, ContentLibrary contentLibrary, TabControl root)
+        {
+            TabPage ingameTab = root.AddPageBeforeEnd();
+            ingameTab.Init();
+            ingameTab.Text = "Ingame";
+
+            SoundPlayer soundPlayer = new SoundPlayer(manager, "sound_player", "LRT14.AerialAssist.EVENT_NOTIFICATOIN", contentLibrary);
+            soundPlayer.Width = 0;
+            soundPlayer.Height = 0;
+            soundPlayer.Left = -100;
+            soundPlayer.Top = -100;
+            soundPlayer.Init();
+            soundPlayer.Parent = ingameTab;
+            soundPlayer.SubscribeToPacket((byte)MessageType.EVENT_NOTIFICATION);
         }
 
         private void setupLocator(Manager manager, ContentLibrary contentLibrary, TabControl root)

@@ -22,8 +22,7 @@ namespace Dashboard
         public Dashboard()
             : base("Simple", false)
         {
-            Graphics.PreferredBackBufferWidth = 800;
-            Graphics.PreferredBackBufferHeight = 600;
+            windowSmall();
 
             Content.RootDirectory = "Content";
 
@@ -39,6 +38,8 @@ namespace Dashboard
 
             _contentLibrary = new ContentLibrary();
 
+            Manager.TargetFrames = 60;
+
             PersistenceManager.Start("data");
         }
 
@@ -47,6 +48,8 @@ namespace Dashboard
         protected override void Initialize()
         {
             base.Initialize();
+
+            ((System.Windows.Forms.Form)System.Windows.Forms.Control.FromHandle(this.Window.Handle)).Location = new System.Drawing.Point(0, 0);
 
             ResetLayout();
         }
@@ -78,6 +81,14 @@ namespace Dashboard
             MenuItem debug_flushPersistence = new MenuItem("Flush data buffer...");
             debug_flushPersistence.Click += new EventHandler(debug_flushPersistence_Click);
             debugButton.Items.Add(debug_flushPersistence);
+            MenuItem window = new MenuItem("Window");
+            MenuItem window_small = new MenuItem("Small");
+            window_small.Click += new EventHandler(window_small_Click);
+            MenuItem window_expanded = new MenuItem("Expanded");
+            window_expanded.Click += new EventHandler(window_expanded_Click);
+            window.Items.Add(window_small);
+            window.Items.Add(window_expanded);
+            //debugButton.Items.Add(window);
             _menuStrip.Items.Add(fileButton);
             _menuStrip.Items.Add(editButton);
             _menuStrip.Items.Add(debugButton);
@@ -115,12 +126,38 @@ namespace Dashboard
 
                 _console.NetConsoleProvider = _ncp;
 
-                NetworkManager.Start("127.0.0.1", 846);
+                NetworkManager.Start("127.0.0.1", 1140);
             }
 
             _console.Parent = console;
 
             Manager.Add(_tabControl);
+        }
+
+        void window_expanded_Click(object sender, EventArgs e)
+        {
+            windowExpanded();
+        }
+
+        void window_small_Click(object sender, EventArgs e)
+        {
+            windowSmall();
+        }
+
+        void windowExpanded()
+        {
+            Manager.Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            Manager.Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 300;
+
+            Manager.Graphics.ApplyChanges();
+        }
+
+        void windowSmall()
+        {
+            Manager.Graphics.PreferredBackBufferWidth = 800;
+            Manager.Graphics.PreferredBackBufferHeight = 600;
+
+            Manager.Graphics.ApplyChanges();
         }
 
         void debug_flushPersistence_Click(object sender, EventArgs e)

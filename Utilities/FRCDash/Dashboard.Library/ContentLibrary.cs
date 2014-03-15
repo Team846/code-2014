@@ -36,14 +36,16 @@ namespace Dashboard.Library
             string sfxPath = Path.Combine(controlsPath, "SoundEffects");
             string songPath = Path.Combine(controlsPath, "Songs");
 
-            LoadDirectory<Texture2D>(content, texPath);
-            LoadDirectory<Model>(content, modelPath);
-            LoadDirectory<SoundEffect>(content, sfxPath);
-            LoadDirectory<Song>(content, songPath);
+            LoadDirectory<Texture2D>(content, controlsPath, "Textures");
+            LoadDirectory<Model>(content, controlsPath, "Models");
+            LoadDirectory<SoundEffect>(content, controlsPath, "SoundEffects");
+            LoadDirectory<Song>(content, controlsPath, "Songs");
         }
 
-        private void LoadDirectory<T>(ContentManager content, string dir)
+        private void LoadDirectory<T>(ContentManager content, string controlsPath, string subpath)
         {
+            string dir = Path.Combine(controlsPath, subpath);
+
             if (!Directory.Exists(dir)) return;
 
             string[] files = Directory.GetFiles(dir);
@@ -52,13 +54,13 @@ namespace Dashboard.Library
             {
                 string key = Path.GetFileNameWithoutExtension(s);
 
-                _assets[key] = content.Load<T>(Path.Combine(dir, key));
+                _assets[key] = content.Load<T>("ControlsContent/" + subpath + "/" + key);
             }
 
             string[] directories = Directory.GetDirectories(dir);
 
             foreach (string s in directories)
-                LoadDirectory<T>(content, s);
+                LoadDirectory<T>(content, controlsPath + "/" + subpath, subpath + "/" + s);
         }
 
         public object Get(string assetName)
