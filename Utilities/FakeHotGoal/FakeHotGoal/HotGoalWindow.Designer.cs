@@ -37,6 +37,7 @@
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.autonomousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +77,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.networkToolStripMenuItem});
+            this.networkToolStripMenuItem,
+            this.autonomousToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(545, 24);
@@ -124,6 +126,13 @@
             this.statusLabel.Size = new System.Drawing.Size(82, 17);
             this.statusLabel.Text = "Disconnected.";
             // 
+            // autonomousToolStripMenuItem
+            // 
+            this.autonomousToolStripMenuItem.Name = "autonomousToolStripMenuItem";
+            this.autonomousToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.autonomousToolStripMenuItem.Text = "Autonomous";
+            this.autonomousToolStripMenuItem.Click += new System.EventHandler(this.autonomousToolStripMenuItem_Click);
+            // 
             // HotGoalWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +167,7 @@
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripMenuItem autonomousToolStripMenuItem;
     }
 }
 
