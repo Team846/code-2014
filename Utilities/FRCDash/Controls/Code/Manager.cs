@@ -915,10 +915,16 @@ namespace TomShane.Neoforce.Controls
     }
     ////////////////////////////////////////////////////////////////////////////
 
-    private void InvalidateRenderTarget()
+    public void InvalidateRenderTarget()
     {
         renderTargetValid = false;
-    } 
+    }
+
+    bool recreateRenderTarget = false;
+
+    public void ResetRenderTarget()
+    {
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     public virtual RenderTarget2D CreateRenderTarget()
