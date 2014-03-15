@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutonomousCountdown.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutonomousCountdown.Designer.cs">
+      <DependentUpon>AutonomousCountdown.cs</DependentUpon>
+    </Compile>
     <Compile Include="HotGoalWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +61,9 @@
     <Compile Include="HotGoal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AutonomousCountdown.resx">
+      <DependentUpon>AutonomousCountdown.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HotGoalWindow.resx">
       <DependentUpon>HotGoalWindow.cs</DependentUpon>
     </EmbeddedResource>
