@@ -20,6 +20,7 @@ using namespace Rhesus::Toolkit::Utilities;
 #include "Pause.h"
 #include "Repeating.h"
 #include "Parallel.h"
+#include "FaceHotGoal.h"
 
 Autonomous::Autonomous() :
 	Sequential("Autonomous")
@@ -239,6 +240,13 @@ void Autonomous::LoadRoutine(std::string path)
 			{
 				if (arglist.size() == 1)
 					current = new Pause(lexical_cast<double>(arglist[0]));
+				else
+					failed = true;
+			}
+			else if (command == "face_hot_goal")
+			{
+				if (arglist.size() == 0)
+					current = new FaceHotGoal();
 				else
 					failed = true;
 			}
