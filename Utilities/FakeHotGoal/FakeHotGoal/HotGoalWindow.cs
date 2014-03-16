@@ -52,11 +52,16 @@ namespace FakeHotGoal
             {
                 if (_client != null)
                 {
-                    if (_client.Connected && !lastVal)
+                    if (_client.Connected)
                     {
-                        statusStrip1.Invoke((MethodInvoker)(() => statusLabel.Text = "Connected."));
-                        menuStrip1.Invoke((MethodInvoker)(() => connectToolStripMenuItem.Enabled = false));
-                        menuStrip1.Invoke((MethodInvoker)(() => disconnectToolStripMenuItem.Enabled = true));
+                        if (!lastVal)
+                        {
+                            statusStrip1.Invoke((MethodInvoker)(() => statusLabel.Text = "Connected."));
+                            menuStrip1.Invoke((MethodInvoker)(() => connectToolStripMenuItem.Enabled = false));
+                            menuStrip1.Invoke((MethodInvoker)(() => disconnectToolStripMenuItem.Enabled = true));
+                        }
+
+                        SendState();
                     }
                     else if (!_client.Connected && lastVal)
                     {
