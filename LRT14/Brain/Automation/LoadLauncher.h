@@ -31,6 +31,8 @@ private:
 	PressurePlateData* m_pressurePlate;
 	float m_loadSpeed;
 	bool m_pastIntermediate;
+	int m_upTicks;
+	int m_ticks;
 };
 
 #endif
