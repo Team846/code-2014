@@ -10,7 +10,9 @@ PressurePlateInputs::PressurePlateInputs()
 
 void PressurePlateInputs::Update()
 {
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER)
+			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN)
+			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PRESSURE_PLATE))
 	{
 		m_pressurePlate->SetPressure(false);
 	}

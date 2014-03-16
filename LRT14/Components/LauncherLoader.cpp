@@ -57,10 +57,7 @@ void LauncherLoader::UpdateEnabled()
 	UpdateSensorValues();
 	Pneumatics::State state = Pneumatics::OFF;
 	
-	if (m_loaderData->GetFire())
-	{
-		state = Pneumatics::FORWARD;
-	}
+	state = Pneumatics::FORWARD;
 	
 	m_safety->Set(state);
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_STATE, (INT8)state);

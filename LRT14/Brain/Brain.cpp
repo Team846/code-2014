@@ -104,12 +104,11 @@ Brain::Brain() :
 	Event* collect_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::COLLECT);
 	Event* pass_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
 	Event* pass_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS);
-//	Event* fire_start_driver = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE);
-	Event* fire_start_operator = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
-	Event* fire_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE);
-//	MultipleEvent* fire_abort = new MultipleEvent();
-//	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::FIRE));
-//	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::FIRE));
+	Event* fire_start_long = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LONG_SHOT);
+	Event* fire_start_short = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::SHORT_SHOT);
+	MultipleEvent* fire_abort = new MultipleEvent();
+	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LONG_SHOT));
+	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::SHORT_SHOT));
 	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
@@ -133,8 +132,8 @@ Brain::Brain() :
 	pass_start->AddAbortListener(humanLoad);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
-//	fire_start_driver->AddStartListener(fire);
-	fire_start_operator->AddStartListener(fire);
+	fire_start_long->AddStartListener(fire);
+	fire_start_short->AddStartListener(fire);
 	fire_abort->AddAbortListener(fire);
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
