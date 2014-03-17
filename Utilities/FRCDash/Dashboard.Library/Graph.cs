@@ -21,7 +21,7 @@ namespace Dashboard.Library
         private List<Vector2> _dataPoints;
 
         // TODO change me to properties
-        public float PixelsPerTimeTick_x, PixelsPerTimeTick_y, MaxValue;
+        public float PixelsPerTimeTick_x, PixelsPerTimeTick_y;
 
         int graph_baseline;
 
@@ -62,9 +62,8 @@ namespace Dashboard.Library
 
             _dataPoints = new List<Vector2>();
 
-            PixelsPerTimeTick_x = this.Height;
-            PixelsPerTimeTick_y = this.Width;
-            MaxValue = 0;
+            PixelsPerTimeTick_x = this.Width;
+            PixelsPerTimeTick_y = this.Height;
             _id = id;
         }
 
@@ -84,30 +83,36 @@ namespace Dashboard.Library
 
         public void AddDataPoint(Vector2 data)
         {
-            UpdateMaxValue(data);
-            _dataPoints.Add(data);
+            Vector2 UpdatedData = UpdateMaxValue(data);
+            _dataPoints.Add(UpdatedData);
  
         }
 
-        protected void UpdateMaxValue(Vector2 data)
+        protected Vector2 UpdateMaxValue(Vector2 data)
         {
 
-            if (data.Y > MaxValue)
+            if (data.Y * PixelsPerTimeTick_y  > this.Height)
             {
-                MaxValue = data.Y;
-
-                PixelsPerTimeTick_y = MaxValue;
+                PixelsPerTimeTick_y = (float)(PixelsPerTimeTick_y * (0.99));
             }
 
+            /*
+            if (data.Y * PixelsPerTimeTick_y < 0)
+            {
+                PixelsPerTimeTick_y = (float)(PixelsPerTimeTick_y * (0.99));
+                //PixelsPerTimeTick_y++;
+                //return new Vector2(data.X, (float)(data.Y + 0.01));
+            }
+             */
+
+            return data;
 
         }
 
-        protected Vector2 ScaledVersion(Vector2 data)
-        {
-
-
-            return new Vector2(data.X, data.Y / MaxValue);
-        }
+//        protected Vector2 ScaledVersion(Vector2 data)
+//        {
+//            return new Vector2(data.X, data.Y / MaxValue);
+//        }
 
         private void DrawAxes(Renderer renderer, Rectangle rect, GameTime gameTime)
         {
