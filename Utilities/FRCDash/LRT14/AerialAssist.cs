@@ -103,6 +103,9 @@ namespace LRT14
             collector.SubscribeToPacket((byte)MessageType.COLLECTOR);
             collector.Parent = collectorTab;
             collectorTab.Add(collector);
+
+            //ABHIRAM!!!!!! - Implement IPersistable for collector control
+            //PlaybackManager.Add(collector);
         }
 
         private void setupTelemetry(Manager manager, ContentLibrary contentLibrary, TabControl root)

@@ -30,9 +30,6 @@ namespace Dashboard.Library.Persistence
         public T Get<T>(string key)
             where T : IPersistable
         {
-            if (!typeof(T).IsSerializable && !(typeof(System.Runtime.Serialization.ISerializable).IsAssignableFrom(typeof(T))))
-                throw new InvalidOperationException("A serializable type is required.");
-
             if (!_fields.ContainsKey(key))
                 return default(T);
 

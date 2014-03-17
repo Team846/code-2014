@@ -10,5 +10,9 @@ namespace Dashboard.Library.Persistence
     {
         void Serialize(Stream stream);
         void Deserialize(Stream stream);
+
+        //for playback
+        //void StepForward();
+        //void StepBackward();
     }
 }

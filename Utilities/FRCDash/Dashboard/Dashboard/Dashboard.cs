@@ -81,6 +81,20 @@ namespace Dashboard
             MenuItem debug_flushPersistence = new MenuItem("Flush data buffer...");
             debug_flushPersistence.Click += new EventHandler(debug_flushPersistence_Click);
             debugButton.Items.Add(debug_flushPersistence);
+
+            MenuItem debug_load = new MenuItem("Load Log");
+            debug_load.Click += new EventHandler(debug_load_Click);
+            debugButton.Items.Add(debug_load);
+            MenuItem debug_unload = new MenuItem("Unload Log");
+            debug_unload.Click += new EventHandler(debug_unload_Click);
+            debugButton.Items.Add(debug_unload);
+            MenuItem debug_fstep = new MenuItem("Step Forward");
+            debug_fstep.Click += new EventHandler(debug_fstep_Click);
+            debugButton.Items.Add(debug_fstep);
+            MenuItem debug_bstep = new MenuItem("Step Backward");
+            debug_fstep.Click += new EventHandler(debug_bstep_Click);
+            debugButton.Items.Add(debug_bstep);
+
             MenuItem window = new MenuItem("Window");
             MenuItem window_small = new MenuItem("Small");
             window_small.Click += new EventHandler(window_small_Click);
@@ -89,6 +103,7 @@ namespace Dashboard
             window.Items.Add(window_small);
             window.Items.Add(window_expanded);
             //debugButton.Items.Add(window);
+
             _menuStrip.Items.Add(fileButton);
             _menuStrip.Items.Add(editButton);
             _menuStrip.Items.Add(debugButton);
@@ -132,6 +147,26 @@ namespace Dashboard
             _console.Parent = console;
 
             Manager.Add(_tabControl);
+        }
+
+        void debug_load_Click(object sender, EventArgs e)
+        {
+            // CHANGEME
+        }
+
+        void debug_unload_Click(object sender, EventArgs e)
+        {
+            // CHANGEME
+        }
+
+        void debug_fstep_Click(object sender, EventArgs e)
+        {
+            // CHANGEME
+        }
+
+        void debug_bstep_Click(object sender, EventArgs e)
+        {
+            // CHANGEME
         }
 
         void window_expanded_Click(object sender, EventArgs e)

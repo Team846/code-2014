@@ -54,7 +54,7 @@ namespace LRT14
 
         public override void UpdateControl(GameTime gameTime)
         {
-            GlobalGraph.AddDataPoint(new Vector2((float)gameTime.TotalGameTime.TotalSeconds, (float)gameTime.TotalGameTime.TotalSeconds * (float)Math.Sin((float)gameTime.TotalGameTime.TotalSeconds)));
+            GlobalGraph.AddDataPoint(new Vector2((float)gameTime.TotalGameTime.TotalSeconds, (float)gameTime.TotalGameTime.TotalSeconds * (float)Math.Abs(Math.Sin((float)gameTime.TotalGameTime.TotalSeconds))));
 
             Invalidate();
 

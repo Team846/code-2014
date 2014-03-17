@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
 using System.Linq;
 using System.Text;
-
+using Dashboard.Library.Persistence;
 using Microsoft.Xna.Framework;
+using System.IO;
+using RhesusNet.NET;
+using System.Diagnostics.Contracts;
+using TomShane.Neoforce.Controls;
+using Dashboard.Library;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-using TomShane.Neoforce.Controls;
-using STDConsole = System.Console;
-
-using RhesusNet.NET;
-
-using Dashboard.Library;
-using Dashboard.Library.Persistence;
-
 namespace LRT14
 {
-    public class RobotLocationControl : DashboardControl
+    public class RobotLocationAnalysisControl : AnalysisControl
     {
         public class LocationOptionsDialog : Dialog
         {
@@ -183,8 +178,7 @@ namespace LRT14
 
         public Vector2 RelativePosition
         {
-            get { return _relativePos; }
-            set { _relativePos = value; }
+            get { return new Vector2(_data.GetValue().X, _data.GetValue().Y); }
         }
 
         public float AngleDegrees
@@ -193,7 +187,7 @@ namespace LRT14
             set { _theta = value; }
         }
 
-        public RobotLocationControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
+        public RobotLocationAnalysisControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
             : base(manager, id, persistenceKey, content)
         {
             MouseOver += new MouseEventHandler(RobotLocationControl_MouseOver);
@@ -221,15 +215,6 @@ namespace LRT14
         void RobotLocationControl_MouseOver(object sender, MouseEventArgs e)
         {
             _isMousedOver = true;
-        }
-
-        private void AddDataPoint(float time, double x, double y, double theta)
-        {
-            _relativePos.X = (float)x;
-            _relativePos.Y = (float)y;
-            _theta = (float)theta;
-
-            _data.AddData(time, _relativePos.X, _relativePos.Y, _theta);
         }
 
         private int _lastScrollWheelValue;
@@ -265,14 +250,11 @@ namespace LRT14
 
                 _zoom = MathHelper.Clamp(_zoom, 0.25f, 2f);
 
-                STDConsole.WriteLine(_zoom);
-
                 _lastScrollWheelValue = currentScroll;
             }
 
             KeyboardState kstate = Keyboard.GetState();
 
-            /*
             if (!_optionsOpen && kstate.IsKeyDown(Keys.O))
             {
                 LocationOptionsDialog lod = new LocationOptionsDialog(Manager);
@@ -281,16 +263,6 @@ namespace LRT14
                 lod.ShowModal();
                 Manager.Add(lod);
                 _optionsOpen = true;
-            }*/
-
-            while ((nb = ReadMessage()) != null)
-            {
-                float t = nb.ReadFloat();
-                double x = nb.ReadFloat();
-                double y = nb.ReadFloat();
-                double theta = nb.ReadFloat();
-
-                AddDataPoint(t, x, y, theta);
             }
 
             Invalidate();
