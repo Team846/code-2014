@@ -40,13 +40,14 @@ bool LoadLauncher::Run()
 	}
 	m_pastIntermediate = true;
 	m_loaderData->SetLoad(true);
+	m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
+	
 	if (m_proximity->Get() == 0 || m_ballIn)
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_ballIn = true;
 	}
 
-	m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(m_loadSpeed);
