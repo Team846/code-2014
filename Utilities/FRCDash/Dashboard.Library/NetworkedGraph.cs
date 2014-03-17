@@ -14,9 +14,12 @@ namespace Dashboard.Library
 {
     public class NetworkedGraph : Graph
     {
+        private string _id;
+
         public NetworkedGraph(Manager manager, string id, string persistenceKey, ContentLibrary content)
             : base(manager, id, persistenceKey, content)
         {
+            _id = id;
         }
 
         public override void UpdateControl(GameTime gameTime)
@@ -31,6 +34,11 @@ namespace Dashboard.Library
             }
 
             base.UpdateControl(gameTime);
+        }
+
+        public override void SubscribeToPacket(byte header)
+        {
+            NetworkManager.RegisterComponent(_id, header);
         }
     }
 }

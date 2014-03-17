@@ -1,27 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
 using System.Linq;
 using System.Text;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
-
-using TomShane.Neoforce.Controls;
-using STDConsole = System.Console;
-
-using RhesusNet.NET;
-
 using Dashboard.Library;
-using Dashboard.Library.Persistence;
+using TomShane.Neoforce.Controls;
+using RhesusNet.NET;
+using Microsoft.Xna.Framework;
+using System.IO;
 
-namespace LRT14
+namespace LRT14Analysis
 {
-    public class TelemetryControl : DashboardControl, IPersistable
+    public class TelemetryAnalysisControl : AnalysisControl
     {
-        private Dictionary<float, Dictionary<short, DataField>> _buffer;
+        private LinkedList<KeyValuePair<float, Dictionary<short, DataField>>> _buffer;
 
         private enum FieldDatatype : byte
         {
@@ -119,20 +110,18 @@ namespace LRT14
 
         private bool _initialized;
       
-        public TelemetryControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
+        public TelemetryAnalysisControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
             : base(manager, id, persistenceKey, content)
         {
             this.id = id;
             this.persistenceKey = persistenceKey;
             this.content = content;
 
-            Color = Color.Transparent;
+            Color = Microsoft.Xna.Framework.Color.Transparent;
 
-            _buffer = new Dictionary<float, Dictionary<short, DataField>>();
+            _buffer = new LinkedList<KeyValuePair<float, Dictionary<short, DataField>>>();
 
             _initialized = false;
-
-            PersistenceManager.Persistence.Set("TelemetryControl", this);
         }
 
         public void display()
@@ -163,8 +152,7 @@ namespace LRT14
                 if (kvp.Value.IsGraphed)
                 {
                     this.Add(kvp.Value.Graph);
-                    kvp.Value.Graph.Left = label.Left + label.Width + 10;
-                    kvp.Value.Graph.Top = label.Top;
+                    kvp.Value.Graph.SetPosition(300, i * TextBoxHeight);
                 }
 
                 i++;
@@ -234,92 +222,9 @@ namespace LRT14
             display();
         }
 
-        private void telemUpdate(NetBuffer nb, GameTime gameTime)
-        {
-            if (!_initialized)
-                return;
-
-            float totalTime = nb.ReadFloat();
-
-            short field = nb.ReadInt16();
-
-            for (int i = 0; i < field; i++)
-            {
-                short id = nb.ReadInt16();
-                string data = "???";
-                double l;
-
-                if (_idData.ContainsKey(id))
-                {
-                    switch (_idData[id].DataType)
-                    {
-                        case FieldDatatype.INT8:
-                            data = nb.ReadSByte().ToString();
-                            break;
-                        case FieldDatatype.INT16:
-                            data = nb.ReadInt16().ToString();
-                            break;
-                        case FieldDatatype.INT32:
-                            data = nb.ReadInt32().ToString();
-                            break;
-                        case FieldDatatype.INT64:
-                            data = nb.ReadInt64().ToString();
-                            break;
-                        case FieldDatatype.UINT8:
-                            data = nb.ReadByte().ToString();
-                            break;
-                        case FieldDatatype.UINT16:
-                            data = nb.ReadUInt16().ToString();
-                            break;
-                        case FieldDatatype.UINT32:
-                            data = nb.ReadUInt32().ToString();
-                            break;
-                        case FieldDatatype.UINT64:
-                            data = nb.ReadUInt64().ToString();
-                            break;
-                        case FieldDatatype.FLOAT:
-                            data = nb.ReadFloat().ToString();
-                            break;
-                        case FieldDatatype.DOUBLE:
-                            data = nb.ReadDouble().ToString();
-                            break;
-                        case FieldDatatype.STRING:
-                            data = nb.ReadString();
-                            break;  
-                    }
-
-                    if (_idData[id].IsGraphed)
-                    {
-                        l = double.Parse(data); 
-                        _idData[id].Graph.AddDataPoint(new Vector2(totalTime, float.Parse(data)));
-                    }
-                }
-
-                _idData[id].Data = data;
-                _idTextbox[id].Text = data;
-            }
-            
-            _buffer.Add(totalTime, new Dictionary<short, DataField>(_idData));
-        }
-
         public override void UpdateControl(GameTime gameTime)
         {
-            NetBuffer nb;
-
-            while ((nb = ReadMessage()) != null)
-            {
-                TelemHeader header = (TelemHeader)nb.ReadByte();
-                
-                switch (header)
-                {
-                    case TelemHeader.TELEM_INIT:
-                        telemInit(nb);
-                        break;
-                    case TelemHeader.TELEM_UPDATE:
-                        telemUpdate(nb, gameTime);
-                        break;
-                }
-            }
+            
 
             base.UpdateControl(gameTime);
         }

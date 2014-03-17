@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisControl.cs" />
     <Compile Include="ContentLibrary.cs" />
     <Compile Include="FileDialog.cs" />
     <Compile Include="Graph.cs" />

@@ -48,11 +48,11 @@ namespace MockLRT14
 
         static void Main(string[] args)
         {
-            NetServer server = new NetServer(846);
+            NetServer server = new NetServer(1140);
 
             server.Open();
 
-            Console.WriteLine("Server listening on port 846");
+            Console.WriteLine("Server listening on port 1140");
 
             Random r = new Random();
 
@@ -75,47 +75,47 @@ namespace MockLRT14
             telemInit.Write("bar");
             telemInit.Write((short)1);
             telemInit.Write((byte)FieldDatatype.INT16);
-            telemInit.Write(false);
+            telemInit.Write(true);
 
             telemInit.Write("baz");
             telemInit.Write((short)2);
             telemInit.Write((byte)FieldDatatype.INT32);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("qux");
             telemInit.Write((short)3);
             telemInit.Write((byte)FieldDatatype.INT64);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("quux");
             telemInit.Write((short)4);
             telemInit.Write((byte)FieldDatatype.UINT8);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("corge");
             telemInit.Write((short)5);
             telemInit.Write((byte)FieldDatatype.UINT16);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("grault");
             telemInit.Write((short)6);
             telemInit.Write((byte)FieldDatatype.UINT32);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("garply");
             telemInit.Write((short)7);
             telemInit.Write((byte)FieldDatatype.UINT64);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("waldo");
             telemInit.Write((short)8);
             telemInit.Write((byte)FieldDatatype.FLOAT);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("fred");
             telemInit.Write((short)9);
             telemInit.Write((byte)FieldDatatype.DOUBLE);
-            telemInit.Write(false);
+            telemInit.Write(true);
             
             telemInit.Write("plugh");
             telemInit.Write((short)10);
