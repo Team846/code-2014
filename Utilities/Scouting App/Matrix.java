@@ -30,6 +30,10 @@ public class Matrix
 
     static double[][] finalArrayDouble;
 
+    static double[][] finalDPR;
+    
+    static double[] DPR_scores;
+    
     static double[] opr;
 
 
@@ -47,9 +51,56 @@ public class Matrix
         RREF( finalArrayDouble );
         makeOPR();
         displayOPR();
+        createFinalDPR();
+        makeDPR();
     }
 
+    public static void makeDPR()
+    {
+        finalDPR = new double[finalArrayDouble.length][finalArrayDouble[0].length];
+        DPR_scores = new double[scores.length];
+        double currentOPR = 0.0;
+        int team1 = 0;
+        int team2 = 0;
+        int team3 = 0;
+        
+        for(int i = 0; i < finalArrayDouble.length; i++)
+        {
+            for(int j = 0; j < finalArrayDouble[0].length; j++)
+            {
+                finalDPR[i][j] = finalArrayDouble[i][j];
+            }
+        }
+        for(int i = 0; i < DPR_scores.length; i++)
+        {
+            DPR_scores[i] = (double)scores[i];
+        }
+        for(int i = 0; i < finalArrayDouble.length; i+=2)
+        {
+            team1 = findNextIndex(matches[i + 1], 0);
+            team2 = findNextIndex(matches[i + 1], team1);
+            team3 = findNextIndex(matches[i + 1], team2);
+            DPR_scores[i] = opr[team1] + opr[team2] + opr[team3] - scores[i]; 
+        }
+    }
+    
+    public static int findNextIndex(int[] matrix, int nice)
+    {
+        for(int i = nice; i < matrix.length; i++)
+        {
+            if(matrix[i] == 1)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    public static void createFinalDPR()
+    {
+        
+    }
+    
     public static void displayOPR() throws FileNotFoundException
     {
         PrintWriter pw = new PrintWriter( new File( "OffensivePowerRating.txt" ) );
