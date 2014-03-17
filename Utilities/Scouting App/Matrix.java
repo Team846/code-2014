@@ -34,6 +34,8 @@ public class Matrix
     
     static double[] DPR_scores;
     
+    static double[] dpr;
+    
     static double[] opr;
 
 
@@ -51,15 +53,60 @@ public class Matrix
         RREF( finalArrayDouble );
         makeOPR();
         displayOPR();
-        createFinalDPR();
         makeDPR();
+        createFinalDPR();
+        for(int i = 0; i < finalDPR.length; i++)
+        {
+            for(int j = 0; j < finalDPR[0].length; j++)
+            {
+                System.out.print(finalDPR[i][j] + " ");
+            }
+            System.out.println();
+        }
+        RREF(finalDPR);
+        finalizeDPR();
+        displayDPR();
     }
 
+    public static void finalizeDPR()
+    {
+        dpr = new double[list_teams.length];
+        for ( int i = 0; i < finalDPR.length; i++ )
+        {
+            dpr[i] = finalDPR[i][finalDPR[0].length - 1];
+        }
+    }
+    
+    public static void displayDPR() throws FileNotFoundException
+    {
+        PrintWriter pw = new PrintWriter( new File( "DefensivePowerRating.txt" ) );
+        for ( int i = 0; i < list_teams.length; i++ )
+        {
+            if ( list_teams[i] / 10 == 0 )
+            {
+                pw.printf( list_teams[i] + "    " );
+            }
+            else if ( list_teams[i] / 100 == 0 )
+            {
+                pw.printf( list_teams[i] + "   " );
+            }
+            else if ( list_teams[i] / 1000 == 0 )
+            {
+                pw.printf( list_teams[i] + "  " );
+            }
+            else
+            {
+                pw.printf( list_teams[i] + " " );
+            }
+            pw.printf( " -   " + "%.5f%n", dpr[i] );
+        }
+        pw.close();
+    }
+    
     public static void makeDPR()
     {
         finalDPR = new double[finalArrayDouble.length][finalArrayDouble[0].length];
         DPR_scores = new double[scores.length];
-        double currentOPR = 0.0;
         int team1 = 0;
         int team2 = 0;
         int team3 = 0;
@@ -98,7 +145,41 @@ public class Matrix
 
     public static void createFinalDPR()
     {
+        int count = 0;
+
+        for ( int i = 0; i < finalDPR.length; i++ )
+        {
+            for ( int j = 0; j < finalDPR[0].length - 1; j++ )
+            {
+                count = 0;
+                for ( int k = 0; k < matches.length; k++ )
+                {
+                    if ( matches[k][i] == 1 && matches[k][j] == 1 )
+                    {
+                        count++;
+                    }
+                }
+                finalDPR[i][j] = count;
+            }
+        }
         
+        double totalScore = 0.0;
+        for ( int i = 0; i < finalDPR.length; i++ )
+        {
+            int j = finalDPR[0].length - 1;
+            if ( j == finalDPR[0].length - 1 )
+            {
+                for ( int k = 0; k < matches.length; k++ )
+                {
+                    if ( matches[k][i] == 1 )
+                    {
+                        totalScore += DPR_scores[k];
+                    }
+                }
+                finalDPR[i][j] = totalScore;
+                totalScore = 0;
+            }
+        }
     }
     
     public static void displayOPR() throws FileNotFoundException
