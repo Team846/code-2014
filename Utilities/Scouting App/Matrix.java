@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import com.tonypeng.api.thebluealliance.BLUE;
 import com.tonypeng.api.thebluealliance.BLUE.BLUEApiException;
@@ -17,30 +22,132 @@ public class Matrix
 
     static int[][] matches;
 
-    int[][] play_matches = new int[NUM_TEAMS][NUM_TEAMS];
+    static int[][] play_matches = new int[NUM_TEAMS][NUM_TEAMS];
 
-    int[][] firstArrayFinal;
+    static int[][] firstArrayFinal;
 
-    public static void main( String[] args ) throws BLUEApiException
+    static int[][] finalArray;
+
+    static double[][] finalArrayDouble;
+
+    static double[] opr;
+
+
+    public static void main( String[] args )
+        throws BLUEApiException,
+        FileNotFoundException
     {
         BLUE.setAppId( "frc846:scouting_app:v01" );
         setArrays();
         makeFirstArray();
         makeTotalArray();
         combineArrays();
-        // double[][] matrix = { { 1, 2, 2 }, { 1, 1, 3 } };
-        // RREF( matrix );
-        // printMatrix( matrix );
+        makeFinalArray();
+        makeDoubleFinal();
+        RREF( finalArrayDouble );
+        makeOPR();
+        displayOPR();
     }
+
+
+    public static void displayOPR() throws FileNotFoundException
+    {
+        PrintWriter pw = new PrintWriter( new File( "OffensivePowerRating.txt" ) );
+        for ( int i = 0; i < list_teams.length; i++ )
+        {
+            if ( list_teams[i] / 10 == 0 )
+            {
+                pw.printf( list_teams[i] + "    " );
+            }
+            else if ( list_teams[i] / 100 == 0 )
+            {
+                pw.printf( list_teams[i] + "   " );
+            }
+            else if ( list_teams[i] / 1000 == 0 )
+            {
+                pw.printf( list_teams[i] + "  " );
+            }
+            else
+            {
+                pw.printf( list_teams[i] + " " );
+            }
+            pw.printf( " -   " + "%.5f%n", opr[i] );
+        }
+        pw.close();
+    }
+
+
+    public static void makeOPR()
+    {
+        opr = new double[list_teams.length];
+        for ( int i = 0; i < finalArrayDouble.length; i++ )
+        {
+            opr[i] = finalArrayDouble[i][finalArrayDouble[0].length - 1];
+        }
+    }
+
+
+    public static void makeDoubleFinal()
+    {
+        int totalScore = 0;
+        finalArrayDouble = new double[finalArray.length][finalArray[0].length + 1];
+        for ( int i = 0; i < finalArray.length; i++ )
+        {
+            for ( int j = 0; j < finalArray[0].length; j++ )
+            {
+                finalArrayDouble[i][j] = (double)finalArray[i][j];
+            }
+        }
+        for ( int i = 0; i < finalArrayDouble.length; i++ )
+        {
+            int j = finalArrayDouble[0].length - 1;
+            if ( j == finalArrayDouble[0].length - 1 )
+            {
+                for ( int k = 0; k < matches.length; k++ )
+                {
+                    if ( matches[k][i] == 1 )
+                    {
+                        totalScore += scores[k];
+                    }
+                }
+                finalArrayDouble[i][j] = (double)totalScore;
+                totalScore = 0;
+            }
+        }
+    }
+
+
+    public static void makeFinalArray()
+    {
+        int count = 0;
+
+        finalArray = new int[list_teams.length][list_teams.length];
+        for ( int i = 0; i < finalArray.length; i++ )
+        {
+            for ( int j = 0; j < finalArray[0].length; j++ )
+            {
+                count = 0;
+                for ( int k = 0; k < matches.length; k++ )
+                {
+                    if ( matches[k][i] == 1 && matches[k][j] == 1 )
+                    {
+                        count++;
+                    }
+                }
+                finalArray[i][j] = count;
+            }
+        }
+    }
+
 
     public static void combineArrays()
     {
         int[][] firstArrayFinal = new int[matches.length][matches[0].length];
-        for(int i = 0; i < firstArrayFinal.length; i++)
+        for ( int i = 0; i < firstArrayFinal.length; i++ )
         {
-            for(int j = 0; j < firstArrayFinal[0].length; j++)
+            for ( int j = 0; j < firstArrayFinal[0].length; j++ )
             {
-                if(j == firstArrayFinal[0].length - 1)
+                if ( j == firstArrayFinal[0].length - 1 )
                 {
                     firstArrayFinal[i][j] = scores[i];
                 }
@@ -51,7 +158,8 @@ public class Matrix
             }
         }
     }
-    
+
+
     public static void makeTotalArray() throws BLUEApiException
     {
         BLUE.Matches.Match match[] = BLUE.Events.getEvent( "casj", 2013 )
@@ -86,12 +194,14 @@ public class Matrix
                 .replaceAll( "[^\\d]", "" ) ),
                 2 * i );
             match_split2 = match_split[2].split( "," );
-            changeOne(Integer.parseInt( match_split2[0].substring( 3 ) ), 2 * i + 1);
-            changeOne(Integer.parseInt( match_split2[1].substring( 4 ) ), 2 * i + 1);
+            changeOne( Integer.parseInt( match_split2[0].substring( 3 ) ),
+                2 * i + 1 );
+            changeOne( Integer.parseInt( match_split2[1].substring( 4 ) ),
+                2 * i + 1 );
             changeOne( Integer.parseInt( match_split2[2].substring( 4 )
                 .replaceAll( "GeoData\\]", "" )
                 .replaceAll( "[^\\d]", "" ) ),
-                2 * i + 1);
+                2 * i + 1 );
         }
     }
 
@@ -205,7 +315,7 @@ public class Matrix
 
 
     /*
-     * precondition: n x n+1 matrix postcondition: matrix in rref form (solved)
+     * precondition: n x n+1 matrix postcondition: matrix in rref form
      */
     public static void RREF( double[][] matrix )
     {
