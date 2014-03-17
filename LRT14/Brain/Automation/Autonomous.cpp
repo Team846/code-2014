@@ -247,8 +247,15 @@ void Autonomous::LoadRoutine(std::string path)
 			{
 				if (arglist.size() == 0)
 					current = new FaceHotGoal();
+				else if(arglist.size() == 1)
+					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]));
 				else
 					failed = true;
+			}
+			else if(command == "clear_hot_goal")
+			{
+				FaceHotGoal::Reset();
+				BufferedConsole::Printfln("Resetting FaceHotGoal...");
 			}
 			else
 			{
