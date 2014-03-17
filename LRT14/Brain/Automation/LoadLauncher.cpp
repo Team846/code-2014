@@ -40,7 +40,7 @@ bool LoadLauncher::Run()
 	}
 	m_pastIntermediate = true;
 	m_loaderData->SetLoad(true);
-	if (m_proximity->Get() == 0)
+	if (m_proximity->Get() == 0 || m_ballIn)
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_ballIn = true;
