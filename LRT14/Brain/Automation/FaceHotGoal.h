@@ -14,8 +14,16 @@ class FaceHotGoal : public Turn, public Configurable
 {
 public:
 	FaceHotGoal();
+	FaceHotGoal(bool clear);
 	
 	void Configure();
+	
+	bool Start();
+	
+	static void Reset()
+	{
+		m_lastHotGoalSide = HotGoal::NONE_ACTIVE;
+	}
 	
 private:
 	static HotGoal::Side m_lastHotGoalSide;

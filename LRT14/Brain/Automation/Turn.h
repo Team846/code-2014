@@ -12,7 +12,7 @@ class Turn : public Automation
 public:
 	Turn(double angle, double maxSpeed = 1.0, double errorThreshold = 0.5);
 
-	bool Start();
+	virtual bool Start();
 	bool Run();
 	bool Abort();
 	void AllocateResources();

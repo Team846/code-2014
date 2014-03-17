@@ -11,9 +11,10 @@ LoadLauncher::LoadLauncher() :
 	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
 	m_pressurePlate = PressurePlateData::Get();
+	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_loadSpeed = 1.0;
 	m_pastIntermediate = false;
-	m_ticks = 0;
+	m_ballIn = false;
 }
 
 void LoadLauncher::AllocateResources()
@@ -27,7 +28,7 @@ void LoadLauncher::AllocateResources()
 bool LoadLauncher::Start()
 {
 	m_pastIntermediate = false;
-	m_ticks = 0;
+	m_ballIn = false;
 	return true;
 }
 
@@ -39,23 +40,26 @@ bool LoadLauncher::Run()
 	}
 	m_pastIntermediate = true;
 	m_loaderData->SetLoad(true);
-	if (m_ticks >= m_upTicks)
+	if (m_proximity->Get() == 0)
+	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
-	else
-		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
+		m_ballIn = true;
+	}
+
+	m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
 	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(m_loadSpeed);
 	m_pressurePlate->SetPressure(false);
 	
-	if (m_loaderData->IsLoadingComplete())
-	{
+	if (m_ballIn && m_proximity->Get() == 1 && m_loaderData->IsLoadingComplete())
+	{	
+		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 		m_loaderData->SetLoad(false);
 		m_collectorRollers->SetRunning(false);
 		m_pressurePlate->SetPressure(true);
 		return true;
 	}
-	m_ticks++;
 	
 	return false;
 }
@@ -72,5 +76,4 @@ bool LoadLauncher::Abort()
 void LoadLauncher::Configure()
 {
 	m_loadSpeed = GetConfig("load_speed", 1.0);
-	m_upTicks = GetConfig("collector_up_ticks", 25);
 }

@@ -29,10 +29,10 @@ private:
 	CollectorRollersData* m_collectorRollers;
 	LauncherLoaderData* m_loaderData;
 	PressurePlateData* m_pressurePlate;
+	DigitalInput* m_proximity;
 	float m_loadSpeed;
 	bool m_pastIntermediate;
-	int m_upTicks;
-	int m_ticks;
+	bool m_ballIn;
 };
 
 #endif
