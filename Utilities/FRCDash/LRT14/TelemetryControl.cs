@@ -160,12 +160,12 @@ namespace LRT14
                 info.Top = label.Top;
                 info.Parent = this;
 
-                if (kvp.Value.IsGraphed)
-                {
-                    this.Add(kvp.Value.Graph);
-                    kvp.Value.Graph.Left = label.Left + label.Width + 10;
-                    kvp.Value.Graph.Top = label.Top;
-                }
+                //if (kvp.Value.IsGraphed)
+                //{
+                //    this.Add(kvp.Value.Graph);
+                //    kvp.Value.Graph.Left = label.Left + label.Width + 10;
+                //    kvp.Value.Graph.Top = label.Top;
+                //}
 
                 i++;
             }  
@@ -370,14 +370,21 @@ namespace LRT14
             //}
         }
 
-        public void StepForward()
+        public string CSVOut()
         {
+            string ret = "";
+            foreach (KeyValuePair<float, Dictionary<short, DataField>> kvp in _buffer)
+            {
+                ret += kvp.Key;
+                foreach (KeyValuePair<short, DataField> k in kvp.Value)
+                {
+                    ret += k.Value.Data + ",";
+                }
 
-        }
+                ret += "\n";
+            }
 
-        public void StepBackward()
-        {
-
+            return ret;
         }
     }
 }

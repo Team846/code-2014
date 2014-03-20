@@ -158,7 +158,7 @@ namespace LRT14
 
         public void display()
         {
-            Graph speedGraph = new NetworkedGraph(Manager, "collector_speed", "LRT14.AerialAssist.COLLECTOR_SPEED", Content);
+            NetworkedGraph speedGraph = new NetworkedGraph(Manager, "collector_speed", "LRT14.AerialAssist.COLLECTOR_SPEED", Content);
             speedGraph.Init();
             speedGraph.Parent = this;
             speedGraph.SubscribeToPacket((byte)0x02); //TODO: Fix dat shit

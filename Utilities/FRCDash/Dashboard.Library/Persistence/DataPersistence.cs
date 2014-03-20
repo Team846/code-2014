@@ -50,7 +50,9 @@ namespace Dashboard.Library.Persistence
 
                 sw.WriteLine(kvp.Key + "," + kvp.Value.GetType());    
 
-                kvp.Value.Serialize(file);
+                //kvp.Value.Serialize(file);
+                StreamWriter f = new StreamWriter(file);
+                f.WriteLine(kvp.Value.CSVOut());
 
                 file.Close();
             }

@@ -46,6 +46,7 @@
     <Compile Include="AerialAssist.cs" />
     <Compile Include="GraphControl.cs" />
     <Compile Include="CollectorControl.cs" />
+    <Compile Include="Properties\Graph.cs" />
     <Compile Include="RobotLocationAnalysisControl.cs" />
     <Compile Include="RobotLocationData.cs" />
     <Compile Include="SoundPlayer.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="TelemetryControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotLocationControl.cs" />
+    <Compile Include="TelemetryData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Controls\Controls.csproj">
