@@ -106,6 +106,11 @@ namespace Dashboard.Library
             }
         }
 
+        public static void Send(NetBuffer nb, NetChannel method, int channel)
+        {
+            netconn.Send(nb, method, channel);
+        }
+
         public static void Clear()
         {
             _idToBufferList.Clear();

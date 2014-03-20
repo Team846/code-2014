@@ -16,13 +16,14 @@ namespace LRT14
 {
     public class AerialAssist : ILayout
     {
-        private enum MessageType : byte
+        public enum MessageType : byte
         {
             LOCATOR = 0x0,
             COLLECTOR_SPEED = 0x2,
             TELEMETRY = 0x01,
             COLLECTOR = 0x03,
             EVENT_NOTIFICATION = 0x04,
+            TELEMETRY_INIT_REQ = 0x05
         }
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)

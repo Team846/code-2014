@@ -41,16 +41,20 @@ namespace LRT14
         private enum TelemHeader : byte
         {
             TELEM_INIT = 0x00,
-            TELEM_UPDATE = 0x01
+            TELEM_UPDATE = 0x01,
         }
 
-        private class DataField
+        private class DataField : IPersistable
         {
             string _data;
-            FieldDatatype _dataType;
+            FieldDatatype 
+                
+                _dataType;
             string _label;
             bool _graphFlag;
             Graph _graph;
+
+            Dictionary<float, string> _values;
 
             public DataField(string data, FieldDatatype type, string label, bool graph, Graph g)
             {
@@ -59,6 +63,7 @@ namespace LRT14
                 _label = label;
                 _graphFlag = graph;
                 _graph = g;
+                _values = new Dictionary<float, string>();
             }
 
             public DataField(string data, FieldDatatype type, string label)
@@ -68,12 +73,19 @@ namespace LRT14
                 _label = label;
                 _graphFlag = false;
                 _graph = null;
+                _values = new Dictionary<float, string>();
             }
 
             public string Data
             {
                 get { return _data; }
                 set { _data = value; }
+            }
+
+            public void setData(string val, float time)
+            {
+                _data = val;
+                _values.Add(time, val);
             }
 
             public string Label
@@ -98,6 +110,27 @@ namespace LRT14
             {
                 get { return _graph; }
                 set { _graph = value; }
+            }
+
+            public void Serialize(Stream stream)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Deserialize(Stream stream)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string CSVOut()
+            {
+                string ret = "";
+                foreach(KeyValuePair<float, string> kvp in _values)
+                {
+                    ret += kvp.Key + "," + kvp.Value + "\n";
+                }
+
+                return ret;
             }
         }
 
@@ -127,12 +160,16 @@ namespace LRT14
             this.content = content;
 
             Color = Color.Transparent;
-
+            
             _buffer = new Dictionary<float, Dictionary<short, DataField>>();
 
             _initialized = false;
 
             PersistenceManager.Persistence.Set("TelemetryControl", this);
+
+            NetBuffer init = new NetBuffer();
+            init.Write((byte)AerialAssist.MessageType.TELEMETRY_INIT_REQ);
+            Send(init, NetChannel.NET_UNRELIABLE_SEQUENCED, 1);
         }
 
         public void display()
@@ -227,6 +264,8 @@ namespace LRT14
                 bool graph = datatype == (byte)FieldDatatype.STRING ? false : nb.ReadBool();
 
                 _idData.Add(id, new DataField("", (FieldDatatype)datatype, label, graph, graph ? new Graph(Manager, label, label + id, this.Content) : null));
+
+                PersistenceManager.Persistence.Set(_idData[id].Label, _idData[id]);
             }
 
             _initialized = true;
@@ -295,7 +334,7 @@ namespace LRT14
                     }
                 }
 
-                _idData[id].Data = data;
+                _idData[id].setData(data, totalTime);
                 _idTextbox[id].Text = data;
             }
             
