@@ -2,7 +2,7 @@
 #define RHESUS_TOOLKIT_H_
 
 #include "ArgumentOutOfRangeException.h"
-#include "error_val.hpp"
+#include "error_val.h"
 #include "exception_message.hpp"
 #include "IndexOutOfBoundsException.h"
 #include "ManagedArray.h"

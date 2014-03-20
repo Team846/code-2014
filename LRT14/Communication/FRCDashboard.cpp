@@ -59,6 +59,8 @@ NetBuffer* FRCDashboard::ReadMessage()
 
 NetBuffer* FRCDashboard::readMessage()
 {
+	if(m_incomingMessages.empty()) return NULL;
+	
 	NetBuffer* nb = m_incomingMessages.front();
 	m_incomingMessages.pop();
 	
