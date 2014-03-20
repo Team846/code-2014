@@ -18,10 +18,36 @@ namespace Dashboard.Library
 
         private static object _mapMutex = new object();
 
+        private static bool _connected = true;
+
+        private static string _ip;
+        private static int _port;
+
+        public static bool Connected
+        {
+            get { return _connected; }
+        }
+
         public static void Start(string ip, int port)
         {
+            _ip = ip;
+            _port = port;
             netconn.Open();
             netconn.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
+        }
+
+        public static void Disconnect()
+        {
+            _connected = false;
+            netconn.Disconnect();
+            netconn.Close();
+        }
+
+        public static void Reconnect()
+        {
+            _connected = true;
+            netconn = new NetClient();
+            Start(_ip, _port);
         }
 
         public static void UpdateNetwork()
@@ -97,6 +123,9 @@ namespace Dashboard.Library
 
         public static NetBuffer ReadMessage(string ID)
         {
+            if (!_connected)
+                return null;
+
             lock (_mapMutex)
             {
                 if (!AssertBufferKeyExists(ID))
