@@ -46,7 +46,6 @@
     <Compile Include="AerialAssist.cs" />
     <Compile Include="GraphControl.cs" />
     <Compile Include="CollectorControl.cs" />
-    <Compile Include="Properties\Graph.cs" />
     <Compile Include="RobotLocationAnalysisControl.cs" />
     <Compile Include="RobotLocationData.cs" />
     <Compile Include="SoundPlayer.cs" />

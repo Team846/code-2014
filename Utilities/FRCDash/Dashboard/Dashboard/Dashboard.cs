@@ -81,19 +81,23 @@ namespace Dashboard
             MenuItem debug_flushPersistence = new MenuItem("Flush data buffer...");
             debug_flushPersistence.Click += new EventHandler(debug_flushPersistence_Click);
             debugButton.Items.Add(debug_flushPersistence);
+            //MenuItem debug_load = new MenuItem("Load Log");
+            //debug_load.Click += new EventHandler(debug_load_Click);
+            //debugButton.Items.Add(debug_load);
+            //MenuItem debug_unload = new MenuItem("Unload Log");
+            //debug_unload.Click += new EventHandler(debug_unload_Click);
+            //debugButton.Items.Add(debug_unload);
+            //MenuItem debug_fstep = new MenuItem("Step Forward");
+            //debug_fstep.Click += new EventHandler(debug_fstep_Click);
+            //debugButton.Items.Add(debug_fstep);
+            //MenuItem debug_bstep = new MenuItem("Step Backward");
+            //debug_fstep.Click += new EventHandler(debug_bstep_Click);
+            //debugButton.Items.Add(debug_bstep);
 
-            MenuItem debug_load = new MenuItem("Load Log");
-            debug_load.Click += new EventHandler(debug_load_Click);
-            debugButton.Items.Add(debug_load);
-            MenuItem debug_unload = new MenuItem("Unload Log");
-            debug_unload.Click += new EventHandler(debug_unload_Click);
-            debugButton.Items.Add(debug_unload);
-            MenuItem debug_fstep = new MenuItem("Step Forward");
-            debug_fstep.Click += new EventHandler(debug_fstep_Click);
-            debugButton.Items.Add(debug_fstep);
-            MenuItem debug_bstep = new MenuItem("Step Backward");
-            debug_fstep.Click += new EventHandler(debug_bstep_Click);
-            debugButton.Items.Add(debug_bstep);
+            MenuItem output = new MenuItem("Network");
+            MenuItem disconnect = new MenuItem("Reconnect");
+            disconnect.Click += new EventHandler(disconnect_click);
+            output.Items.Add(disconnect);
 
             MenuItem window = new MenuItem("Window");
             MenuItem window_small = new MenuItem("Small");
@@ -107,6 +111,7 @@ namespace Dashboard
             _menuStrip.Items.Add(fileButton);
             _menuStrip.Items.Add(editButton);
             _menuStrip.Items.Add(debugButton);
+            _menuStrip.Items.Add(output);
 
             Manager.Add(_menuStrip);
 
@@ -235,6 +240,16 @@ namespace Dashboard
                 ILayoutLoader loader = new CompiledLayoutLoader(file);
                 loader.LoadLayout(Manager, _contentLibrary);
             }
+        }
+
+        void disconnect_click(object sender, EventArgs e)
+        {
+            if (NetworkManager.Connected)
+                NetworkManager.Disconnect();
+            else
+                NetworkManager.Reconnect(); 
+
+            ((MenuItem)sender).Text = NetworkManager.Connected ? "Disconnect" : "Connect";
         }
 
         protected override void LoadContent()
