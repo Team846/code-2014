@@ -5,6 +5,7 @@
         <mapAttribute>
             <listAttribute key="BLD::Info|Definess|PPC603gnu">
                 <stringAttribute value="-DUSE_IOLIB"/>
+                <stringAttribute value="-DRHESUS_NO_THROW"/>
                 <stringAttribute value="-DPNEUMATICS"/>
             </listAttribute>
             <listAttribute key="BLD::Info|GlobalMacros">
