@@ -296,6 +296,8 @@ namespace RhesusNet.NET
                 {
                     // TODO: handle it
                 }
+
+                Thread.Sleep(10);
             }
         }
 
@@ -380,6 +382,8 @@ namespace RhesusNet.NET
                         _connectionRequestTime = DateTime.Now;
                     }
                 }
+
+                Thread.Sleep(10);
             }
         }
 

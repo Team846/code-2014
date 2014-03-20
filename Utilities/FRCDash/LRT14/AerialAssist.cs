@@ -33,11 +33,11 @@ namespace LRT14
             // Get our root control
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
-            setupIngame(manager, contentLibrary, tabControl);
-            setupLocator(manager, contentLibrary, tabControl);
-            setupCollector(manager, contentLibrary, tabControl);
+            //setupIngame(manager, contentLibrary, tabControl);
             setupTelemetry(manager, contentLibrary, tabControl);
-            setupGraph(manager, contentLibrary, tabControl);
+            setupLocator(manager, contentLibrary, tabControl);
+            //setupCollector(manager, contentLibrary, tabControl);
+            //setupGraph(manager, contentLibrary, tabControl);
         }
 
         private void setupIngame(Manager manager, ContentLibrary contentLibrary, TabControl root)

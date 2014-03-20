@@ -3,6 +3,7 @@
 
 #include "../Defines.h"
 #include "remove_reference.h"
+#include "../error_val.h"
 #include <typeinfo>
 
 namespace Rhesus
@@ -81,7 +82,7 @@ namespace Utilities
 		template<typename T>
 		Generic& operator=(const T& rhs)
 		{
-			m_storedValue = Generic(rhs).m_storedValue;
+			m_storedValue = new holder<T>(rhs);
 			
 			return *this;
 		}
@@ -89,6 +90,7 @@ namespace Utilities
 		Generic& operator=(Generic rhs)
 		{
 			m_storedValue = rhs.m_storedValue;
+			rhs.m_storedValue = NULL;
 			
 			return *this;
 		}
@@ -124,7 +126,16 @@ namespace Utilities
 		
 		nonref* res = generic_cast<nonref>(&var);
 		
+#ifdef RHESUS_NO_THROW
+		if(!res)
+		{
+			error_val<T> error;
+			
+			return error();
+		}
+#else
 		if(!res) throw std::exception(); // change this to a more descriptive exception later
+#endif
 		
 		return *res;
 	}
