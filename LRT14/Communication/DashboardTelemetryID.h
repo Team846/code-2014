@@ -16,6 +16,12 @@ namespace DashboardTelemetryID
         PRESSURE_PLATE_STATE = 0x08,
         AUTON_HOT_GOAL_LAST_SIDE = 0x09,
         HOT_GOAL_SIDE = 0x0A,
+        COLLECTOR_ARM_INPUT = 0x0B,
+        COLLECTOR_ROLLERS_INPUT = 0x0C,
+        DRIVETRAIN_INPUTS = 0x0D,
+        LAUNCHER_ANGLE_INPUT = 0x0E,
+        LAUNCHER_LOADER_INPUT = 0x0F,
+        PRESSURE_PLATE_INPUT = 0x10
         
         // 28,000+ reserved for sensors
 	};

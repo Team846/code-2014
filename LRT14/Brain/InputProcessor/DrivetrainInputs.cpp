@@ -1,5 +1,7 @@
 #include "DrivetrainInputs.h"
 #include "../../Config/RobotConfig.h"
+#include "../../Communication/Dashboard2.h"
+#include "../../Communication/DashboardTelemetryID.h"
 
 DrivetrainInputs::DrivetrainInputs()
 {
@@ -7,6 +9,9 @@ DrivetrainInputs::DrivetrainInputs()
 	m_driver_wheel = LRTDriverStation::Instance()->GetDriverWheel();
 	
 	drivetrainData = DrivetrainData::Get();
+	
+	//Dashboard2::AddTelemetryData("Collector Arm Input", (INT16)DashboardTelemetryID::COLLECTOR_ARM_INPUT, DashboardTelemetryType::STRING);
+	
 	RegisterResource(ControlResource::DRIVE);
 	RegisterResource(ControlResource::TURN);
 	

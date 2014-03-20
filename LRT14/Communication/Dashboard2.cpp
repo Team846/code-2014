@@ -11,7 +11,7 @@ using namespace Rhesus::Messenger;
 using namespace Rhesus::Toolkit::Utilities;
 
 std::hash_map<INT16, Rhesus::Toolkit::Utilities::Generic> Dashboard2::m_telemetryEntries;
-std::hash_map<INT16, Rhesus::Toolkit::Utilities::Generic> Dashboard2::m_telemetryEntries;
+std::hash_map<INT16, Dashboard2::TelemetryInfo> Dashboard2::m_telemetryDesc;
 
 void Dashboard2::Close()
 {
