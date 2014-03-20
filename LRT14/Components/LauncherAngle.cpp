@@ -31,33 +31,55 @@ void LauncherAngle::OnDisabled()
 void LauncherAngle::UpdateEnabled()
 {
 	Pneumatics::State state = Pneumatics::OFF;
-	LauncherAngleData::Angle angle = LauncherAngleData::SHORT;
+	std::string pneumaticsStateStr = "OFF";
+	std::string angleStr = "SHORT";
 	
 	switch(m_launcherAngleData->GetAngle())
 	{
 	case LauncherAngleData::SHORT:
 		state = Pneumatics::OFF;
+		pneumaticsStateStr = "OFF";
+		angleStr = "SHORT";
 		break;
 	case LauncherAngleData::LONG:
 		state = Pneumatics::FORWARD;
+		pneumaticsStateStr = "FORWARD";
+		angleStr = "LONG";
 		break;
 	default:
 		m_pneumatics->Set(Pneumatics::OFF);
+		angleStr = "???";
+		pneumaticsStateStr = "OFF";
+		break;
 	}
 	m_pneumatics->Set(state);
 	
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, (INT8)state);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE, (INT8)angle);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, pneumaticsStateStr);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE, angleStr);
 }
 
 void LauncherAngle::UpdateDisabled()
 {
-	Pneumatics::State state = Pneumatics::OFF;
+	std::string pneumaticsStateStr = "OFF";
 	LauncherAngleData::Angle angle = m_launcherAngleData->GetAngle();
+	std::string angleStr = "???";
+	
+	switch(angle)
+	{
+	case LauncherAngleData::SHORT:
+		angleStr = "SHORT";
+		break;
+	case LauncherAngleData::LONG:
+		angleStr = "LONG";
+		break;
+	default:
+		angleStr = "???";
+		break;
+	}
 	
 	m_pneumatics->Set(Pneumatics::OFF);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, (INT8)state);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE, (INT8)angle);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, pneumaticsStateStr);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_ANGLE, angleStr);
 }
 
 void LauncherAngle::Configure()

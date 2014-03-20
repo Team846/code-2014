@@ -34,47 +34,65 @@ void CollectorArm::OnDisabled()
 void CollectorArm::UpdateEnabled()
 {
 	Pneumatics::State state = Pneumatics::REVERSE;
+	std::string stateStr = "???";
 	
 	switch(m_armData->GetDesiredPosition())
 	{
 	case CollectorArmData::COLLECT:
 		state = Pneumatics::FORWARD;
+		stateStr = "COLLECT";
 		break;
 	case CollectorArmData::STOWED:
 		state = Pneumatics::REVERSE;
+		stateStr = "STOWED";
 		break;
 	}
 	
 	m_pneumatics->Set(state);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, (INT8)state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, stateStr);
 	
 	CollectorArmData::Position pos = CollectorArmData::STOWED;
 
+	std::string posStr = "STOWED";
+	
 	if (m_switch->Get() == 0)
 	{
 		pos = CollectorArmData::COLLECT;
+		posStr = "COLLECT";
 	}
 	
 	m_armData->SetCurrentPosition(pos);
 	
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, (INT8)pos);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, posStr);
 }
 
 void CollectorArm::UpdateDisabled()
 {
-	Pneumatics::State state = Pneumatics::REVERSE;
-	
 	CollectorArmData::Position pos = CollectorArmData::STOWED;
+	std::string posStr = "STOWED";
 	
 	if (m_switch->Get() == 0)
 	{
 		pos = CollectorArmData::COLLECT;
+		posStr = "COLLECT";
 	}
 	
 	m_armData->SetCurrentPosition(pos);
 	
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, (INT8)state);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, (INT8)pos);
+	std::string desiredPosStr = "???";
+	
+	switch(m_armData->GetDesiredPosition())
+	{
+	case CollectorArmData::COLLECT:
+		desiredPosStr = "COLLECT";
+		break;
+	case CollectorArmData::STOWED:
+		desiredPosStr = "STOWED";
+		break;
+	}
+	
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, desiredPosStr);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, posStr);
 }
 
 void CollectorArm::Configure()

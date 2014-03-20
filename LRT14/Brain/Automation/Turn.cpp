@@ -37,6 +37,11 @@ void Turn::setErrorThreshold(double error)
 	m_errorThreshold = error;
 }
 
+double Turn::getAngle()
+{
+	return m_angle;
+}
+
 void Turn::AllocateResources()
 {
 	AllocateResource(ControlResource::TURN);

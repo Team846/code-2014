@@ -24,6 +24,8 @@ protected:
 	void setMaxSpeed(double speed);
 	void setErrorThreshold(double errorThreshold);
 	
+	double getAngle();
+	
 private:
 	DrivetrainData* m_drivetrain;
 	

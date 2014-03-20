@@ -10,14 +10,27 @@ int FaceHotGoal::m_hotGoalPos[] = { -1, 1, 0 }; // left, right, none
 double FaceHotGoal::s_turnDegrees = 30;
 
 FaceHotGoal::FaceHotGoal() :
-	Turn(),
+	JitterTurn(0.0, 0.0),
 	Configurable("FaceHotGoal")
 {
 	m_turnToCenter = false;
 }
 
 FaceHotGoal::FaceHotGoal(bool clear, bool turnToCenter) :
-	Turn(),
+	JitterTurn(0.0, 0.0),
+	Configurable("FaceHotGoal")
+{
+	if(clear)
+	{
+		m_lastHotGoalSide = HotGoal::NONE_ACTIVE;
+	}
+	// else wtf r u doin son
+	
+	m_turnToCenter = turnToCenter;
+}
+
+FaceHotGoal::FaceHotGoal(bool clear, bool turnToCenter, double randLow, double randHigh) :
+	JitterTurn(randLow, randHigh),
 	Configurable("FaceHotGoal")
 {
 	if(clear)
@@ -57,7 +70,7 @@ bool FaceHotGoal::Start()
 
 	m_lastHotGoalSide = currentSide;
 	
-	Turn::Start();
+	JitterTurn::Start();
 	
 	return true;
 }

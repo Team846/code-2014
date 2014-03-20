@@ -1,5 +1,8 @@
 #include "SensorFactory.h"
 
+#include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
+
 #include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.Utilities.h>
 
@@ -114,18 +117,42 @@ void SensorFactory::Send()
 	for (map<uint32_t, AnalogChannel*>::iterator it = m_analog.begin(); it != m_analog.end(); it++)
 	{
 		SendToNetwork(it->second->GetAverageValue(), "Analog" + lexical_cast(it->first), "SensorData");
+		
+		INT16 id = 30000 + it->first;
+		
+		Dashboard2::SetOrAddTelemetryData("Analog" + lexical_cast(it->first), id, DashboardTelemetryType::INT32, it->second->GetAverageValue());
 	}
 	for (map<uint32_t, DigitalInput*>::iterator it = m_digital.begin(); it != m_digital.end(); it++)
 	{
 		SendToNetwork(it->second->Get(), "Digital" + lexical_cast(it->first), "SensorData");
+		
+		INT16 id = 31000 + it->first;
+		
+		Dashboard2::SetOrAddTelemetryData("Digital" + lexical_cast(it->first), id, DashboardTelemetryType::UINT32, it->second->Get());
 	}
 	for (map<uint32_t, Counter*>::iterator it = m_counters.begin(); it != m_counters.end(); it++)
 	{
 		SendToNetwork(it->second->GetPeriod(), "Counter" + lexical_cast(it->first), "SensorData");
+		
+		INT16 id = 32000 + it->first;
+		
+		Dashboard2::SetOrAddTelemetryData("Counter" + lexical_cast(it->first), id, DashboardTelemetryType::FLOAT, (float)it->second->GetPeriod());
 	}
 	for (map<pair<uint32_t, uint32_t>, LRTEncoder*>::iterator it = m_encoders.begin(); it != m_encoders.end(); it++)
 	{
 		SendToNetwork(it->second->GetRate(), "EncoderRate" + lexical_cast(it->first.first) + "," + lexical_cast(it->first.second), "SensorData");
 		SendToNetwork(it->second->Get(), "EncoderDistance" + lexical_cast(it->first.first) + "," + lexical_cast(it->first.second), "SensorData");
+	
+		{
+			INT16 rateId = 28000 + it->first.first;
+			
+			Dashboard2::SetOrAddTelemetryData("EncoderRate" + lexical_cast(it->first.first) + "," + lexical_cast(it->first.second), rateId, DashboardTelemetryType::FLOAT, (float)it->second->GetPeriod());
+		}
+		
+		{
+			INT16 distanceId = 29000 + it->first.first;
+			
+			Dashboard2::SetOrAddTelemetryData("EncoderDistance" + lexical_cast(it->first.first) + "," + lexical_cast(it->first.second), distanceId, DashboardTelemetryType::INT32, it->second->Get());
+		}
 	}
 }
