@@ -9,6 +9,8 @@ namespace UNRELIABLE_SEQUENCED
 	{
 		LOCATOR = 0x00,
 		DRIVETRAIN_TICKS = 0x01,
+		TELEM_INIT = 0x02,
+		TELEM_UPDATE = 0x03,
 	};
 }
 }
