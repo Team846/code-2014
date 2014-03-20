@@ -153,7 +153,7 @@ void Dashboard2::Tick()
 			
 			std::string str = generic_cast<std::string>(value);
 			
-			//telemUpdate.Write(str);
+			telemUpdate.Write(str);
 		}
 			break;
 		case DashboardTelemetryType::UINT16:
