@@ -4,7 +4,7 @@
 Indicator::Indicator():
 	Component("Indicator",DriverStationConfig::DigitalIns::NO_DS_DI)
 {
-	DigitalModule* module = DigitalModule::GetInstance(4);
+	DigitalModule* module = DigitalModule::GetInstance(2);
 	m_i2c = module->GetI2C(168);
 	m_i2c->SetCompatibilityMode(true);
 	m_indicatorData = IndicatorData::Get();
