@@ -9,6 +9,7 @@ CollectorInputs::CollectorInputs()
 	m_operator_stick = LRTDriverStation::Instance()->GetOperatorStick();
 	
 	collectorData = CollectorData::Get();
+	indicatorData = IndicatorData::Get();
 	RegisterResource(ControlResource::COLLECTOR_ROLLERS);
 }
 
@@ -20,6 +21,8 @@ void CollectorInputs::Update()
 	{
 		collectorData->SetEnabled(true);
 		collectorData->SetDirection(CollectorData::COLLECT);
+		indicatorData->SetShooterPattern(IndicatorData::LOADED);
+		
 	}
 	else if(m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE))
 	{
