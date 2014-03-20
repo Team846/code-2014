@@ -86,16 +86,15 @@ namespace LRT14
             return _currStep.Value.Value;
         }
 
-        public Vector3 StepForward()
+        public string CSVOut()
         {
-            _currStep = _currStep.Next;
-            return _currStep.Value.Value;
-        }
+            string ret = "";
+            foreach (KeyValuePair<float, Vector3> kvp in _data)
+            {
+                ret += kvp.Key + "," + kvp.Value.X + "," + kvp.Value.Y + "," + kvp.Value.Z + "\n";
+            }
 
-        public Vector3 StepBackward()
-        {
-            _currStep = _currStep.Previous;
-            return _currStep.Value.Value;
+            return ret;
         }
     }
 }
