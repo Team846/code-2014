@@ -13,9 +13,10 @@ FaceHotGoal::FaceHotGoal() :
 	Turn(),
 	Configurable("FaceHotGoal")
 {
+	m_turnToCenter = false;
 }
 
-FaceHotGoal::FaceHotGoal(bool clear) :
+FaceHotGoal::FaceHotGoal(bool clear, bool turnToCenter) :
 	Turn(),
 	Configurable("FaceHotGoal")
 {
@@ -23,18 +24,32 @@ FaceHotGoal::FaceHotGoal(bool clear) :
 	{
 		m_lastHotGoalSide = HotGoal::NONE_ACTIVE;
 	}
+	// else wtf r u doin son
+	
+	m_turnToCenter = turnToCenter;
 }
 
 bool FaceHotGoal::Start()
 {
 	HotGoal::Side currentSide = SensorFactory::GetHotGoal()->GetActiveSide();
 
-	BufferedConsole::Printfln("FaceHotGoal: %d\n", (int)currentSide);
+	// if we already had a hot goal, just turn to the other side.
+	if(m_lastHotGoalSide != HotGoal::NONE_ACTIVE)
+	{
+		if(m_lastHotGoalSide == HotGoal::LEFT) currentSide = HotGoal::RIGHT;
+		if(m_lastHotGoalSide == HotGoal::RIGHT) currentSide = HotGoal::LEFT;
+	}
+	else
+	{
+		// if we didn't detect anything go with left
+		currentSide = (currentSide == HotGoal::NONE_ACTIVE) ? HotGoal::LEFT : currentSide;
+	}
+
+	// are we force turning back to center?
+	if(m_turnToCenter) currentSide = HotGoal::NONE_ACTIVE;
 	
 	int relativePos = m_hotGoalPos[currentSide] - m_hotGoalPos[m_lastHotGoalSide];
 	double angle = relativePos * s_turnDegrees * -1;
-	
-	BufferedConsole::Printfln("FaceHotGoal: %lf\n", angle);
 	
 	setAngle(angle);
 	setMaxSpeed(1.0);

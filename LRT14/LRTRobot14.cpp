@@ -19,8 +19,11 @@
 #include "Utils/LCD.h"
 #include "Logging/Logger.h"
 #include "Communication/Dashboard2.h"
+#include "Communication/DashboardTelemetryID.h"
 #include "Communication/LiveNetworkSender.h"
 #include "Communication/OffboardCommunication.h"
+
+#include "Brain/Automation/FaceHotGoal.h"
 
 #include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.Diagnostics.h>
@@ -229,11 +232,13 @@ void LRTRobot14::Tick()
 		ConfigRuntime::Instance()->CheckForFileUpdates();
 	}
 	
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, (INT8)FaceHotGoal::LastHotGoalSide());
+	
 	// Utilities
 	LCD::Instance()->RunOneCycle();
 //	Logger::Instance()->Run();
 	LiveNetworkSender::Instance()->Run();
-	//Dashboard2::Tick();
+	Dashboard2::Tick();
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
@@ -272,6 +277,11 @@ void LRTRobot14::Tick()
 		
 		BufferedConsole::Printfln("===========================================================================\n\n");
 	}
+}
+
+void resetFaceHotGoal()
+{
+	FaceHotGoal::Reset();
 }
 
 void maintenance()

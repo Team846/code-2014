@@ -13,7 +13,8 @@ namespace DashboardTelemetryID
         LAUNCHER_ANGLE_STATE = 0x05,
         LAUNCHER_ANGLE = 0x06,
         LAUNCHER_LOADER_STATE = 0x07,
-        PRESSURE_PLATE_STATE = 0x08
+        PRESSURE_PLATE_STATE = 0x08,
+        AUTON_HOT_GOAL_LAST_SIDE = 0x09,
 	};
 }
 

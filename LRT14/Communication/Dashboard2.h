@@ -25,6 +25,27 @@ namespace DashboardTelemetryType
 	};
 }
 
+namespace DashboardMessageType
+{
+	enum Enum
+	{
+		LOCATOR = 0x0,
+		TELEMETRY = 0x01,
+		COLLECTOR_SPEED = 0x02,
+		COLLECTOR = 0x03,
+		TELEMETRY_INIT_REQ = 0x04,
+	};
+}
+
+namespace DashboardTelemHeader
+{
+	enum Enum
+	{
+		TELEM_INIT = 0x00,
+		TELEM_UPDATE = 0x01
+	};
+}
+
 /*!
  * @brief Wrapper around FRCDashboard class that provides specific functionality.
  */
@@ -37,13 +58,14 @@ private:
 		HEADER_DRIVETRAIN_TICKS = 0x01
 	};
 	
-	struct TelemetryData
+	struct TelemetryInfo
 	{
-		INT16 id;
 		std::string label;
+		DashboardTelemetryType::Enum datatype;
 	};
 	
 	static std::hash_map<INT16, Rhesus::Toolkit::Utilities::Generic> m_telemetryEntries;
+	static std::hash_map<INT16, TelemetryInfo> m_telemetryDesc;
 	
 public:
 	static void Close();
@@ -59,7 +81,7 @@ public:
 	static void EnqueueDrivetrainTicksMessage(int ticks);
 	
 	static void AddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType);
-	static void SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic val);
+	static bool SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic val);
 };
 
 #endif

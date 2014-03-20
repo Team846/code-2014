@@ -248,7 +248,9 @@ void Autonomous::LoadRoutine(std::string path)
 				if (arglist.size() == 0)
 					current = new FaceHotGoal();
 				else if(arglist.size() == 1)
-					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]));
+					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]), false);
+				else if(arglist.size() == 2)
+					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]), lexical_cast<bool>(arglist[1]));
 				else
 					failed = true;
 			}

@@ -38,6 +38,8 @@ public:
 
 	static void EnqueueMessage(Rhesus::Messenger::NetBuffer& buff, 
 			Rhesus::Messenger::NetChannel::Enum method, int channel);
+
+	static Rhesus::Messenger::NetBuffer* ReadMessage();
 	
 private:
 	
@@ -55,8 +57,11 @@ private:
 	void enqueueMessage(Rhesus::Messenger::NetBuffer& buff, 
 			Rhesus::Messenger::NetChannel::Enum method, int channel);
 	
+	Rhesus::Messenger::NetBuffer* readMessage();
+	
 	Rhesus::Toolkit::Tasks::Mutex m_queueMutex;
 	std::queue<DMessage> m_netBufferQueue;
+	std::queue<Rhesus::Messenger::NetBuffer*> m_incomingMessages;
 	
 	Rhesus::Messenger::NetServer* m_server;
 };
