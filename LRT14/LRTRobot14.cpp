@@ -136,6 +136,10 @@ void LRTRobot14::RobotInit()
 	BufferedConsole::Printfln("Initializing LiveNetworkSender...");
 	LiveNetworkSender::Initialize();
 	
+	// Initialize dashboard telemetry types
+	BufferedConsole::Printfln("Setting up dashboard telemetry...");
+	
+	
 	// Apply runtime configuration
 	ConfigRuntime::ConfigureAll();
 }
@@ -232,13 +236,21 @@ void LRTRobot14::Tick()
 		ConfigRuntime::Instance()->CheckForFileUpdates();
 	}
 	
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, (INT8)FaceHotGoal::LastHotGoalSide());
+	HotGoal::Side side = FaceHotGoal::LastHotGoalSide();
+	std::string sideStr = "???";
+	
+	if(side == HotGoal::LEFT) sideStr = "LEFT";
+	else if(side == HotGoal::NONE_ACTIVE) sideStr = "NONE_ACTIVE";
+	else if(side == HotGoal::RIGHT) sideStr = "RIGHT";
+	else sideStr = "???";
+	
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, sideStr);
 	
 	// Utilities
 	LCD::Instance()->RunOneCycle();
 //	Logger::Instance()->Run();
 	LiveNetworkSender::Instance()->Run();
-	Dashboard2::Tick();
+//	Dashboard2::Tick();
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();

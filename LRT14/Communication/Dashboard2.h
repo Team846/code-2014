@@ -33,7 +33,8 @@ namespace DashboardMessageType
 		TELEMETRY = 0x01,
 		COLLECTOR_SPEED = 0x02,
 		COLLECTOR = 0x03,
-		TELEMETRY_INIT_REQ = 0x04,
+		EVENT_NOTIFICATION = 0x04,
+		TELEMETRY_INIT_REQ = 0x05,
 	};
 }
 
@@ -80,8 +81,12 @@ public:
 	static void EnqueueLocatorMessage(double time, double x, double y, double theta);
 	static void EnqueueDrivetrainTicksMessage(int ticks);
 	
+	static void InitializeTelemetry();
+	
 	static void AddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType);
 	static bool SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic val);
+	
+	static void SetOrAddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType, Rhesus::Toolkit::Utilities::Generic val);
 };
 
 #endif

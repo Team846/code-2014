@@ -3,18 +3,19 @@
 
 #include "Automation.h"
 
-#include "Turn.h"
+#include "JitterTurn.h"
 
 #include "../../Config/Configurable.h"
 
 #include "../../Sensors/HotGoal.h"
 #include "../../Sensors/SensorFactory.h"
 
-class FaceHotGoal : public Turn, public Configurable
+class FaceHotGoal : public JitterTurn, public Configurable
 {
 public:
 	FaceHotGoal();
 	FaceHotGoal(bool clear, bool turnToCenter);
+	FaceHotGoal(bool clear, bool turnToCenter, double randLow, double randHigh);
 	
 	void Configure();
 	

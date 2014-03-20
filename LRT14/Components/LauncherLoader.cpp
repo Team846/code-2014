@@ -55,12 +55,11 @@ void LauncherLoader::OnDisabled()
 void LauncherLoader::UpdateEnabled()
 {
 	UpdateSensorValues();
-	Pneumatics::State state = Pneumatics::OFF;
-	
-	state = Pneumatics::FORWARD;
+	Pneumatics::State state = Pneumatics::FORWARD;
+	std::string stateStr = "FORWARD";
 	
 	m_safety->Set(state);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_STATE, (INT8)state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_SAFETY, stateStr);
 	
 	if (m_loaderData->GetFire())
 	{
@@ -124,11 +123,13 @@ void LauncherLoader::UpdateEnabled()
 void LauncherLoader::UpdateDisabled()
 {
 	Pneumatics::State state = Pneumatics::OFF;
+	std::string stateStr = "OFF";
+			
 	UpdateSensorValues();
 	m_motorA->SetDutyCycle(0.0);
 	m_motorB->SetDutyCycle(0.0);
 	m_safety->Set(state);
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_STATE, (INT8)state);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_SAFETY, stateStr);
 }
 
 void LauncherLoader::UpdateSensorValues()

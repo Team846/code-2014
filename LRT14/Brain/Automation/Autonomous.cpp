@@ -21,6 +21,7 @@ using namespace Rhesus::Toolkit::Utilities;
 #include "Repeating.h"
 #include "Parallel.h"
 #include "FaceHotGoal.h"
+#include "JitterTurn.h"
 
 Autonomous::Autonomous() :
 	Sequential("Autonomous")
@@ -251,6 +252,8 @@ void Autonomous::LoadRoutine(std::string path)
 					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]), false);
 				else if(arglist.size() == 2)
 					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]), lexical_cast<bool>(arglist[1]));
+				else if(arglist.size() == 4)
+					current = new FaceHotGoal(lexical_cast<bool>(arglist[0]), lexical_cast<bool>(arglist[1]), lexical_cast<double>(arglist[2]), lexical_cast<double>(arglist[3]));
 				else
 					failed = true;
 			}
@@ -258,6 +261,15 @@ void Autonomous::LoadRoutine(std::string path)
 			{
 				FaceHotGoal::Reset();
 				BufferedConsole::Printfln("Resetting FaceHotGoal...");
+			}
+			else if(command == "jitter_turn")
+			{
+				if(arglist.size() == 3)
+				{
+					current = new JitterTurn(lexical_cast<double>(arglist[0]), lexical_cast<double>(arglist[1]), lexical_cast<double>(arglist[2]));
+				}
+				else
+					failed = true;
 			}
 			else
 			{

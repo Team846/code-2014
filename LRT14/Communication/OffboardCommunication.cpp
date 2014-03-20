@@ -1,5 +1,8 @@
 #include "OffboardCommunication.h"
 
+#include "Dashboard2.h"
+#include "DashboardTelemetryID.h"
+
 #include <Rhesus.Toolkit.IO.h>
 
 using namespace std;
@@ -64,18 +67,21 @@ void OffboardCommunication::Update()
 		switch(stream)
 		{
 		case HOT_GOAL:
-			
-			UINT8 last = buffers[HOT_GOAL][0];
-			
+		{
+			UINT8 side = buff->ReadByte();
 			
 			buffers[HOT_GOAL].clear();
 			
-			buffers[HOT_GOAL].push_back(buff->ReadByte());
+			buffers[HOT_GOAL].push_back(side);
 			
-			if(buffers[HOT_GOAL][0] != last)
-			{
-				BufferedConsole::Printfln("New hot goal: %d", (int)buffers[HOT_GOAL][0]);
-			}
+			std::string hotgoalStr = "???";
+			
+			if(side == 0) hotgoalStr = "LEFT";
+			else if(side == 1) hotgoalStr = "RIGHT";
+			else if(side == 2) hotgoalStr = "NONE_ACTIVE";
+			
+			Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::HOT_GOAL_SIDE, hotgoalStr);
+		}
 			break;
 		case GAME_PIECE_TRACKING:
 			break;

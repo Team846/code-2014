@@ -3,6 +3,8 @@
 
 #include "FRCDashboard.h"
 
+#include "DashboardTelemetryID.h"
+
 #include "../RobotState.h"
 
 using namespace Rhesus::Messenger;
@@ -11,6 +13,21 @@ using namespace Rhesus::Toolkit::Utilities;
 void Dashboard2::Close()
 {
 	FRCDashboard::Close();
+}
+
+void Dashboard2::InitializeTelemetry()
+{
+	AddTelemetryData("Coll. Rollers Speed", (INT16)DashboardTelemetryID::COLLECTOR_ROLLERS_SPEED, DashboardTelemetryType::FLOAT);
+	AddTelemetryData("Drive Left", (INT16)DashboardTelemetryID::DRIVETRAIN_LEFT_OUTPUT, DashboardTelemetryType::FLOAT);
+	AddTelemetryData("Drive Right", (INT16)DashboardTelemetryID::DRIVETRAIN_RIGHT_OUTPUT, DashboardTelemetryType::FLOAT);
+	AddTelemetryData("Coll. Arm Desired Pos", (INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, DashboardTelemetryType::STRING);
+	AddTelemetryData("Coll. Arm Current Pos", (INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, DashboardTelemetryType::STRING);
+	AddTelemetryData("Launcher Angle Pneumatics", (INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, DashboardTelemetryType::STRING);
+	AddTelemetryData("Launcher Angle", (INT16)DashboardTelemetryID::LAUNCHER_ANGLE, DashboardTelemetryType::STRING);
+	AddTelemetryData("Launcher Loader Safety", (INT16)DashboardTelemetryID::LAUNCHER_LOADER_SAFETY, DashboardTelemetryType::STRING);
+	AddTelemetryData("Pressure Plate", (INT16)DashboardTelemetryID::PRESSURE_PLATE_STATE, DashboardTelemetryType::STRING);
+	AddTelemetryData("Hot Goal Last Side", (INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, DashboardTelemetryType::STRING);
+	AddTelemetryData("Hot Goal", (INT16)DashboardTelemetryID::HOT_GOAL_SIDE, DashboardTelemetryType::STRING);
 }
 
 void Dashboard2::Tick()
@@ -55,7 +72,7 @@ void Dashboard2::Tick()
 		R_DELETE(nb);
 	}
 	
-	// update telemetry
+	// update and clear telemetry
 	NetBuffer telemUpdate; // TODO: possible optimization by pre-setting max length
 	
 	telemUpdate.Write((UINT8)DashboardMessageType::TELEMETRY);
@@ -184,7 +201,7 @@ void Dashboard2::Tick()
 	}
 	
 	EnqueueRawMessage(telemUpdate, NetChannel::NET_UNRELIABLE_SEQUENCED, NetChannelDefinition::UNRELIABLE_SEQUENCED::TELEM_UPDATE);
-	
+
 	// flush the send buffer
 	Flush();
 }
@@ -238,4 +255,15 @@ bool Dashboard2::SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic 
 	m_telemetryEntries[id] = val;
 
 	return true;
+}
+
+void Dashboard2::SetOrAddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType, Rhesus::Toolkit::Utilities::Generic val)
+{
+	bool res = SetTelemetryData(id, val);
+	
+	if(!res)
+	{
+		AddTelemetryData(label, id, dataType);
+		SetTelemetryData(id, val);
+	}
 }
