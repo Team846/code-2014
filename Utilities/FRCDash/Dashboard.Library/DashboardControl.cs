@@ -54,6 +54,11 @@ namespace Dashboard.Library
             return NetworkManager.ReadMessage(_id);
         }
 
+        public void Send(NetBuffer nb, NetChannel method, int channel)
+        {
+            NetworkManager.Send(nb, method, channel);
+        }
+
         public virtual void UpdateControl(GameTime gameTime)
         {
             

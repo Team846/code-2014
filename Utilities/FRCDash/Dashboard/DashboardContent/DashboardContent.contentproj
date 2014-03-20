@@ -58,19 +58,8 @@
   <ItemGroup>
     <Folder Include="ControlsContent\Models\" />
     <Folder Include="ControlsContent\Songs\" />
+    <Folder Include="ControlsContent\SoundEffects\" />
     <Folder Include="ControlsContent\Textures\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ControlsContent\SoundEffects\dashboard_collect.wav">
-      <Name>dashboard_collect</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="ControlsContent\SoundEffects\dashboard_shoot.wav">
-      <Name>dashboard_shoot</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
