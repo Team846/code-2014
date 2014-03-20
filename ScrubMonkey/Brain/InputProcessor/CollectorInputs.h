@@ -3,6 +3,7 @@
 
 #include "InputProcessor.h"
 #include "../../ComponentData/CollectorData.h"
+#include "../../ComponentData/IndicatorData.h"
 
 /*!
  * @brief Processes joystick information for controlling the collector.
@@ -18,6 +19,7 @@ private:
 	DebouncedJoystick* m_operator_stick;
 	
 	CollectorData* collectorData;
+	IndicatorData* indicatorData;
 };
 
 #endif

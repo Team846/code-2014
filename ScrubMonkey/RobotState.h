@@ -18,7 +18,6 @@ public:
 	
 	GameState::Enum GameMode();
 	GameState::Enum LastGameMode();
-	DriverStation::Alliance Alliance();
 	bool FMSAttached();
 	double MatchTime(); // Seconds
 	double TotalTime(); // Seconds
@@ -34,7 +33,6 @@ private:
 	
 	GameState::Enum m_gameMode;
 	GameState::Enum m_lastGameMode;
-	DriverStation::Alliance m_alliance;
 	Timer m_matchTimer;
 	Timer m_totalTimer;
 	double m_lastTime;

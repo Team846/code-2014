@@ -72,6 +72,8 @@ namespace FakeHotGoal
 
                     lastVal = _client.Connected;
                 }
+                else
+                    lastVal = false;
 
                 if (_isAuton)
                 {
@@ -124,7 +126,7 @@ namespace FakeHotGoal
             nb.Write(HOT_GOAL_HEADER);
             nb.Write((byte)_hotGoal);
 
-            _client.Send(nb, NetChannel.NET_RELIABLE_SEQUENCED, 1);
+            _client.Send(nb, NetChannel.NET_UNRELIABLE, 1);
         }
 
         private void updateButtons()
@@ -190,7 +192,7 @@ namespace FakeHotGoal
             _client = new NetClient();
 
             _client.Open();
-            _client.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 846));
+            _client.Connect(new IPEndPoint(IPAddress.Parse("10.8.46.2"), 846));
 
             statusLabel.Text = "Connecting...";
         }

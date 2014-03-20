@@ -1,6 +1,7 @@
 #include "Component.h"
 #include "Drivetrain.h"
 #include "Collector.h"
+#include "Indicator.h"
 #include "../RobotState.h"
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
@@ -29,6 +30,7 @@ void Component::CreateComponents()
 {
 	component_vector.push_back(new Drivetrain());
 	component_vector.push_back(new Collector());
+	component_vector.push_back(new Indicator());
 }
 
 void Component::DestroyComponents()
