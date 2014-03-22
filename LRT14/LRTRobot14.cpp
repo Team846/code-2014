@@ -139,7 +139,6 @@ void LRTRobot14::RobotInit()
 	// Initialize dashboard telemetry types
 	BufferedConsole::Printfln("Setting up dashboard telemetry...");
 	
-	
 	// Apply runtime configuration
 	ConfigRuntime::ConfigureAll();
 }
