@@ -132,9 +132,9 @@ Brain::Brain() :
 	pass_start->AddAbortListener(humanLoad);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
-	fire_start_long->AddStartListener(fire);
-	fire_start_short->AddStartListener(fire);
-	fire_abort->AddAbortListener(fire);
+//	fire_start_long->AddStartListener(fire);
+//	fire_start_short->AddStartListener(fire);
+//	fire_abort->AddAbortListener(fire);
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
