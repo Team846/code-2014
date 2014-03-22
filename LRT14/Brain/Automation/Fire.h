@@ -11,7 +11,7 @@
 /*!
  * @brief Fires the ball.
  */
-class Fire : public Automation
+class Fire : public Automation, public Configurable
 {
 public:
 	Fire();
@@ -20,12 +20,17 @@ public:
 	bool Run();
 	bool Abort();
 	void AllocateResources();
+	
+	void Configure();
 
 private:
 	LauncherLoaderData* m_loaderData;
 	CollectorArmData* m_collectorArmData;
 	PressurePlateData* m_pressurePlate;
 	DigitalInput* m_proximity;
+	Timer m_timer;
+	float m_timeout;
+	bool m_hasBall;
 };
 
 #endif

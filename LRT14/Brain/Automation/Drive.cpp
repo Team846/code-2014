@@ -42,7 +42,10 @@ bool Drive::Start()
 
 bool Drive::Run()
 {
-	return fabs(DriveEncoders::Get()->GetRobotDist() - m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD)) < m_errorThreshold;
+	if (m_distance > 0)
+		return DriveEncoders::Get()->GetRobotDist() > m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
+	else
+		return DriveEncoders::Get()->GetRobotDist() < m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
 }
 
 bool Drive::Abort()

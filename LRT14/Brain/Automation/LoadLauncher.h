@@ -33,6 +33,9 @@ private:
 	float m_loadSpeed;
 	bool m_pastIntermediate;
 	bool m_ballIn;
+	Timer m_timer;
+	float m_ballSettleTime;
+	bool m_timerStarted;
 };
 
 #endif

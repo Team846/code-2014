@@ -63,18 +63,18 @@ void LauncherLoader::UpdateEnabled()
 	
 	if (m_loaderData->GetFire())
 	{
-		if (m_lastRawSensorAngle < m_intermediateSetpoint || m_lastRawSensorAngle > m_intermediateSetpoint + 5)
-		{
+//		if (m_lastRawSensorAngle < m_firePoint || m_lastRawSensorAngle > m_firePoint + 10)
+//		{
 			m_motorA->SetDutyCycle(m_maxSpeed);
 			m_motorB->SetDutyCycle(m_maxSpeed);
 			m_loaderData->SetLoadingComplete(false);
-		}
-		else
-		{
-			m_motorA->SetDutyCycle(0.0);
-			m_motorB->SetDutyCycle(0.0);
-			m_loaderData->SetLoadingComplete(true);
-		}
+//		}
+//		else
+//		{
+//			m_motorA->SetDutyCycle(0.0);
+//			m_motorB->SetDutyCycle(0.0);
+//			m_loaderData->SetLoadingComplete(true);
+//		}
 	}
 	else if (m_loaderData->GetLoad())
 	{
@@ -155,6 +155,7 @@ void LauncherLoader::Configure()
 	m_unloadSetpoint = GetConfig("unload_setpoint", 5.0);
 	m_intermediateSetpoint = GetConfig("intermediate_setpoint", 180.0);
 	m_loadSetpoint = GetConfig("load_setpoint", 350.0);
+	m_firePoint = GetConfig("fire_point", 0.0);
 	m_gain = GetConfig("gain", 1.0);
 	m_wrapThreshold = GetConfig("wrap_threshold", 20.0);
 	m_completionErrorThreshold = GetConfig("completion_error_threshold", 5.0);
