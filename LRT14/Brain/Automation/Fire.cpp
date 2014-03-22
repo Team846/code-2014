@@ -44,6 +44,7 @@ bool Fire::Run()
 		{
 			m_pressurePlate->SetPressure(true);
 			m_collectorArmData->SetDesiredPosition(CollectorArmData::STOWED);
+			printf("Fire done\n");
 		}
 		return m_hasBall;
 	}

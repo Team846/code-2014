@@ -63,6 +63,7 @@ void LauncherLoader::UpdateEnabled()
 	
 	if (m_loaderData->GetFire())
 	{
+		BufferedConsole::Printf("Launcher Loader: Firing\n");
 //		if (m_lastRawSensorAngle < m_firePoint || m_lastRawSensorAngle > m_firePoint + 10)
 //		{
 			m_motorA->SetDutyCycle(m_maxSpeed);
