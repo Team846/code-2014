@@ -28,9 +28,12 @@ private:
 	CollectorArmData* m_collectorArmData;
 	PressurePlateData* m_pressurePlate;
 	DigitalInput* m_proximity;
-	Timer m_timer;
+	Timer m_collectorDownTimer;
+	Timer m_fireTimer;
 	float m_timeout;
 	bool m_hasBall;
+	float m_fireTime;
+	bool m_firing;
 };
 
 #endif
