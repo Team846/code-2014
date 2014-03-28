@@ -32,10 +32,10 @@ void LauncherLoaderInputs::Update()
 		
 		state = "RELEASED";
 	}
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::SHORT_SHOT) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::LONG_SHOT))
-	{
-		m_loaderData->SetFire(true);
-	}
+//	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::SHORT_SHOT) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::LONG_SHOT))
+//	{
+//		m_loaderData->SetFire(true);
+//	}
 	
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::LAUNCHER_LOADER_INPUT, state);
 }
