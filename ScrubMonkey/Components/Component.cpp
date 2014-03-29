@@ -30,7 +30,7 @@ void Component::CreateComponents()
 {
 	component_vector.push_back(new Drivetrain());
 	component_vector.push_back(new Collector());
-	component_vector.push_back(new Indicator());
+	//component_vector.push_back(new Indicator());
 }
 
 void Component::DestroyComponents()

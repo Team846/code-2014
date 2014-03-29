@@ -52,12 +52,30 @@ void FRCDashboard::EnqueueMessage(NetBuffer& buff, NetChannel::Enum method, int 
 	instance()->enqueueMessage(buff, method, channel);
 }
 
+NetBuffer* FRCDashboard::ReadMessage()
+{
+	return instance()->readMessage();
+}
+
+NetBuffer* FRCDashboard::readMessage()
+{
+	if(m_incomingMessages.empty()) return NULL;
+	
+	NetBuffer* nb = m_incomingMessages.front();
+	m_incomingMessages.pop();
+	
+	return nb;
+}
+
 void FRCDashboard::tick()
 {
-	// TODO perhaps later, we may want to send some heartbeats or packets of the sort
+	NetBuffer* nb;
 	
-	// Flush the buffer
-	Flush();
+	while((nb = m_server->ReadMessage()) != NULL)
+	{
+		std::printf("message!\n");
+		m_incomingMessages.push(nb);
+	}
 }
 
 void FRCDashboard::flush()

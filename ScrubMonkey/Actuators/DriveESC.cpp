@@ -72,9 +72,7 @@ DriveESC::BrakeAndDutyCycle DriveESC::CalculateBrakeAndDutyCycle(float desired_s
 		float error = desired_speed - current_speed; // error always <= 0
 
 		if (desired_speed >= 0) // Braking is based on speed alone; reverse power unnecessary
-		{
-			BufferedConsole::Printfln("Braking!");
-			
+		{	
 			command.dutyCycle = 0.0; // Must set 0 to brake
 
 			if (current_speed > -error + 0.05)
@@ -106,8 +104,6 @@ void DriveESC::SetDutyCycle(float dutyCycle)
 	m_controller1->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Brake);
 	if(m_controller2 != NULL)
 		m_controller2->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Brake);
-	
-	BufferedConsole::Printfln(":: %lf", m_dutyCycle);
 	
 	m_controller1->SetDutyCycle(m_dutyCycle);
 	if (m_controller2 != NULL)
