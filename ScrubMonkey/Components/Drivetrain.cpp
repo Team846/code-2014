@@ -12,6 +12,7 @@
 #include "../Actuators/LRTTalon.h"
 
 #include "../Communication/Dashboard2.h"
+#include "../Communication/DashboardTelemetryID.h"
 
 using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Utilities;
@@ -124,12 +125,19 @@ void Drivetrain::UpdateEnabled()
 	
 	m_escs[LEFT]->SetDutyCycle(leftOutput);
 	m_escs[RIGHT]->SetDutyCycle(rightOutput);
+	
+	Dashboard2::SetOrAddTelemetryData("DT Left", DashboardTelemetryID::DRIVETRAIN_LEFT_OUTPUT, DashboardTelemetryType::FLOAT, (float)leftOutput);
+	Dashboard2::SetOrAddTelemetryData("DT Right", DashboardTelemetryID::DRIVETRAIN_RIGHT_OUTPUT, DashboardTelemetryType::FLOAT, (float)rightOutput);
 }
 
 void Drivetrain::UpdateDisabled()
 {
 	m_escs[LEFT]->SetDutyCycle(0.0);
 	m_escs[RIGHT]->SetDutyCycle(0.0);
+	
+	Dashboard2::SetOrAddTelemetryData("DT Left", DashboardTelemetryID::DRIVETRAIN_LEFT_OUTPUT, DashboardTelemetryType::FLOAT, 0.0f);
+	Dashboard2::SetOrAddTelemetryData("DT Right", DashboardTelemetryID::DRIVETRAIN_RIGHT_OUTPUT, DashboardTelemetryType::FLOAT, 0.0f);
+	
 	m_leftA->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
 	m_leftB->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);
 	m_rightA->ConfigNeutralMode(LRTSpeedController::kNeutralMode_Coast);

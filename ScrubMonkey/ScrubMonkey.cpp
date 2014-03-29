@@ -230,7 +230,7 @@ void ScrubMonkey::Tick()
 	LCD::Instance()->RunOneCycle();
 //	Logger::Instance()->Run();
 	LiveNetworkSender::Instance()->Run();
-	//Dashboard2::Tick();
+	Dashboard2::Tick();
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
