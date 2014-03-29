@@ -18,12 +18,15 @@ UINT32 NetUtil::PackFloat(float f)
 
     while (f >= 2.0f) { f /= 2.0f; exponent++; }
     while (f < 1.0f) { f *= 2.0f; exponent--; }
+    
 
     UINT32 mantissa = (UINT32)(f * pow(2.0f, 22.0f) + 0.5f);
 
     mantissa &= (UINT32)(~(UINT32)0) >> 9;
+    
+    UINT32 packed = ((UINT32)sign << (32 - 1)) | ((UINT32)exponent << (32 - 1 - 8)) | mantissa;
 
-    return ((UINT32)sign << (32 - 1)) | ((UINT32)exponent << (32 - 1 - 8)) | mantissa;
+    return packed;
 }
 
 float NetUtil::UnpackFloat(UINT32 packed)

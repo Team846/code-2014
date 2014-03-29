@@ -8,7 +8,7 @@
 #include <string>
 
 #ifdef RHESUS_NO_THROW
-#include "../error_val.hpp"
+#include "../error_val.h"
 #endif
 
 namespace Rhesus
