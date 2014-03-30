@@ -13,7 +13,7 @@ public:
 	
 	enum Shooter
 	{
-		SHOOTER_OFF,
+		SHOOTER_OFF = 0,
 		UNLOADED = 1 << 0,
 		LOADED = 1 << 1,
 		FIRING = 1 << 2
