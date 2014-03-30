@@ -54,7 +54,7 @@ namespace Dashboard.Library.Persistence
                 StreamWriter f = new StreamWriter(file);
                 f.WriteLine(kvp.Value.CSVOut());
 
-                file.Close();
+                f.Close();
             }
 
             sw.Close();
