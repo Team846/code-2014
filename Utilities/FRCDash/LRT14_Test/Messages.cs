@@ -67,6 +67,42 @@ namespace LRT14_Test
                 nb.Write((byte)Events.LAUNCHER_LOADED);
                 _server.SendToAll(nb, NetChannel.NET_RELIABLE_SEQUENCED, 1);
             }
+
+            public static void SendTelemetryInit()
+            {
+                NetBuffer nb = new NetBuffer();
+                nb.Write((byte)MessageType.TELEMETRY);
+                nb.Write((byte)0x00);
+                nb.Write((short)2);
+                nb.Write("DT Left");
+                nb.Write((short)0);
+                nb.Write((byte)0x08);
+                nb.Write(false);
+                nb.Write("DT Right");
+                nb.Write((short)1);
+                nb.Write((byte)0x08);
+                nb.Write(false);
+
+                _server.SendToAll(nb, NetChannel.NET_UNRELIABLE_SEQUENCED, 2);
+            }
+
+            public static void SendTelemetry(float drivetrainLeft, float drivetrainRight)
+            {
+                NetBuffer nb = new NetBuffer();
+
+                float seconds = Environment.TickCount / 1000.0f;
+
+                nb.Write((byte)MessageType.TELEMETRY);
+                nb.Write((byte)0x01);
+                nb.Write(seconds);
+                nb.Write((short)2);
+                nb.Write((short)0);
+                nb.Write(drivetrainLeft);
+                nb.Write((short)1);
+                nb.Write(drivetrainRight);
+
+                _server.SendToAll(nb, NetChannel.NET_UNRELIABLE_SEQUENCED, 2);
+            }
         }
     }
 }

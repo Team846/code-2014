@@ -77,9 +77,6 @@ namespace Dashboard.Library
                         _idToBufferList[_headerToIDMap[header].ElementAt(i)].Enqueue(b);
                     }
                 }
-
-
-                System.Threading.Thread.Sleep(10);
             }
         }
 

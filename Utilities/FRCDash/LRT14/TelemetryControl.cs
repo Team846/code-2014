@@ -343,22 +343,22 @@ namespace LRT14
 
         public override void UpdateControl(GameTime gameTime)
         {
-            //NetBuffer nb;
+            NetBuffer nb;
 
-            //while ((nb = ReadMessage()) != null)
-            //{
-            //    //TelemHeader header = (TelemHeader)nb.ReadByte();
-                
-            //    //switch (header)
-            //    //{
-            //    //    case TelemHeader.TELEM_INIT:
-            //    //        //telemInit(nb);
-            //    //        break;
-            //    //    case TelemHeader.TELEM_UPDATE:
-            //    //        //telemUpdate(nb, gameTime);
-            //    //        break;
-            //    //}
-            //}
+            while ((nb = ReadMessage()) != null)
+            {
+                TelemHeader header = (TelemHeader)nb.ReadByte();
+
+                switch (header)
+                {
+                    case TelemHeader.TELEM_INIT:
+                        telemInit(nb);
+                        break;
+                    case TelemHeader.TELEM_UPDATE:
+                        telemUpdate(nb, gameTime);
+                        break;
+                }
+            }
 
             base.UpdateControl(gameTime);
         }

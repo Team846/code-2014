@@ -49,5 +49,21 @@ namespace LRT14_Test
         {
             Messages.Actions.SendPurge();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            float drivetrainLeft = 0.0f;
+            float drivetrainRight = 0.0f;
+
+            Single.TryParse(textBox1.Text, out drivetrainLeft);
+            Single.TryParse(textBox2.Text, out drivetrainRight);
+
+            Messages.Actions.SendTelemetry(drivetrainLeft, drivetrainRight);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Messages.Actions.SendTelemetryInit();
+        }
     }
 }
