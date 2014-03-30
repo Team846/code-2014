@@ -18,7 +18,8 @@ namespace MockLRT14
             COLLECTOR_SPEED = 0x02,
             COLLECTOR = 0x03,
             EVENT_NOTIFICATION = 0x04,
-            TELEMETRY_INIT_REQ = 0x05
+            TELEMETRY_INIT_REQ = 0x05,
+            LOG = 0x06
         }
 
         enum TelemHeader : byte
@@ -46,6 +47,7 @@ namespace MockLRT14
         {
             LOCATOR = 0,
             TELEM = 1,
+            LOG = 2
         }
 
         static void Main(string[] args)
@@ -207,6 +209,14 @@ namespace MockLRT14
                 nb.Write("Thank You BasedGod!");
 
                 server.SendToAll(nb, NetChannel.NET_UNRELIABLE_SEQUENCED, (int)UnreliableSequencedChannel.TELEM);
+
+                NetBuffer nb2 = new NetBuffer();
+                nb2.Write((byte)MessageType.LOG);
+                nb2.Write(totalTime);
+                nb2.Write("SWAG");
+                nb2.Write("BASED BASED EVERYTHING BASED");
+
+                server.SendToAll(nb2, NetChannel.NET_UNRELIABLE_SEQUENCED, (int)UnreliableSequencedChannel.LOG);
 
                 Thread.Sleep(50);
             }

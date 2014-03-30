@@ -151,7 +151,7 @@ namespace LRT14
         private ContentLibrary content;
 
         private bool _initialized;
-      
+
         public TelemetryControl(Manager manager, string id, string persistenceKey, ContentLibrary content)
             : base(manager, id, persistenceKey, content)
         {
@@ -165,7 +165,7 @@ namespace LRT14
 
             _initialized = false;
 
-            PersistenceManager.Persistence.Set("TelemetryControl", this);
+            PersistenceManager.Persistence.Set(persistenceKey, this);
 
             NetBuffer init = new NetBuffer();
             init.Write((byte)AerialAssist.MessageType.TELEMETRY_INIT_REQ);

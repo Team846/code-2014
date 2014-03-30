@@ -23,7 +23,8 @@ namespace LRT14
             TELEMETRY = 0x01,
             COLLECTOR = 0x03,
             EVENT_NOTIFICATION = 0x04,
-            TELEMETRY_INIT_REQ = 0x05
+            TELEMETRY_INIT_REQ = 0x05,
+            LOG = 0x06
         }
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)
@@ -34,10 +35,31 @@ namespace LRT14
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
             //setupIngame(manager, contentLibrary, tabControl);
-            setupTelemetry(manager, contentLibrary, tabControl);
+            //setupIngame(manager, contentLibrary, tabControl);
+            //setupTelemetry(manager, contentLibrary, tabControl);
             setupLocator(manager, contentLibrary, tabControl);
             //setupCollector(manager, contentLibrary, tabControl);
+            setupTelemetry(manager, contentLibrary, tabControl);
             //setupGraph(manager, contentLibrary, tabControl);
+            setupLog(manager, contentLibrary, tabControl);
+            //setupCollector(manager, contentLibrary, tabControl);
+            //setupGraph(manager, contentLibrary, tabControl);
+        }
+
+        private void setupLog(Manager manager, ContentLibrary contentLibrary, TabControl root)
+        {
+            TabPage log = root.AddPageBeforeEnd();
+            log.Init();
+            log.Text = "Log";
+
+            LogControl logControl = new LogControl(manager, "log", "LRT14.AerialAssist.LOG", contentLibrary);
+            logControl.Width = log.Width;
+            logControl.Height = log.Height;
+            logControl.Left = 0;
+            logControl.Top = 0;
+            logControl.Parent = log;
+            logControl.SetConsoleDimensions();
+            logControl.SubscribeToPacket((byte)MessageType.LOG);
         }
 
         private void setupIngame(Manager manager, ContentLibrary contentLibrary, TabControl root)
