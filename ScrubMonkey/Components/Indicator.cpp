@@ -7,8 +7,8 @@ using namespace Rhesus::Toolkit::IO;
 Indicator::Indicator():
 	Component("Indicator",DriverStationConfig::DigitalIns::NO_DS_DI)
 {
-	DigitalModule* module = DigitalModule::GetInstance(2);
-	m_i2c = module->GetI2C(168);
+	DigitalModule* module = DigitalModule::GetInstance(1);
+	m_i2c = module->GetI2C(4);
 	m_i2c->SetCompatibilityMode(true);
 	m_indicatorData = IndicatorData::Get();
 }
@@ -29,15 +29,15 @@ void Indicator::UpdateEnabled()
 	
 	uint8_t distancePattern = (uint8_t)IndicatorData::FAR;
 	uint8_t combinedPattern = (uint8_t)(((unsigned int)(distancePattern) << 4) | (unsigned int)shooterPattern);
-	m_i2c->Write(84,combinedPattern);
+	m_i2c->Transaction(&combinedPattern, 1, NULL,0);
 }
 
 void Indicator::UpdateDisabled()
 {
 	BufferedConsole::Printfln("Indicators disabled.");
 	
-	uint8_t shooterPattern = (uint8_t)IndicatorData::SHOOTER_OFF;
-	uint8_t distancePattern = (uint8_t)IndicatorData::DISTANCE_OFF;
+	uint8_t shooterPattern = (uint8_t)IndicatorData::CLOSE;
+	uint8_t distancePattern = (uint8_t)IndicatorData::UNLOADED;
 	uint8_t combinedPattern = (uint8_t)(((unsigned int)(distancePattern) << 4) | (unsigned int)shooterPattern);
 	m_i2c->Transaction(&combinedPattern, 1, NULL, 0);
 }
