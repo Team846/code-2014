@@ -81,7 +81,7 @@ namespace Dashboard
             cmd_clear.SetPosition(0, 0);
             cmd_clear.Text = "Clear";
         }
-
+            
         void optionsBtn_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
         {
             if (optionsWindow.Visible) return;
