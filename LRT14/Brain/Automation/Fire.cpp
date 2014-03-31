@@ -1,16 +1,17 @@
 #include "Fire.h"
 #include "../../Config/ConfigPortMappings.h"
 
-Fire::Fire() :
+Fire::Fire(bool overrideSensor) :
 	Automation("Fire"),
 	Configurable("Fire")
 {
 	m_loaderData = LauncherLoaderData::Get();
 	m_collectorArmData = CollectorArmData::Get();
 	m_pressurePlate = PressurePlateData::Get();
-	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
+	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_hasBall = false;
 	m_firing = false;
+	m_override = overrideSensor;
 }
 
 void Fire::AllocateResources()
@@ -27,6 +28,7 @@ bool Fire::Start()
 	m_collectorDownTimer.Start();
 	m_hasBall = false;
 	m_firing = false;
+	m_loaded = false;
 	return true;
 }
 
@@ -34,6 +36,17 @@ bool Fire::Run()
 {
 	m_pressurePlate->SetPressure(false);
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
+	
+	if (!m_loaderData->IsLoadingComplete() && !m_loaded)
+	{
+		m_loaderData->SetLoad(true);
+		return false;
+	}
+	else
+		m_loaded = true;
+	
+	if (m_proximity->Get() == 0 && !m_override && !m_firing)
+		return false;
 	
 	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT || m_collectorDownTimer.Get() >= m_timeout)
 	{
@@ -48,6 +61,8 @@ bool Fire::Run()
 		{
 			printf("Fire done\n");
 			m_loaderData->SetFire(false);
+			m_collectorArmData->SetDesiredPosition(CollectorArmData::STOWED);
+			m_pressurePlate->SetPressure(true);
 			return true;
 		}
 	}

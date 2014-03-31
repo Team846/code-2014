@@ -3,16 +3,19 @@
 
 #include "InputProcessor.h"
 #include "../../ComponentData/DrivetrainData.h"
+#include "../../Config/Configurable.h"
 
 /*!
  * @brief Processes joystick information for controlling the drivetrain.
  */
-class DrivetrainInputs : public InputProcessor
+class DrivetrainInputs : public InputProcessor, public Configurable
 {
 public:
 	DrivetrainInputs();
 	
 	void Update();
+	
+	void Configure();
 	
 private:
 	DebouncedJoystick* m_driver_stick;
@@ -24,6 +27,10 @@ private:
 	double stoppedForward;
 	double stoppedTurn;
 	int driveSign;
+	int blendExponent;
+	int turnExponent;
+	int throttleExponent;
+	double deadband;
 };
 
 #endif

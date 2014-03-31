@@ -198,7 +198,7 @@ void LRTRobot14::Tick()
 	LRTDriverStation::Update();
 
 	// Update offboard
-	OffboardCommunication::Instance()->Update();
+//	OffboardCommunication::Instance()->Update();
 	
 	if (maintenanceMode)
 	{
@@ -248,7 +248,7 @@ void LRTRobot14::Tick()
 	// Utilities
 	LCD::Instance()->RunOneCycle();
 //	Logger::Instance()->Run();
-	LiveNetworkSender::Instance()->Run();
+//	LiveNetworkSender::Instance()->Run();
 //	Dashboard2::Tick();
 	
 	// Reset ComponentData command fields

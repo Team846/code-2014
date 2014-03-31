@@ -29,7 +29,8 @@ private:
 	CollectorRollersData* m_collectorRollers;
 	LauncherLoaderData* m_loaderData;
 	PressurePlateData* m_pressurePlate;
-	DigitalInput* m_proximity;
+	DigitalInput* m_launcherProximity;
+	DigitalInput* m_bumperProximity;
 	float m_loadSpeed;
 	bool m_pastIntermediate;
 	bool m_ballIn;

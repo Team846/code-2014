@@ -14,7 +14,7 @@
 class Fire : public Automation, public Configurable
 {
 public:
-	Fire();
+	Fire(bool overrideSensor = false);
 
 	bool Start();
 	bool Run();
@@ -34,6 +34,8 @@ private:
 	bool m_hasBall;
 	float m_fireTime;
 	bool m_firing;
+	bool m_override;
+	bool m_loaded;
 };
 
 #endif
