@@ -130,6 +130,7 @@ Brain::Brain() :
 	collect_abort->AddAbortListener(collect);
 	pass_start->AddAbortListener(collect);
 	pass_start->AddAbortListener(humanLoad);
+	pass_start->AddAbortListener(load);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
 	fire_start_long->AddStartListener(fire);

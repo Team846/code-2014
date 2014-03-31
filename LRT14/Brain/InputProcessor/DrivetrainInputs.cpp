@@ -3,7 +3,8 @@
 #include "../../Communication/Dashboard2.h"
 #include "../../Communication/DashboardTelemetryID.h"
 
-DrivetrainInputs::DrivetrainInputs()
+DrivetrainInputs::DrivetrainInputs() :
+	Configurable("DrivetrainInputs")
 {
 	m_driver_stick = LRTDriverStation::Instance()->GetDriverStick();
 	m_driver_wheel = LRTDriverStation::Instance()->GetDriverWheel();
@@ -29,29 +30,25 @@ void DrivetrainInputs::Update()
 	
 	int sign = turn > 0 ? 1 : -1;
 	
-	turn = sign * pow(turn , 2);
-
-	//			turn *= turn * sign;
+	turn = sign * pow(turn , turnExponent);
 
 	double forward = pow(
-			driveSign * m_driver_stick->GetAxis(Joystick::kYAxis),
-			RobotConfig::Drive::THROTTLE_EXPONENT);
+			driveSign * m_driver_stick->GetAxis(Joystick::kYAxis), throttleExponent);
 
 	int signForward = forward > 0 ? 1 : -1;
 
-	if (fabs(forward) < RobotConfig::Drive::DEADBAND)
+	if (fabs(forward) < deadband)
 		forward = 0.0;
 	else
 	{
-		forward -= signForward * RobotConfig::Drive::DEADBAND;
-		forward /= 1.0 - RobotConfig::Drive::DEADBAND;
+		forward -= signForward * deadband;
+		forward /= 1.0 - deadband;
 	}
-	
 
 	// Blending routine
 	double absForward = fabs(forward); // To ensure correct arc when switching direction
 
-	double blend = pow((1 - absForward), RobotConfig::Drive::BLEND_EXPONENT); // Always between 0 and 1, raised to an exponent to adjust transition between in place and arc.
+	double blend = pow((1 - absForward), blendExponent); // Always between 0 and 1, raised to an exponent to adjust transition between in place and arc.
 
 	const double turnInPlace = turn; // Normal turn
 	const double constRadiusTurn = turn * absForward; // Arc turn
@@ -65,4 +62,12 @@ void DrivetrainInputs::Update()
 
 	drivetrainData->SetVelocitySetpoint(DrivetrainData::FORWARD, forward);
 	drivetrainData->SetVelocitySetpoint(DrivetrainData::TURN, turnComposite);
+}
+
+void DrivetrainInputs::Configure()
+{
+	blendExponent = GetConfig("blend_exponent", 1);
+	turnExponent = GetConfig("turn_exponent", 2);
+	throttleExponent = GetConfig("throttle_exponent", 1);
+	deadband = GetConfig("deadband", 0.01);
 }

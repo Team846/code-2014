@@ -54,11 +54,11 @@ bool Pass::Run()
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 			m_pressurePlate->SetPressure(true);
 		}
-//		if (m_collectorArm->GetCurrentPosition() == CollectorArmData::STOWED)
-//		{
-//			m_rollersData->SetRunning(false);
-//			return true;
-//		}
+		if (m_collectorArm->GetCurrentPosition() == CollectorArmData::STOWED)
+		{
+			m_rollersData->SetRunning(false);
+			return true;
+		}
 	}
 	else
 	{
