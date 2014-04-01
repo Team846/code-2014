@@ -34,11 +34,13 @@ void Indicator::UpdateEnabled()
 
 void Indicator::UpdateDisabled()
 {
-	BufferedConsole::Printfln("Indicators disabled.");
+//	BufferedConsole::Printfln("Indicators disabled.");
 	
 	uint8_t shooterPattern = (uint8_t)IndicatorData::CLOSE;
 	uint8_t distancePattern = (uint8_t)IndicatorData::UNLOADED;
 	uint8_t combinedPattern = (uint8_t)(((unsigned int)(distancePattern) << 4) | (unsigned int)shooterPattern);
+//	BufferedConsole::Printfln("Sent pattern: %x", combinedPattern);
+	
 	m_i2c->Transaction(&combinedPattern, 1, NULL, 0);
 }
 
