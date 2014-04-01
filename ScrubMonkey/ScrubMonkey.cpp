@@ -27,6 +27,8 @@
 #include <Rhesus.Toolkit.IO.h>
 #include <Rhesus.Toolkit.Tasks.h>
 
+#include <Rhesus/Toolkit/Scripting/lua.hpp>
+
 using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Diagnostics;
 using namespace Rhesus::Toolkit::IO;
@@ -34,6 +36,8 @@ using namespace Rhesus::Toolkit::IO;
 bool maintenanceMode = false;
 bool showProfiler = false;
 int tickCount = 0;
+
+void RunRoutine(lua_State* L);
 
 ScrubMonkey::ScrubMonkey()
 {
@@ -142,6 +146,22 @@ void ScrubMonkey::RobotInit()
 	Dashboard2::LogToConsole(true);
 	
 	Dashboard2::LogI("RobotInit() completed.");
+	
+	std::printf("Starting Lua test.\n");
+	std::printf("-------------\n");
+
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	lua_register(L, "run_routine", (lua_CFunction)RunRoutine);
+
+	int status = luaL_dofile(L, "LuaTest.lua");
+
+	if(status)
+	{
+		std::printf("Error running routine file: %s\n", lua_tostring(L, -1));
+	}
+
+	std::printf("-------------\n");
 }
 
 static int TimeoutCallback(...)
@@ -309,4 +329,9 @@ void profiler()
 	showProfiler = !showProfiler;
 	
 	BufferedConsole::Printfln("Display profiler: %s", (showProfiler ? "true" : "false"));
+}
+
+void RunRoutine(lua_State* L)
+{
+	std::printf("RunRoutine!\n");
 }
