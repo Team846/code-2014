@@ -5,12 +5,17 @@ using namespace Rhesus::Messenger;
 
 FRCDashboard* FRCDashboard::m_instance = NULL;
 
-FRCDashboard* FRCDashboard::instance()
+void FRCDashboard::Create()
 {
 	if(m_instance == NULL)
 	{
 		m_instance = new FRCDashboard();
 	}
+}
+
+FRCDashboard* FRCDashboard::instance()
+{
+	Create(); // create if instance does not exist.
 	
 	return m_instance;
 }
@@ -83,7 +88,7 @@ void FRCDashboard::flush()
 	{
 		lock_on l(m_queueMutex);
 		
-		for(unsigned int i = 0; i < m_netBufferQueue.size(); i++)
+		while(!m_netBufferQueue.empty())
 		{
 			DMessage nb = m_netBufferQueue.front();
 			m_netBufferQueue.pop();

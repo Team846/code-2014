@@ -135,11 +135,18 @@ void ScrubMonkey::RobotInit()
 	
 	// Apply runtime configuration
 	ConfigRuntime::ConfigureAll();
+	
+	BufferedConsole::Printfln("Initializing Dashboard2...");
+	Dashboard2::Create();
+	
+	Dashboard2::LogToConsole(true);
+	
+	Dashboard2::LogI("RobotInit() completed.");
 }
 
 static int TimeoutCallback(...)
 {
-	printf("Main loop execution time > 20 ms\n");
+	Dashboard2::LogW("Main loop execution time > 20ms\n");
 	
 	BufferedConsole::Printfln("======================================");
 	BufferedConsole::Printfln("PROFILED TIMES (over 20ms):");
