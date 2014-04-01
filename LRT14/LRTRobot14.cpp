@@ -141,11 +141,15 @@ void LRTRobot14::RobotInit()
 	
 	// Apply runtime configuration
 	ConfigRuntime::ConfigureAll();
+	
+	Dashboard2::Create();
+	
+	Dashboard2::LogToConsole(true);
 }
 
 static int TimeoutCallback(...)
 {
-	printf("Main loop execution time > 20 ms\n");
+	Dashboard2::LogW("Main loop exeuction time > 20 ms");
 	
 	BufferedConsole::Printfln("======================================");
 	BufferedConsole::Printfln("PROFILED TIMES (over 20ms):");

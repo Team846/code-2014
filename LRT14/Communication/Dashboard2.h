@@ -1,7 +1,7 @@
 #ifndef DASHBOARD_H_
 #define DASHBOARD_H_
 
-#include <hash_map>
+#include <map>
 
 #include <Rhesus/Messenger/NetBuffer.h>
 #include <Rhesus/Messenger/NetChannel.h>
@@ -35,6 +35,7 @@ namespace DashboardMessageType
 		COLLECTOR = 0x03,
 		EVENT_NOTIFICATION = 0x04,
 		TELEMETRY_INIT_REQ = 0x05,
+		LOG = 0x06
 	};
 }
 
@@ -47,28 +48,26 @@ namespace DashboardTelemHeader
 	};
 }
 
+struct TelemetryInfo
+{
+	std::string label;
+	DashboardTelemetryType::Enum datatype;
+};
+
 /*!
  * @brief Wrapper around FRCDashboard class that provides specific functionality.
  */
 class Dashboard2
 {
 private:
-	enum DMessageType
-	{
-		HEADER_LOCATOR = 0x00,
-		HEADER_DRIVETRAIN_TICKS = 0x01
-	};
+	static std::map<INT16, Rhesus::Toolkit::Utilities::Generic> m_telemetryEntries;
+	static std::map<INT16, TelemetryInfo> m_telemetryDesc;
 	
-	struct TelemetryInfo
-	{
-		std::string label;
-		DashboardTelemetryType::Enum datatype;
-	};
-	
-	static std::hash_map<INT16, Rhesus::Toolkit::Utilities::Generic> m_telemetryEntries;
-	static std::hash_map<INT16, TelemetryInfo> m_telemetryDesc;
+	static bool m_logToConsole;
 	
 public:
+	static void Create();
+	
 	static void Close();
 	
 	static void Tick();
@@ -87,6 +86,36 @@ public:
 	static bool SetTelemetryData(INT16 id, Rhesus::Toolkit::Utilities::Generic val);
 	
 	static void SetOrAddTelemetryData(std::string label, INT16 id, DashboardTelemetryType::Enum dataType, Rhesus::Toolkit::Utilities::Generic val);
+	
+	static void LogToConsole(bool b)
+	{
+		m_logToConsole = b;
+	}
+	
+	/*!
+	 * @brief Logs a message with a tag and sends it to the dashboard.
+	 */
+	static void Log(std::string tag, std::string message);
+	
+	/*!
+	 * @brief Logs an error message and sends it to the dashboard.
+	 */
+	static void LogE(std::string message);
+	
+	/*!
+	 * @brief Logs a warning message and sends it to the dashboard.
+	 */
+	static void LogW(std::string message);
+	
+	/*!
+	 * @brief Logs an informational message and sends it to the dashboard.
+	 */
+	static void LogI(std::string message);
+	
+	/*!
+	 * @brief Logs a debug message and sends it to the dashboard.
+	 */
+	static void LogD(std::string message);
 };
 
 #endif
