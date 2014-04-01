@@ -14,6 +14,8 @@ namespace LRT14_Test
         TELEMETRY = 0x01,
         COLLECTOR = 0x03,
         EVENT_NOTIFICATION = 0x04,
+        TELEMETRY_INIT_REQ = 0x05,
+        LOG = 0x06
     }
 
     public static class Messages
@@ -102,6 +104,20 @@ namespace LRT14_Test
                 nb.Write(drivetrainRight);
 
                 _server.SendToAll(nb, NetChannel.NET_UNRELIABLE_SEQUENCED, 2);
+            }
+
+            public static void SendLog(string tag, string message)
+            {
+                NetBuffer nb = new NetBuffer();
+
+                float seconds = Environment.TickCount / 1000.0f;
+
+                nb.Write((byte)MessageType.LOG);
+                nb.Write(tag);
+                nb.Write(seconds);
+                nb.Write(message);
+
+                _server.SendToAll(nb, NetChannel.NET_UNRELIABLE_SEQUENCED, 3);
             }
         }
     }

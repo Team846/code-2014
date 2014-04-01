@@ -65,5 +65,13 @@ namespace LRT14_Test
         {
             Messages.Actions.SendTelemetryInit();
         }
+
+        private void logSend_Click(object sender, EventArgs e)
+        {
+            string tag = logTag.Text;
+            string message = logMessage.Text;
+
+            Messages.Actions.SendLog(tag, message);
+        }
     }
 }

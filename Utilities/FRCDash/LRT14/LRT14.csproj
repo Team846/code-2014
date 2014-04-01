@@ -49,6 +49,7 @@
     <Compile Include="LogControl.cs" />
     <Compile Include="RobotLocationAnalysisControl.cs" />
     <Compile Include="RobotLocationData.cs" />
+    <Compile Include="RobotLog.cs" />
     <Compile Include="SoundPlayer.cs" />
     <Compile Include="TelemetryAnalysisControl.cs" />
     <Compile Include="TelemetryControl.cs" />

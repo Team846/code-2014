@@ -45,6 +45,9 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.logTag = new System.Windows.Forms.TextBox();
+            this.logMessage = new System.Windows.Forms.TextBox();
+            this.logSend = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +55,9 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.logSend);
+            this.panel1.Controls.Add(this.logMessage);
+            this.panel1.Controls.Add(this.logTag);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.opeartorLabel);
@@ -208,6 +214,30 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // logTag
+            // 
+            this.logTag.Location = new System.Drawing.Point(7, 349);
+            this.logTag.Name = "logTag";
+            this.logTag.Size = new System.Drawing.Size(100, 20);
+            this.logTag.TabIndex = 9;
+            // 
+            // logMessage
+            // 
+            this.logMessage.Location = new System.Drawing.Point(113, 349);
+            this.logMessage.Name = "logMessage";
+            this.logMessage.Size = new System.Drawing.Size(276, 20);
+            this.logMessage.TabIndex = 10;
+            // 
+            // logSend
+            // 
+            this.logSend.Location = new System.Drawing.Point(396, 347);
+            this.logSend.Name = "logSend";
+            this.logSend.Size = new System.Drawing.Size(72, 23);
+            this.logSend.TabIndex = 11;
+            this.logSend.Text = "Send";
+            this.logSend.UseVisualStyleBackColor = true;
+            this.logSend.Click += new System.EventHandler(this.logSend_Click);
+            // 
             // LRT14Tests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,6 +276,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button logSend;
+        private System.Windows.Forms.TextBox logMessage;
+        private System.Windows.Forms.TextBox logTag;
     }
 }
 

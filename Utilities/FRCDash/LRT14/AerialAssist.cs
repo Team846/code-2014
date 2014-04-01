@@ -44,6 +44,7 @@ namespace LRT14
             setupLog(manager, contentLibrary, tabControl);
             //setupCollector(manager, contentLibrary, tabControl);
             //setupGraph(manager, contentLibrary, tabControl);
+            setupPlayground(manager, contentLibrary, tabControl);
         }
 
         private void setupLog(Manager manager, ContentLibrary contentLibrary, TabControl root)
@@ -52,14 +53,14 @@ namespace LRT14
             log.Init();
             log.Text = "Log";
 
-            LogControl logControl = new LogControl(manager, "log", "LRT14.AerialAssist.LOG", contentLibrary);
+            RobotLog logControl = new RobotLog(manager, "log", "LRT14.AerialAssist.LOG", contentLibrary);
             logControl.Width = log.Width;
             logControl.Height = log.Height;
             logControl.Left = 0;
             logControl.Top = 0;
             logControl.Parent = log;
-            logControl.SetConsoleDimensions();
             logControl.SubscribeToPacket((byte)MessageType.LOG);
+            logControl.Init();
         }
 
         private void setupIngame(Manager manager, ContentLibrary contentLibrary, TabControl root)
@@ -187,6 +188,23 @@ namespace LRT14
 
             graphTab.Add(graph);
 
+        }
+
+        private void setupPlayground(Manager manager, ContentLibrary contentLibrary, TabControl root)
+        {
+            TabPage playgroundTab = root.AddPageBeforeEnd();
+            playgroundTab.Text = "Playground";
+            playgroundTab.Init();
+
+            ListView listView = new ListView(manager, new string[] { "Tag", "Time", "Message" }, new float[] { 0.1f, 0.1f, 0.8f});
+            listView.Left = 0;
+            listView.Top = 0;
+            listView.Width = playgroundTab.ClientWidth;
+            listView.Height = playgroundTab.ClientHeight;
+            listView.Init();
+            listView.Parent = playgroundTab;
+
+            listView.Items.Add(new string[] { "ERROR", "1.35", "An error occurred."});
         }
     }
 }

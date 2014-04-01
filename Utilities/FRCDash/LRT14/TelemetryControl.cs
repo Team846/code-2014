@@ -85,7 +85,7 @@ namespace LRT14
             public void setData(string val, float time)
             {
                 _data = val;
-                _values.Add(time, val);
+                _values[time] = val;
             }
 
             public string Label
@@ -338,7 +338,7 @@ namespace LRT14
                 _idTextbox[id].Text = data;
             }
             
-            _buffer.Add(totalTime, new Dictionary<short, DataField>(_idData));
+            _buffer[totalTime] = new Dictionary<short, DataField>(_idData);
         }
 
         public override void UpdateControl(GameTime gameTime)
