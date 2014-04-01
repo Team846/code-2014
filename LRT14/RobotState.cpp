@@ -1,4 +1,6 @@
 #include "RobotState.h"
+#include "Communication/Dashboard2.h"
+#include "Communication/DashboardTelemetryID.h"
 
 RobotState *RobotState::m_instance = NULL;
 
@@ -64,24 +66,31 @@ double RobotState::LastCycleTime()
 
 void RobotState::Update()
 {
+	std::string gameModeStr = "???";
+	
 	m_lastGameMode = m_gameMode;
 	if (RobotBase::getInstance().IsDisabled())
 	{
+		gameModeStr = "DISABLED";
 		m_gameMode = GameState::DISABLED;
 		m_matchTimer.Stop();
 		m_matchTimer.Reset();
 	}
 	else if (RobotBase::getInstance().IsAutonomous())
 	{
+		gameModeStr = "AUTONOMOUS";
 		m_gameMode = GameState::AUTONOMOUS;
 		m_matchTimer.Start();
 	}
 	else if (RobotBase::getInstance().IsOperatorControl())
 	{
+		gameModeStr = "TELEOP";
 		m_gameMode = GameState::TELEOPERATED;
 		m_matchTimer.Start();
 	}
 	m_fms = DriverStation::GetInstance()->IsFMSAttached();
 	m_lastTime = m_currentTime;
 	m_currentTime = Timer::GetFPGATimestamp();
+	
+	Dashboard2::SetOrAddTelemetryData("Game State", (INT16)DashboardTelemetryID::GAME_STATE, DashboardTelemetryType::STRING, gameModeStr);
 }

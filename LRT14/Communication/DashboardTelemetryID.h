@@ -21,7 +21,8 @@ namespace DashboardTelemetryID
         DRIVETRAIN_INPUTS = 0x0D,
         LAUNCHER_ANGLE_INPUT = 0x0E,
         LAUNCHER_LOADER_INPUT = 0x0F,
-        PRESSURE_PLATE_INPUT = 0x10
+        PRESSURE_PLATE_INPUT = 0x10,
+        GAME_STATE = 0x11,
         
         // 28,000+ reserved for sensors
 	};

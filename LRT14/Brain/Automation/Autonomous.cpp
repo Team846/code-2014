@@ -267,7 +267,8 @@ void Autonomous::LoadRoutine(std::string path)
 			{
 				if(arglist.size() == 0)
 					current = new HotGoalWait();
-				
+				else if(arglist.size() == 1)
+					current = new HotGoalWait(lexical_cast<double>(arglist[0]));
 				else
 					failed = true;
 			}

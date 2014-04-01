@@ -24,6 +24,8 @@ private:
 	} DMessage;
 	
 public:
+	static void Create();
+	
 	static void Close();
 	
 	/*!
