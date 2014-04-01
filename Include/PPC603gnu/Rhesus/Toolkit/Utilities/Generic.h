@@ -27,6 +27,8 @@ namespace Utilities
 			virtual ~placeholder() {}
 			
 			virtual const std::type_info& type() const = 0;
+		
+			virtual placeholder* clone() const = 0;
 		};
 		
 		template<typename T>
@@ -43,6 +45,11 @@ namespace Utilities
 			{
 				return typeid(T);
 			}
+			
+			virtual placeholder* clone() const
+			{
+				return new holder(val);
+			}
 		};
 		
 		placeholder* m_storedValue;
@@ -55,7 +62,8 @@ namespace Utilities
 		}
 		
 		Generic(const Generic& other)
-			: m_storedValue(other.m_storedValue ? other.m_storedValue : NULL)
+			: m_storedValue(other.m_storedValue ? other.m_storedValue->clone()
+					: NULL)
 		{
 			
 		}
@@ -70,6 +78,12 @@ namespace Utilities
 		{
 			R_DELETE(m_storedValue);
 		}
+
+		Generic& swap(Generic& rhs)
+		{
+			std::swap(m_storedValue, rhs.m_storedValue);
+			return *this;
+		}
 		
 		/*!
 		 * @return whether or not the object holds a value
@@ -82,15 +96,14 @@ namespace Utilities
 		template<typename T>
 		Generic& operator=(const T& rhs)
 		{
-			m_storedValue = new holder<T>(rhs);
+			Generic(rhs).swap(*this);
 			
 			return *this;
 		}
 		
 		Generic& operator=(Generic rhs)
 		{
-			m_storedValue = rhs.m_storedValue;
-			rhs.m_storedValue = NULL;
+			Generic(rhs).swap(*this);
 			
 			return *this;
 		}
