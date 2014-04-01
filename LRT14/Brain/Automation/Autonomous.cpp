@@ -21,6 +21,7 @@ using namespace Rhesus::Toolkit::Utilities;
 #include "Repeating.h"
 #include "Parallel.h"
 #include "FaceHotGoal.h"
+#include "HotGoalWait.h"
 #include "JitterTurn.h"
 
 Autonomous::Autonomous() :
@@ -261,6 +262,14 @@ void Autonomous::LoadRoutine(std::string path)
 			{
 				FaceHotGoal::Reset();
 				BufferedConsole::Printfln("Resetting FaceHotGoal...");
+			}
+			else if(command == "wait_hot_goal")
+			{
+				if(arglist.size() == 0)
+					current = new HotGoalWait();
+				
+				else
+					failed = true;
 			}
 			else if(command == "jitter_turn")
 			{
