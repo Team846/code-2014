@@ -1,5 +1,7 @@
 #ifdef UNIT_TEST
 
+#ifdef TEST_TASKS
+
 #include <WPILib.h>
 #include <sysLib.h>
 
@@ -271,5 +273,7 @@ extern "C"
 		return 0;
 	}
 }
+
+#endif
 
 #endif
