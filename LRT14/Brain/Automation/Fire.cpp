@@ -1,5 +1,6 @@
 #include "Fire.h"
 #include "../../Config/ConfigPortMappings.h"
+#include "../../DriverStation/LRTDriverStation.h"
 
 Fire::Fire(bool overrideSensor) :
 	Automation("Fire"),
@@ -9,6 +10,7 @@ Fire::Fire(bool overrideSensor) :
 	m_collectorArmData = CollectorArmData::Get();
 	m_pressurePlate = PressurePlateData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
+//	m_proximity = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/BALL_LAUNCHER_PROXIMITY"));
 	m_hasBall = false;
 	m_firing = false;
 	m_override = overrideSensor;
@@ -45,7 +47,7 @@ bool Fire::Run()
 	else
 		m_loaded = true;
 	
-	if (m_proximity->Get() == 0 && !m_override && !m_firing)
+	if (/*m_proximity->GetAverageValue() >= m_detection*/m_proximity->Get() == 0 && !m_override && !m_firing && !LRTDriverStation::Instance()->GetOperatorStick()->IsButtonDown(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE))
 		return false;
 	
 	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT || m_collectorDownTimer.Get() >= m_timeout)
@@ -81,4 +83,5 @@ void Fire::Configure()
 {
 	m_timeout = GetConfig("timeout", 2.0);
 	m_fireTime = GetConfig("fire_time", 2.0);
+	m_detection = GetConfig("detection_threshold", 0);
 }

@@ -29,6 +29,7 @@ const uint32_t PASS = 1;
 const uint32_t LOAD_LAUNCHER = 2;
 const uint32_t SHORT_SHOT = 3;
 const uint32_t LONG_SHOT = 4;
+const uint32_t OVERRIDE_FIRE = 5;
 const uint32_t PURGE_LAUNCHER = 6;
 const uint32_t HUMAN_LOAD = 7;
 const uint32_t UNLOAD_LAUNCHER = 7;
@@ -49,6 +50,7 @@ const uint32_t COLLECTOR_ARM = 3;
 const uint32_t LAUNCHER_LOADER = 4;
 const uint32_t LAUNCHER_ANGLE = 5;
 const uint32_t PRESSURE_PLATE = 6;
+const uint32_t NETWORK = 7;
 const uint32_t COMPRESSOR = 8;
 }
 namespace AnalogIns

@@ -29,8 +29,6 @@ namespace LRT14
 
         public void SetupLayout(Manager manager, ContentLibrary contentLibrary)
         {
-            PersistenceManager.Persistence = new DataPersistence();
-
             // Get our root control
             TabControl tabControl = (TabControl)manager.GetControl("DB_2.0_TAB_ROOT");
 
@@ -150,7 +148,7 @@ namespace LRT14
             telemetry.SideMargin = 10;
             telemetry.TextBoxHeight = 10;
             telemetry.TextBoxWidth = 20;
-            telemetry.LabelInfoDistance = 50;
+            telemetry.LabelInfoDistance = 100;
             //telemetry.Labels = new String[] {"label1", "label2", "label3", "label4", "label5"};
             telemetry.Init();
             telemetry.SubscribeToPacket((byte)MessageType.TELEMETRY);

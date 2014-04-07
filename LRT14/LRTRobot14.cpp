@@ -144,12 +144,14 @@ void LRTRobot14::RobotInit()
 	
 	Dashboard2::Create();
 	
+	Dashboard2::InitializeTelemetry();
+	
 	Dashboard2::LogToConsole(true);
 }
 
 static int TimeoutCallback(...)
 {
-	Dashboard2::LogW("Main loop exeuction time > 20 ms");
+	Dashboard2::LogW("Main loop execution time > 20 ms");
 	
 	BufferedConsole::Printfln("======================================");
 	BufferedConsole::Printfln("PROFILED TIMES (over 20ms):");
@@ -252,8 +254,11 @@ void LRTRobot14::Tick()
 	// Utilities
 	LCD::Instance()->RunOneCycle();
 //	Logger::Instance()->Run();
-//	LiveNetworkSender::Instance()->Run();
-//	Dashboard2::Tick();
+	if (DriverStation::GetInstance()->GetDigitalIn(DriverStationConfig::DigitalIns::NETWORK))
+	{
+		LiveNetworkSender::Instance()->Run();
+		Dashboard2::Tick();
+	}
 	
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();

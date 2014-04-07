@@ -33,7 +33,20 @@ namespace Dashboard.Library.Persistence
 
         public void Flush(string dirname)
         {
+            Flush(dirname, false);
+        }
+
+        public void Flush(string dirname, bool clear)
+        {
             // null
+
+            if (clear)
+            {
+                foreach (KeyValuePair<string, IPersistable> kvp in _fields)
+                {
+                    kvp.Value.Clear();
+                }
+            }
         }
 
         public void Read(string dirname)

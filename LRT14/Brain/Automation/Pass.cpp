@@ -45,6 +45,7 @@ bool Pass::Run()
 	{
 		m_restSpeed += -driveSpeed;
 	}
+	printf("%f\n", 1 / m_gearTooth->GetPeriod());
 	if (m_gearTooth->Get() - m_startTicks >= m_ballReleaseDistance)
 	{
 		m_rollersData->SetSpeed(m_restSpeed);
@@ -53,11 +54,11 @@ bool Pass::Run()
 		{
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 			m_pressurePlate->SetPressure(true);
-		}
-		if (m_collectorArm->GetCurrentPosition() == CollectorArmData::STOWED)
-		{
-			m_rollersData->SetRunning(false);
-			return true;
+			if (m_collectorArm->GetCurrentPosition() == CollectorArmData::STOWED)
+			{
+				m_rollersData->SetRunning(false);
+				return true;
+			}
 		}
 	}
 	else

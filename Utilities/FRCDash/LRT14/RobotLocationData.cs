@@ -22,7 +22,7 @@ namespace LRT14
             _currStep = _data.First;
         }
 
-        public void ClearData()
+        public void Clear()
         {
             _data.Clear();
             _currStep = _data.First;

@@ -30,6 +30,7 @@ private:
 	LauncherLoaderData* m_loaderData;
 	PressurePlateData* m_pressurePlate;
 	DigitalInput* m_launcherProximity;
+//	AnalogChannel* m_launcherProximity;
 	DigitalInput* m_bumperProximity;
 	float m_loadSpeed;
 	bool m_pastIntermediate;

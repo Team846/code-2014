@@ -14,6 +14,7 @@ using namespace Rhesus::Toolkit::Utilities;
 #include "Turn.h"
 #include "Arc.h"
 #include "Collect.h"
+#include "CollectorMove.h"
 #include "LoadLauncher.h"
 #include "Fire.h"
 #include "Dribble.h"
@@ -28,6 +29,7 @@ Autonomous::Autonomous() :
 	Sequential("Autonomous")
 {
 	m_autonomousStartTime = 0.0;
+	m_angleData = LauncherAngleData::Get();
 }
 
 Autonomous::~Autonomous()
@@ -52,6 +54,8 @@ bool Autonomous::Start()
 	
 	LoadRoutine(RobotConfig::ROUTINE_FILE_PATH.substr(0, RobotConfig::ROUTINE_FILE_PATH.find('.')) + lexical_cast(autonRoutine) + RobotConfig::ROUTINE_FILE_PATH.substr(RobotConfig::ROUTINE_FILE_PATH.find('.'), RobotConfig::ROUTINE_FILE_PATH.length() - RobotConfig::ROUTINE_FILE_PATH.find('.')));
 	ConfigRuntime::ConfigureAll();
+
+	m_angleData->SetAngle(LauncherAngleData::LONG);
 	
 	return Sequential::Start();
 }
@@ -237,6 +241,13 @@ void Autonomous::LoadRoutine(std::string path)
 					((Parallel*)current)->AddAutomation(dribble);
 					((Parallel*)current)->AddAutomation(new Dribble());
 				}
+			}
+			else if (command == "collect_move")
+			{
+				if (arglist.size() == 1)
+					current = new CollectorMove(lexical_cast<bool>(arglist[0]));
+				else
+					failed = true;
 			}
 			else if (command == "wait")
 			{
