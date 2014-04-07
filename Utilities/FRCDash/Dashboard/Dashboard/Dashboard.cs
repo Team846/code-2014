@@ -95,7 +95,7 @@ namespace Dashboard
             //debugButton.Items.Add(debug_bstep);
 
             MenuItem output = new MenuItem("Network");
-            MenuItem disconnect = new MenuItem("Reconnect");
+            MenuItem disconnect = new MenuItem("Disconnect");
             disconnect.Click += new EventHandler(disconnect_click);
             output.Items.Add(disconnect);
 
@@ -202,7 +202,7 @@ namespace Dashboard
 
         void debug_flushPersistence_Click(object sender, EventArgs e)
         {
-            PersistenceManager.Persistence.Flush("dashboard_" + System.DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss.ffff") + ".sdb");
+            PersistenceManager.Flush("dashboard_" + System.DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss.ffff") + ".sdb");
         }
 
         void file_loadlayoutButton_Click(object sender, EventArgs e)
@@ -266,6 +266,8 @@ namespace Dashboard
             NetworkManager.UpdateNetwork();
 
             _ncp.Update();
+
+            PersistenceManager.Update();
 
             base.Update(gameTime);
         }

@@ -13,6 +13,7 @@ namespace Dashboard.Library.Persistence
             where T : IPersistable;
 
         void Flush(string dirname);
+        void Flush(string dirname, bool clear);
         void Read(string dirname);
     }
 }

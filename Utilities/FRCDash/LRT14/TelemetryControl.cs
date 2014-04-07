@@ -112,6 +112,11 @@ namespace LRT14
                 set { _graph = value; }
             }
 
+            public void Clear()
+            {
+                _values.Clear();
+            }
+
             public void Serialize(Stream stream)
             {
                 throw new NotImplementedException();
@@ -172,12 +177,18 @@ namespace LRT14
             Send(init, NetChannel.NET_UNRELIABLE_SEQUENCED, 1);
         }
 
+        public void Clear()
+        {
+            _buffer.Clear();
+        }
+        
         public void display()
         {
             int i = 0;
             foreach(KeyValuePair<short, DataField> kvp in _idData)
             {
                 Label label = new Label(Manager);
+                label.Width = LabelInfoDistance;
                 label.Init();
                 label.Text = kvp.Value.Label;
                 label.Left = i % 2 == 0 ?_leftPadding : _leftPadding + this.ClientWidth / 2;
@@ -261,9 +272,9 @@ namespace LRT14
                 string label = nb.ReadString();
                 short id = nb.ReadInt16();
                 byte datatype = nb.ReadByte();
-                bool graph = datatype == (byte)FieldDatatype.STRING ? false : nb.ReadBool();
+                //bool graph = datatype == (byte)FieldDatatype.STRING ? false : nb.ReadBool();
 
-                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label, graph, graph ? new Graph(Manager, label, label + id, this.Content) : null));
+                _idData.Add(id, new DataField("", (FieldDatatype)datatype, label, false, false ? new Graph(Manager, label, label + id, this.Content) : null));
 
                 PersistenceManager.Persistence.Set(_idData[id].Label, _idData[id]);
             }

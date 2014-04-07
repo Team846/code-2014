@@ -41,6 +41,11 @@ namespace LRT14
             _msgs = new Dictionary<string, KeyValuePair<byte, Dictionary<float, string>>>();
         }
 
+        public void Clear()
+        {
+            _msgs.Clear();
+        }
+
         public void SetConsoleDimensions()
         {
             _console.Top = _console.Left = 0;

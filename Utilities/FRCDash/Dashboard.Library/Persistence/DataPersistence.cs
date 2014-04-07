@@ -38,6 +38,11 @@ namespace Dashboard.Library.Persistence
 
         public void Flush(string dirname)
         {
+            Flush(dirname, false);
+        }
+
+        public void Flush(string dirname, bool clear)
+        {
             if (!Directory.Exists(dirname))
                 Directory.CreateDirectory(dirname);
 
@@ -46,7 +51,7 @@ namespace Dashboard.Library.Persistence
 
             foreach (KeyValuePair<string, IPersistable> kvp in _fields)
             {
-                FileStream file = File.Create(Path.Combine(dirname, kvp.Key + ".fdb"));
+                FileStream file = File.Create(Path.Combine(dirname, kvp.Key + ".csv"));
 
                 sw.WriteLine(kvp.Key + "," + kvp.Value.GetType());    
 
@@ -55,6 +60,9 @@ namespace Dashboard.Library.Persistence
                 f.WriteLine(kvp.Value.CSVOut());
 
                 f.Close();
+
+                if (clear)
+                    kvp.Value.Clear();
             }
 
             sw.Close();

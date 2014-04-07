@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string>
 
+#include "../../ComponentData/LauncherAngleData.h"
+
 /*!
  * @brief Performs the autonomous routine.
  */
@@ -26,6 +28,8 @@ private:
     void LoadRoutine(std::string path);
     
 	double m_autonomousStartTime;
+	
+	LauncherAngleData* m_angleData;
 };
 
 #endif

@@ -14,7 +14,7 @@
 class Fire : public Automation, public Configurable
 {
 public:
-	Fire(bool overrideSensor = false);
+	Fire(bool overrideSensor = true);
 
 	bool Start();
 	bool Run();
@@ -28,6 +28,7 @@ private:
 	CollectorArmData* m_collectorArmData;
 	PressurePlateData* m_pressurePlate;
 	DigitalInput* m_proximity;
+//	AnalogChannel* m_proximity;
 	Timer m_collectorDownTimer;
 	Timer m_fireTimer;
 	float m_timeout;
@@ -36,6 +37,7 @@ private:
 	bool m_firing;
 	bool m_override;
 	bool m_loaded;
+	int m_detection;
 };
 
 #endif

@@ -13,6 +13,8 @@ namespace Dashboard.Library.Persistence
 
         string CSVOut();
 
+        void Clear();
+
         //for playback
         //void StepForward();
         //void StepBackward();

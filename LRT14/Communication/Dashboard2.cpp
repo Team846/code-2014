@@ -33,7 +33,7 @@ void Dashboard2::InitializeTelemetry()
 	AddTelemetryData("Drive Left", (INT16)DashboardTelemetryID::DRIVETRAIN_LEFT_OUTPUT, DashboardTelemetryType::FLOAT);
 	AddTelemetryData("Drive Right", (INT16)DashboardTelemetryID::DRIVETRAIN_RIGHT_OUTPUT, DashboardTelemetryType::FLOAT);
 	AddTelemetryData("Coll. Arm Desired Pos", (INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, DashboardTelemetryType::STRING);
-	AddTelemetryData("Coll. Arm Current Pos", (INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, DashboardTelemetryType::STRING);
+	//AddTelemetryData("Coll. Arm Current Pos", (INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, DashboardTelemetryType::STRING);
 	AddTelemetryData("Launcher Angle Pneumatics", (INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, DashboardTelemetryType::STRING);
 	AddTelemetryData("Launcher Angle", (INT16)DashboardTelemetryID::LAUNCHER_ANGLE, DashboardTelemetryType::STRING);
 	AddTelemetryData("Launcher Loader Safety", (INT16)DashboardTelemetryID::LAUNCHER_LOADER_SAFETY, DashboardTelemetryType::STRING);
@@ -73,7 +73,9 @@ void Dashboard2::Tick()
 					reply.Write(info.label);
 					reply.Write((INT16)tId);
 					reply.Write((UINT8)info.datatype);
-					reply.Write(false);
+					//reply.Write(false);
+					
+					std::printf("label: %s\n", info.label.c_str());
 				}
 				
 				EnqueueRawMessage(reply, NetChannel::NET_UNRELIABLE_SEQUENCED, NetChannelDefinition::UNRELIABLE_SEQUENCED::TELEM_INIT);
