@@ -26,6 +26,11 @@ using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Tasks;
 using namespace Rhesus::Toolkit::IO;
 
+void TestExecutionFlow()
+{
+	
+}
+
 extern "C"
 {
 	INT32 FRC_UserProgram_StartupLibraryInit()
@@ -68,7 +73,7 @@ extern "C"
 		return 0;
 	}
 }
-
 #endif
+
 
 #endif

@@ -5,7 +5,6 @@
         <mapAttribute>
             <listAttribute key="BLD::Info|Definess|PPC603gnu">
                 <stringAttribute value="-DUSE_IOLIB"/>
-                <stringAttribute value="-DUNIT_TEST"/>
                 <stringAttribute value="-DRHESUS_NO_THROW"/>
                 <stringAttribute value="-DPNEUMATICS"/>
             </listAttribute>

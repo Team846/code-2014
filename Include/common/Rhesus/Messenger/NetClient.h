@@ -19,6 +19,11 @@ namespace Messenger
 		NetClient();
 		
 		void Connect(sockaddr_in ep);
+		
+		void Disconnect();
+		
+		void Send(NetBuffer* buff, NetChannel::Enum method, int channel);
+		
 	private:
 		void CheckMessages();
 		
