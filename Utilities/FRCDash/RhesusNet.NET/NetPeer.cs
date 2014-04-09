@@ -183,7 +183,7 @@ namespace RhesusNet.NET
                                         if (_connType == NetConnectionType.CLIENT)
                                         {
                                             Console.WriteLine("Someone Disconnecting from Client?"); //TO-DO: add better way of handling server shutdown
-                                            return;
+                                            break;
                                         }
 
                                         NetConnection dcNetChannel = new NetConnection(from, this);
@@ -203,7 +203,7 @@ namespace RhesusNet.NET
                                         if (_connType == NetConnectionType.CLIENT)
                                         {
                                             Console.WriteLine("Something really went wrong here"); //A client should never be able recieve a DISCONNECT_CONFIRM packet
-                                            return;
+                                            break;
                                         }
                                         break;
 

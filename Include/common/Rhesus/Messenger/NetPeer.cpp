@@ -213,10 +213,43 @@ void NetPeer::Update()
 					confirm.Write((UINT8)LibraryMessageType::CONNECTION_CONFIRM);
 					
 					SendRaw(&confirm, nc);
+					
+					delete nc; nc = NULL;
 				}
 					break;
 				case LibraryMessageType::CONNECTION_CONFIRM:
 					_connected = true;
+					break;
+				case LibraryMessageType::DISCONNECT_REQUEST:
+				{
+					if(m_connType == NetConnectionType::CLIENT)
+					{
+						continue;
+					}
+					
+					NetConnection dcNetChannel(from, this);
+					
+					NetBuffer dcConfirm;
+					
+					dcConfirm.Write((UINT8)LibraryMessageType::DISCONNECT_SERVERCONFIRM);
+					
+					SendRaw(&dcConfirm, &dcNetChannel);
+				}
+					break;
+				case LibraryMessageType::DISCONNECT_SERVERCONFIRM:
+					if(m_connType == NetConnectionType::SERVER)
+					{
+						// TODO: implement client cleanup functions on disconnect
+					}
+					else if(m_connType == NetConnectionType::CLIENT)
+					{
+						// something went wrong...
+						break;
+					}
+					
+					break;
+				case LibraryMessageType::DISCONNECT_CLIENTCONFIRM:
+					// Server Cleanup functions
 					break;
 			}
 		}
