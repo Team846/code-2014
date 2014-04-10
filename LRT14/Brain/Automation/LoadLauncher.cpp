@@ -64,12 +64,12 @@ bool LoadLauncher::Run()
 			m_timer.Start();
 			m_timerStarted = true;
 		}
-		printf("%d %f\n", m_launcherProximity->Get(), m_timer.Get());
 		if (m_launcherProximity->Get() == 1 || m_timer.Get() >= m_ballSettleTime)
 		{
 			m_loaderData->SetLoad(false);
 			m_collectorRollers->SetRunning(false);
 			m_pressurePlate->SetPressure(true);
+			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 			return true;
 		}
 	}
