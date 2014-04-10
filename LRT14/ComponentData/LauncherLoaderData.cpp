@@ -10,6 +10,7 @@ LauncherLoaderData::LauncherLoaderData() :
 	m_fire = false;
 	m_purge = false;
 	m_load = false;
+	m_trigger = false;
 }
 
 LauncherLoaderData* LauncherLoaderData::Get()
@@ -65,6 +66,17 @@ void LauncherLoaderData::SetLoad(bool load)
 bool LauncherLoaderData::GetLoad()
 {
 	return m_load;
+}
+void LauncherLoaderData::SetHairTrigger(bool trigger)
+{
+	if (!m_trigger && trigger)
+		m_complete = false;
+	m_trigger = trigger;
+}
+
+bool LauncherLoaderData::GetHairTrigger()
+{
+	return m_trigger;
 }
 
 bool LauncherLoaderData::IsLoadingComplete()

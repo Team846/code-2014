@@ -79,7 +79,22 @@ void LauncherLoader::UpdateEnabled()
 	}
 	else if (m_loaderData->GetLoad())
 	{
-		if (m_lastRawSensorAngle < m_loadSetpoint || m_lastRawSensorAngle > m_loadSetpoint + 10)
+		if (m_lastRawSensorAngle < m_loadSetpoint)
+		{
+			m_motorA->SetDutyCycle(m_maxSpeed);
+			m_motorB->SetDutyCycle(m_maxSpeed);
+			m_loaderData->SetLoadingComplete(false);
+		}
+		else
+		{
+			m_motorA->SetDutyCycle(0.0);
+			m_motorB->SetDutyCycle(0.0);
+			m_loaderData->SetLoadingComplete(true);
+		}
+	}
+	else if (m_loaderData->GetHairTrigger())
+	{
+		if (m_lastRawSensorAngle < m_hairTriggerSetpoint)
 		{
 			m_motorA->SetDutyCycle(m_maxSpeed);
 			m_motorB->SetDutyCycle(m_maxSpeed);
@@ -111,6 +126,12 @@ void LauncherLoader::UpdateEnabled()
 	{
 		m_motorA->SetDutyCycle(m_maxSpeed);
 		m_motorB->SetDutyCycle(m_maxSpeed);
+		m_loaderData->SetLoadingComplete(false);
+	}
+	else if (m_lastRawSensorAngle > m_loadSetpoint + 10)
+	{
+		m_motorA->SetDutyCycle(-m_maxSpeed);
+		m_motorB->SetDutyCycle(-m_maxSpeed);
 		m_loaderData->SetLoadingComplete(false);
 	}
 	else
@@ -156,6 +177,7 @@ void LauncherLoader::Configure()
 	m_unloadSetpoint = GetConfig("unload_setpoint", 5.0);
 	m_intermediateSetpoint = GetConfig("intermediate_setpoint", 180.0);
 	m_loadSetpoint = GetConfig("load_setpoint", 350.0);
+	m_hairTriggerSetpoint = GetConfig("hair_trigger_setpoint", 360.0);
 	m_firePoint = GetConfig("fire_point", 0.0);
 	m_gain = GetConfig("gain", 1.0);
 	m_wrapThreshold = GetConfig("wrap_threshold", 20.0);

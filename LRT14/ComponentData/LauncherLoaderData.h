@@ -18,6 +18,8 @@ public:
 	bool GetPurge();
 	void SetLoad(bool load);
 	bool GetLoad();
+	void SetHairTrigger(bool trigger);
+	bool GetHairTrigger();
 
 	bool IsLoadingComplete();
 	float GetSensorValue();
@@ -34,6 +36,7 @@ private:
 	bool m_fire;
 	bool m_purge;
 	bool m_load;
+	bool m_trigger;
 	bool m_complete;
 	float m_value;
 	bool m_ballDetected;

@@ -39,6 +39,7 @@ private:
 	float m_unloadSetpoint;
 	float m_intermediateSetpoint;
 	float m_loadSetpoint;
+	float m_hairTriggerSetpoint;
 	float m_firePoint;
 	float m_gain;
 	float m_wrapThreshold;
