@@ -19,8 +19,11 @@ NetPeer::NetPeer(char * ip, int port, NetConnectionType::Enum connType)
 //		m_reliableOrdered[i] = new MessageAwaitingACK[MAX_MESSAGE_TRACK];
 //	}
 	
-	this->m_lastUnreliableSequenced = new int[MAX_MESSAGE_TRACK];
-	this->m_lastReliableSequenced 	= new int[MAX_MESSAGE_TRACK];
+	this->m_lastUnreliableSequenced = new int[MSG_CHANNELS];
+	this->m_lastReliableSequenced 	= new int[MSG_CHANNELS];
+	
+	memset(m_lastUnreliableSequenced, 0, MSG_CHANNELS);
+	memset(m_lastReliableSequenced, 0, MSG_CHANNELS);
 	
 	this->m_currentReliableUnorderedCounter = 0;
 	this->m_currentReliableSequencedCounter = 0;
@@ -210,10 +213,43 @@ void NetPeer::Update()
 					confirm.Write((UINT8)LibraryMessageType::CONNECTION_CONFIRM);
 					
 					SendRaw(&confirm, nc);
+					
+					delete nc; nc = NULL;
 				}
 					break;
 				case LibraryMessageType::CONNECTION_CONFIRM:
 					_connected = true;
+					break;
+				case LibraryMessageType::DISCONNECT_REQUEST:
+				{
+					if(m_connType == NetConnectionType::CLIENT)
+					{
+						continue;
+					}
+					
+					NetConnection dcNetChannel(from, this);
+					
+					NetBuffer dcConfirm;
+					
+					dcConfirm.Write((UINT8)LibraryMessageType::DISCONNECT_SERVERCONFIRM);
+					
+					SendRaw(&dcConfirm, &dcNetChannel);
+				}
+					break;
+				case LibraryMessageType::DISCONNECT_SERVERCONFIRM:
+					if(m_connType == NetConnectionType::SERVER)
+					{
+						// TODO: implement client cleanup functions on disconnect
+					}
+					else if(m_connType == NetConnectionType::CLIENT)
+					{
+						// something went wrong...
+						break;
+					}
+					
+					break;
+				case LibraryMessageType::DISCONNECT_CLIENTCONFIRM:
+					// Server Cleanup functions
 					break;
 			}
 		}
@@ -262,6 +298,8 @@ void NetPeer::Update()
 			case NetChannel::NET_UNRELIABLE_SEQUENCED:
 				lastPacket = m_lastUnreliableSequenced[channel];
 				
+				//std::printf("lastPacket: %d, id: %d\n", lastPacket, id);
+				
 				if(id <= lastPacket) // TODO: rollover will break this
 					receive = false;
 				else
@@ -287,6 +325,7 @@ void NetPeer::Update()
 				// synchronize on the semaphore so that we make sure we're safely accessing the internal message queue
 				InternalPlatformQueueSynchronizationEnter();
 				m_receivedMessages.push(buff);
+				//std::printf("pushing to queue\n");
 				InternalPlatformQueueSynchronizationLeave(); // release the lock on the queue
 			}
 			break;
@@ -704,13 +743,14 @@ void NetPeer::SendRaw(NetBuffer* nb, NetConnection* nc)
 NetBuffer* NetPeer::ReadMessage()
 {
 	NetBuffer* buff;
-	
+
 	InternalPlatformQueueSynchronizationEnter();
-	
+
 	if(m_receivedMessages.size() > 0)
 	{
 		buff = m_receivedMessages.front();
 		m_receivedMessages.pop();
+		//std::printf("NP: message!\n");
 	}
 	else
 	{
