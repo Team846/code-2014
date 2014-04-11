@@ -28,6 +28,25 @@ void NetClient::Connect(sockaddr_in ep)
 	SendRaw(&netBuffer, _server);
 }
 
+void NetClient::Disconnect()
+{
+	if(!_connected) return;
+	
+	NetBuffer netBuffer;
+	
+	netBuffer.Write((UINT8)LIBRARY_DATA);
+	netBuffer.Write((UINT8)LibraryMessageType::DISCONNECT_REQUEST);
+
+	SendRaw(&netBuffer, _server);
+	
+	_connected = false;
+}
+
+void NetClient::Send(NetBuffer* buff, NetChannel::Enum method, int channel)
+{
+	NetPeer::Send(buff, _server, method, channel);
+}
+
 void NetClient::CheckMessages()
 {
 	NetPeer::CheckMessages();

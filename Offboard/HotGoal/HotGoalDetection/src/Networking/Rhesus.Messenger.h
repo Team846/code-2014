@@ -8,7 +8,6 @@
 #include "NetConnection.h"
 #include "NetConnectionType.h"
 #include "NetPeer.h"
-#include "NetServer.h"
 #include "NetUtil.h"
 
 #endif

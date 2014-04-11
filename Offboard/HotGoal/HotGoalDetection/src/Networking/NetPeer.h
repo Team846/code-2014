@@ -3,11 +3,12 @@
 
 #include <stdio.h>
 
+#include <arpa/inet.h>
+
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <algorithm>
 
 #include <iostream>
@@ -45,6 +46,7 @@
 
 #define MAX_RECEIVE_BUFFER_SIZE 1024
 #define MAX_MESSAGE_TRACK 256 // 256 gives us ample time to wait for an ACK. ~ 5 messages per frame * 50 frames per second gives us 6 extra packets.
+#define MSG_CHANNELS 16
 
 namespace Rhesus
 {
