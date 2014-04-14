@@ -23,7 +23,7 @@ HotGoal::HotGoal()
 	//m_client
 #endif
 
-	m_cap = new VideoCapture(1); //will log init errors, its an opencv bug
+	m_cap = new VideoCapture(0); //will log init errors, its an opencv bug
 
 	if(!m_cap->isOpened())
 	{
@@ -67,7 +67,7 @@ void HotGoal::Tick()
 
 	//grab frame, perform in-place colorspace conversion, and split channels
 	(*m_cap) >> hsvFrame;
-	imshow("Full Color", hsvFrame);
+	//imshow("Full Color", hsvFrame);
 	cvtColor(hsvFrame, hsvFrame, CV_RGB2HSV);
 	cv::split(hsvFrame, hsvChannels);
 
