@@ -10,6 +10,7 @@
 #include "ComponentData/ComponentData.h"
 #include "Sensors/RobotLocation.h"
 #include "Sensors/SensorFactory.h"
+#include "Sensors/CheesyVisionServer.h"
 #include "Maintenance.h"
 
 #include "Config/ConfigRuntime.h"
@@ -27,7 +28,7 @@
 #include <Rhesus.Toolkit.IO.h>
 #include <Rhesus.Toolkit.Tasks.h>
 
-#include "Rhesus/FORCE_COMPILE_ALL.h"
+//#include "Rhesus/FORCE_COMPILE_ALL.h"
 
 #include <Rhesus/Toolkit/Scripting/RHESUS_internal_lib__/RHESUS_lua__/lua/lua.hpp>
 #include <Rhesus/Toolkit/Scripting/RHESUS_internal_lib__/RHESUS_lua__/LuaBridge/LuaBridge.h>
@@ -139,6 +140,9 @@ void ScrubMonkey::RobotInit()
 	// Initialize the LiveNetworkSender
 	BufferedConsole::Printfln("Initializing LiveNetworkSender...");
 	LiveNetworkSender::Initialize();
+	
+	//Init Cheesy Vision
+	CheesyVisionServer::Initialize();
 	
 	// Apply runtime configuration
 	ConfigRuntime::ConfigureAll();
