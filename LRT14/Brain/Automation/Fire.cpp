@@ -37,7 +37,7 @@ bool Fire::Start()
 bool Fire::Run()
 {
 	m_pressurePlate->SetPressure(false);
-	m_collectorArmData->SetDesiredPosition(CollectorArmData::COLLECT);
+	m_collectorArmData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
 	
 	if (!m_loaderData->IsLoadingComplete() && !m_loaded)
 	{
@@ -50,8 +50,8 @@ bool Fire::Run()
 	if (/*m_proximity->GetAverageValue() >= m_detection*/m_proximity->Get() == 0 && !m_override && !m_firing && !LRTDriverStation::Instance()->GetOperatorStick()->IsButtonDown(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE))
 		return false;
 	
-	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT || m_collectorDownTimer.Get() >= m_timeout)
-	{
+//	if (m_collectorArmData->GetCurrentPosition() == CollectorArmData::COLLECT || m_collectorDownTimer.Get() >= m_timeout)
+//	{
 		m_loaderData->SetFire(true);
 		if (!m_firing)
 		{
@@ -67,7 +67,7 @@ bool Fire::Run()
 			m_pressurePlate->SetPressure(true);
 			return true;
 		}
-	}
+//	}
 	return false;
 }
 

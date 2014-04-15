@@ -81,6 +81,7 @@ void LauncherLoader::UpdateEnabled()
 	{
 		if (m_lastRawSensorAngle < m_loadSetpoint)
 		{
+			BufferedConsole::Printf("Launcher Loader: Loading not at setpoint\n");
 			m_motorA->SetDutyCycle(m_maxSpeed);
 			m_motorB->SetDutyCycle(m_maxSpeed);
 			m_loaderData->SetLoadingComplete(false);

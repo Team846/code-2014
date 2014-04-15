@@ -3,6 +3,7 @@
 #include "../Config/ConfigPortMappings.h"
 #include "../Config/DriverStationConfig.h"
 #include "../Actuators/LRTTalon.h"
+#include "../Actuators/LRTVictor.h"
 #include "../Communication/Dashboard2.h"
 #include "../Communication/DashboardTelemetryID.h"
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
@@ -14,7 +15,7 @@ CollectorRollers::CollectorRollers() :
 	Configurable("CollectorRollers")
 {
 	m_rollersData = CollectorRollersData::Get();
-	m_motor = new LRTTalon(ConfigPortMappings::Get("PWM/COLLECTOR_ROLLERS"), "CollectorRollers");
+	m_motor = new LRTVictor(ConfigPortMappings::Get("PWM/COLLECTOR_ROLLERS"), "CollectorRollers");
 	m_gearTooth = SensorFactory::GetGearTooth(ConfigPortMappings::Get("Digital/COLLECTOR_GEAR_TOOTH"));
 }
 
