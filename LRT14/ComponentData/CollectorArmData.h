@@ -12,7 +12,8 @@ public:
 	enum Position
 	{
 		STOWED,
-		COLLECT
+		COLLECT,
+		INTERMEDIATE
 	};
 	
 	CollectorArmData();

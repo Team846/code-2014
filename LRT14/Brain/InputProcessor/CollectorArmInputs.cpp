@@ -15,12 +15,17 @@ void CollectorArmInputs::Update()
 {
 	std::string telemState = "???";
 	
-	if (m_operator_stick->IsButtonJustPressed(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE))
 	{
 		m_armData->SetDesiredPosition(CollectorArmData::COLLECT);
 		telemState = "PRESSED";
 	}
-	else if (m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
+	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
+	{
+		m_armData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
+		telemState = "PRESSED";
+	}
+	else if (m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN) || m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE))
 	{
 		m_armData->SetDesiredPosition(CollectorArmData::STOWED);
 		telemState = "RELEASED";

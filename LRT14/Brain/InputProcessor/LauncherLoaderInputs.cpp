@@ -17,6 +17,7 @@ void LauncherLoaderInputs::Update()
 {
 	m_loaderData->SetFire(false);
 	m_loaderData->SetLoad(false);
+	m_loaderData->SetHairTrigger(false);
 	
 	std::string state = "???";
 	
@@ -31,6 +32,10 @@ void LauncherLoaderInputs::Update()
 		m_loaderData->SetPurge(false);
 		
 		state = "RELEASED";
+	}
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
+	{
+		m_loaderData->SetHairTrigger(true);
 	}
 //	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::SHORT_SHOT) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::LONG_SHOT))
 //	{

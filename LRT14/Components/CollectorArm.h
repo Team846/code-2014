@@ -30,7 +30,11 @@ public:
 private:
 	CollectorArmData* m_armData;
 	Pneumatics* m_pneumatics;
+	Pneumatics* m_intermediateLock;
 	DigitalInput* m_switch;
+	bool m_goingToIntermediate;
+	bool m_intermediateComplete;
+	CollectorArmData::Position m_intermediateStartingPosition;
 };
 
 #endif

@@ -43,7 +43,6 @@ bool LoadLauncher::Run()
 	}
 	m_pastIntermediate = true;
 	m_loaderData->SetLoad(true);
-	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(m_loadSpeed);
 	m_pressurePlate->SetPressure(false);
@@ -51,10 +50,12 @@ bool LoadLauncher::Run()
 	if (m_bumperProximity->Get() == 0)
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+		m_collectorRollers->SetRunning(false);
 	}
 	else
 	{
 		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
+		m_collectorRollers->SetRunning(true);
 	}
 	if (m_loaderData->IsLoadingComplete())
 	{
