@@ -32,7 +32,7 @@ namespace InterCommunication
 		 * @return a reference to the specified DataUnit
 		 * @param unit the name of the DataUnit to retrieve 
 		 */
-		static DataUnit& Get(std::string unit);
+		static DataUnit* Get(std::string unit);
 		
 		/*!
 		 * sets a specific value within a specified DataUnit

@@ -6,6 +6,8 @@
 #include "../../Control/TrapezoidProfile.h"
 #include "../../Config/Configurable.h"
 
+#include <Rhesus.Toolkit.Scripting.h>
+
 /*!
  * @brief Drives forward or backward a set distance.
  */

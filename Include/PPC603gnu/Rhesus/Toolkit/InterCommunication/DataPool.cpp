@@ -22,19 +22,19 @@ void DataPool::AddUnit(string name)
 	
 }
 
-DataUnit& DataPool::Get(string unit)
+DataUnit* DataPool::Get(string unit)
 {
 	{
 		lock_on l(s_syncObject);
 		
 		if(KeyExists(unit))
-			return s_componentMap[unit];
+			return &(s_componentMap[unit]);
 		else
 		{
 #ifndef RHESUS_NO_THROW
 			throw exception();
 #else
-			return s_componentMap[unit];
+			return NULL;
 #endif
 		}
 	}

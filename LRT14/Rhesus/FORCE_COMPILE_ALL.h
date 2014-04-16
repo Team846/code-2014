@@ -15,5 +15,6 @@
 #include "Toolkit/IO/Rhesus.Toolkit.IO.h"
 #include "Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 #include "Toolkit/Utilities/Rhesus.Toolkit.Utilities.h"
+#include "Toolkit/Scripting/Rhesus.Toolkit.Scripting.h"
 
 #endif

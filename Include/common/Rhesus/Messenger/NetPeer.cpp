@@ -89,7 +89,7 @@ INT32 NetPeer:: InternalPlatformUpdateTaskWrapper(NetPeer* instance)
 
 	while(conn->m_isRunning)
 	{
-		conn->Output();
+		conn->Update();
 		NET_SLEEP(10);
 	}
 

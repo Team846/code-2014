@@ -28,11 +28,13 @@
 #include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.Diagnostics.h>
 #include <Rhesus.Toolkit.IO.h>
+#include <Rhesus.Toolkit.Scripting.h>
 #include <Rhesus.Toolkit.Tasks.h>
 
 using namespace Rhesus::Toolkit;
 using namespace Rhesus::Toolkit::Diagnostics;
 using namespace Rhesus::Toolkit::IO;
+using namespace Rhesus::Toolkit::Scripting;
 
 bool maintenanceMode = false;
 bool showProfiler = false;
