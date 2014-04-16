@@ -37,6 +37,15 @@ bool LoadLauncher::Start()
 
 bool LoadLauncher::Run()
 {
+	if (m_bumperProximity->Get() == 0 && m_launcherProximity->Get() == 0 && !m_ballIn)
+	{
+		m_collectorArm->SetDesiredPosition(CollectorArmData::COLLECT);
+		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
+		m_collectorRollers->SetSpeed(m_loadSpeed);
+		m_collectorRollers->SetRunning(true);
+		return false;
+	}
+	m_ballIn = true;
 	if (!m_loaderData->IsLoadingComplete() && !m_pastIntermediate)
 	{
 		return false;

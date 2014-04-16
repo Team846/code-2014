@@ -33,6 +33,8 @@ DataUnit& DataPool::Get(string unit)
 		{
 #ifndef RHESUS_NO_THROW
 			throw exception();
+#else
+			return s_componentMap[unit];
 #endif
 		}
 	}

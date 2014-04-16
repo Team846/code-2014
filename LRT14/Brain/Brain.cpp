@@ -82,7 +82,7 @@ Brain::Brain() :
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
 	Automation* load = new LoadLauncher();
-	Automation* humanLoad = new HumanLoad();
+//	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
@@ -111,8 +111,8 @@ Brain::Brain() :
 	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::SHORT_SHOT));
 	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
-	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
-	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
+//	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
+//	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	
@@ -129,7 +129,7 @@ Brain::Brain() :
 	collect_start->AddAbortListener(dribble);
 	collect_abort->AddAbortListener(collect);
 	pass_start->AddAbortListener(collect);
-	pass_start->AddAbortListener(humanLoad);
+//	pass_start->AddAbortListener(humanLoad);
 	pass_start->AddAbortListener(load);
 	pass_start->AddStartListener(pass);
 	pass_abort->AddAbortListener(pass);
@@ -139,9 +139,9 @@ Brain::Brain() :
 	load_start->AddStartListener(load);
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
-	load_start->AddAbortListener(humanLoad);
-	human_load_start->AddStartListener(humanLoad);
-	human_load_abort->AddAbortListener(humanLoad);
+//	load_start->AddAbortListener(humanLoad);
+//	human_load_start->AddStartListener(humanLoad);
+//	human_load_abort->AddAbortListener(humanLoad);
 	dribble_start->AddStartListener(dribble);
 	dribble_abort->AddAbortListener(dribble);
 }

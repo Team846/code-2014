@@ -8,7 +8,7 @@ LauncherLoaderData::LauncherLoaderData() :
 	m_value = 0;
 	m_ballDetected = false;
 	m_fire = false;
-	m_purge = false;
+	m_unload = false;
 	m_load = false;
 	m_trigger = false;
 }
@@ -25,7 +25,7 @@ void LauncherLoaderData::ResetCommands()
 void LauncherLoaderData::Log()
 {
 	LogToFile(&m_fire, "Fire");
-	LogToFile(&m_purge, "Purge");
+	LogToFile(&m_unload, "Purge");
 	LogToFile(&m_load, "Load");
 	LogToFile(&m_complete, "Complete");
 	LogToFile(&m_value, "SensorValue");
@@ -44,16 +44,16 @@ bool LauncherLoaderData::GetFire()
 	return m_fire;
 }
 
-void LauncherLoaderData::SetPurge(bool purge)
+void LauncherLoaderData::SetUnload(bool unload)
 {
-	if (!m_purge && purge)
+	if (!m_unload && unload)
 		m_complete = false;
-	m_purge = purge;
+	m_unload = unload;
 }
 
-bool LauncherLoaderData::GetPurge()
+bool LauncherLoaderData::GetUnload()
 {
-	return m_purge;
+	return m_unload;
 }
 
 void LauncherLoaderData::SetLoad(bool load)
@@ -67,6 +67,7 @@ bool LauncherLoaderData::GetLoad()
 {
 	return m_load;
 }
+
 void LauncherLoaderData::SetHairTrigger(bool trigger)
 {
 	if (!m_trigger && trigger)
@@ -77,6 +78,18 @@ void LauncherLoaderData::SetHairTrigger(bool trigger)
 bool LauncherLoaderData::GetHairTrigger()
 {
 	return m_trigger;
+}
+
+void LauncherLoaderData::SetPurge(bool purge)
+{
+	if (!m_purge && purge)
+		m_complete = false;
+	m_purge = purge;
+}
+
+bool LauncherLoaderData::GetPurge()
+{
+	return m_purge;
 }
 
 bool LauncherLoaderData::IsLoadingComplete()

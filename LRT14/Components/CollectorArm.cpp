@@ -90,7 +90,6 @@ void CollectorArm::UpdateEnabled()
 	m_pneumatics->Set(state);
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, stateStr);
 	
-	
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, posStr);
 }
 
@@ -119,6 +118,9 @@ void CollectorArm::UpdateDisabled()
 		break;
 	case CollectorArmData::STOWED:
 		desiredPosStr = "STOWED";
+		break;
+	case CollectorArmData::INTERMEDIATE:
+		desiredPosStr = "INTERMEDIATE";
 		break;
 	}
 	

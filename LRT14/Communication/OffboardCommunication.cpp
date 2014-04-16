@@ -87,6 +87,8 @@ void OffboardCommunication::Update()
 			break;
 		case LIDAR:
 			break;
+		case UNSET:
+			break;
 		}
 	}
 }

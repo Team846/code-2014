@@ -42,12 +42,12 @@ bool HumanLoad::Run()
 	if (!m_hasBall)
 	{
 		m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
-		m_loaderData->SetPurge(true);
+		m_loaderData->SetUnload(true);
 	}
 	else
 	{
 		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
-		m_loaderData->SetPurge(false);
+		m_loaderData->SetUnload(false);
 	}
 	m_pressurePlate->SetPressure(false);
 	return false;
@@ -60,7 +60,7 @@ bool HumanLoad::Abort()
 			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetJoystick() == LRTDriverStation::Instance()->GetOperatorStick())
 		return false;
 	
-	m_loaderData->SetPurge(false);
+	m_loaderData->SetUnload(false);
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
 	m_pressurePlate->SetPressure(true);
