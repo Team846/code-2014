@@ -10,6 +10,7 @@
 #include "ComponentData/ComponentData.h"
 #include "Sensors/RobotLocation.h"
 #include "Sensors/SensorFactory.h"
+#include "Sensors/CheesyVisionServer.h"
 #include "Maintenance.h"
 
 #include "Config/ConfigRuntime.h"
@@ -104,6 +105,9 @@ void LRTRobot14::RobotInit()
 	// Initialize the Brain
 	BufferedConsole::Printfln("Initializing Brain...");
 	Brain::Initialize();
+	
+	//CheesyVisionServer::GetInstance()->StartListening();
+	
 	
 	// Start AsyncCANJaguar tasks
 	BufferedConsole::Printfln("Starting AsyncCANJaguar Tasks...");

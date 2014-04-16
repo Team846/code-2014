@@ -351,7 +351,7 @@ int LuaScript::lua_LoadLauncher(lua_State* L)
 			: lua_yield(L, 0); // lua_yield pauses execution
 }
 
-int lua_HotLeftStatus(lua_State* L)
+int LuaScript::lua_HotLeftStatus(lua_State* L)
 {
 	bool isActive = SensorFactory::GetHotGoal()->GetActiveSide() == HotGoal::LEFT;
 	
@@ -360,7 +360,7 @@ int lua_HotLeftStatus(lua_State* L)
 	return 1;
 }
 
-int lua_HotRightStatus(lua_State* L)
+int LuaScript::lua_HotRightStatus(lua_State* L)
 {
 	bool isActive = SensorFactory::GetHotGoal()->GetActiveSide() == HotGoal::RIGHT;
 
