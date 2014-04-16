@@ -25,6 +25,7 @@
 #include "Automation/Parallel.h"
 #include "Automation/Sequential.h"
 #include "Automation/Repeating.h"
+#include "Automation/LuaScript.h"
 
 #include "Events/GameModeChangeEvent.h"
 #include "Events/JoystickMovedEvent.h"
@@ -81,6 +82,7 @@ Brain::Brain() :
 	Automation* collect = new Collect();
 	Automation* pass = new Pass();
 	Automation* fire = new Fire();
+	Automation* luaScript = new LuaScript("Script.lua");
 	Automation* load = new LoadLauncher();
 //	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
@@ -90,6 +92,7 @@ Brain::Brain() :
 	m_automation.push_back(fire);
 	m_automation.push_back(load);
 	m_automation.push_back(dribble);
+	m_automation.push_back(luaScript);
 	
 	// Create events to be used
 	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
@@ -115,6 +118,8 @@ Brain::Brain() :
 //	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
+	Event* lua_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
+	Event* lua_abort = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);
@@ -144,6 +149,8 @@ Brain::Brain() :
 //	human_load_abort->AddAbortListener(humanLoad);
 	dribble_start->AddStartListener(dribble);
 	dribble_abort->AddAbortListener(dribble);
+	lua_start->AddStartListener(luaScript);
+	lua_abort->AddAbortListener(luaScript);
 }
 
 Brain::~Brain()

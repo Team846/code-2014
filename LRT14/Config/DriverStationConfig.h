@@ -24,6 +24,7 @@ namespace JoystickButtons
 // Driver Joystick
 const uint32_t COLLECT = 1;
 const uint32_t DRIBBLE = 2;
+const uint32_t LUA_SCRIPT = 3;
 // Operator Joystick
 const uint32_t PASS = 1;
 const uint32_t LOAD_LAUNCHER = 2;

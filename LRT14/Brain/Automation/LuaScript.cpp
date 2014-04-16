@@ -9,7 +9,7 @@
 #include "Parallel.h"
 #include "Sequential.h"
 #include "Pause.h"
-#include "../../Sensors/SensorFactory.h"
+#include "../../Sensors/CheesyVisionServer.h"
 
 #include <Rhesus.Toolkit.IO.h>
 
@@ -353,7 +353,7 @@ int LuaScript::lua_LoadLauncher(lua_State* L)
 
 int LuaScript::lua_HotLeftStatus(lua_State* L)
 {
-	bool isActive = SensorFactory::GetHotGoal()->GetActiveSide() == HotGoal::LEFT;
+	bool isActive = CheesyVisionServer::GetInstance()->GetLeftStatus();
 	
 	lua_pushboolean(L, isActive);
 	
@@ -362,11 +362,24 @@ int LuaScript::lua_HotLeftStatus(lua_State* L)
 
 int LuaScript::lua_HotRightStatus(lua_State* L)
 {
-	bool isActive = SensorFactory::GetHotGoal()->GetActiveSide() == HotGoal::RIGHT;
+	bool isActive = CheesyVisionServer::GetInstance()->GetRightStatus();
 
 	lua_pushboolean(L, isActive);
 	
 	return 1;
+}
+
+int LuaScript::lua_BufferedPrint(lua_State* L)
+{
+	int n = lua_gettop(L);
+	
+	if(n == 1 && lua_isstring(L, 1))
+	{
+		const char* str = lua_tostring(L, 1);
+		BufferedConsole::Printfln(str);
+	}
+	
+	return 0;
 }
 
 bool LuaScript::Run()

@@ -28,6 +28,7 @@ private:
 	static int lua_LoadLauncher(lua_State* L);
 	static int lua_HotLeftStatus(lua_State* L);
 	static int lua_HotRightStatus(lua_State* L);
+	static int lua_BufferedPrint(lua_State* L);
 	
 	Rhesus::Toolkit::Scripting::LuaScriptProvider m_scriptProvider;
 	
