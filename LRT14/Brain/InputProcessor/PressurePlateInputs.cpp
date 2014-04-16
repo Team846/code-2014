@@ -18,8 +18,9 @@ void PressurePlateInputs::Update()
 	std::string state = "???";
 	
 	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER)
-			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN)
-			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PRESSURE_PLATE))
+			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::FIRE_PREPARE)
+			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PRESSURE_PLATE)
+			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::HUMAN_LOAD))
 	{
 		m_pressurePlate->SetPressure(false);
 		

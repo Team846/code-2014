@@ -31,7 +31,7 @@ bool UnloadLauncher::Start()
 
 bool UnloadLauncher::Run()
 {
-	m_loaderData->SetPurge(true);
+	m_loaderData->SetUnload(true);
 	if (m_loaderData->IsLoadingComplete())
 	{
 		m_loadingComplete = true;
@@ -62,7 +62,7 @@ bool UnloadLauncher::Abort()
 			&& dynamic_cast<JoystickReleasedEvent*>(GetAbortEvent())->GetJoystick() == LRTDriverStation::Instance()->GetOperatorStick())
 		return false;
 	
-	m_loaderData->SetPurge(false);
+	m_loaderData->SetUnload(false);
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
 	return true;

@@ -14,12 +14,14 @@ public:
 
 	void SetFire(bool shouldFire);
 	bool GetFire();
-	void SetPurge(bool purge);
-	bool GetPurge();
+	void SetUnload(bool unload);
+	bool GetUnload();
 	void SetLoad(bool load);
 	bool GetLoad();
 	void SetHairTrigger(bool trigger);
 	bool GetHairTrigger();
+	void SetPurge(bool purge);
+	bool GetPurge();
 
 	bool IsLoadingComplete();
 	float GetSensorValue();
@@ -34,9 +36,10 @@ private:
 	void SetBallDetected(bool detected);
 	
 	bool m_fire;
-	bool m_purge;
+	bool m_unload;
 	bool m_load;
 	bool m_trigger;
+	bool m_purge;
 	bool m_complete;
 	float m_value;
 	bool m_ballDetected;

@@ -18,22 +18,23 @@ void LauncherLoaderInputs::Update()
 	m_loaderData->SetFire(false);
 	m_loaderData->SetLoad(false);
 	m_loaderData->SetHairTrigger(false);
+	m_loaderData->SetPurge(false);
 	
 	std::string state = "???";
 	
 	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER))
 	{
-		m_loaderData->SetPurge(true);
+		m_loaderData->SetUnload(true);
 		
 		state = "PRESSED";
 	}
 	else
 	{
-		m_loaderData->SetPurge(false);
+		m_loaderData->SetUnload(false);
 		
 		state = "RELEASED";
 	}
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::COLLECTOR_DOWN))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::FIRE_PREPARE))
 	{
 		m_loaderData->SetHairTrigger(true);
 	}
