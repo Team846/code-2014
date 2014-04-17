@@ -276,10 +276,8 @@ void Autonomous::LoadRoutine(std::string path)
 			}
 			else if(command == "wait_hot_goal")
 			{
-				if(arglist.size() == 0)
-					current = new HotGoalWait();
-				else if(arglist.size() == 1)
-					current = new HotGoalWait(lexical_cast<double>(arglist[0]));
+				if(arglist.size() == 2 && (arglist[0] == "left" || arglist[0] == "right"))
+					current = new HotGoalWait(arglist[0],lexical_cast<double>(arglist[1]));
 				else
 					failed = true;
 			}
