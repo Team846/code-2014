@@ -27,6 +27,8 @@ private:
 	 */
     void LoadRoutine(std::string path);
     
+    std::string FindRoutine(int routineNumber);
+    
 	double m_autonomousStartTime;
 	
 	LauncherAngleData* m_angleData;
