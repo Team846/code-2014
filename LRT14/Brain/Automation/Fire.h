@@ -14,7 +14,7 @@
 class Fire : public Automation, public Configurable
 {
 public:
-	Fire(bool overrideSensor = true);
+	Fire(bool overrideSensor = false);
 
 	bool Start();
 	bool Run();
