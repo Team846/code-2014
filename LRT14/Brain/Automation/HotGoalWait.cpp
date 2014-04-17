@@ -2,16 +2,12 @@
 #include "../../Sensors/SensorFactory.h"
 #include "../../Communication/Dashboard2.h"
 
-HotGoalWait::HotGoalWait()
+HotGoalWait::HotGoalWait(string side,double timeout)
 	: Automation("HotGoalWait")
 {
-	m_timeout = 8.0; // default (5 seconds + 3 second padding)
-}
-
-HotGoalWait::HotGoalWait(double timeout)
-	: Automation("HotGoalWait")
-{
+	m_side = side;
 	m_timeout = timeout;
+	m_hotGoal =  CheesyVisionServer::GetInstance();
 }
 
 bool HotGoalWait::Start()
@@ -23,11 +19,12 @@ bool HotGoalWait::Start()
 
 bool HotGoalWait::Run()
 {
-	bool force = m_sw.TotalElapsedSeconds() >= m_timeout;
+	bool force = m_sw.TotalElapsedSeconds() >= m_timeout; // in case of malfunctioning field or human error
+	bool isActive = m_side == "right" ? m_hotGoal->GetRightStatus() : m_hotGoal->GetLeftStatus();
 	
 	if(force) Dashboard2::LogW("Autonomous::HotGoalWait(): Time expired!");
 	
-	return SensorFactory::GetHotGoal()->GetActiveSide() != HotGoal::NONE_ACTIVE || force;
+	return isActive|| force;
 }
 
 bool HotGoalWait::Abort()

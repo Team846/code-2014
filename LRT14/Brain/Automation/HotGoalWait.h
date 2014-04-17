@@ -2,6 +2,7 @@
 #define HOT_GOAL_WAIT_H_
 
 #include "Automation.h"
+#include "../../Sensors/CheesyVisionServer.h"
 
 #include <Rhesus.Toolkit.Diagnostics.h>
 
@@ -11,8 +12,7 @@
 class HotGoalWait : public Automation
 {
 public:
-	HotGoalWait();
-	HotGoalWait(double timeout);
+	HotGoalWait(string side, double timeout);
 
 	bool Start();
 	bool Run();
@@ -21,7 +21,9 @@ public:
 	
 private:
 	Rhesus::Toolkit::Diagnostics::Stopwatch m_sw;
+	CheesyVisionServer* m_hotGoal;
 	double m_timeout;
+	string m_side;
 };
 
 #endif
