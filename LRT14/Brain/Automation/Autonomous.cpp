@@ -2,6 +2,7 @@
 #include "../../Config/RobotConfig.h"
 #include "../../Config/DriverStationConfig.h"
 #include <algorithm>
+#include <dirent.h>
 #include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.Utilities.h>
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
@@ -52,7 +53,7 @@ bool Autonomous::Start()
 		AddAutomation(new Pause(delay));
 	}
 	
-	LoadRoutine(RobotConfig::ROUTINE_FILE_PATH.substr(0, RobotConfig::ROUTINE_FILE_PATH.find('.')) + lexical_cast(autonRoutine) + RobotConfig::ROUTINE_FILE_PATH.substr(RobotConfig::ROUTINE_FILE_PATH.find('.'), RobotConfig::ROUTINE_FILE_PATH.length() - RobotConfig::ROUTINE_FILE_PATH.find('.')));
+	LoadRoutine(FindRoutine(autonRoutine));
 	ConfigRuntime::ConfigureAll();
 
 	m_angleData->SetAngle(LauncherAngleData::LONG);
@@ -69,6 +70,22 @@ void Autonomous::AllocateResources()
 	AllocateResource(ControlResource::LAUNCHER_ANGLE);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
 	AllocateResource(ControlResource::PRESSURE_PLATE);
+}
+
+std::string Autonomous::FindRoutine(int routineNumber)
+{
+	DIR *dir = opendir("/"); 
+	if(dir) 
+	{ 
+		struct dirent *ent; 
+		while((ent = readdir(dir)) != NULL) 
+		{ 
+			std::string file(ent->d_name);
+			if(file.find("routine") != std::string::npos && file.find(lexical_cast(routineNumber)) != std::string::npos)
+				return "/" + file;
+		} 
+	} 
+	return ""; 	
 }
 
 void Autonomous::LoadRoutine(std::string path)
