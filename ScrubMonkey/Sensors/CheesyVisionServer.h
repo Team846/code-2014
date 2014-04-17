@@ -1,11 +1,14 @@
+#include "../Process/jankyTask.h"
+#include "networktables2/stream/SocketServerStreamProvider.h"
+
 #ifndef CHEESYVISIONSERVER_H_
 #define CHEESYVISIONSERVER_H_
 
-#include "../Process/AsyncProcess.h"
-#include "networktables2/stream/SocketServerStreamProvider.h"
 
-class CheesyVisionServer: private AsyncProcess
+
+class CheesyVisionServer: private JankyTask
 {
+
     static CheesyVisionServer *_instance;
     
     
@@ -23,12 +26,11 @@ class CheesyVisionServer: private AsyncProcess
     bool _listening;
 public:
     static CheesyVisionServer *GetInstance();
-    static void Initialize();
     bool HasClientConnection();
     void SetPort(int port){_listenPort = port;}
-    virtual void Tick();
-    void StartListening(){_listening = true; _instance->Start();}
-    void StopListening(){_listening = false; _instance->Abort();}
+    virtual void Run();
+    void StartListening(){_listening = true; Start();}
+    void StopListening(){_listening = false; Pause();}
     
     void Reset();
     void UpdateCounts(bool left, bool right);
@@ -40,7 +42,8 @@ public:
     int GetLeftCount(){return _leftCount;}
     int GetRightCount(){return _rightCount;}
     int GetTotalCount(){return _totalCount;}
-    ~CheesyVisionServer();
+
+
 };
 
 
