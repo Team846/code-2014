@@ -119,7 +119,7 @@ Brain::Brain() :
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* lua_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
-	Event* lua_abort = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
+	Event* lua_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);

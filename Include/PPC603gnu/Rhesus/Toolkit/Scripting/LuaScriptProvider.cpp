@@ -47,7 +47,7 @@ void LuaScriptProvider::ExposeEntity(LuaExposer exposer)
 
 void LuaScriptProvider::ExposeEntity(std::string name, lua_CFunction func)
 {
-	if(_L != NULL || _run || func == NULL) return;
+	if(_L == NULL || _run || func == NULL) return;
 	
 	lua_register(_L, name.c_str(), func);
 }

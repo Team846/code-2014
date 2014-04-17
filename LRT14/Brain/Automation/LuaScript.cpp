@@ -1,5 +1,6 @@
 #include "LuaScript.h"
 
+#include "Collect.h"
 #include "Drive.h"
 #include "Turn.h"
 #include "JitterTurn.h"
@@ -17,23 +18,60 @@ using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Scripting;
 
 LuaScript::LuaScript(std::string file)
-	: Automation("LuaScript"), m_scriptProvider(), m_currentRoutine(NULL), m_error(false), m_resources()
+	: Automation("LuaScript"), m_file(file), m_scriptProvider(NULL), m_currentRoutine(NULL), m_error(false), m_resources()
 {
-	m_scriptProvider.CreateContext();
-	lua_State* L = m_scriptProvider.L();
+}
+
+LuaScript::~LuaScript()
+{
+	delete m_currentRoutine;
+	m_currentRoutine = NULL;
+}
+
+bool LuaScript::Start()
+{
+	delete m_scriptProvider; // if m_scriptProvider is NULL it's fine because delete NULL is a no-op.
+	m_scriptProvider = NULL;
+	
+	m_scriptProvider = new LuaScriptProvider();
+	m_currentRoutine = NULL;
+	m_error = false;
+	m_resources.clear();
+	
+	m_scriptProvider->CreateContext();
+
+	if(!m_scriptProvider->LoadFromFile(m_file))
+	{
+		BufferedConsole::Printfln("Error loading script file: %s", lua_tostring(m_scriptProvider->L(), -1));
+		m_error = true;
+		return false;
+	}
+	
+	LuaScriptProvider manifest;
+	manifest.CreateContext();
+	manifest.LoadFromFile(m_file + std::string(".manifest")); // load manifest
+	manifest.Step(); // run once to load functions
+	
+	lua_State* L = manifest.L();
 	
 	lua_getglobal(L, "AllocateResources");
 	
-	if(lua_pcall(L, 0, 0, 0) != 0)
+	if(lua_pcall(L, 0, 1, 0) != 0)
 	{
+		BufferedConsole::Printfln("Error calling the function: %s", lua_tostring(L, -1));
 		m_error = true;
-		return;
+		return false;
 	}
 	
 	if(lua_gettop(L) != 1 || !lua_istable(L, 1))
 	{
+		BufferedConsole::Printfln("Invalid return value.");
+		
+		if(lua_gettop(L) != 1) BufferedConsole::Printfln("top != 1");
+		if(!lua_istable(L, 1)) BufferedConsole::Printfln("Not a table");
+		
 		m_error = true;
-		return;
+		return false;
 	}
 	
 	// for each entry in the table
@@ -56,37 +94,56 @@ LuaScript::LuaScript(std::string file)
 		// remove entry from stack
 		lua_pop(L,1);
 	}
-}
-
-LuaScript::~LuaScript()
-{
-	delete m_currentRoutine;
-	m_currentRoutine = NULL;
-}
-
-bool LuaScript::Start()
-{
-	lua_State* L = m_scriptProvider.L();
+	
+	L = m_scriptProvider->L();
 	
 	lua_pushinteger(L, reinterpret_cast<size_t>(this));
 	lua_setglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	
-	m_scriptProvider.ExposeEntity("drive", (lua_CFunction)lua_Drive);
-	m_scriptProvider.ExposeEntity("turn", (lua_CFunction)lua_Turn);
-	m_scriptProvider.ExposeEntity("jitterTurn", (lua_CFunction)lua_JitterTurn);
-	m_scriptProvider.ExposeEntity("fire", (lua_CFunction)lua_Turn);
-	m_scriptProvider.ExposeEntity("dribbleDrive", (lua_CFunction)lua_DribbleDrive);
-	m_scriptProvider.ExposeEntity("loadLauncher", (lua_CFunction)lua_LoadLauncher);
-	m_scriptProvider.ExposeEntity("getHotLeftStatus", (lua_CFunction)lua_HotLeftStatus);
-	m_scriptProvider.ExposeEntity("getHotRightStatus", (lua_CFunction)lua_HotRightStatus);
+	m_scriptProvider->ExposeEntity("collect", (lua_CFunction)lua_Collect);
+	m_scriptProvider->ExposeEntity("drive", (lua_CFunction)lua_Drive);
+	m_scriptProvider->ExposeEntity("turn", (lua_CFunction)lua_Turn);
+	m_scriptProvider->ExposeEntity("jitterTurn", (lua_CFunction)lua_JitterTurn);
+	m_scriptProvider->ExposeEntity("fire", (lua_CFunction)lua_Turn);
+	m_scriptProvider->ExposeEntity("dribbleDrive", (lua_CFunction)lua_DribbleDrive);
+	m_scriptProvider->ExposeEntity("loadLauncher", (lua_CFunction)lua_LoadLauncher);
+	m_scriptProvider->ExposeEntity("getHotLeftStatus", (lua_CFunction)lua_HotLeftStatus);
+	m_scriptProvider->ExposeEntity("getHotRightStatus", (lua_CFunction)lua_HotRightStatus);
+	m_scriptProvider->ExposeEntity("BufferedPrint", (lua_CFunction)lua_BufferedPrint);
 	
 	return true;
+}
+
+int LuaScript::lua_Collect(lua_State* L)
+{
+	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
+	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
+	
+	int n = lua_gettop(L);
+	bool error = false;
+	
+	if(n == 0)
+	{
+		inst->m_currentRoutine = new Collect();
+	}
+	else
+	{
+		BufferedConsole::Printfln("Collect: error");
+		error = true;
+	}
+	
+	return error ? 0 
+			: lua_yield(L, 0); // lua_yield pauses execution
 }
 
 int LuaScript::lua_Drive(lua_State* L)
 {
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
 	
 	int n = lua_gettop(L);
 	bool error = false;
@@ -142,7 +199,12 @@ int LuaScript::lua_Turn(lua_State* L)
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
 	
+	lua_pop(L, 1);
+	
 	int n = lua_gettop(L);
+	
+	BufferedConsole::Printfln("Turn n: %d", n);
+	
 	bool error = false;
 	
 	double args[3];
@@ -151,6 +213,7 @@ int LuaScript::lua_Turn(lua_State* L)
 	{
 		if(!lua_isnumber(L, i + 1)) // +1 because lua is 1-based
 		{
+			BufferedConsole::Printfln("Turn not number index %d", i);
 			error = true;
 			break;
 		}
@@ -186,6 +249,8 @@ int LuaScript::lua_JitterTurn(lua_State* L)
 {
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
 	
 	int n = lua_gettop(L);
 	bool error = false;
@@ -228,6 +293,8 @@ int LuaScript::lua_Fire(lua_State* L)
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
 	
+	lua_pop(L, 1);
+	
 	int n = lua_gettop(L);
 	bool error = false;
 	
@@ -253,6 +320,8 @@ int LuaScript::lua_DribbleDrive(lua_State* L)
 {
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
 	
 	int n = lua_gettop(L);
 	bool error = false;
@@ -335,12 +404,15 @@ int LuaScript::lua_LoadLauncher(lua_State* L)
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
 	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
 	
+	lua_pop(L, 1);
+	
 	int n = lua_gettop(L);
 	bool error = false;
 	
 	if(n == 0)
 	{
 		inst->m_currentRoutine = new LoadLauncher();
+		BufferedConsole::Printfln("LoadLauncher");
 	}
 	else
 	{
@@ -388,19 +460,21 @@ bool LuaScript::Run()
 	
 	if(m_currentRoutine == NULL || m_currentRoutine->Update())
 	{
+		BufferedConsole::Printfln("Next step");
+		
 		// dispose of the old routine
 		delete m_currentRoutine; // can safely delete -- m_currentRoutine is either NULL or a completed routine; delete NULL is a no-op
 		m_currentRoutine = NULL;
 		
 		// run until the next (or first) routine
 		
-		ExecutionState::Enum state = m_scriptProvider.Step();
+		ExecutionState::Enum state = m_scriptProvider->Step();
 		
 		if(state == ExecutionState::EXEC_ERROR)
 		{
 			// ya done goofed now, son
 			m_error = true;
-			BufferedConsole::Printfln("Error executing lua script: %s", lua_tostring(m_scriptProvider.L(), -1));
+			BufferedConsole::Printfln("Error executing lua script: %s", lua_tostring(m_scriptProvider->L(), -1));
 			
 			return true; // houston, abort!!!
 		}
@@ -434,6 +508,8 @@ bool LuaScript::Run()
 		// we don't need to do anything except return -- if we have a routine, it's already been updated because
 		// of the call in the original if statement ("m_currentRoutine->Update")
 		
+		
+		
 		return false; // we're not done yet -- script isn't done executing
 	}
 	
@@ -448,6 +524,8 @@ bool LuaScript::Abort()
 	{
 		m_currentRoutine->AbortAutomation(GetAbortEvent());
 	}
+	
+	BufferedConsole::Printfln("Aborting");
 	
 	return true;
 }

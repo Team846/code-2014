@@ -2,12 +2,11 @@
 #include "WPILib.h"
 #include "networktables2/util/EOFException.h"
 
-CheesyVisionServer *CheesyVisionServer::_instance = NULL;
+CheesyVisionServer *CheesyVisionServer::_instance = (CheesyVisionServer *) 0;
 
 #define HEARTBEAT_TIMEOUT 3.0
 
-CheesyVisionServer::CheesyVisionServer(int port):
-		AsyncProcess("Vision")
+CheesyVisionServer::CheesyVisionServer(int port)
 {
     _listenPort = port;
     _counting = false;
@@ -18,14 +17,11 @@ CheesyVisionServer::CheesyVisionServer(int port):
     _rightCount = 0;
     _totalCount = 0;
     _listening = false;
+    
+    
 }
 
-CheesyVisionServer::~CheesyVisionServer()
-{
-	
-}
-
-void CheesyVisionServer::Tick()
+void CheesyVisionServer::Run()
 {
     if (_listening == false) return;    //Make sure we are listening
     
@@ -46,7 +42,6 @@ void CheesyVisionServer::Tick()
                     _curLeftStatus = (byte & (1 << 1)) > 0;
                     _curRightStatus = (byte & (1 << 0)) > 0;
                     UpdateCounts(_curLeftStatus,_curRightStatus);
-                    printf("Left status: %d Right status: %d", _curLeftStatus, _curRightStatus);
                     _lastHeartbeatTime = Timer::GetFPGATimestamp();
                 }
                 catch (EOFException e)
@@ -92,23 +87,16 @@ void CheesyVisionServer::UpdateCounts(bool left, bool right)
 
 CheesyVisionServer *CheesyVisionServer::GetInstance()
 {
-    if (CheesyVisionServer::_instance == NULL)
+    if (CheesyVisionServer::_instance == (CheesyVisionServer *) 0)
     {
         CheesyVisionServer::_instance = new CheesyVisionServer();
     }
     return CheesyVisionServer::_instance;
 }
 
-void CheesyVisionServer::Initialize()
-{
-    if (CheesyVisionServer::_instance == NULL)
-    {
-        CheesyVisionServer::_instance = new CheesyVisionServer();
-    }
-    _instance->Start();
-}
-
 bool CheesyVisionServer::HasClientConnection()
 {
     return (_lastHeartbeatTime > 0) && (Timer::GetFPGATimestamp() - _lastHeartbeatTime);
 }
+
+   

@@ -20,6 +20,7 @@ public:
 	void AllocateResources();
 	
 private:
+	static int lua_Collect(lua_State* L);
 	static int lua_Drive(lua_State* L);
 	static int lua_Turn(lua_State* L);
 	static int lua_JitterTurn(lua_State* L);
@@ -30,7 +31,9 @@ private:
 	static int lua_HotRightStatus(lua_State* L);
 	static int lua_BufferedPrint(lua_State* L);
 	
-	Rhesus::Toolkit::Scripting::LuaScriptProvider m_scriptProvider;
+	std::string m_file;
+	
+	Rhesus::Toolkit::Scripting::LuaScriptProvider* m_scriptProvider;
 	
 	Automation* m_currentRoutine;
 	

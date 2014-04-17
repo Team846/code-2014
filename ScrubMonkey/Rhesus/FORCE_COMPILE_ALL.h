@@ -13,7 +13,6 @@
 #include "Toolkit/Diagnostics/Rhesus.Toolkit.Diagnostics.h"
 #include "Toolkit/InterCommunication/Rhesus.Toolkit.InterCommunication.h"
 #include "Toolkit/IO/Rhesus.Toolkit.IO.h"
-#include "Toolkit/Scripting/Rhesus.Toolkit.Scripting.h"
 #include "Toolkit/Tasks/Rhesus.Toolkit.Tasks.h"
 #include "Toolkit/Utilities/Rhesus.Toolkit.Utilities.h"
 
