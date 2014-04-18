@@ -1,20 +1,20 @@
-#ifndef PRESSURE_PLATE_H_
-#define PRESSURE_PLATE_H_
+#ifndef BALL_HOLDER_H_
+#define BALL_HOLDER_H_
 
 #include "Component.h"
 #include "../Config/Configurable.h"
-#include "../ComponentData/PressurePlateData.h"
+#include "../ComponentData/BallHolderData.h"
 #include "../Actuators/Pneumatics.h"
 #include "../Sensors/SensorFactory.h"
 
 /*!
- * @brief Provides control over the launch angle changing mechanism.
+ * @brief Provides control over the ball holding mechanism.
  */
-class PressurePlate : public Component, public Configurable
+class BallHolder : public Component, public Configurable
 {
 public:
-	PressurePlate();
-	~PressurePlate();
+	BallHolder();
+	~BallHolder();
 	
 	void OnEnabled();
 	void OnDisabled();
@@ -25,7 +25,7 @@ public:
 	void Configure();
 	
 private:
-	PressurePlateData* m_pressurePlateData;
+	BallHolderData* m_ballHolderData;
 	Pneumatics* m_pneumatics;
 };
 

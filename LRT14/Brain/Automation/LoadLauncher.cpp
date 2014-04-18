@@ -10,7 +10,7 @@ LoadLauncher::LoadLauncher() :
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
-	m_pressurePlate = PressurePlateData::Get();
+	m_ballHolder = BallHolderData::Get();
 	m_launcherProximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_bumperProximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_loadSpeed = 1.0;
@@ -24,7 +24,7 @@ void LoadLauncher::AllocateResources()
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
-	AllocateResource(ControlResource::PRESSURE_PLATE);
+	AllocateResource(ControlResource::BALL_HOLDER);
 }
 
 bool LoadLauncher::Start()
@@ -54,7 +54,7 @@ bool LoadLauncher::Run()
 	m_loaderData->SetLoad(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(m_loadSpeed);
-	m_pressurePlate->SetPressure(false);
+	m_ballHolder->SetHold(false);
 	
 	if (m_bumperProximity->Get() == 0)
 	{
@@ -78,7 +78,7 @@ bool LoadLauncher::Run()
 		{
 			m_loaderData->SetLoad(false);
 			m_collectorRollers->SetRunning(false);
-			m_pressurePlate->SetPressure(true);
+			m_ballHolder->SetHold(true);
 			m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 			return true;
 		}
@@ -93,7 +93,7 @@ bool LoadLauncher::Abort()
 	else
 		m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
-	m_pressurePlate->SetPressure(true);
+	m_ballHolder->SetHold(true);
 	m_loaderData->SetLoad(false);
 	return true;
 }

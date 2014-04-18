@@ -14,7 +14,6 @@ Collect::Collect() :
 {
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
-	m_pressurePlate = PressurePlateData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
 	m_redChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_RED"));
 	m_greenChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_GREEN"));
@@ -26,7 +25,6 @@ void Collect::AllocateResources()
 {
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
-	AllocateResource(ControlResource::PRESSURE_PLATE);
 }
 
 bool Collect::Start()
@@ -41,7 +39,6 @@ bool Collect::Run()
 	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 	m_collectorRollers->SetSpeed(1.0);
-	m_pressurePlate->SetPressure(false);
 	
 //	bool wrongBall = false;
 //	if (RobotState::Instance().Alliance() == DriverStation::kRed)
@@ -89,7 +86,6 @@ bool Collect::Abort()
 	
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(false);
-	m_pressurePlate->SetPressure(true);
 	return true;
 }
 

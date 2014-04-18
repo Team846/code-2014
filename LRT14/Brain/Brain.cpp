@@ -10,7 +10,7 @@
 #include "InputProcessor/CollectorRollersInputs.h"
 #include "InputProcessor/LauncherLoaderInputs.h"
 #include "InputProcessor/LauncherAngleInputs.h"
-#include "InputProcessor/PressurePlateInputs.h"
+#include "InputProcessor/BallHolderInputs.h"
 
 #include "Automation/Autonomous.h"
 #include "Automation/Drive.h"
@@ -19,6 +19,7 @@
 #include "Automation/Pass.h"
 #include "Automation/Fire.h"
 #include "Automation/LoadLauncher.h"
+#include "Automation/PurgeLauncher.h"
 #include "Automation/HumanLoad.h"
 #include "Automation/Dribble.h"
 #include "Automation/Pause.h"
@@ -71,7 +72,7 @@ Brain::Brain() :
 	m_inputs.push_back(new CollectorRollersInputs());
 	m_inputs.push_back(new LauncherLoaderInputs());
 	m_inputs.push_back(new LauncherAngleInputs());
-	m_inputs.push_back(new PressurePlateInputs());
+	m_inputs.push_back(new BallHolderInputs());
 	
 	// Create automation tasks
 	Automation* auton = new Autonomous();
@@ -84,6 +85,7 @@ Brain::Brain() :
 	Automation* fire = new Fire();
 	Automation* luaScript = new LuaScript("Script.lua");
 	Automation* load = new LoadLauncher();
+	Automation* purge = new PurgeLauncher();
 //	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
 	m_automation.push_back(auton);
@@ -91,6 +93,7 @@ Brain::Brain() :
 	m_automation.push_back(collect);
 	m_automation.push_back(fire);
 	m_automation.push_back(load);
+	m_automation.push_back(purge);
 	m_automation.push_back(dribble);
 	m_automation.push_back(luaScript);
 	
@@ -114,6 +117,8 @@ Brain::Brain() :
 	fire_abort->AddEvent(new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::SHORT_SHOT));
 	Event* load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
+	Event* purge_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PURGE_LAUNCHER);
+	Event* purge_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PURGE_LAUNCHER);
 //	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 //	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
@@ -145,6 +150,8 @@ Brain::Brain() :
 	load_abort->AddAbortListener(load);
 	load_start->AddAbortListener(collect);
 //	load_start->AddAbortListener(humanLoad);
+	purge_start->AddStartListener(purge);
+	purge_abort->AddAbortListener(purge);
 //	human_load_start->AddStartListener(humanLoad);
 //	human_load_abort->AddAbortListener(humanLoad);
 	dribble_start->AddStartListener(dribble);

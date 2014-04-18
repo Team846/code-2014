@@ -33,11 +33,11 @@ const uint32_t LONG_SHOT = 4;
 const uint32_t OVERRIDE_FIRE = 5;
 const uint32_t PURGE_LAUNCHER = 6;
 const uint32_t HUMAN_LOAD = 7;
-const uint32_t UNLOAD_LAUNCHER = 7;
-const uint32_t PRESSURE_PLATE = 8;
+const uint32_t BALL_HOLDER = 8;
 const uint32_t FIRE_PREPARE = 9;
 const uint32_t RUN_ROLLERS = 10;
 const uint32_t REVERSE_ROLLERS = 11;
+const uint32_t UNLOAD_LAUNCHER = 12;
 // Driver Wheel
 const uint32_t POSITION_HOLD = 5;
 const uint32_t REVERSE_DRIVE = 6;
@@ -50,7 +50,7 @@ const uint32_t COLLECTOR_ROLLERS = 2;
 const uint32_t COLLECTOR_ARM = 3;
 const uint32_t LAUNCHER_LOADER = 4;
 const uint32_t LAUNCHER_ANGLE = 5;
-const uint32_t PRESSURE_PLATE = 6;
+const uint32_t BALL_HOLDER = 6;
 const uint32_t NETWORK = 7;
 const uint32_t COMPRESSOR = 8;
 }

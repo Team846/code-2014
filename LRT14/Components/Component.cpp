@@ -4,7 +4,7 @@
 #include "CollectorRollers.h"
 #include "LauncherLoader.h"
 #include "LauncherAngle.h"
-#include "PressurePlate.h"
+#include "BallHolder.h"
 #include "../RobotState.h"
 #include <Rhesus/Toolkit/IO/BufferedConsole.h>
 
@@ -36,7 +36,7 @@ void Component::CreateComponents()
 	component_vector.push_back(new CollectorRollers());
 	component_vector.push_back(new LauncherLoader());
 	component_vector.push_back(new LauncherAngle());
-	component_vector.push_back(new PressurePlate());
+	component_vector.push_back(new BallHolder());
 }
 
 void Component::DestroyComponents()

@@ -20,7 +20,7 @@ void SelfCatch::AllocateResources()
 {
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
 	AllocateResource(ControlResource::COLLECTOR_ARM);
-	AllocateResource(ControlResource::PRESSURE_PLATE);
+	AllocateResource(ControlResource::BALL_HOLDER);
 }
 
 bool SelfCatch::Start()

@@ -22,7 +22,7 @@ void LauncherLoaderInputs::Update()
 	
 	std::string state = "???";
 	
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::PURGE_LAUNCHER))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER))
 	{
 		m_loaderData->SetUnload(true);
 		

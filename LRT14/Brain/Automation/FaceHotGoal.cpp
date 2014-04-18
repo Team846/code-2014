@@ -23,5 +23,5 @@ bool FaceHotGoal::Start()
 		else
 			setAngle(m_startSide == "right" ? -m_turnDegrees: m_turnDegrees );	
 	}
-	Turn::Start();
+	return Turn::Start();
 }
