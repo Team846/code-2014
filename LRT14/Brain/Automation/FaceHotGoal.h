@@ -28,8 +28,6 @@ public:
 	FaceHotGoal(double turnDegrees, bool clear, bool turnToCenter);
 	FaceHotGoal(double turnDegrees, bool clear, bool turnToCenter, double randLow, double randHigh);
 	
-	void Configure();
-	
 	bool Start();
 	
 	static void Reset()
