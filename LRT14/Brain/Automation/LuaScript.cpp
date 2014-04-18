@@ -668,6 +668,6 @@ void LuaScript::AllocateResources()
 		else if(resource == "COLLECTOR_ROLLERS") AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 		else if(resource == "LAUNCHER_ANGLE") AllocateResource(ControlResource::LAUNCHER_ANGLE);
 		else if(resource == "LAUNCHER_LOADER") AllocateResource(ControlResource::LAUNCHER_LOADER);
-		else if(resource == "PRESSURE_PLATE") AllocateResource(ControlResource::PRESSURE_PLATE);
+		else if(resource == "BALL_HOLDER") AllocateResource(ControlResource::BALL_HOLDER);
 	}
 }

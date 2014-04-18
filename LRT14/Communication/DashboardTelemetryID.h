@@ -13,7 +13,7 @@ namespace DashboardTelemetryID
         LAUNCHER_ANGLE_STATE = 0x05,
         LAUNCHER_ANGLE = 0x06,
         LAUNCHER_LOADER_SAFETY = 0x07,
-        PRESSURE_PLATE_STATE = 0x08,
+        BALL_HOLDER_STATE = 0x08,
         AUTON_HOT_GOAL_LAST_SIDE = 0x09,
         HOT_GOAL_SIDE = 0x0A,
         COLLECTOR_ARM_INPUT = 0x0B,
@@ -21,7 +21,7 @@ namespace DashboardTelemetryID
         DRIVETRAIN_INPUTS = 0x0D,
         LAUNCHER_ANGLE_INPUT = 0x0E,
         LAUNCHER_LOADER_INPUT = 0x0F,
-        PRESSURE_PLATE_INPUT = 0x10,
+        BALL_HOLDER_INPUT = 0x10,
         GAME_STATE = 0x11,
         
         // 28,000+ reserved for sensors

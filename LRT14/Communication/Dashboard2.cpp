@@ -37,7 +37,7 @@ void Dashboard2::InitializeTelemetry()
 	AddTelemetryData("Launcher Angle Pneumatics", (INT16)DashboardTelemetryID::LAUNCHER_ANGLE_STATE, DashboardTelemetryType::STRING);
 	AddTelemetryData("Launcher Angle", (INT16)DashboardTelemetryID::LAUNCHER_ANGLE, DashboardTelemetryType::STRING);
 	AddTelemetryData("Launcher Loader Safety", (INT16)DashboardTelemetryID::LAUNCHER_LOADER_SAFETY, DashboardTelemetryType::STRING);
-	AddTelemetryData("Pressure Plate", (INT16)DashboardTelemetryID::PRESSURE_PLATE_STATE, DashboardTelemetryType::STRING);
+	AddTelemetryData("Pressure Plate", (INT16)DashboardTelemetryID::BALL_HOLDER_STATE, DashboardTelemetryType::STRING);
 	AddTelemetryData("Hot Goal Last Side", (INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, DashboardTelemetryType::STRING);
 	AddTelemetryData("Hot Goal", (INT16)DashboardTelemetryID::HOT_GOAL_SIDE, DashboardTelemetryType::STRING);
 }

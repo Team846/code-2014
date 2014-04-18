@@ -5,7 +5,7 @@
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../ComponentData/LauncherAngleData.h"
 #include "../../ComponentData/CollectorArmData.h"
-#include "../../ComponentData/PressurePlateData.h"
+#include "../../ComponentData/BallHolderData.h"
 #include "../../Sensors/SensorFactory.h"
 
 /*!
@@ -26,7 +26,7 @@ public:
 private:
 	LauncherLoaderData* m_loaderData;
 	CollectorArmData* m_collectorArmData;
-	PressurePlateData* m_pressurePlate;
+	BallHolderData* m_ballHolder;
 	DigitalInput* m_proximity;
 //	AnalogChannel* m_proximity;
 	Timer m_collectorDownTimer;

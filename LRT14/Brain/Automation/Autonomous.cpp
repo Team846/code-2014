@@ -69,7 +69,7 @@ void Autonomous::AllocateResources()
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_ANGLE);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
-	AllocateResource(ControlResource::PRESSURE_PLATE);
+	AllocateResource(ControlResource::BALL_HOLDER);
 }
 
 std::string Autonomous::FindRoutine(int routineNumber)

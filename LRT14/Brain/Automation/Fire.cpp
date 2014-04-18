@@ -8,7 +8,7 @@ Fire::Fire(bool overrideSensor) :
 {
 	m_loaderData = LauncherLoaderData::Get();
 	m_collectorArmData = CollectorArmData::Get();
-	m_pressurePlate = PressurePlateData::Get();
+	m_ballHolder = BallHolderData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 //	m_proximity = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/BALL_LAUNCHER_PROXIMITY"));
 	m_hasBall = false;
@@ -20,7 +20,7 @@ void Fire::AllocateResources()
 {
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
 	AllocateResource(ControlResource::COLLECTOR_ARM);
-	AllocateResource(ControlResource::PRESSURE_PLATE);
+	AllocateResource(ControlResource::BALL_HOLDER);
 }
 
 bool Fire::Start()
@@ -36,7 +36,7 @@ bool Fire::Start()
 
 bool Fire::Run()
 {
-	m_pressurePlate->SetPressure(false);
+	m_ballHolder->SetHold(false);
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
 	
 	if (!m_loaderData->IsLoadingComplete() && !m_loaded)
@@ -64,7 +64,7 @@ bool Fire::Run()
 			printf("Fire done\n");
 			m_loaderData->SetFire(false);
 			m_collectorArmData->SetDesiredPosition(CollectorArmData::STOWED);
-			m_pressurePlate->SetPressure(true);
+			m_ballHolder->SetHold(true);
 			return true;
 		}
 //	}
@@ -75,7 +75,7 @@ bool Fire::Abort()
 {
 	m_loaderData->SetFire(false);
 	m_collectorArmData->SetDesiredPosition(CollectorArmData::STOWED);
-	m_pressurePlate->SetPressure(true);
+	m_ballHolder->SetHold(true);
 	return true;
 }
 

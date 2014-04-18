@@ -3,7 +3,7 @@
 
 #include "Automation.h"
 #include "../../ComponentData/CollectorArmData.h"
-#include "../../ComponentData/PressurePlateData.h"
+#include "../../ComponentData/BallHolderData.h"
 
 /*!
  * @brief Puts the collector up or down.
@@ -20,7 +20,6 @@ public:
 
 private:
 	CollectorArmData* m_collectorArm;
-	PressurePlateData* m_pressurePlate;
 	bool m_down;
 };
 
