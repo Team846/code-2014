@@ -275,10 +275,23 @@ void Autonomous::LoadRoutine(std::string path)
 			}
 			else if (command == "face_hot_goal")
 			{
-				if(arglist.size() == 2 && (arglist[0] == "left" || arglist[0] == "right" || arglist[0] == "center"))
-					current = new FaceHotGoal(arglist[0],lexical_cast<double>(arglist[1]));
+				if (arglist.size() == 0)
+					current = new FaceHotGoal();
+				else if(arglist.size() == 1)
+					current = new FaceHotGoal(lexical_cast<double>(arglist[0]), lexical_cast<bool>(arglist[1]), false);
+				else if(arglist.size() == 2)
+					current = new FaceHotGoal(lexical_cast<double>(arglist[0]), lexical_cast<bool>(arglist[1]), false);
+				else if(arglist.size() == 3)
+					current = new FaceHotGoal(lexical_cast<double>(arglist[0]), lexical_cast<bool>(arglist[1]), lexical_cast<bool>(arglist[2]));
+				else if(arglist.size() == 5)
+					current = new FaceHotGoal(lexical_cast<double>(arglist[0]), lexical_cast<bool>(arglist[1]), lexical_cast<bool>(arglist[2]), lexical_cast<double>(arglist[3]), lexical_cast<double>(arglist[4]));
 				else
 					failed = true;
+			}
+			else if(command == "clear_hot_goal")
+			{
+				FaceHotGoal::Reset();
+				BufferedConsole::Printfln("Resetting FaceHotGoal...");
 			}
 			else if(command == "wait_hot_goal")
 			{

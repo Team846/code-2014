@@ -1,27 +1,96 @@
 #include "FaceHotGoal.h"
+#include "../../Sensors/CheesyVisionServer.h"
 
-FaceHotGoal::FaceHotGoal(std::string startSide, double turnDegrees)
+#include <Rhesus.Toolkit.IO.h>
+
+using namespace Rhesus::Toolkit::IO;
+
+HotGoal::Side FaceHotGoal::m_lastHotGoalSide = HotGoal::NONE_ACTIVE;
+int FaceHotGoal::m_hotGoalPos[] = { -1, 1, 0 }; // left, right, none
+
+// TODO: ctor chaining
+
+FaceHotGoal::FaceHotGoal() :
+	JitterTurn(0.0, 0.0),
+	m_hotGoal(CheesyVisionServer::GetInstance()),
+	m_turnDegrees(30.0),
+	m_turnToCenter(false)
 {
-	m_turnDegrees = turnDegrees;
-	m_startSide = startSide;
-	m_hotGoal = CheesyVisionServer::GetInstance();
+}
+
+FaceHotGoal::FaceHotGoal(double turnDegrees) :
+	JitterTurn(0.0, 0.0),
+	m_hotGoal(CheesyVisionServer::GetInstance()),
+	m_turnDegrees(turnDegrees),
+	m_turnToCenter(false)
+{
+}
+
+FaceHotGoal::FaceHotGoal(double turnDegrees, bool clear, bool turnToCenter) :
+	JitterTurn(0.0, 0.0),
+	m_hotGoal(CheesyVisionServer::GetInstance()),
+	m_turnDegrees(turnDegrees),
+	m_turnToCenter(turnToCenter)
+{
+	if(clear)
+	{
+		m_lastHotGoalSide = HotGoal::NONE_ACTIVE;
+	}
+}
+
+FaceHotGoal::FaceHotGoal(double turnDegrees, bool clear, bool turnToCenter, double randLow, double randHigh) :
+	JitterTurn(randLow, randHigh),
+	m_hotGoal(CheesyVisionServer::GetInstance()),
+	m_turnDegrees(turnDegrees),
+	m_turnToCenter(turnToCenter)
+{
+	if(clear)
+	{
+		m_lastHotGoalSide = HotGoal::NONE_ACTIVE;
+	}
 }
 
 bool FaceHotGoal::Start()
 {
-	if(m_startSide == "center")
+	HotGoal::Side currentSide = HotGoal::NONE_ACTIVE;
+	
+	if(m_hotGoal->GetLeftStatus() && m_hotGoal->GetRightStatus()) { } // NONE_ACTIVE
+	else if(m_hotGoal->GetLeftStatus())
 	{
-		double turn = m_turnDegrees * m_hotGoal->GetRightStatus() ? 1 : -1;
-		setAngle(turn);
+		currentSide = HotGoal::LEFT;
+	}
+	else if(m_hotGoal->GetRightStatus())
+	{
+		currentSide = HotGoal::RIGHT;
+	}
+	else
+	{ } // NONE_ACTIVE
+
+	// if we already had a hot goal, just turn to the other side.
+	if(m_lastHotGoalSide != HotGoal::NONE_ACTIVE)
+	{
+		if(m_lastHotGoalSide == HotGoal::LEFT) currentSide = HotGoal::RIGHT;
+		if(m_lastHotGoalSide == HotGoal::RIGHT) currentSide = HotGoal::LEFT;
 	}
 	else
 	{
-		bool isActive = m_startSide == "right" ? m_hotGoal->GetRightStatus() : m_hotGoal->GetLeftStatus();
-		
-		if(isActive)
-			setAngle(0.0);
-		else
-			setAngle(m_startSide == "right" ? -m_turnDegrees: m_turnDegrees );	
+		// if we didn't detect anything go with left
+		currentSide = (currentSide == HotGoal::NONE_ACTIVE) ? HotGoal::LEFT : currentSide;
 	}
-	return Turn::Start();
+
+	// are we force turning back to center?
+	if(m_turnToCenter) currentSide = HotGoal::NONE_ACTIVE;
+	
+	int relativePos = m_hotGoalPos[currentSide] - m_hotGoalPos[m_lastHotGoalSide];
+	double angle = relativePos * m_turnDegrees * -1;
+	
+	setAngle(angle);
+	setMaxSpeed(1.0);
+	setErrorThreshold(0.5);
+
+	m_lastHotGoalSide = currentSide;
+	
+	JitterTurn::Start();
+	
+	return true;
 }
