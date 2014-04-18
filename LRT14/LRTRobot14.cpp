@@ -247,15 +247,15 @@ void LRTRobot14::Tick()
 		ConfigRuntime::Instance()->CheckForFileUpdates();
 	}
 	
-	HotGoal::Side side = FaceHotGoal::LastHotGoalSide();
-	std::string sideStr = "???";
-	
-	if(side == HotGoal::LEFT) sideStr = "LEFT";
-	else if(side == HotGoal::NONE_ACTIVE) sideStr = "NONE_ACTIVE";
-	else if(side == HotGoal::RIGHT) sideStr = "RIGHT";
-	else sideStr = "???";
-	
-	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, sideStr);
+//	HotGoal::Side side = FaceHotGoal::LastHotGoalSide();
+//	std::string sideStr = "???";
+//	
+//	if(side == HotGoal::LEFT) sideStr = "LEFT";
+//	else if(side == HotGoal::NONE_ACTIVE) sideStr = "NONE_ACTIVE";
+//	else if(side == HotGoal::RIGHT) sideStr = "RIGHT";
+//	else sideStr = "???";
+//	
+//	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, sideStr);
 	
 	// Utilities
 	LCD::Instance()->RunOneCycle();
@@ -303,11 +303,6 @@ void LRTRobot14::Tick()
 		
 		BufferedConsole::Printfln("===========================================================================\n\n");
 	}
-}
-
-void resetFaceHotGoal()
-{
-	FaceHotGoal::Reset();
 }
 
 void maintenance()
