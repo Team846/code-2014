@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include <hash_map>
+
 #include <Rhesus.Toolkit.Scripting.h>
 
 class LuaScript : public Automation
@@ -27,18 +29,32 @@ private:
 	static int lua_Fire(lua_State* L);
 	static int lua_DribbleDrive(lua_State* L);
 	static int lua_LoadLauncher(lua_State* L);
+	static int lua_RunParallel(lua_State* L);
 	static int lua_HotLeftStatus(lua_State* L);
 	static int lua_HotRightStatus(lua_State* L);
 	static int lua_BufferedPrint(lua_State* L);
+	
+	static int lua_BeginActionGroup(lua_State* L);
+	static int lua_EndActionGroup(lua_State* L);
+	
+	void cleanupActionGroups();
+	
+	void setCurrentOrGroup(Automation* routine);
 	
 	std::string m_file;
 	
 	Rhesus::Toolkit::Scripting::LuaScriptProvider* m_scriptProvider;
 	
 	Automation* m_currentRoutine;
+	bool m_isParallelizing;
 	
 	bool m_error;
+	bool m_allocateError; // separate so we can reload previously-errored files
 	std::vector<std::string> m_resources;
+	
+	std::hash_map<std::string, std::vector<Automation*> > m_actionGroups;
+	bool m_isGrouping;
+	std::string m_currentGroup;
 };
 
 #endif

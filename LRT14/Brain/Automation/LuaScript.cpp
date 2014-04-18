@@ -13,23 +13,45 @@
 #include "../../Sensors/CheesyVisionServer.h"
 
 #include <Rhesus.Toolkit.IO.h>
+#include <Rhesus.Toolkit.Utilities.h>
 
 using namespace Rhesus::Toolkit::IO;
 using namespace Rhesus::Toolkit::Scripting;
+using namespace Rhesus::Toolkit::Utilities;
 
 LuaScript::LuaScript(std::string file)
-	: Automation("LuaScript"), m_file(file), m_scriptProvider(NULL), m_currentRoutine(NULL), m_error(false), m_resources()
+	: Automation("LuaScript"), m_file(file), m_scriptProvider(NULL), m_currentRoutine(NULL), m_error(false), m_allocateError(false), m_resources(), m_actionGroups(), m_isGrouping(false), m_currentGroup("__default__")
 {
 }
 
 LuaScript::~LuaScript()
 {
+	cleanupActionGroups();
+	
 	delete m_currentRoutine;
 	m_currentRoutine = NULL;
+	
+	delete m_scriptProvider;
+	m_scriptProvider = NULL;
+}
+
+void LuaScript::cleanupActionGroups()
+{
+	for(std::hash_map<std::string, std::vector<Automation*> >::iterator it = m_actionGroups.begin(); it != m_actionGroups.end(); ++it)
+	{
+		std::vector<Automation*>& vec = it->second;
+		
+		vec.erase(std::remove_if(vec.begin(), vec.end(), ContainerCleanup::DeleteVector<Automation*>), vec.end());
+	}
+	
+	m_actionGroups.clear();
+	m_isGrouping = false;
 }
 
 bool LuaScript::Start()
 {
+	if(m_allocateError) return false; // AllocateResource failed
+	
 	delete m_scriptProvider; // if m_scriptProvider is NULL it's fine because delete NULL is a no-op.
 	m_scriptProvider = NULL;
 	
@@ -37,6 +59,7 @@ bool LuaScript::Start()
 	m_currentRoutine = NULL;
 	m_error = false;
 	m_resources.clear();
+	cleanupActionGroups(); // deallocates action groups and sets isGrouping = false
 	
 	m_scriptProvider->CreateContext();
 
@@ -46,56 +69,8 @@ bool LuaScript::Start()
 		m_error = true;
 		return false;
 	}
-	
-	LuaScriptProvider manifest;
-	manifest.CreateContext();
-	manifest.LoadFromFile(m_file + std::string(".manifest")); // load manifest
-	manifest.Step(); // run once to load functions
-	
-	lua_State* L = manifest.L();
-	
-	lua_getglobal(L, "AllocateResources");
-	
-	if(lua_pcall(L, 0, 1, 0) != 0)
-	{
-		BufferedConsole::Printfln("Error calling the function: %s", lua_tostring(L, -1));
-		m_error = true;
-		return false;
-	}
-	
-	if(lua_gettop(L) != 1 || !lua_istable(L, 1))
-	{
-		BufferedConsole::Printfln("Invalid return value.");
-		
-		if(lua_gettop(L) != 1) BufferedConsole::Printfln("top != 1");
-		if(!lua_istable(L, 1)) BufferedConsole::Printfln("Not a table");
-		
-		m_error = true;
-		return false;
-	}
-	
-	// for each entry in the table
-	int len = lua_rawlen(L, 1);
 
-	for (int i = 1; i <= len; i++)
-	{
-		// get the entry to stack
-		lua_pushinteger(L, i);
-		lua_gettable(L, 1);
-
-		// get table entry as string
-		const char *s = lua_tostring(L, -1);
-		if (s)
-		{
-			// push the value to the vector
-			m_resources.push_back(s);
-		}
-
-		// remove entry from stack
-		lua_pop(L,1);
-	}
-	
-	L = m_scriptProvider->L();
+	lua_State* L =  m_scriptProvider->L();
 	
 	lua_pushinteger(L, reinterpret_cast<size_t>(this));
 	lua_setglobal(L, "__LRT_LUASCRIPT_INSTANCE");
@@ -111,7 +86,22 @@ bool LuaScript::Start()
 	m_scriptProvider->ExposeEntity("getHotRightStatus", (lua_CFunction)lua_HotRightStatus);
 	m_scriptProvider->ExposeEntity("BufferedPrint", (lua_CFunction)lua_BufferedPrint);
 	
+	m_scriptProvider->ExposeEntity("beginActionGroup", (lua_CFunction)lua_BeginActionGroup);
+	m_scriptProvider->ExposeEntity("endActionGroup", (lua_CFunction)lua_EndActionGroup);
+			
 	return true;
+}
+
+void LuaScript::setCurrentOrGroup(Automation* routine)
+{
+	if(m_isGrouping)
+	{
+		m_actionGroups[m_currentGroup].push_back(routine);
+	}
+	else
+	{
+		m_currentRoutine = routine;
+	}
 }
 
 int LuaScript::lua_Collect(lua_State* L)
@@ -126,7 +116,7 @@ int LuaScript::lua_Collect(lua_State* L)
 	
 	if(n == 0)
 	{
-		inst->m_currentRoutine = new Collect();
+		inst->setCurrentOrGroup(new Collect());
 	}
 	else
 	{
@@ -165,15 +155,15 @@ int LuaScript::lua_Drive(lua_State* L)
 	{
 		if(n == 1)
 		{
-			inst->m_currentRoutine = new Drive(args[0]);
+			inst->setCurrentOrGroup(new Drive(args[0]));
 		}
 		else if(n == 2)
 		{
-			inst->m_currentRoutine = new Drive(args[0], args[1]);
+			inst->setCurrentOrGroup(new Drive(args[0], args[1]));
 		}
 		else if(n == 3)
 		{
-			inst->m_currentRoutine = new Drive(args[0], args[1], args[2]);
+			inst->setCurrentOrGroup(new Drive(args[0], args[1], args[2]));
 		}
 		else if(n == 4)
 		{
@@ -181,7 +171,7 @@ int LuaScript::lua_Drive(lua_State* L)
 			else
 			{
 				bool b = lua_toboolean(L, 4);
-				inst->m_currentRoutine = new Drive(args[0], args[1], args[2], b);
+				inst->setCurrentOrGroup(new Drive(args[0], args[1], args[2], b));
 			}
 		}
 		else
@@ -225,15 +215,15 @@ int LuaScript::lua_Turn(lua_State* L)
 	{
 		if(n == 1)
 		{
-			inst->m_currentRoutine = new Turn(args[0]);
+			inst->setCurrentOrGroup(new Turn(args[0]));
 		}
 		else if(n == 2)
 		{
-			inst->m_currentRoutine = new Turn(args[0], args[1]);
+			inst->setCurrentOrGroup(new Turn(args[0], args[1]));
 		}
 		else if(n == 3)
 		{
-			inst->m_currentRoutine = new Turn(args[0], args[1], args[2]);
+			inst->setCurrentOrGroup(new Turn(args[0], args[1], args[2]));
 		}
 		else
 		{
@@ -272,11 +262,11 @@ int LuaScript::lua_JitterTurn(lua_State* L)
 	{
 		if(n == 2)
 		{
-			inst->m_currentRoutine = new JitterTurn(args[0], args[1]);
+			inst->setCurrentOrGroup(new JitterTurn(args[0], args[1]));
 		}
 		else if(n == 3)
 		{
-			inst->m_currentRoutine = new JitterTurn(args[0], args[1], args[2]);
+			inst->setCurrentOrGroup(new JitterTurn(args[0], args[1], args[2]));
 		}
 		else
 		{
@@ -300,12 +290,12 @@ int LuaScript::lua_Fire(lua_State* L)
 	
 	if(n == 0)
 	{
-		inst->m_currentRoutine = new Fire();
+		inst->setCurrentOrGroup(new Fire());
 	}
 	else if(n == 1)
 	{
 		if(!lua_isboolean(L, 1)) error = true;
-		else inst->m_currentRoutine = new Fire(lua_toboolean(L, 1));
+		else inst->setCurrentOrGroup(new Fire(lua_toboolean(L, 1)));
 	}
 	else
 	{
@@ -390,7 +380,7 @@ int LuaScript::lua_DribbleDrive(lua_State* L)
 			routine->AddAutomation(dribble);
 			routine->AddAutomation(new Dribble());
 			
-			inst->m_currentRoutine = routine;
+			inst->setCurrentOrGroup(routine);
 		}
 	}
 	
@@ -411,12 +401,59 @@ int LuaScript::lua_LoadLauncher(lua_State* L)
 	
 	if(n == 0)
 	{
-		inst->m_currentRoutine = new LoadLauncher();
+		inst->setCurrentOrGroup(new LoadLauncher());
 		BufferedConsole::Printfln("LoadLauncher");
 	}
 	else
 	{
 		error = true;
+	}
+	
+	return error ? 0 
+			: lua_yield(L, 0); // lua_yield pauses execution
+}
+
+int LuaScript::lua_RunParallel(lua_State* L)
+{
+	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
+	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
+	
+	int n = lua_gettop(L);
+	bool error = false;
+	
+	std::vector<Automation*> sequentials;
+	
+	for(int i = 0; i < n; i++)
+	{
+		if(!lua_isstring(L, i+1)) // i+1 because lua is one-based
+		{
+			BufferedConsole::Printfln("LuaScript: WARNING; invalid parameter passed to runParallel; notAString.");
+			error = true;
+			break;
+		}
+		
+		const char* actionGroupNameC = lua_tostring(L, i+1);
+		std::string actionGroupName = std::string(actionGroupNameC); // convert to an std string
+		
+		if(inst->m_actionGroups.find(actionGroupName) == inst->m_actionGroups.end())
+		{
+			BufferedConsole::Printfln("LuaScript: WARNING; invalid parameter passed to runParallel; actionGroupNameNotInMap.");
+			error = true;
+			break;
+		}
+		
+		std::vector<Automation*>& actionGroup = inst->m_actionGroups[actionGroupName];
+		
+		sequentials.push_back(new Sequential(actionGroupName, actionGroup));
+	}
+	
+	if(!error)
+	{
+		Parallel* p = new Parallel("lua::runParallel", sequentials);
+		
+		inst->setCurrentOrGroup(p);
 	}
 	
 	return error ? 0 
@@ -450,6 +487,45 @@ int LuaScript::lua_BufferedPrint(lua_State* L)
 		const char* str = lua_tostring(L, 1);
 		BufferedConsole::Printfln(str);
 	}
+	
+	return 0;
+}
+
+int LuaScript::lua_BeginActionGroup(lua_State* L)
+{
+	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
+	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
+	
+	int n = lua_gettop(L);
+	
+	inst->m_isGrouping = true; // enable grouping
+	
+	if(n == 1 && lua_isstring(L, 1))
+	{
+		const char* str = lua_tostring(L, 1);
+		
+		inst->m_currentGroup = std::string(str); // set the current group to be the passed arg
+	}
+	// otherwise use the last m_currentGroup
+	
+	return 0;
+}
+
+int LuaScript::lua_EndActionGroup(lua_State* L)
+{
+	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
+	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
+	
+	if(!inst->m_isGrouping)
+	{
+		BufferedConsole::Printfln("LuaScript: WARNING; mismatched extra endActionGroup() called."); // warn if this isn't paired with a begin
+	}
+	
+	inst->m_isGrouping = false;
 	
 	return 0;
 }
@@ -532,7 +608,55 @@ bool LuaScript::Abort()
 
 void LuaScript::AllocateResources()
 {
-	if(m_error) return;
+	m_allocateError = false;
+	
+	LuaScriptProvider manifest;
+	manifest.CreateContext();
+	manifest.LoadFromFile(m_file + std::string(".manifest")); // load manifest
+	manifest.Step(); // run once to load functions
+	
+	lua_State* L = manifest.L();
+	
+	lua_getglobal(L, "AllocateResources");
+	
+	if(lua_pcall(L, 0, 1, 0) != 0)
+	{
+		BufferedConsole::Printfln("Error calling the function: %s", lua_tostring(L, -1));
+		m_allocateError = true;
+		return;
+	}
+	
+	if(lua_gettop(L) != 1 || !lua_istable(L, 1))
+	{
+		BufferedConsole::Printfln("Invalid return value.");
+		
+		if(lua_gettop(L) != 1) BufferedConsole::Printfln("top != 1");
+		if(!lua_istable(L, 1)) BufferedConsole::Printfln("Not a table");
+		
+		m_allocateError = true;
+		return;
+	}
+	
+	// for each entry in the table
+	int len = lua_rawlen(L, 1);
+
+	for (int i = 1; i <= len; i++)
+	{
+		// get the entry to stack
+		lua_pushinteger(L, i);
+		lua_gettable(L, 1);
+
+		// get table entry as string
+		const char *s = lua_tostring(L, -1);
+		if (s)
+		{
+			// push the value to the vector
+			m_resources.push_back(s);
+		}
+
+		// remove entry from stack
+		lua_pop(L,1);
+	}
 	
 	for(std::vector<std::string>::iterator it = m_resources.begin(); it != m_resources.end(); ++it)
 	{
