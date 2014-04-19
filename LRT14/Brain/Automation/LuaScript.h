@@ -9,6 +9,7 @@
 #include <hash_map>
 
 #include <Rhesus.Toolkit.Scripting.h>
+#include <Rhesus.Toolkit.Diagnostics.h>
 
 class LuaScript : public Automation
 {
@@ -33,6 +34,9 @@ private:
 	static int lua_HotLeftStatus(lua_State* L);
 	static int lua_HotRightStatus(lua_State* L);
 	static int lua_BufferedPrint(lua_State* L);
+	static int lua_Pause(lua_State* L);
+	static int lua_GetTimeMillis(lua_State* L);
+	static int lua_GetGameState(lua_State* L);
 	
 	static int lua_BeginActionGroup(lua_State* L);
 	static int lua_EndActionGroup(lua_State* L);
@@ -44,6 +48,7 @@ private:
 	std::string m_file;
 	
 	Rhesus::Toolkit::Scripting::LuaScriptProvider* m_scriptProvider;
+	Rhesus::Toolkit::Diagnostics::Stopwatch m_elapsedSw;
 	
 	Automation* m_currentRoutine;
 	bool m_isParallelizing;

@@ -10,14 +10,6 @@ int FaceHotGoal::m_hotGoalPos[] = { -1, 1, 0 }; // left, right, none
 
 // TODO: ctor chaining
 
-FaceHotGoal::FaceHotGoal() :
-	JitterTurn(0.0, 0.0),
-	m_hotGoal(CheesyVisionServer::GetInstance()),
-	m_turnDegrees(30.0),
-	m_turnToCenter(false)
-{
-}
-
 FaceHotGoal::FaceHotGoal(double turnDegrees) :
 	JitterTurn(0.0, 0.0),
 	m_hotGoal(CheesyVisionServer::GetInstance()),

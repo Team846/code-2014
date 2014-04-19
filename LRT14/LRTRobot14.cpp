@@ -106,7 +106,7 @@ void LRTRobot14::RobotInit()
 	BufferedConsole::Printfln("Initializing Brain...");
 	Brain::Initialize();
 	
-	//CheesyVisionServer::GetInstance()->StartListening();
+	CheesyVisionServer::GetInstance()->StartListening();
 	
 	
 	// Start AsyncCANJaguar tasks
@@ -157,6 +157,7 @@ void LRTRobot14::RobotInit()
 
 static int TimeoutCallback(...)
 {
+	/*
 	Dashboard2::LogW("Main loop execution time > 20 ms");
 	
 	BufferedConsole::Printfln("======================================");
@@ -174,7 +175,7 @@ static int TimeoutCallback(...)
 	}
 	
 	BufferedConsole::Printfln("======================================");
-	
+	*/
 	return 0;
 }
 

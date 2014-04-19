@@ -42,7 +42,6 @@ void CheesyVisionServer::Run()
                     _curLeftStatus = (byte & (1 << 1)) > 0;
                     _curRightStatus = (byte & (1 << 0)) > 0;
                     UpdateCounts(_curLeftStatus,_curRightStatus);
-                    printf("Left: %d, Right: %d\n", _curLeftStatus, _curRightStatus);
                     _lastHeartbeatTime = Timer::GetFPGATimestamp();
                 }
                 catch (EOFException e)
