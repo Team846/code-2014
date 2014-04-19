@@ -659,6 +659,7 @@ bool LuaScript::Abort()
 	{
 		m_currentRoutine->AbortAutomation(GetAbortEvent());
 	}
+	m_elapsedSw.Stop();
 	
 	BufferedConsole::Printfln("Aborting");
 	
