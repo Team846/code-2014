@@ -157,7 +157,6 @@ void LRTRobot14::RobotInit()
 
 static int TimeoutCallback(...)
 {
-	/*
 	Dashboard2::LogW("Main loop execution time > 20 ms");
 	
 	BufferedConsole::Printfln("======================================");
@@ -175,7 +174,6 @@ static int TimeoutCallback(...)
 	}
 	
 	BufferedConsole::Printfln("======================================");
-	*/
 	return 0;
 }
 
@@ -186,11 +184,13 @@ void LRTRobot14::Tick()
 
 	static int tickCount = 0;
 	
-	Profiler::StartActivity("Tick");
-	
+	Profiler::StartActivity("LRTRobot14::Tick()");
+
+	Profiler::StartActivity("RobotState::Update()");
 	// Update global robot state object
 	RobotState::Instance().Update();
-	
+	Profiler::End("RobotState::Update()");
+
 	// Redirect all prints to a file when console is blocked during matches
 	if (RobotState::Instance().FMSAttached() && RobotState::Instance().GameMode() != GameState::DISABLED)
 	{
@@ -200,15 +200,19 @@ void LRTRobot14::Tick()
 	{
 		IOUtils::RedirectOutputToConsole();
 	}
-	
+
+	Profiler::StartActivity("RobotLocation::Zero()");
 	// Zero robot location if enabled
 	if (RobotState::Instance().GameMode() != GameState::DISABLED && RobotState::Instance().LastGameMode() == GameState::DISABLED)
 	{
 		RobotLocation::Instance()->Zero();
 	}
-	
+	Profiler::End("RobotLocation::Zero()");
+
+	Profiler::StartActivity("LRTDriverStation::Update()");
 	// Update the Driver Station
 	LRTDriverStation::Update();
+	Profiler::End("LRTDriverStation::Update()");
 
 	// Update offboard
 //	OffboardCommunication::Instance()->Update();
@@ -220,15 +224,21 @@ void LRTRobot14::Tick()
 	}
 	else
 	{
+		Profiler::StartActivity("Brain::Update()");
 		// Update the Brain
 		Brain::Instance()->Update();
+		Profiler::End("Brain::Update()");
 
+		Profiler::StartActivity("Component::UpdateAll()");
 		// Update all components
 		Component::UpdateAll();	
+		Profiler::End("Component::UpdateAll()");
 	}
-	
+
+	Profiler::StartActivity("Actuator::OutputAll()");
 	// Flush outputs to all actuators
 	Actuator::OutputAll();
+	Profiler::End("Actuator::OutputAll()");
 
 #if PNEUMATICS
 	// Toggle compressor based on Driver Station switches
@@ -241,12 +251,14 @@ void LRTRobot14::Tick()
 		Pneumatics::SetCompressor(false);
 	}
 #endif
-	
+
+	Profiler::StartActivity("ConfigRuntime::CheckForFileUpdates()");
 	// Check for runtime configuration file changes
 	if (RobotState::Instance().GameMode() == GameState::DISABLED)
 	{
 		ConfigRuntime::Instance()->CheckForFileUpdates();
 	}
+	Profiler::End("ConfigRuntime::CheckForFileUpdates()");
 	
 //	HotGoal::Side side = FaceHotGoal::LastHotGoalSide();
 //	std::string sideStr = "???";
@@ -257,22 +269,28 @@ void LRTRobot14::Tick()
 //	else sideStr = "???";
 //	
 //	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, sideStr);
-	
+
+	Profiler::StartActivity("LCD::RunOneCycle()");
 	// Utilities
 	LCD::Instance()->RunOneCycle();
+	Profiler::End("LCD::RunOneCycle()");
 //	Logger::Instance()->Run();
+	Profiler::StartActivity("LiveNetworkSender::Run()");
 	if (DriverStation::GetInstance()->GetDigitalIn(DriverStationConfig::DigitalIns::NETWORK))
 	{
 		LiveNetworkSender::Instance()->Run();
 //		Dashboard2::Tick();
 	}
-	
+	Profiler::End("LiveNetworkSender::Run()");
+
+	Profiler::StartActivity("ComponentData::ResetAllCommands()");
 	// Reset ComponentData command fields
 	ComponentData::ResetAllCommands();
+	Profiler::End("ComponentData::ResetAllCommands()");
 	
 	tickCount++;
 	
-	Profiler::End("Tick");
+	Profiler::End("LRTRobot14::Tick()");
 	
 	wdCancel(_watchdog);
 	
