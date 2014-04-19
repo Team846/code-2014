@@ -12,7 +12,7 @@
 class HotGoalWait : public Automation
 {
 public:
-	HotGoalWait(string side, double timeout);
+	HotGoalWait(string side, double timeout=8.0); // 5.0 + 3.0 padding
 
 	bool Start();
 	bool Run();

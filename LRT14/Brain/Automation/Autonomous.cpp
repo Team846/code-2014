@@ -20,6 +20,8 @@ using namespace Rhesus::Toolkit::Utilities;
 #include "Fire.h"
 #include "Dribble.h"
 #include "Pause.h"
+#include "Print.h"
+#include "LuaScript.h"
 #include "Repeating.h"
 #include "Parallel.h"
 #include "FaceHotGoal.h"
@@ -273,11 +275,16 @@ void Autonomous::LoadRoutine(std::string path)
 				else
 					failed = true;
 			}
+			else if (command == "print")
+			{
+				if (arglist.size() == 1)
+					current = new Print(arglist[0]);
+				else
+					failed = true;
+			}
 			else if (command == "face_hot_goal")
 			{
-				if (arglist.size() == 0)
-					current = new FaceHotGoal();
-				else if(arglist.size() == 1)
+				if(arglist.size() == 1)
 					current = new FaceHotGoal(lexical_cast<double>(arglist[0]), lexical_cast<bool>(arglist[1]), false);
 				else if(arglist.size() == 2)
 					current = new FaceHotGoal(lexical_cast<double>(arglist[0]), lexical_cast<bool>(arglist[1]), false);
@@ -305,6 +312,15 @@ void Autonomous::LoadRoutine(std::string path)
 				if(arglist.size() == 3)
 				{
 					current = new JitterTurn(lexical_cast<double>(arglist[0]), lexical_cast<double>(arglist[1]), lexical_cast<double>(arglist[2]));
+				}
+				else
+					failed = true;
+			}
+			else if(command == "lua")
+			{
+				if(arglist.size() == 1)
+				{
+					current = new LuaScript(lexical_cast<std::string>(arglist[0]));
 				}
 				else
 					failed = true;

@@ -23,7 +23,6 @@ namespace HotGoal
 class FaceHotGoal : public JitterTurn
 {
 public:
-	FaceHotGoal();
 	FaceHotGoal(double turnDegrees);
 	FaceHotGoal(double turnDegrees, bool clear, bool turnToCenter);
 	FaceHotGoal(double turnDegrees, bool clear, bool turnToCenter, double randLow, double randHigh);
