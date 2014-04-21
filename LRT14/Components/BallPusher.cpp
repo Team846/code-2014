@@ -26,7 +26,7 @@ void BallPusher::OnDisabled()
 {
 	
 }
-		
+
 void BallPusher::UpdateEnabled()
 {
 	m_pneumatics->Set(m_ballPusherData->GetPush() ? Pneumatics::FORWARD : Pneumatics::OFF);

@@ -10,24 +10,24 @@ require "common"
 
 --[[
 left: -1
-none/error: 0
+none/error: 0 <-- don't set STARTING_SIDE to this
 right: 1
 --]]
-STARTING_SIDE = -1 -- CHANGEME
+STARTING_SIDE = 1
 WAIT_TIMEOUT = 8.0 -- 5.0 + 3.0 timeout
+FORWARD_DIST = 78.0
 
 start = GetTimeMillis()
+drive(-1 * FORWARD_DIST)
 
-dribbleDrive(-36.0, 1.0)
-
---[[
 -- if the side isn't the starting side or we haven't timed out, keep yielding back to the main code
-while getHotGoalSide() ~= STARTING_SIDE and ( (GetTimeMillis() - start) < WAIT_TIMEOUT * 1000) do
-	BufferedPrint("Side: "..getHotGoalSide())
+while ( getHotGoalSide() ~= STARTING_SIDE and (GetTimeMillis() - start) < (WAIT_TIMEOUT * 1000)) do
 	coroutine.yield()
 end
---]]
+
+print("Time: "..(GetTimeMillis() - start))
 
 -- go time!
 fire()
+
 print("Routine done")

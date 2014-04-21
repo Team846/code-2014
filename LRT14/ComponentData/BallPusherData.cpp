@@ -14,6 +14,7 @@ BallPusherData* BallPusherData::Get()
 
 void BallPusherData::ResetCommands()
 {
+	m_push = false;
 }
 
 void BallPusherData::Log()

@@ -4,6 +4,7 @@
 #include "CollectorRollersData.h"
 #include "LauncherLoaderData.h"
 #include "LauncherAngleData.h"
+#include "BallPusherData.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ void ComponentData::Initialize()
 	data.push_back(new CollectorRollersData());
 	data.push_back(new LauncherLoaderData());
 	data.push_back(new LauncherAngleData());
+	data.push_back(new BallPusherData());
 }
 
 void ComponentData::Finalize()

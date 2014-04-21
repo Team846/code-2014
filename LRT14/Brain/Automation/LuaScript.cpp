@@ -1,6 +1,7 @@
 #include "LuaScript.h"
 
 #include "Collect.h"
+#include "CollectorMove.h"
 #include "Drive.h"
 #include "Turn.h"
 #include "JitterTurn.h"
@@ -31,8 +32,8 @@ LuaScript::~LuaScript()
 {
 	cleanupActionGroups();
 	
-	delete m_currentRoutine;
-	m_currentRoutine = NULL;
+	//delete m_currentRoutine;
+	//m_currentRoutine = NULL;
 	
 	delete m_scriptProvider;
 	m_scriptProvider = NULL;
@@ -90,9 +91,11 @@ bool LuaScript::Start()
 	m_scriptProvider->ExposeEntity("getHotLeftStatus", (lua_CFunction)lua_HotLeftStatus);
 	m_scriptProvider->ExposeEntity("getHotRightStatus", (lua_CFunction)lua_HotRightStatus);
 	m_scriptProvider->ExposeEntity("pause", (lua_CFunction)lua_Pause);
+	m_scriptProvider->ExposeEntity("collectorMove", (lua_CFunction)lua_CollectorMove);
 	m_scriptProvider->ExposeEntity("BufferedPrint", (lua_CFunction)lua_BufferedPrint);
 	m_scriptProvider->ExposeEntity("GetTimeMillis", (lua_CFunction)lua_GetTimeMillis);
 	m_scriptProvider->ExposeEntity("GetGameState", (lua_CFunction)lua_GetGameState);
+	m_scriptProvider->ExposeEntity("RunParallel", (lua_CFunction)lua_RunParallel);
 	
 	m_scriptProvider->ExposeEntity("beginActionGroup", (lua_CFunction)lua_BeginActionGroup);
 	m_scriptProvider->ExposeEntity("endActionGroup", (lua_CFunction)lua_EndActionGroup);
@@ -513,6 +516,30 @@ int LuaScript::lua_Pause(lua_State* L)
 			: lua_yield(L, 0); // lua_yield pauses execution
 }
 
+int LuaScript::lua_CollectorMove(lua_State* L)
+{
+	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
+	LuaScript* inst = (LuaScript*)(size_t)lua_tointeger(L, -1);
+	
+	lua_pop(L, 1);
+	
+	int n = lua_gettop(L);
+	bool error = false;
+	
+	if(n == 1)
+	{
+		if(!lua_isboolean(L, 1)) error = true;
+		else inst->m_currentRoutine = new CollectorMove(lua_toboolean(L, 1));
+	}
+	else
+	{
+		error = true;
+	}
+	
+	return error ? 0 
+			: lua_yield(L, 0); // lua_yield pauses execution
+}
+
 int LuaScript::lua_GetTimeMillis(lua_State* L)
 {
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
@@ -597,11 +624,12 @@ bool LuaScript::Run()
 		BufferedConsole::Printfln("Next step");
 		
 		// dispose of the old routine
-		delete m_currentRoutine; // can safely delete -- m_currentRoutine is either NULL or a completed routine; delete NULL is a no-op
+		//delete m_currentRoutine; // can safely delete -- m_currentRoutine is either NULL or a completed routine; delete NULL is a no-op
 		m_currentRoutine = NULL;
 		
 		// run until the next (or first) routine
 		
+		BufferedConsole::Printfln("Stepping");
 		ExecutionState::Enum state = m_scriptProvider->Step();
 		
 		if(state == ExecutionState::EXEC_ERROR)
@@ -622,8 +650,9 @@ bool LuaScript::Run()
 			}
 			else
 			{
+				printf("Configuring\n");
 				ConfigRuntime::ConfigureAll();
-				BufferedConsole::Printfln("New routine: %s", m_currentRoutine->GetName().c_str());
+				printf("New routine: %s\n", m_currentRoutine->GetName().c_str());
 				
 				// new routine
 				bool res = m_currentRoutine->StartAutomation(GetStartEvent());
@@ -631,7 +660,7 @@ bool LuaScript::Run()
 				if(!res) // something went wrong...
 				{
 					// ignore it and keep going by unsetting it
-					delete m_currentRoutine;
+					//delete m_currentRoutine;
 					m_currentRoutine = NULL;
 					// fall through to return state == ExecutionState::FINISHED (== false)
 				}

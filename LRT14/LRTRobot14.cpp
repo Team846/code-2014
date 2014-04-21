@@ -279,7 +279,7 @@ void LRTRobot14::Tick()
 	if (DriverStation::GetInstance()->GetDigitalIn(DriverStationConfig::DigitalIns::NETWORK))
 	{
 		LiveNetworkSender::Instance()->Run();
-//		Dashboard2::Tick();
+		Dashboard2::Tick();
 	}
 	Profiler::End("LiveNetworkSender::Run()");
 

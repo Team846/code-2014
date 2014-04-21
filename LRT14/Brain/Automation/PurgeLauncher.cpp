@@ -7,6 +7,7 @@ PurgeLauncher::PurgeLauncher() :
 	Automation("PurgeLauncher"),
 	Configurable("PurgeLauncher")
 {
+	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
 	m_ballHolder = BallHolderData::Get();
@@ -16,6 +17,7 @@ PurgeLauncher::PurgeLauncher() :
 
 void PurgeLauncher::AllocateResources()
 {
+	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
 	AllocateResource(ControlResource::BALL_HOLDER);
@@ -31,6 +33,7 @@ bool PurgeLauncher::Start()
 
 bool PurgeLauncher::Run()
 {
+	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(true);
 	m_collectorRollers->SetDirection(CollectorRollersData::REVERSE);
 	m_collectorRollers->SetSpeed(m_rollerSpeed);
