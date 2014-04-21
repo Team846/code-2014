@@ -2,7 +2,7 @@
 #include "../../Config/ConfigPortMappings.h"
 #include "../../DriverStation/LRTDriverStation.h"
 
-Fire::Fire(bool overrideSensor) :
+Fire::Fire(bool collectorDown, bool overrideSensor) :
 	Automation("Fire"),
 	Configurable("Fire")
 {
@@ -14,6 +14,7 @@ Fire::Fire(bool overrideSensor) :
 	m_hasBall = false;
 	m_firing = false;
 	m_override = overrideSensor;
+	m_collectorDown = collectorDown;
 }
 
 void Fire::AllocateResources()
@@ -37,7 +38,7 @@ bool Fire::Start()
 bool Fire::Run()
 {
 	m_ballHolder->SetHold(false);
-	m_collectorArmData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
+	m_collectorArmData->SetDesiredPosition(m_collectorDown ? CollectorArmData::COLLECT : CollectorArmData::INTERMEDIATE);
 	
 	if (!m_loaderData->IsLoadingComplete() && !m_loaded)
 	{

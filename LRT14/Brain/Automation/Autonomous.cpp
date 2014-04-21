@@ -200,6 +200,8 @@ void Autonomous::LoadRoutine(std::string path)
 			{
 				if (arglist.size() == 0)
 					current = new Fire();
+				else if (arglist.size() == 1)
+					current = new Fire(lexical_cast<bool>(arglist[0]));
 				else
 					failed = true;
 			}

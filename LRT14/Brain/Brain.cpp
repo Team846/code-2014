@@ -151,6 +151,7 @@ Brain::Brain() :
 	load_start->AddAbortListener(collect);
 //	load_start->AddAbortListener(humanLoad);
 	purge_start->AddStartListener(purge);
+	purge_start->AddAbortListener(collect);
 	purge_abort->AddAbortListener(purge);
 //	human_load_start->AddStartListener(humanLoad);
 //	human_load_abort->AddAbortListener(humanLoad);

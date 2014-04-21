@@ -169,7 +169,6 @@ void ConfigRuntime::Register(Configurable* configurable)
 
 void ConfigRuntime::ConfigureAll()
 {
-	BufferedConsole::Printf("Applying configuration to all configurables\n");
 	for (vector<Configurable*>::iterator it = configurables.begin(); it
 			!= configurables.end(); it++)
 	{

@@ -2,6 +2,7 @@
 #define PURGE_LAUNCHER_H_
 
 #include "Automation.h"
+#include "../../ComponentData/CollectorArmData.h"
 #include "../../ComponentData/CollectorRollersData.h"
 #include "../../ComponentData/LauncherLoaderData.h"
 #include "../../ComponentData/BallHolderData.h"
@@ -26,6 +27,7 @@ public:
 	void Configure();
 	
 private:
+	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_collectorRollers;
 	LauncherLoaderData* m_loaderData;
 	BallHolderData* m_ballHolder;

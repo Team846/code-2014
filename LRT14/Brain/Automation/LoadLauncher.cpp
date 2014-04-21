@@ -29,6 +29,7 @@ void LoadLauncher::AllocateResources()
 
 bool LoadLauncher::Start()
 {
+	printf("Start LoadLauncher");
 	m_pastIntermediate = false;
 	m_ballIn = false;
 	m_timerStarted = false;
@@ -100,6 +101,9 @@ bool LoadLauncher::Abort()
 
 void LoadLauncher::Configure()
 {
+	printf("LoadLauncher configuring\n");
 	m_loadSpeed = GetConfig("load_speed", 1.0);
+	printf("LoadLauncher configuring 2\n");
 	m_ballSettleTime = GetConfig("ball_settle_time", 1.0);
+	printf("LoadLauncher configuring 3\n");
 }

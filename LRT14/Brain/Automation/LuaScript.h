@@ -35,6 +35,7 @@ private:
 	static int lua_HotRightStatus(lua_State* L);
 	static int lua_BufferedPrint(lua_State* L);
 	static int lua_Pause(lua_State* L);
+	static int lua_CollectorMove(lua_State* L);
 	static int lua_GetTimeMillis(lua_State* L);
 	static int lua_GetGameState(lua_State* L);
 	
