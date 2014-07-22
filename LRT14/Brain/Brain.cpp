@@ -27,6 +27,7 @@
 #include "Automation/Sequential.h"
 #include "Automation/Repeating.h"
 #include "Automation/LuaScript.h"
+#include "Automation/TurnJoystickDirection.h"
 
 #include "Events/GameModeChangeEvent.h"
 #include "Events/JoystickMovedEvent.h"
@@ -86,8 +87,10 @@ Brain::Brain() :
 	Automation* luaScript = new LuaScript("Script.lua");
 	Automation* load = new LoadLauncher();
 	Automation* purge = new PurgeLauncher();
-//	Automation* humanLoad = new HumanLoad();
+	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
+	Automation* turn90 = new TurnJoystickDirection(90);
+	Automation* turn180 = new TurnJoystickDirection(180);
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
@@ -96,6 +99,8 @@ Brain::Brain() :
 	m_automation.push_back(purge);
 	m_automation.push_back(dribble);
 	m_automation.push_back(luaScript);
+	m_automation.push_back(turn90);
+	m_automation.push_back(turn180);
 	
 	// Create events to be used
 	Event* to_auto = new GameModeChangeEvent(GameState::AUTONOMOUS);
@@ -119,12 +124,16 @@ Brain::Brain() :
 	Event* load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::LOAD_LAUNCHER);
 	Event* purge_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PURGE_LAUNCHER);
 	Event* purge_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PURGE_LAUNCHER);
-//	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
-//	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
+	Event* human_load_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
+	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
-	Event* lua_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
-	Event* lua_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
+	Event* turn90_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_90);
+	Event* turn90_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_90);
+	Event* turn180_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_180);
+	Event* turn180_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_180);
+//	Event* lua_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
+//	Event* lua_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::LUA_SCRIPT);
 	
 	// Map events to tasks to start/abort/continue
 	to_auto->AddStartListener(auton);
@@ -138,6 +147,7 @@ Brain::Brain() :
 	collect_start->AddStartListener(collect);
 	collect_start->AddAbortListener(dribble);
 	collect_abort->AddAbortListener(collect);
+	dribble_start->AddAbortListener(collect);
 	pass_start->AddAbortListener(collect);
 //	pass_start->AddAbortListener(humanLoad);
 	pass_start->AddAbortListener(load);
@@ -153,12 +163,16 @@ Brain::Brain() :
 	purge_start->AddStartListener(purge);
 	purge_start->AddAbortListener(collect);
 	purge_abort->AddAbortListener(purge);
-//	human_load_start->AddStartListener(humanLoad);
-//	human_load_abort->AddAbortListener(humanLoad);
-	dribble_start->AddStartListener(dribble);
+	human_load_start->AddStartListener(humanLoad);
+	human_load_abort->AddAbortListener(humanLoad);
+	turn90_start->AddStartListener(turn90);
+	turn90_abort->AddAbortListener(turn90);
+	turn180_start->AddStartListener(turn180);
+	turn180_abort->AddAbortListener(turn180);
+//	dribble_start->AddStartListener(dribble);
 	dribble_abort->AddAbortListener(dribble);
-	lua_start->AddStartListener(luaScript);
-	lua_abort->AddAbortListener(luaScript);
+//	lua_start->AddStartListener(luaScript);
+//	lua_abort->AddAbortListener(luaScript);
 }
 
 Brain::~Brain()

@@ -23,13 +23,14 @@ void CollectorArmInputs::Update()
 	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::FIRE_PREPARE))
 	{
 		m_armData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
+//		m_armData->SetDesiredPosition(CollectorArmData::COLLECT);
 		telemState = "PRESSED";
 	}
-	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::HUMAN_LOAD))
-	{
-		m_armData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
-		telemState = "PRESSED";
-	}
+//	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::HUMAN_LOAD))
+//	{
+//		m_armData->SetDesiredPosition(CollectorArmData::INTERMEDIATE);
+//		telemState = "PRESSED";
+//	}
 	else if (m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::FIRE_PREPARE)
 			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::HUMAN_LOAD)
 			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::FIRE_PREPARE))

@@ -38,6 +38,10 @@ void LauncherLoaderInputs::Update()
 	{
 		m_loaderData->SetHairTrigger(true);
 	}
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::KISS_PASS))
+	{
+		m_loaderData->SetPurge(true);
+	}
 //	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::SHORT_SHOT) || m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::LONG_SHOT))
 //	{
 //		m_loaderData->SetFire(true);

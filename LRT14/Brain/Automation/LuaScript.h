@@ -34,6 +34,9 @@ private:
 	static int lua_HotLeftStatus(lua_State* L);
 	static int lua_HotRightStatus(lua_State* L);
 	static int lua_BufferedPrint(lua_State* L);
+	static int lua_LogI(lua_State* L);
+	static int lua_LogW(lua_State* L);
+	static int lua_LogE(lua_State* L);
 	static int lua_Pause(lua_State* L);
 	static int lua_CollectorMove(lua_State* L);
 	static int lua_GetTimeMillis(lua_State* L);
