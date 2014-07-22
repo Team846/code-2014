@@ -19,7 +19,7 @@ void BallHolderInputs::Update()
 	
 	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::UNLOAD_LAUNCHER)
 			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::BALL_HOLDER)
-			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::HUMAN_LOAD))
+			|| m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::KISS_PASS))
 	{
 		m_ballHolder->SetHold(false);
 		

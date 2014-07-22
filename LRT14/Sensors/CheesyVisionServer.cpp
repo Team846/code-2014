@@ -39,8 +39,17 @@ void CheesyVisionServer::Run()
                 {
                     uint8_t byte;
                     stream->read(&byte, 1);
-                    _curLeftStatus = (byte & (1 << 1)) > 0;
-                    _curRightStatus = (byte & (1 << 0)) > 0;
+                    bool left = (byte & (1 << 1)) > 0;
+                    bool right = (byte & (1 << 0)) > 0;
+                    
+                    if(left != _curLeftStatus || right != _curRightStatus)
+                    {
+                    	//printf("LEFT: %s\nRIGHT: %s\n", left ? "TRUE" : "FALSE", right ? "TRUE" : "FALSE");
+                    }
+                    
+                    _curLeftStatus = left;
+                    _curRightStatus = right;
+                    
                     UpdateCounts(_curLeftStatus,_curRightStatus);
                     _lastHeartbeatTime = Timer::GetFPGATimestamp();
                 }
@@ -48,7 +57,7 @@ void CheesyVisionServer::Run()
                 {
                     //End of file, wait for a bit and read some more
                     
-                    sleep(50);
+                    Wait(0.05);
                 }   
                 
             }
@@ -60,7 +69,7 @@ void CheesyVisionServer::Run()
         }
         delete stream;//close, delete and recreate the stream
         
-        sleep(50);
+        Wait(0.05);
     }
     delete sock;
 }

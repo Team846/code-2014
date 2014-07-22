@@ -11,6 +11,8 @@
 #include "Parallel.h"
 #include "Sequential.h"
 #include "Pause.h"
+
+#include "../../Communication/Dashboard2.h"
 #include "../../Sensors/CheesyVisionServer.h"
 #include "../../RobotState.h"
 
@@ -93,6 +95,9 @@ bool LuaScript::Start()
 	m_scriptProvider->ExposeEntity("pause", (lua_CFunction)lua_Pause);
 	m_scriptProvider->ExposeEntity("collectorMove", (lua_CFunction)lua_CollectorMove);
 	m_scriptProvider->ExposeEntity("BufferedPrint", (lua_CFunction)lua_BufferedPrint);
+	m_scriptProvider->ExposeEntity("LogI", (lua_CFunction)lua_LogI);
+	m_scriptProvider->ExposeEntity("LogW", (lua_CFunction)lua_LogW);
+	m_scriptProvider->ExposeEntity("LogE", (lua_CFunction)lua_LogE);
 	m_scriptProvider->ExposeEntity("GetTimeMillis", (lua_CFunction)lua_GetTimeMillis);
 	m_scriptProvider->ExposeEntity("GetGameState", (lua_CFunction)lua_GetGameState);
 	m_scriptProvider->ExposeEntity("RunParallel", (lua_CFunction)lua_RunParallel);
@@ -574,6 +579,45 @@ int LuaScript::lua_BufferedPrint(lua_State* L)
 	return 0;
 }
 
+int LuaScript::lua_LogI(lua_State* L)
+{
+	int n = lua_gettop(L);
+	
+	if(n == 1 && lua_isstring(L, 1))
+	{
+		const char* str = lua_tostring(L, 1);
+		Dashboard2::LogI(str);
+	}
+	
+	return 0;
+}
+
+int LuaScript::lua_LogW(lua_State* L)
+{
+	int n = lua_gettop(L);
+	
+	if(n == 1 && lua_isstring(L, 1))
+	{
+		const char* str = lua_tostring(L, 1);
+		Dashboard2::LogW(str);
+	}
+	
+	return 0;
+}
+
+int LuaScript::lua_LogE(lua_State* L)
+{
+	int n = lua_gettop(L);
+	
+	if(n == 1 && lua_isstring(L, 1))
+	{
+		const char* str = lua_tostring(L, 1);
+		Dashboard2::LogE(str);
+	}
+	
+	return 0;
+}
+
 int LuaScript::lua_BeginActionGroup(lua_State* L)
 {
 	lua_getglobal(L, "__LRT_LUASCRIPT_INSTANCE");
@@ -621,7 +665,7 @@ bool LuaScript::Run()
 	
 	if(m_currentRoutine == NULL || (res = m_currentRoutine->Update()))
 	{
-		BufferedConsole::Printfln("Next step");
+		//BufferedConsole::Printfln("Next step");
 		
 		// dispose of the old routine
 		//delete m_currentRoutine; // can safely delete -- m_currentRoutine is either NULL or a completed routine; delete NULL is a no-op
@@ -650,7 +694,7 @@ bool LuaScript::Run()
 			}
 			else
 			{
-				printf("Configuring\n");
+				//printf("Configuring\n");
 				ConfigRuntime::ConfigureAll();
 				printf("New routine: %s\n", m_currentRoutine->GetName().c_str());
 				

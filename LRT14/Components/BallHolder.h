@@ -10,7 +10,7 @@
 /*!
  * @brief Provides control over the ball holding mechanism.
  */
-class BallHolder : public Component, public Configurable
+class BallHolder : public Component
 {
 public:
 	BallHolder();
@@ -21,8 +21,6 @@ public:
 	
 	void UpdateEnabled();
 	void UpdateDisabled();
-	
-	void Configure();
 	
 private:
 	BallHolderData* m_ballHolderData;

@@ -24,7 +24,7 @@
 #include "Communication/LiveNetworkSender.h"
 #include "Communication/OffboardCommunication.h"
 
-#include "Brain/Automation/FaceHotGoal.h"
+#include "Sensors/CheesyVisionServer.h"
 
 #include <Rhesus.Toolkit.h>
 #include <Rhesus.Toolkit.Diagnostics.h>
@@ -159,21 +159,20 @@ static int TimeoutCallback(...)
 {
 	Dashboard2::LogW("Main loop execution time > 20 ms");
 	
-	BufferedConsole::Printfln("======================================");
-	BufferedConsole::Printfln("PROFILED TIMES (over 20ms):");
-	BufferedConsole::Printfln("");
-	BufferedConsole::Printfln("Activity\tLast Time (ms)");
-	std::hash_map<std::string, double> times = Profiler::CloneLastTimes();
-	
-	for(std::hash_map<std::string, double>::iterator it = times.begin(); it != times.end(); ++it)
-	{
-		std::string name = it->first;
-		double time = it->second;
-		
-		BufferedConsole::Printfln("%s:\t\t%lf ms", name.c_str(), time);
-	}
-	
-	BufferedConsole::Printfln("======================================");
+//	BufferedConsole::Printfln("======================================");
+//	BufferedConsole::Printfln("PROFILED TIMES (over 20ms):");
+//	BufferedConsole::Printfln("");
+//	BufferedConsole::Printfln("Activity\tLast Time (ms)");
+//	std::hash_map<std::string, double> times = Profiler::CloneLastTimes();
+//	
+//	for(std::hash_map<std::string, double>::iterator it = times.begin(); it != times.end(); ++it)
+//	{
+//		std::string name = it->first;
+//		double time = it->second;
+//		
+//		BufferedConsole::Printfln("%s:\t\t%lf ms", name.c_str(), time);
+//	}
+//	BufferedConsole::Printfln("======================================");
 	return 0;
 }
 
@@ -260,28 +259,34 @@ void LRTRobot14::Tick()
 	}
 	Profiler::End("ConfigRuntime::CheckForFileUpdates()");
 	
+	bool leftHot = CheesyVisionServer::GetInstance()->GetLeftStatus();
+	bool rightHot = CheesyVisionServer::GetInstance()->GetRightStatus();
+	
 //	HotGoal::Side side = FaceHotGoal::LastHotGoalSide();
-//	std::string sideStr = "???";
+	std::string sideStr = "???";
 //	
-//	if(side == HotGoal::LEFT) sideStr = "LEFT";
-//	else if(side == HotGoal::NONE_ACTIVE) sideStr = "NONE_ACTIVE";
+	if(leftHot && rightHot) sideStr = "BOTH";
+	else if(leftHot) sideStr = "LEFT";
+	else if(rightHot) sideStr = "RIGHT";
+	else sideStr = "NONE";
 //	else if(side == HotGoal::RIGHT) sideStr = "RIGHT";
 //	else sideStr = "???";
 //	
-//	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::AUTON_HOT_GOAL_LAST_SIDE, sideStr);
+	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::HOT_GOAL_SIDE, sideStr);
 
 	Profiler::StartActivity("LCD::RunOneCycle()");
 	// Utilities
 	LCD::Instance()->RunOneCycle();
 	Profiler::End("LCD::RunOneCycle()");
 //	Logger::Instance()->Run();
-	Profiler::StartActivity("LiveNetworkSender::Run()");
 	if (DriverStation::GetInstance()->GetDigitalIn(DriverStationConfig::DigitalIns::NETWORK))
 	{
+		Profiler::StartActivity("LiveNetworkSender::Run()");
 		LiveNetworkSender::Instance()->Run();
-		Dashboard2::Tick();
+		Profiler::End("LiveNetworkSender::Run()");
 	}
-	Profiler::End("LiveNetworkSender::Run()");
+	
+	Dashboard2::Tick();
 
 	Profiler::StartActivity("ComponentData::ResetAllCommands()");
 	// Reset ComponentData command fields

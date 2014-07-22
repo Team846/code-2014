@@ -7,8 +7,7 @@
 #include "../Actuators/Pneumatics.h"
 
 BallHolder::BallHolder() :
-	Component("BallHolder", DriverStationConfig::DigitalIns::BALL_HOLDER),
-	Configurable("BallHolder")
+	Component("BallHolder", DriverStationConfig::DigitalIns::BALL_HOLDER)
 {
 	m_ballHolderData = BallHolderData::Get();
 	m_pneumatics = new Pneumatics(ConfigPortMappings::Get("Solenoid/BALL_HOLDER"), "BallHolder");
@@ -35,12 +34,12 @@ void BallHolder::UpdateEnabled()
 	
 	if (m_ballHolderData->GetHold())
 	{
-		state = Pneumatics::FORWARD;
+		state = Pneumatics::OFF;
 		stateStr = "OFF";
 	}
 	else
 	{
-		state = Pneumatics::OFF;
+		state = Pneumatics::FORWARD;
 		stateStr = "FORWARD";
 	}
 	m_pneumatics->Set(state);
@@ -53,9 +52,4 @@ void BallHolder::UpdateDisabled()
 	m_pneumatics->Set(Pneumatics::OFF);
 	
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::BALL_HOLDER_STATE, stateStr);
-}
-
-void BallHolder::Configure()
-{
-	
 }

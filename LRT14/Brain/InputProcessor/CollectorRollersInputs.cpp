@@ -17,7 +17,7 @@ void CollectorRollersInputs::Update()
 	
 	std::string state = "RELEASED";
 	
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::RUN_ROLLERS))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::KISS_PASS))
 	{
 		m_rollersData->SetRunning(true);
 		m_rollersData->SetSpeed(1.0);
