@@ -112,14 +112,9 @@
         </mapAttribute>
     </attributes>
     <buildtargets>
-        <buildtarget buildtool="Linker" name="LRT14_Champs" passed="false" targetname="LRT14_Champs">
+        <buildtarget buildtool="Linker" name="LRT14" passed="false" targetname="LRT14">
             <contents>
-                <buildtargetreference name="/LRT14_Champs/LRT14_Champs_partialImage"/>
-            </contents>
-        </buildtarget>
-        <buildtarget buildtool="Partial Image Linker" name="LRT14_Champs_partialImage" passed="true" targetname="LRT14_Champs_partialImage">
-            <contents>
-                <folder name="/LRT14_Champs" recursive="true"/>
+                <folder name="/LRT14" recursive="true"/>
             </contents>
         </buildtarget>
     </buildtargets>

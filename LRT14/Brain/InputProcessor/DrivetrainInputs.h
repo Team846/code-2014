@@ -11,7 +11,13 @@
 class DrivetrainInputs : public InputProcessor, public Configurable
 {
 public:
-	DrivetrainInputs();
+	enum Axis
+	{
+		DRIVE,
+		TURN
+	};
+	
+	DrivetrainInputs(Axis axis);
 	
 	void Update();
 	
@@ -31,6 +37,8 @@ private:
 	int turnExponent;
 	int throttleExponent;
 	double deadband;
+	
+	Axis m_axis;
 };
 
 #endif

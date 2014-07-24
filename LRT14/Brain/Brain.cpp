@@ -68,7 +68,8 @@ Brain::Brain() :
 	Loggable("Brain")
 {
 	// Create joystick input processors
-	m_inputs.push_back(new DrivetrainInputs());
+	m_inputs.push_back(new DrivetrainInputs(DrivetrainInputs::DRIVE));
+	m_inputs.push_back(new DrivetrainInputs(DrivetrainInputs::TURN));
 	m_inputs.push_back(new CollectorArmInputs());
 	m_inputs.push_back(new CollectorRollersInputs());
 	m_inputs.push_back(new LauncherLoaderInputs());
