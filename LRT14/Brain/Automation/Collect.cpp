@@ -15,6 +15,7 @@ Collect::Collect() :
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_BUMPER_PROXIMITY"));
+	m_satTrigger = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/SATURATION_TRIGGER"));
 	m_redChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_RED"));
 	m_greenChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_GREEN"));
 	m_blueChannel = SensorFactory::GetAnalogChannel(ConfigPortMappings::Get("Analog/COLOR_BLUE"));
@@ -62,7 +63,7 @@ bool Collect::Run()
 //		}
 //	}
 
-	if (m_proximity->Get() == 1)
+	if (m_proximity->Get() == 1 && m_satTrigger->Get() == 0)
 	{
 		m_collectorRollers->SetDirection(CollectorRollersData::FORWARD);
 		m_collectorRollers->SetSpeed(m_constantPower);

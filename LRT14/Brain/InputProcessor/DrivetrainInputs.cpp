@@ -36,8 +36,8 @@ void DrivetrainInputs::Update()
 
 	if (m_axis == DRIVE)
 	{
-		drivetrainData->SetVelocitySetpoint(DrivetrainData::FORWARD, forward);
 		drivetrainData->SetControlMode(DrivetrainData::FORWARD, DrivetrainData::VELOCITY_CONTROL);
+		drivetrainData->SetVelocitySetpoint(DrivetrainData::FORWARD, forward);
 	}
 	else if (m_axis == TURN)
 	{
@@ -49,7 +49,6 @@ void DrivetrainInputs::Update()
 		
 		turn = sign * pow(turn , turnExponent);
 	
-	
 		// Blending routine
 		double absForward = fabs(forward); // To ensure correct arc when switching direction
 	
@@ -59,9 +58,9 @@ void DrivetrainInputs::Update()
 		const double constRadiusTurn = turn * absForward; // Arc turn
 	
 		double turnComposite = turnInPlace * (blend) + constRadiusTurn * (1 - blend); // Blended function
-		
-		drivetrainData->SetVelocitySetpoint(DrivetrainData::TURN, turnComposite);
+
 		drivetrainData->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
+		drivetrainData->SetVelocitySetpoint(DrivetrainData::TURN, turnComposite);
 	}
 
 	if (m_driver_wheel->IsButtonJustPressed(DriverStationConfig::JoystickButtons::REVERSE_DRIVE))
