@@ -26,6 +26,7 @@ private:
 	CollectorArmData* m_collectorArm;
 	CollectorRollersData* m_collectorRollers;
 	DigitalInput* m_proximity;
+	DigitalInput* m_satTrigger;
 	AnalogChannel* m_redChannel;
 	AnalogChannel* m_greenChannel;
 	AnalogChannel* m_blueChannel;

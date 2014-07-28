@@ -90,8 +90,12 @@ Brain::Brain() :
 	Automation* purge = new PurgeLauncher();
 	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
-	Automation* turn90 = new TurnJoystickDirection(90);
-	Automation* turn180 = new TurnJoystickDirection(180);
+	Parallel* turn90 = new Parallel("Turn90");
+	turn90->AddAutomation(new TurnJoystickDirection(90, 0.8));
+	turn90->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
+	Parallel* turn180 = new Parallel("Turn180");
+	turn180->AddAutomation(new TurnJoystickDirection(180, 0.8));
+	turn180->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);
 	m_automation.push_back(collect);
