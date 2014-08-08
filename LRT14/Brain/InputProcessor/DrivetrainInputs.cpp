@@ -16,6 +16,8 @@ DrivetrainInputs::DrivetrainInputs(Axis axis) :
 		RegisterResource(ControlResource::TURN);
 	
 	lastStop = false;
+	lastTurn = 0.0;
+	negInertiaAccumulator = 0.0;
 	driveSign = -1;
 }
 
@@ -49,6 +51,22 @@ void DrivetrainInputs::Update()
 		
 		turn = sign * pow(turn , turnExponent);
 	
+		// Negative Inertia routine
+		double negInertia = turn - lastTurn;
+		lastTurn = turn;
+		
+		double negInertiaPower = negInertia * negInertiaScalar;
+		negInertiaAccumulator += negInertiaPower;
+		turn += negInertiaAccumulator;
+		
+		if (negInertiaAccumulator > 1) {
+			negInertiaAccumulator -= 1;
+		} else if (negInertiaAccumulator < -1) {
+			negInertiaAccumulator += 1;
+		} else {
+			negInertiaAccumulator = 0;
+		}
+		
 		// Blending routine
 		double absForward = fabs(forward); // To ensure correct arc when switching direction
 	
@@ -75,4 +93,5 @@ void DrivetrainInputs::Configure()
 	turnExponent = GetConfig("turn_exponent", 2);
 	throttleExponent = GetConfig("throttle_exponent", 1);
 	deadband = GetConfig("deadband", 0.01);
+	negInertiaScalar = GetConfig("neg_inertia_scalar", 5.0);
 }

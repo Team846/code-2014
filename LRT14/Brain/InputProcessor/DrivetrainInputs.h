@@ -30,6 +30,9 @@ private:
 	DrivetrainData* drivetrainData;
 
 	bool lastStop;
+	double negInertiaScalar;
+	double negInertiaAccumulator;
+	double lastTurn;
 	double stoppedForward;
 	double stoppedTurn;
 	int driveSign;
