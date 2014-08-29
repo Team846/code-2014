@@ -21,6 +21,7 @@
 #include "Automation/LoadLauncher.h"
 #include "Automation/PurgeLauncher.h"
 #include "Automation/HumanLoad.h"
+#include "Automation/PassBack.h"
 #include "Automation/Dribble.h"
 #include "Automation/Pause.h"
 #include "Automation/Parallel.h"
@@ -90,6 +91,7 @@ Brain::Brain() :
 	Automation* purge = new PurgeLauncher();
 	Automation* humanLoad = new HumanLoad();
 	Automation* dribble = new Dribble();
+	Automation* passBack = new PassBack();
 	Parallel* turn90 = new Parallel("Turn90");
 	turn90->AddAutomation(new TurnJoystickDirection(90, 0.8));
 	turn90->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
@@ -102,7 +104,9 @@ Brain::Brain() :
 	m_automation.push_back(fire);
 	m_automation.push_back(load);
 	m_automation.push_back(purge);
+	m_automation.push_back(humanLoad);
 	m_automation.push_back(dribble);
+	m_automation.push_back(passBack);
 	m_automation.push_back(luaScript);
 	m_automation.push_back(turn90);
 	m_automation.push_back(turn180);
@@ -133,6 +137,8 @@ Brain::Brain() :
 	Event* human_load_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::HUMAN_LOAD);
 	Event* dribble_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
 	Event* dribble_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::DRIBBLE);
+	Event* pass_back_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS_BACK);
+	Event* pass_back_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetOperatorStick(), DriverStationConfig::JoystickButtons::PASS_BACK);
 	Event* turn90_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_90);
 	Event* turn90_abort = new JoystickReleasedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_90);
 	Event* turn180_start = new JoystickPressedEvent(LRTDriverStation::Instance()->GetDriverStick(), DriverStationConfig::JoystickButtons::TURN_180);
@@ -170,6 +176,8 @@ Brain::Brain() :
 	purge_abort->AddAbortListener(purge);
 	human_load_start->AddStartListener(humanLoad);
 	human_load_abort->AddAbortListener(humanLoad);
+	pass_back_start->AddStartListener(passBack);
+	pass_back_abort->AddAbortListener(passBack);
 	turn90_start->AddStartListener(turn90);
 	turn90_abort->AddAbortListener(turn90);
 	turn180_start->AddStartListener(turn180);
