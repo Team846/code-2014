@@ -33,7 +33,7 @@ void CollectorArmInputs::Update()
 //	}
 	else if (m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::FIRE_PREPARE)
 			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::HUMAN_LOAD)
-			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::FIRE_PREPARE))
+			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE))
 	{
 		m_armData->SetDesiredPosition(CollectorArmData::STOWED);
 		telemState = "RELEASED";

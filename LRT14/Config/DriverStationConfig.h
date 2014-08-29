@@ -37,6 +37,7 @@ const uint32_t HUMAN_LOAD = 7;
 const uint32_t BALL_HOLDER = 8;
 const uint32_t FIRE_PREPARE = 9;
 const uint32_t KISS_PASS = 10;
+const uint32_t PASS_BACK = 11;
 const uint32_t REVERSE_ROLLERS = 11;
 const uint32_t UNLOAD_LAUNCHER = 12;
 // Driver Wheel
