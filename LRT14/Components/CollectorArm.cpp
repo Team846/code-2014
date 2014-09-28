@@ -87,7 +87,7 @@ void CollectorArm::UpdateEnabled()
 		break;
 	}
 	
-	m_pneumatics->Set(state);
+	m_pneumatics->Set(state, true);
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_DESIRED_POSITION, stateStr);
 	
 	Dashboard2::SetTelemetryData((INT16)DashboardTelemetryID::COLLECTOR_ARMS_CURRENT_POSITION, posStr);
