@@ -19,6 +19,7 @@ public:
 	
 private:
 	DebouncedJoystick* m_operator_stick;
+	DebouncedJoystick* m_driver_stick;
 	CollectorArmData* m_armData;
 	float m_lastSpeed;
 	float m_hairTriggerAcceleration;

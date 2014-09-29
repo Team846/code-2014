@@ -18,13 +18,12 @@ DrivetrainInputs::DrivetrainInputs(Axis axis) :
 	lastStop = false;
 	lastTurn = 0.0;
 	negInertiaAccumulator = 0.0;
-	driveSign = -1;
+	constRadius = false;
 }
 
 void DrivetrainInputs::Update()
 {
-	double forward = pow(
-			driveSign * m_driver_stick->GetAxis(Joystick::kYAxis), throttleExponent);
+	double forward = pow(m_driver_stick->GetAxis(Joystick::kYAxis), throttleExponent);
 
 	int signForward = forward > 0 ? 1 : -1;
 
@@ -49,8 +48,11 @@ void DrivetrainInputs::Update()
 		
 		int sign = turn > 0 ? 1 : -1;
 		
-		turn = sign * pow(turn , turnExponent);
-	
+		if (constRadius)
+			turn = sign * pow(turn, constRadiusTurnExponent);
+		else
+			turn = sign * pow(turn, turnExponent);
+
 		// Negative Inertia routine
 		double negInertia = turn - lastTurn;
 		lastTurn = turn;
@@ -75,7 +77,12 @@ void DrivetrainInputs::Update()
 		const double turnInPlace = turn; // Normal turn
 		const double constRadiusTurn = turn * absForward; // Arc turn
 	
-		double turnComposite = turnInPlace * (blend) + constRadiusTurn * (1 - blend); // Blended function
+		double turnComposite;
+		
+		if (constRadius)
+			turnComposite = constRadiusTurn;
+		else
+			turnComposite = turnInPlace * (blend) + constRadiusTurn * (1 - blend); // Blended function
 
 		drivetrainData->SetControlMode(DrivetrainData::TURN, DrivetrainData::VELOCITY_CONTROL);
 		drivetrainData->SetVelocitySetpoint(DrivetrainData::TURN, turnComposite);
@@ -83,7 +90,7 @@ void DrivetrainInputs::Update()
 
 	if (m_driver_wheel->IsButtonJustPressed(DriverStationConfig::JoystickButtons::REVERSE_DRIVE))
 	{
-		driveSign = -driveSign;
+		constRadius = !constRadius;
 	}
 }
 
@@ -91,6 +98,7 @@ void DrivetrainInputs::Configure()
 {
 	blendExponent = GetConfig("blend_exponent", 1);
 	turnExponent = GetConfig("turn_exponent", 2);
+	constRadiusTurnExponent = GetConfig("const_radius_turn_exponent", 1);
 	throttleExponent = GetConfig("throttle_exponent", 1);
 	deadband = GetConfig("deadband", 0.01);
 	negInertiaScalar = GetConfig("neg_inertia_scalar", 5.0);

@@ -16,6 +16,7 @@ public:
 	
 private:
 	DebouncedJoystick* m_operator_stick;
+	DebouncedJoystick* m_driver_stick;
 	CollectorRollersData* m_rollersData;
 };
 

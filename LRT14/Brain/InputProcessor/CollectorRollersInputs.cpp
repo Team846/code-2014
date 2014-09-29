@@ -6,6 +6,7 @@
 CollectorRollersInputs::CollectorRollersInputs()
 {
 	m_operator_stick = LRTDriverStation::Instance()->GetOperatorStick();
+	m_driver_stick = LRTDriverStation::Instance()->GetDriverStick();
 	m_rollersData = CollectorRollersData::Get();
 	Dashboard2::AddTelemetryData("Collector Rollers Input", (INT16)DashboardTelemetryID::COLLECTOR_ROLLERS_INPUT, DashboardTelemetryType::STRING);
 	RegisterResource(ControlResource::COLLECTOR_ROLLERS);
@@ -17,7 +18,8 @@ void CollectorRollersInputs::Update()
 	
 	std::string state = "RELEASED";
 	
-	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::KISS_PASS))
+	if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::KISS_PASS)
+			|| m_driver_stick->IsButtonDown(DriverStationConfig::JoystickButtons::DRIBBLE))
 	{
 		m_rollersData->SetRunning(true);
 		m_rollersData->SetSpeed(1.0);
