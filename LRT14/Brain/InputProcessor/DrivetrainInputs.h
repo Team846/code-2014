@@ -35,9 +35,10 @@ private:
 	double lastTurn;
 	double stoppedForward;
 	double stoppedTurn;
-	int driveSign;
+	bool constRadius;
 	int blendExponent;
 	int turnExponent;
+	int constRadiusTurnExponent;
 	int throttleExponent;
 	double deadband;
 	

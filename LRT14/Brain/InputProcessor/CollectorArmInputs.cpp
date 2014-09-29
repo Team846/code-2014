@@ -8,6 +8,7 @@ CollectorArmInputs::CollectorArmInputs() :
 	Configurable("CollectorArmInputs")
 {
 	m_operator_stick = LRTDriverStation::Instance()->GetOperatorStick();
+	m_driver_stick = LRTDriverStation::Instance()->GetDriverStick();
 	m_armData = CollectorArmData::Get();
 	m_lastSpeed = 0;
 	Dashboard2::AddTelemetryData("Collector Arm Input", (INT16)DashboardTelemetryID::COLLECTOR_ARM_INPUT, DashboardTelemetryType::STRING);
@@ -24,7 +25,8 @@ void CollectorArmInputs::Update()
 		m_armData->SetDesiredPosition(CollectorArmData::COLLECT);
 		telemState = "PRESSED";
 	}
-	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::FIRE_PREPARE))
+	else if (m_operator_stick->IsButtonDown(DriverStationConfig::JoystickButtons::FIRE_PREPARE)
+			|| m_driver_stick->IsButtonDown(DriverStationConfig::JoystickButtons::DRIBBLE))
 	{
 		if (DriveEncoders::Get()->GetNormalizedForwardSpeed() < 0 && accel >= m_hairTriggerAcceleration)
 			m_armData->SetDesiredPosition(CollectorArmData::COLLECT);
