@@ -23,7 +23,7 @@ DrivetrainInputs::DrivetrainInputs(Axis axis) :
 
 void DrivetrainInputs::Update()
 {
-	double forward = pow(m_driver_stick->GetAxis(Joystick::kYAxis), throttleExponent);
+	double forward = -pow(m_driver_stick->GetAxis(Joystick::kYAxis), throttleExponent);
 
 	int signForward = forward > 0 ? 1 : -1;
 
@@ -49,9 +49,19 @@ void DrivetrainInputs::Update()
 		int sign = turn > 0 ? 1 : -1;
 		
 		if (constRadius)
-			turn = sign * pow(turn, constRadiusTurnExponent);
+		{
+			if (constRadiusTurnExponent % 2 == 0)
+				turn = sign * pow(turn, constRadiusTurnExponent);
+			else
+				turn = pow(turn, constRadiusTurnExponent);
+		}
 		else
-			turn = sign * pow(turn, turnExponent);
+		{
+			if (turnExponent % 2 == 0)
+				turn = sign * pow(turn, turnExponent);
+			else
+				turn = pow(turn, turnExponent);
+		}
 
 		// Negative Inertia routine
 		double negInertia = turn - lastTurn;
@@ -79,7 +89,7 @@ void DrivetrainInputs::Update()
 	
 		double turnComposite;
 		
-		if (constRadius)
+		if (constRadius && !m_driver_wheel->IsButtonDown(DriverStationConfig::JoystickButtons::QUICK_TURN))
 			turnComposite = constRadiusTurn;
 		else
 			turnComposite = turnInPlace * (blend) + constRadiusTurn * (1 - blend); // Blended function

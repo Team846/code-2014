@@ -35,7 +35,8 @@ void CollectorArmInputs::Update()
 		telemState = "PRESSED";
 	}
 	else if (m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::FIRE_PREPARE)
-			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE))
+			|| m_operator_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::OVERRIDE_FIRE)
+			|| m_driver_stick->IsButtonJustReleased(DriverStationConfig::JoystickButtons::DRIBBLE))
 	{
 		m_armData->SetDesiredPosition(CollectorArmData::STOWED);
 		telemState = "RELEASED";

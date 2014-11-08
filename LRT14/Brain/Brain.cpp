@@ -93,10 +93,10 @@ Brain::Brain() :
 	Automation* dribble = new Dribble();
 	Automation* passBack = new PassBack();
 	Parallel* turn90 = new Parallel("Turn90");
-	turn90->AddAutomation(new TurnJoystickDirection(90, 0.8));
+	turn90->AddAutomation(new TurnJoystickDirection(90, 0.5));
 	turn90->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
 	Parallel* turn180 = new Parallel("Turn180");
-	turn180->AddAutomation(new TurnJoystickDirection(180, 0.8));
+	turn180->AddAutomation(new TurnJoystickDirection(180, 0.5));
 	turn180->AddAutomation(new Repeating("RepeatPause", new Pause(0)));
 	m_automation.push_back(auton);
 	m_automation.push_back(positionHold);

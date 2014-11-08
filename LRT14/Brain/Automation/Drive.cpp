@@ -42,10 +42,20 @@ bool Drive::Start()
 
 bool Drive::Run()
 {
-	if (m_distance > 0)
-		return DriveEncoders::Get()->GetRobotDist() > m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
-	else
-		return DriveEncoders::Get()->GetRobotDist() < m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
+	float robotLocation = DriveEncoders::Get()->GetRobotDist();
+	float setpoint = m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
+	float distanceLeft = setpoint - robotLocation;
+	if (m_distance < 0)
+		distanceLeft = -distanceLeft; // Going backwards
+	
+	printf("Distance: %f\n", distanceLeft);
+	
+	return distanceLeft < m_errorThreshold;
+	
+//	if (m_distance > 0)
+//		return DriveEncoders::Get()->GetRobotDist() > m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
+//	else
+//		return DriveEncoders::Get()->GetRobotDist() < m_drivetrain->GetPositionSetpoint(DrivetrainData::FORWARD);
 }
 
 bool Drive::Abort()

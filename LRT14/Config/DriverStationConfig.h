@@ -31,18 +31,19 @@ const uint32_t PASS = 1;
 const uint32_t LOAD_LAUNCHER = 2;
 const uint32_t SHORT_SHOT = 3;
 const uint32_t LONG_SHOT = 4;
+const uint32_t PASS_BACK = 5;
 const uint32_t OVERRIDE_FIRE = 5;
 const uint32_t PURGE_LAUNCHER = 6;
 const uint32_t HUMAN_LOAD = 7;
 const uint32_t BALL_HOLDER = 8;
 const uint32_t FIRE_PREPARE = 9;
 const uint32_t KISS_PASS = 10;
-const uint32_t PASS_BACK = 11;
 const uint32_t REVERSE_ROLLERS = 11;
 const uint32_t UNLOAD_LAUNCHER = 12;
 // Driver Wheel
-const uint32_t POSITION_HOLD = 5;
+const uint32_t QUICK_TURN = 5;
 const uint32_t REVERSE_DRIVE = 6;
+const uint32_t POSITION_HOLD = 7;
 }
 namespace DigitalIns
 {
