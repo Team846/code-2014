@@ -4,14 +4,17 @@
 #include "../../DriverStation/LRTDriverStation.h"
 
 PassBack::PassBack() :
-	Automation("PassBack")
+	Automation("PassBack"),
+	Configurable("PassBack")
 {
 	m_collectorArm = CollectorArmData::Get();
 	m_collectorRollers = CollectorRollersData::Get();
 	m_loaderData = LauncherLoaderData::Get();
+	m_ballPusher = BallPusherData::Get();
 	m_ballHolder = BallHolderData::Get();
 	m_proximity = SensorFactory::GetDigitalInput(ConfigPortMappings::Get("Digital/BALL_LAUNCHER_PROXIMITY"));
 	m_reverse = false;
+	m_speed = 1.0;
 }
 
 void PassBack::AllocateResources()
@@ -19,6 +22,7 @@ void PassBack::AllocateResources()
 	AllocateResource(ControlResource::COLLECTOR_ARM);
 	AllocateResource(ControlResource::COLLECTOR_ROLLERS);
 	AllocateResource(ControlResource::LAUNCHER_LOADER);
+	AllocateResource(ControlResource::BALL_PUSHER);
 	AllocateResource(ControlResource::BALL_HOLDER);
 }
 
@@ -35,6 +39,7 @@ bool PassBack::Run()
 		m_reverse = true;
 	}
 	m_loaderData->SetPurge(true);
+	m_ballPusher->SetPush(m_reverse);
 	m_ballHolder->SetHold(false);
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
 	m_collectorRollers->SetRunning(true);
@@ -46,8 +51,14 @@ bool PassBack::Run()
 bool PassBack::Abort()
 {
 	m_collectorArm->SetDesiredPosition(CollectorArmData::STOWED);
+	m_ballPusher->SetPush(false);
 	m_ballHolder->SetHold(true);
 	m_collectorRollers->SetRunning(false);
 	m_loaderData->SetPurge(false);
 	return true;
+}
+
+void PassBack::Configure()
+{
+	m_speed = GetConfig("roller_speed", 1.0);
 }
